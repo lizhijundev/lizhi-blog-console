@@ -1,0 +1,416 @@
+/** @description 全局样式 */
+@import './normalize.scss';
+@import './transition.scss';
+@import 'loading';
+
+@mixin base-scrollbar {
+  &::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  &::-webkit-scrollbar-thumb {
+    background-color: rgba($base-menu-background, 0.1);
+    border: 3px solid transparent;
+    border-radius: 7px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: rgba($base-menu-background, 0.2);
+  }
+}
+
+[class*='layout-container'] {
+  transition: $base-transition;
+}
+
+
+[class*='-bar-container'],
+.layout-header {
+  transition: $base-transition;
+
+  * {
+    transition: $base-transition;
+  }
+}
+
+html {
+  body,
+  body[class*='vab-theme-'] {
+    position: relative;
+    box-sizing: border-box;
+    height: 100vh;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+    font-family: 'PingFang SC', Arial, 'Microsoft YaHei', sans-serif;
+    font-size: $base-font-size-default;
+    color: $base-color-black;
+    background: $base-color-background;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    #vue-admin-beautiful-pro {
+      height: 100vh;
+      overflow: auto;
+      @include base-scrollbar;
+
+      .vab-main {
+        transition: $base-transition;
+
+        .app-main-container {
+          padding: $base-padding;
+          background: $base-color-background;
+          @include base-scrollbar;
+          transition: $base-transition;
+
+
+          [class*='-container'] {
+            padding: $base-padding;
+            background: $base-color-white;
+            transition: $base-transition;
+          }
+        }
+      }
+    }
+
+
+    * {
+      box-sizing: border-box;
+      @include base-scrollbar;
+    }
+
+    /*a标签 */
+    a {
+      color: $base-color-blue;
+      text-decoration: none;
+    }
+
+    /*图片 */
+    img {
+      object-fit: cover;
+
+      &[src=''],
+      &:not([src]) {
+        opacity: 0;
+      }
+    }
+
+    /*图标 */
+    svg,
+    i {
+      &:hover {
+        opacity: 0.9;
+      }
+    }
+
+    /* vab-dropdown下拉动画 */
+    .vab-dropdown {
+      &-active {
+        transform: rotateZ(180deg);
+      }
+    }
+
+    /* vab-dot圆点动画 */
+    .vab-dot {
+      position: relative;
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      margin-right: 3px;
+      vertical-align: middle;
+      border-radius: 50%;
+
+      span {
+        position: absolute;
+        top: 0;
+        left: 0;
+        box-sizing: border-box;
+        display: block;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        animation: vabDot 1.2s ease-in-out infinite;
+        @keyframes vabDot {
+          0% {
+            opacity: 0.6;
+            transform: scale(0.8);
+          }
+          to {
+            opacity: 0;
+            transform: scale(2.4);
+          }
+        }
+      }
+
+      &-success {
+        background: $base-color-green;
+
+        span {
+          background: $base-color-green;
+        }
+      }
+
+      &-error {
+        background: $base-color-red;
+
+        span {
+          background: $base-color-red;
+        }
+      }
+    }
+
+    /* vab-data-empty占位图 */
+    .vab-data-empty {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: calc(#{$base-app-main-height} - 250px);
+
+      .el-image__inner {
+        width: 22.5%;
+      }
+    }
+
+    /* el-avatar头像r */
+    .el-avatar {
+      img {
+        &:hover {
+          transform: scale(1.05);
+        }
+      }
+    }
+
+    /* el-button按钮 */
+    span + span,
+    a + a,
+    span + a {
+      .el-button {
+        margin-left: 10px;
+      }
+    }
+
+    /* v-modal遮罩 */
+    .v-modal {
+      background-color: rgba(0, 0, 0, 0.5);
+      opacity: 0.6;
+      backdrop-filter: blur(10px);
+    }
+
+    /* el-scrollbar滚动条 */
+    .el-scrollbar {
+      height: 100%;
+
+      &__bar {
+        z-index: 999;
+      }
+
+      &__thumb {
+        background-color: rgba($base-menu-background, 0.1);
+
+        &:hover {
+          background-color: rgba($base-menu-background, 0.2);
+        }
+      }
+    }
+
+    /* el-form表单 */
+    .el-form--label-top {
+      .el-form-item__label {
+        padding: 0;
+      }
+    }
+
+    .el-range-editor--small {
+      .el-range__icon,
+      .el-range__close-icon {
+        line-height: 23.5px;
+      }
+    }
+
+    /*  el-badge */
+    .el-badge__content {
+      border: 0;
+    }
+
+    /* el-tag */
+    .el-tag + .el-tag {
+      margin-left: 10px;
+    }
+
+    /*  .el-page-header */
+    .el-page-header {
+      margin: 0 0 $base-padding 0;
+    }
+
+    /* el-alert */
+    .el-alert {
+      margin: 0 0 $base-padding 0;
+
+      &--success.is-light {
+        color: #67c23a;
+        background-color: #f6ffed;
+        border: 1px solid #b7eb8f;
+
+        i {
+          color: #67c23a;
+        }
+      }
+
+      &--info.is-light {
+        color: rgba(0, 0, 0, 0.85);
+        background-color: #ffffff;
+        border: 1px solid #cecece;
+
+        i {
+          color: #cecece;
+        }
+      }
+
+      &--warning.is-light {
+        border: 1px solid #ffba00;
+
+        i {
+          color: #ffba00;
+        }
+      }
+
+      &--error.is-light {
+        border: 1px solid #ff4d4f;
+
+        i {
+          color: #ff4d4f;
+        }
+      }
+    }
+
+    /* el-message */
+    .el-message {
+      &--success {
+        i {
+          color: $base-color-green;
+        }
+      }
+
+      &--warning {
+        i {
+          color: $base-color-yellow;
+        }
+      }
+
+      &--error {
+        i {
+          color: $base-color-red;
+        }
+      }
+    }
+
+    /* el-dropdown-menu */
+    .el-dropdown-menu__item {
+      [class*='ri-'] {
+        margin-right: 0;
+      }
+    }
+
+    /* markdown编辑器*/
+    .editor-toolbar {
+      .no-mobile,
+      .fa-question-circle {
+        display: none;
+      }
+    }
+
+    /* el-divider间隔线 */
+    .el-divider--horizontal {
+      margin: 8px 0 $base-padding + 8px 0;
+
+      .el-divider__text {
+        display: -webkit-box;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+      }
+    }
+
+    /* el-image-viewer表格大图展示*/
+    .el-image-viewer {
+      &__close {
+        .el-icon-circle-close {
+          color: $base-color-white;
+        }
+      }
+    }
+
+    /* nprogress进度条 */
+    #nprogress {
+      position: fixed;
+      z-index: $base-z-index;
+
+      .bar {
+        background: $base-color-blue;
+      }
+
+      .peg {
+        box-shadow: 0 0 10px $base-color-blue, 0 0 5px $base-color-blue;
+      }
+    }
+
+    /* el-table表格 */
+    .el-table {
+      .el-table__body-wrapper {
+        @include base-scrollbar;
+      }
+
+      th {
+        background: #f5f7fa;
+      }
+
+      td,
+      th {
+        position: relative;
+        box-sizing: border-box;
+        padding: 7.5px 0;
+
+        .cell {
+          font-size: $base-font-size-default;
+          font-weight: normal;
+          color: #606266;
+
+          .el-image {
+            width: 50px;
+            height: 50px;
+            border-radius: $base-border-radius;
+          }
+        }
+      }
+    }
+
+    /* el-pagination分页 */
+    .el-pagination {
+      margin: $base-padding 0 0 0;
+      font-weight: normal;
+      color: $base-color-black;
+      text-align: center;
+    }
+
+    /* el-menu菜单开始 */
+    .el-menu {
+      user-select: none;
+    }
+
+    /* el-dialog 弹窗 */
+    @media (max-width: 576px) {
+      .el-dialog {
+        width: auto !important;
+        margin: 10px;
+      }
+    }
+    /* el-card卡片 */
+    .el-card {
+      margin-bottom: $base-padding;
+
+      &__body {
+        padding: $base-padding;
+      }
+    }
+  }
+}
