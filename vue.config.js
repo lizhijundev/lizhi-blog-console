@@ -77,26 +77,15 @@ module.exports = {
   },
   chainWebpack(config) {
     config.resolve.symlinks(true)
+    config.module.rule('svg').exclude.add(resolve('src/icon'))
     config.module
-      .rule('svg')
-      .exclude.add(resolve('src/icon/remixIcon'))
-      .add(resolve('src/icon/colorfulIcon'))
-    config.module
-      .rule('remixIcon')
+      .rule('vabIcon')
       .test(/\.svg$/)
-      .include.add(resolve('src/icon/remixIcon'))
+      .include.add(resolve('src/icon'))
       .end()
       .use('svg-sprite-loader')
       .loader('svg-sprite-loader')
-      .options({ symbolId: 'remix-icon-[name]' })
-    config.module
-      .rule('colorfulIcon')
-      .test(/\.svg$/)
-      .include.add(resolve('src/icon/colorfulIcon'))
-      .end()
-      .use('svg-sprite-loader')
-      .loader('svg-sprite-loader')
-      .options({ symbolId: 'colorful-icon-[name]' })
+      .options({ symbolId: 'vab-icon-[name]' })
     config.when(process.env.NODE_ENV === 'development', (config) => {
       config.devtool('source-map')
     })
@@ -107,13 +96,13 @@ module.exports = {
         chunks: 'all',
         cacheGroups: {
           libs: {
-            name: 'vue-admin-beautiful-pro-libs',
+            name: 'admin-plus-libs',
             test: /[\\/]node_modules[\\/]/,
             priority: 10,
             chunks: 'initial',
           },
           elementUI: {
-            name: 'vue-admin-beautiful-pro-element-ui',
+            name: 'admin-plus-element-ui',
             priority: 20,
             test: /[\\/]node_modules[\\/]_?element-ui(.*)/,
           },

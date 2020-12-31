@@ -1,13 +1,17 @@
 <template>
   <div v-if="errorLogs.length > 0">
-    <el-badge :value="errorLogs.length" @click="dialogTableVisible = true">
-      <vab-remix-icon icon="bug-line" />
+    <el-badge
+      :value="errorLogs.length"
+      @click="dialogTableVisible = true"
+      type="danger"
+    >
+      <vab-icon icon="bug-line" />
     </el-badge>
 
     <el-dialog
-      v-model:visible="dialogTableVisible"
+      v-model="dialogTableVisible"
       append-to-body
-      title="vue-admin-beautiful-pro 异常捕获(温馨提示：错误必须解决)"
+      title="admin-plus 异常捕获(温馨提示：错误必须解决)"
       width="70%"
     >
       <el-table :data="errorLogs" border>
@@ -49,10 +53,8 @@
         </el-table-column>
       </el-table>
       <template #footer>
-        <span class="dialog-footer">
-          <el-button @click="dialogTableVisible = false">取 消</el-button>
-          <el-button type="danger" @click="clearAll">暂不显示</el-button>
-        </span>
+        <el-button @click="dialogTableVisible = false">取 消</el-button>
+        <el-button type="danger" @click="clearAll">暂不显示</el-button>
       </template>
     </el-dialog>
   </div>

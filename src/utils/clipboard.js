@@ -2,11 +2,16 @@ import Clipboard from 'clipboard'
 import { ElMessage } from 'element-plus'
 
 function clipboardSuccess(text) {
-  ElMessage.success(`复制${text}成功`)
+  ElMessage.success(
+    `复制${text}成功`,
+    'success',
+    false,
+    'vab-hey-message-success'
+  )
 }
 
 function clipboardError(text) {
-  ElMessage.error(`复制${text}失败`)
+  ElMessage.error(`复制${text}失败`, 'error', false, 'vab-hey-message-success')
 }
 
 /**

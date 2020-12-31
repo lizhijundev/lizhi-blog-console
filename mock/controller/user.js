@@ -57,6 +57,16 @@ module.exports = [
     },
   },
   {
+    url: '/register',
+    type: 'post',
+    response() {
+      return {
+        code: 200,
+        msg: '模拟注册成功',
+      }
+    },
+  },
+  {
     url: '/userInfo',
     type: 'get',
     response(config) {

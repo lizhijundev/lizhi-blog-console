@@ -1,97 +1,109 @@
 <template>
   <span v-if="theme.showSearch">
-    <vab-remix-icon icon="search-line" @click="openDialog" />
-    <el-dialog v-model:visible="dialogVisible" append-to-body width="40%">
-      <el-form :model="queryForm" @submit.prevent>
+    <vab-icon icon="search-line" @click="openDialog" />
+    <el-dialog v-model="state.dialogVisible" :width="'40%'">
+      <el-form :model="state.queryForm" @submit.prevent>
         <el-form-item label-width="0">
-          <vab-remix-icon icon="search-line" />
           <el-autocomplete
-            v-model="queryForm.searchWord"
+            v-model="state.queryForm.searchWord"
             v-focus
             :fetch-suggestions="querySearchAsync"
             select-when-unmatched
             @select="handleSelect"
-          ></el-autocomplete>
+          >
+            <template #prefix><vab-icon icon="search-line" /></template>
+          </el-autocomplete>
         </el-form-item>
       </el-form>
     </el-dialog>
   </span>
 </template>
+
 <script>
-  import { mapGetters } from 'vuex'
+  import { computed, onMounted, reactive } from 'vue'
+  import { useStore } from 'vuex'
   import { getList } from '@/api/search'
 
   export default {
     name: 'Search',
     directives: {
       focus: {
-        inserted(el) {
+        mounted(el) {
           el.querySelector('input').focus()
         },
       },
     },
-    data() {
-      return {
+    setup() {
+      const store = useStore()
+      const theme = computed(() => store.getters['settings/theme'])
+
+      let timeout = null
+      const state = reactive({
         dialogVisible: false,
         queryForm: {
           searchWord: '',
         },
         restaurants: [],
-        state: '',
-        timeout: null,
-      }
-    },
-    computed: {
-      ...mapGetters({
-        theme: 'settings/theme',
-      }),
-    },
-    created() {
-      this.$nextTick(() => {
-        if (this.theme.showSearch) this.loadAll()
       })
-    },
-    methods: {
-      openDialog() {
-        this.queryForm.searchWord = ''
-        this.dialogVisible = true
-      },
-      async loadAll() {
+
+      const loadAll = async () => {
         const { data } = await getList()
-        this.restaurants = data
-      },
-      querySearchAsync(queryString, cb) {
-        let restaurants = this.restaurants
+        state.restaurants = data
+      }
+
+      onMounted(() => {
+        if (theme.value.showSearch) loadAll()
+      })
+
+      const openDialog = () => {
+        state.queryForm.searchWord = ''
+        state.dialogVisible = true
+      }
+
+      const querySearchAsync = (queryString, cb) => {
+        let restaurants = state.restaurants
         let results = queryString
-          ? restaurants.filter(this.createStateFilter(queryString))
+          ? restaurants.filter(createFilter(queryString))
           : restaurants
-        clearTimeout(this.timeout)
-        this.timeout = setTimeout(() => {
+        clearTimeout(timeout)
+        timeout = setTimeout(() => {
           cb(results)
         }, 500)
-      },
-      createStateFilter(queryString) {
+      }
+
+      const createFilter = (queryString) => {
         return (state) => state.value.includes(queryString.toLowerCase())
-      },
-      handleSelect(item) {
+      }
+
+      const handleSelect = (item) => {
         if (item.url) {
           window.open(item.url)
         } else {
           window.open(`https://www.baidu.com/s?wd=${item.value}`)
         }
-      },
+      }
+
+      return {
+        theme,
+        state,
+        openDialog,
+        querySearchAsync,
+        createFilter,
+        handleSelect,
+      }
     },
   }
 </script>
+
 <style lang="scss" scoped>
   :deep() {
     .el-dialog {
-      &__header {
+      .el-dialog__header {
         display: none;
         border: 0 !important;
       }
 
-      &__body {
+      .el-dialog__body {
         padding: 0;
         border: 0 !important;
       }
@@ -102,8 +114,6 @@
         i {
           position: absolute;
           top: 14px;
-          left: $base-padding;
-          z-index: $base-z-index;
         }
 
         .el-autocomplete {

@@ -1,7 +1,6 @@
 /**
  * @description 路由拦截状态管理，目前两种模式：all模式与intelligence模式，其中partialRoutes是菜单暂未使用
  */
-
 import { asyncRoutes, constantRoutes, resetRouter } from '@/router'
 import { getRouterList } from '@/api/router'
 import { convertRouter, filterRoutes } from '@/utils/routes'
@@ -10,24 +9,53 @@ import { isArray } from '@/utils/validate'
 import { ElMessage } from 'element-plus'
 
 const state = () => ({
+  menu: { first: null, refreshRoutePath: '' },
   routes: [],
-  partialRoutes: [],
+  cachedRoutes: [],
 })
 const getters = {
+  menu: (state) => state.menu,
   routes: (state) => state.routes,
-  partialRoutes: (state) => state.partialRoutes,
+  cachedRoutes: (state) => state.cachedRoutes,
 }
 const mutations = {
+  /**
+   * @description 多模式设置路由
+   * @param {*} state
+   * @param {*} routes
+   */
   setRoutes(state, routes) {
     state.routes = routes
   },
-  setPartialRoutes(state, routes) {
-    state.partialRoutes = routes
+  /**
+   * @description 设置缓存Name数组
+   * @param {*} state
+   * @param {*} routes
+   */
+  setCachedRoutes(state, routes) {
+    state.cachedRoutes = routes
+  },
+  /**
+   * @description 修改Meta
+   * @param {*} state
+   * @param options
+   */
+  changeMenuMeta(state, options) {
+    function handleRoutes(routes) {
+      return routes.map((route) => {
+        if (route.name === options.name) Object.assign(route.meta, options.meta)
+        if (route.children && route.children.length)
+          route.children = handleRoutes(route.children)
+        return route
+      })
+    }
+
+    state.routes = handleRoutes(state.routes)
   },
 }
 const actions = {
   /**
-   * @description 多模式设置路由(默认前端路由,未使用模式可删除相应代码即可)
+   * @description 多模式设置路由
    * @param {*} { commit }
    * @param mode
    * @returns
@@ -41,8 +69,8 @@ const actions = {
     if (authentication === 'all') {
       const { data } = await getRouterList()
       if (!isArray(data)) ElMessage.error('路由格式返回有误')
-      if (data[data.length - 1].path !== '*')
-        data.push({ path: '/*', redirect: '/404', hidden: true })
+      if (data[data.length - 1].path !== '/:pathMatch(.*)*')
+        data.push({ path: '/:pathMatch(.*)*', redirect: '/404', hidden: true })
       routes = convertRouter(data)
     }
     // 根据权限和rolesControl过滤路由
@@ -53,12 +81,20 @@ const actions = {
     await resetRouter(finallyRoutes)
   },
   /**
-   * @description 画廊布局、综合布局设置路由
+   * @description 设置缓存Name数组
    * @param {*} { commit }
-   * @param accessedRoutes 画廊布局、综合布局设置路由
+   * @param {*} routes
    */
-  setPartialRoutes({ commit }, accessedRoutes) {
-    commit('setPartialRoutes', accessedRoutes)
+  setCachedRoutes({ commit }, routes) {
+    commit('setCachedRoutes', routes)
+  },
+  /**
+   * @description 修改Route Meta
+   * @param {*} { commit }
+   * @param options
+   */
+  changeMenuMeta({ commit }, options = {}) {
+    commit('changeMenuMeta', options)
   },
 }
 export default { state, getters, mutations, actions }

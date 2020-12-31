@@ -11,7 +11,7 @@
       <div class="el-drawer__body">
         <el-form ref="form" :model="theme" label-position="left">
           <el-divider content-position="left">
-            <vab-remix-icon icon="settings-3-line" />
+            <vab-icon icon="settings-3-line" />
             {{ translateTitle('常用设置') }}
           </el-divider>
           <el-form-item>
@@ -27,15 +27,19 @@
                   effect="dark"
                   placement="top"
                 >
-                  <vab-remix-icon icon="question-line" />
+                  <vab-icon icon="question-line" />
                 </el-tooltip>
               </label>
             </template>
-            <el-select v-model="theme.layout" :disabled="device === 'mobile'">
+            <el-select
+              v-model="theme.layout"
+              :disabled="device === 'mobile'"
+              placeholder="请选择"
+            >
               <el-option
-                key="gallery"
-                :label="translateTitle('画廊')"
-                value="gallery"
+                key="column"
+                :label="translateTitle('分栏')"
+                value="column"
               />
               <el-option
                 key="comprehensive"
@@ -95,12 +99,12 @@
                   effect="dark"
                   placement="top"
                 >
-                  <vab-remix-icon icon="question-line" />
+                  <vab-icon icon="question-line" />
                 </el-tooltip>
               </label>
             </template>
             <el-switch
-              v-model="theme.showTabsBarRemixIcon"
+              v-model="theme.showTabsBarIcon"
               :disabled="!theme.showTabsBar"
             />
           </el-form-item>
@@ -113,7 +117,7 @@
                   effect="dark"
                   placement="top"
                 >
-                  <vab-remix-icon icon="question-line" />
+                  <vab-icon icon="question-line" />
                 </el-tooltip>
               </label>
             </template>
@@ -141,19 +145,19 @@
           <el-form-item>
             <template #label>
               <label class="el-form-item__label">
-                {{ translateTitle('画廊风格') }}
+                {{ translateTitle('分栏风格') }}
                 <el-tooltip
-                  :content="translateTitle('画廊布局时生效')"
+                  :content="translateTitle('分栏布局时生效')"
                   effect="dark"
                   placement="top"
                 >
-                  <vab-remix-icon icon="question-line" />
+                  <vab-icon icon="question-line" />
                 </el-tooltip>
               </label>
             </template>
             <el-select
-              v-model="theme.galleryStyle"
-              :disabled="theme.layout !== 'gallery'"
+              v-model="theme.columnStyle"
+              :disabled="theme.layout !== 'column'"
             >
               <el-option
                 key="vertical"
@@ -165,10 +169,15 @@
                 :label="translateTitle('横向')"
                 value="horizontal"
               />
+              <el-option
+                key="card"
+                :label="translateTitle('卡片')"
+                value="card"
+              />
             </el-select>
           </el-form-item>
-          <el-divider content-position="left" style="margint-top: 20px">
-            <vab-remix-icon icon="settings-3-line" />
+          <el-divider content-position="left" style="margin-top: 20px">
+            <vab-icon icon="settings-3-line" />
             {{ translateTitle('其它设置') }}
           </el-divider>
           <el-form-item :label="translateTitle('头部固定')">
@@ -210,34 +219,102 @@
 </template>
 
 <script>
+  import { ref, computed, getCurrentInstance } from 'vue'
+  import { useStore } from 'vuex'
   import { translateTitle } from '@/utils/i18n'
-  import { mapGetters } from 'vuex'
+  import emitter from '@/vab/plugins/emitter'
+  import _ from 'lodash'
 
   export default {
     name: 'VabThemeDrawer',
-    data() {
-      return {
-        drawerVisible: false,
+    setup() {
+      const store = useStore()
+      const { ctx } = getCurrentInstance()
+      const theme = computed(() => store.getters['settings/theme'])
+      const device = computed(() => store.getters['settings/device'])
+      const saveTheme = () => store.dispatch('settings/saveTheme')
+      const resetTheme = () => store.dispatch('settings/resetTheme')
+
+      const drawerVisible = ref(false)
+
+      const handleOpenTheme = () => {
+        drawerVisible.value = true
       }
-    },
-    computed: {
-      ...mapGetters({
-        theme: 'settings/theme',
-        device: 'settings/device',
-      }),
-    },
-    emits: ['reset', 'save', 'update-theme'],
-    methods: {
-      translateTitle,
-      async setDefaultTheme() {
-        this.$emit('reset')
-      },
-      async handleSaveTheme() {
-        this.$emit('save')
-      },
-      async setTheme() {
-        this.$emit('update-theme')
-      },
+
+      const setDefaultTheme = async () => {
+        await resetTheme()
+        drawerVisible.value = false
+      }
+
+      const handleSaveTheme = async () => {
+        await saveTheme()
+        drawerVisible.value = false
+      }
+
+      const randomTheme = async () => {
+        const loading = ctx.$baseColorfullLoading(0)
+        // 随机换肤重置移除主题，防止代码更新影响样式
+        await resetTheme()
+        const themeNameArray = ['default', 'ocean', 'green', 'white']
+        theme.value.themeName = _.shuffle(
+          _.pull(themeNameArray, [theme.value.themeName])
+        )[0]
+        const columnStyleArray = ['vertical', 'horizontal', 'card']
+        theme.value.columnStyle = _.shuffle(
+          _.pull(columnStyleArray, [theme.value.columnStyle])
+        )[0]
+        const tabsBarStyleArray = ['card', 'smart', 'smooth']
+        theme.value.tabsBarStyle = _.shuffle(
+          _.pull(tabsBarStyleArray, [theme.value.tabsBarStyle])
+        )[0]
+        const showTabsBarIconArray = [true, false]
+        theme.value.showTabsBarIcon = _.shuffle(
+          _.pull(showTabsBarIconArray, [theme.value.showTabsBarIcon])
+        )[0]
+        if (device.value === 'desktop') {
+          const layoutArray = [
+            'horizontal',
+            'vertical',
+            'column',
+            'comprehensive',
+            'common',
+          ]
+          theme.value.layout = _.shuffle(
+            _.pull(layoutArray, [theme.value.layout])
+          )[0]
+        } else theme.value.layout = 'vertical'
+        await setTheme()
+        await saveTheme()
+        setTimeout(() => {
+          loading.close()
+        }, 1000)
+      }
+
+      const setTheme = () => {
+        document.getElementsByTagName(
+          'body'
+        )[0].className = `vab-theme-${theme.value.themeName}`
+      }
+      setTheme()
+
+      emitter.$on('theme', () => {
+        handleOpenTheme()
+      })
+      emitter.$on('random-theme', () => {
+        randomTheme()
+      })
+
+      return {
+        translateTitle,
+        theme,
+        device,
+        drawerVisible,
+        handleOpenTheme,
+        setDefaultTheme,
+        handleSaveTheme,
+        randomTheme,
+        setTheme,
+      }
     },
   }
 </script>
@@ -249,54 +326,41 @@
   }
 </style>
 <style lang="scss">
-  .el-drawer__wrapper {
-    outline: none !important;
-
-    * {
-      outline: none !important;
+  .vab-drawer {
+    .el-drawer__header {
+      margin-bottom: $base-margin;
     }
 
-    .vab-drawer {
-      position: fixed;
-      z-index: 99999;
-      .el-drawer__header {
-        margin-bottom: $base-padding;
+    .el-drawer__body {
+      padding: 0 $base-padding/2 $base-padding/2 $base-padding/2;
+
+      .el-divider--horizontal {
+        margin: 28px 0 28px 0;
       }
 
-      .el-drawer__body {
-        padding: 0 $base-padding/2 $base-padding/2 $base-padding/2;
+      .el-form-item {
+        display: flex;
+        align-items: center;
 
-        .el-divider--horizontal {
-          margin: 28px 0 28px 0;
+        .el-form-item__label {
+          flex: 1 1;
         }
 
-        .el-form-item {
-          display: flex;
-          align-items: center;
-
-          .el-form-item__label {
-            flex: 1 1;
-          }
-
-          .el-form-item__content {
-            flex: 0 0 auto;
-          }
-        }
-
-        .el-form-item--small.el-form-item {
-          .el-input__inner {
-            width: 115px;
-          }
+        .el-form-item__content {
+          flex: 0 0 auto;
         }
       }
 
-      .el-drawer__footer {
-        padding: $base-padding/2;
-        border-top: 1px solid $base-border-color;
+      .el-form-item--small.el-form-item {
+        .el-input__inner {
+          width: 115px;
+        }
       }
     }
-  }
-  .el-select--popper {
-    z-index: 9999 !important;
+
+    .el-drawer__footer {
+      padding: $base-padding/2;
+      border-top: 1px solid $base-border-color;
+    }
   }
 </style>

@@ -3,7 +3,7 @@
     :class="{ 'is-collapse': collapse, 'side-bar-common': layout === 'common' }"
     class="side-bar-container"
   >
-    <logo v-if="layout === 'vertical'" />
+    <logo v-if="layout === 'vertical' || layout === 'comprehensive'" />
     <el-menu
       :active-text-color="variables['menu-color-active']"
       :background-color="variables['menu-background']"
@@ -22,6 +22,7 @@
     </el-menu>
   </el-scrollbar>
 </template>
+
 <script>
   import variables from '@/vab/styles/variables/variables.scss'
   import { mapGetters } from 'vuex'
@@ -47,12 +48,22 @@
     computed: {
       ...mapGetters({
         collapse: 'settings/collapse',
+        menu: 'routes/menu',
         routes: 'routes/routes',
       }),
       handleRoutes() {
-        return this.routes.flatMap((route) =>
-          route.menuHidden === true && route.children ? route.children : route
-        )
+        return this.layout === 'comprehensive'
+          ? this.handlePartialRoutes
+          : this.routes.flatMap((route) =>
+              route.menuHidden === true && route.children
+                ? route.children
+                : route
+            )
+      },
+      handlePartialRoutes() {
+        return this.menu.first
+          ? this.routes.find((item) => item.name === this.menu.first).children
+          : []
       },
     },
     watch: {
@@ -65,6 +76,7 @@
     },
   }
 </script>
+
 <style lang="scss" scoped>
   @mixin active {
     &:hover {
@@ -83,7 +95,7 @@
     top: 0;
     bottom: 0;
     left: 0;
-    z-index: $base-z-index;
+    z-index: $base-z-index + 1;
     width: $base-left-menu-width;
     height: 100vh;
     overflow: hidden;
@@ -134,10 +146,6 @@
 
       .el-menu {
         border: 0;
-
-        .vab-remix-icon {
-          font-size: $base-font-size-default + 2;
-        }
       }
 
       .el-menu-item,

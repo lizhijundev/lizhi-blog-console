@@ -15,10 +15,9 @@ const mutations = {
    * @returns
    */
   addVisitedRoute(state, route) {
-    let target = state.visitedRoutes.find((item) => item.path === route.path)
-    if (target) {
-      if (route !== target) Object.assign(target, route)
-    } else state.visitedRoutes.push(Object.assign({}, route))
+    const target = state.visitedRoutes.find((item) => item.path === route.path)
+    if (target && !route.meta.dynamicNewTab) Object.assign(target, route)
+    else if (!target) state.visitedRoutes.push(Object.assign({}, route))
   },
   /**
    * @description 删除当前标签页
@@ -81,14 +80,20 @@ const mutations = {
   /**
    * @description 修改标题
    * @param {*} state
-   * @param title 新标题
+   * @param options
    */
-  changeRouteTitle(state, title) {
-    state.visitedRoutes = state.visitedRoutes.map((item) => {
-      if (item.meta.title === title.defaultTitle)
-        item.meta.title = title.currentTitle
-      return item
-    })
+  changeTabsMeta(state, options) {
+    function handleVisitedRoutes(visitedRoutes) {
+      return visitedRoutes.map((route) => {
+        if (route.name === options.name || route.meta.title === options.title)
+          Object.assign(route.meta, options.meta)
+        if (route.children && route.children.length)
+          route.children = handleVisitedRoutes(route.children)
+        return route
+      })
+    }
+
+    state.visitedRoutes = handleVisitedRoutes(state.visitedRoutes)
   },
 }
 const actions = {
@@ -140,12 +145,12 @@ const actions = {
     commit('delAllVisitedRoutes')
   },
   /**
-   * @description 修改标题
+   * @description 修改Route Meta
    * @param {*} { commit }
-   * @param title
+   * @param options
    */
-  changeRouteTitle({ commit }, title = {}) {
-    commit('changeRouteTitle', title)
+  changeTabsMeta({ commit }, options = {}) {
+    commit('changeTabsMeta', options)
   },
 }
 export default { state, getters, mutations, actions }

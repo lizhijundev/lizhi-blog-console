@@ -1,8 +1,7 @@
 const data = [
   {
     url: 'https://github.com/chuzhixin/vue-admin-beautiful',
-    value:
-      '中国最好用的框架企业级、中后台、通用型前端框架vue-admin-beautiful-pro',
+    value: '中国最好用的框架企业级、中后台、通用型前端框架admin-plus',
   },
   {
     url:

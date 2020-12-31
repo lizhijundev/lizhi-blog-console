@@ -18,19 +18,16 @@
         :name="item.path"
       >
         <template #label>
-          <span v-if="theme.showTabsBarRemixIcon">
-            <vab-remix-icon
-              v-if="item.meta && item.meta.remixIcon"
-              :icon="item.meta.remixIcon"
-              :is-custom-svg="item.meta.isCustomSvgIcon"
+          <span v-if="theme.showTabsBarIcon">
+            <vab-icon
+              v-if="item.meta && item.meta.icon"
+              :icon="item.meta.icon"
+              :is-custom-svg="item.meta.isCustomSvg"
             />
             <!--  如果没有图标那么取第二级的图标 -->
-            <vab-remix-icon v-else :icon="item.parentRemixIcon" />
-            {{ translateTitle(item.meta.title) }}
+            <vab-icon v-else :icon="item.parentIcon" />
           </span>
-          <span v-else>
-            {{ translateTitle(item.meta.title) }}
-          </span>
+          {{ translateTitle(item.meta.title) }}
         </template>
       </el-tab-pane>
     </el-tabs>
@@ -38,7 +35,7 @@
     <el-dropdown @command="handleCommand" @visible-change="handleVisibleChange">
       <span class="more">
         {{ translateTitle('更多') }}
-        <vab-remix-icon
+        <vab-icon
           :class="{ 'vab-dropdown-active': active }"
           class="vab-dropdown"
           icon="arrow-down-s-line"
@@ -47,19 +44,19 @@
       <template #dropdown>
         <el-dropdown-menu class="tabs-more">
           <el-dropdown-item command="closeOthersTabs">
-            <vab-remix-icon icon="close-line" />
+            <vab-icon icon="close-line" />
             {{ translateTitle('关闭其他') }}
           </el-dropdown-item>
           <el-dropdown-item command="closeLeftTabs">
-            <vab-remix-icon icon="arrow-left-line" />
+            <vab-icon icon="arrow-left-line" />
             {{ translateTitle('关闭左侧') }}
           </el-dropdown-item>
           <el-dropdown-item command="closeRightTabs">
-            <vab-remix-icon icon="arrow-right-line" />
+            <vab-icon icon="arrow-right-line" />
             {{ translateTitle('关闭右侧') }}
           </el-dropdown-item>
           <el-dropdown-item command="closeAllTabs">
-            <vab-remix-icon icon="close-line" />
+            <vab-icon icon="close-line" />
             {{ translateTitle('关闭全部') }}
           </el-dropdown-item>
         </el-dropdown-menu>
@@ -138,9 +135,9 @@
        * @returns {Promise<void>}
        */
       async addTabs(tag, init = false) {
-        let parentRemixIcon = ''
+        let parentIcon = ''
         if (tag.matched && tag.matched.length > 1)
-          parentRemixIcon = tag.matched[1].meta.remixIcon
+          parentIcon = tag.matched[1].meta.icon
         if (tag.name && tag.meta && tag.meta.tabHidden !== true) {
           const path = handleActivePath(tag, true)
           await this.addVisitedRoute({
@@ -151,7 +148,7 @@
             matched: init
               ? [tag.name]
               : tag.matched.map((item) => item.components.default.name),
-            parentRemixIcon,
+            parentIcon,
             meta: { ...tag.meta },
           })
           this.tabActive = path
@@ -251,12 +248,12 @@
 
     :deep() {
       .fold-unfold {
-        margin-right: $base-padding;
+        margin-right: $base-margin;
       }
     }
 
     .tabs-content {
-      width: calc(100% - 70px);
+      width: calc(100% - 60px);
 
       &-card {
         height: $base-tag-item-height;
@@ -300,6 +297,7 @@
 
       &-smart {
         height: $base-tag-item-height;
+
         :deep() {
           .el-tabs__nav-next,
           .el-tabs__nav-prev {
@@ -320,13 +318,16 @@
               line-height: $base-tag-item-height;
               border: 0;
               transition: padding 0.3s cubic-bezier(0.645, 0.045, 0.355, 1) !important;
+
               &.is-active {
                 background: rgba($base-color-blue, 0.1);
+
                 &:after {
                   width: 100%;
                   transition: $base-transition;
                 }
               }
+
               &:after {
                 position: absolute;
                 bottom: 0;
@@ -337,8 +338,10 @@
                 background-color: $base-color-blue;
                 transition: $base-transition;
               }
+
               &:hover {
                 background: rgba($base-color-blue, 0.1);
+
                 &:after {
                   width: 100%;
                   transition: $base-transition;
@@ -392,7 +395,6 @@
               }
 
               &:hover {
-                z-index: $base-z-index;
                 padding: 0 30px 0 30px;
                 color: $base-color-black;
                 background: #dee1e6;

@@ -1,11 +1,10 @@
 <template>
   <el-menu-item :index="itemOrMenu.path" @click="handleLink">
-    <vab-remix-icon
-      v-if="itemOrMenu.meta && itemOrMenu.meta.remixIcon"
-      :icon="itemOrMenu.meta.remixIcon"
-      :is-custom-svg="itemOrMenu.meta.isCustomSvgIcon"
+    <vab-icon
+      v-if="itemOrMenu.meta && itemOrMenu.meta.icon"
+      :icon="itemOrMenu.meta.icon"
+      :is-custom-svg="itemOrMenu.meta.isCustomSvg"
       :title="translateTitle(itemOrMenu.meta.title)"
-      class="vab-remix-icon"
     />
     <span :title="translateTitle(itemOrMenu.meta.title)">
       {{ translateTitle(itemOrMenu.meta.title) }}
@@ -21,7 +20,7 @@
       v-if="itemOrMenu.meta && itemOrMenu.meta.dot"
       class="vab-dot vab-dot-error"
     >
-      <span></span>
+      <span />
     </span>
   </el-menu-item>
 </template>
@@ -29,6 +28,7 @@
 <script>
   import { translateTitle } from '@/utils/i18n'
   import { isExternal } from '@/utils/validate'
+  import { mapActions, mapGetters } from 'vuex'
 
   export default {
     name: 'MenuItem',
@@ -40,8 +40,16 @@
         },
       },
     },
+    computed: {
+      ...mapGetters({
+        device: 'settings/device',
+      }),
+    },
     methods: {
       translateTitle,
+      ...mapActions({
+        foldSideBar: 'settings/foldSideBar',
+      }),
       handleLink() {
         const routePath = this.itemOrMenu.path
         const target = this.itemOrMenu.meta.target
@@ -51,13 +59,16 @@
             window.open(routePath.href)
         } else {
           if (isExternal(routePath)) window.location.href = routePath
-          else if (this.$route.fullPath !== routePath)
+          else if (this.$route.fullPath !== routePath) {
+            if (this.device === 'mobile') this.foldSideBar()
             this.$router.push(routePath)
+          }
         }
       },
     },
   }
 </script>
+
 <style lang="scss" scoped>
   :deep() {
     .el-tag {
@@ -65,7 +76,7 @@
       height: 16px;
       padding-right: 4px;
       padding-left: 4px;
-      margin-top: calc((#{$base-menu-item-height} - 16px) / 2);
+      margin-top: ($base-menu-item-height - 16) / 2;
       line-height: 16px;
       border: 0;
     }
@@ -73,6 +84,6 @@
 
   .vab-dot {
     float: right;
-    margin-top: calc((#{$base-menu-item-height} - 6px) / 2 + 1px);
+    margin-top: ($base-menu-item-height - 6) / 2 + 1;
   }
 </style>

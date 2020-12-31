@@ -192,38 +192,6 @@ export function isNum(value) {
 }
 
 /**
- * @description 判断经度 -180.0～+180.0（整数部分为0～180，必须输入1到5位小数）
- * @param value
- * @returns {boolean}
- */
-export function isLongitude(value) {
-  const reg = /^[-|+]?(0?\d{1,2}\.\d{1,5}|1[0-7]?\d\.\d{1,5}|180\.0{1,5})$/
-  return reg.test(value)
-}
-
-/**
- * @description 判断纬度 -90.0～+90.0（整数部分为0～90，必须输入1到5位小数）
- * @param value
- * @returns {boolean}
- */
-export function isLatitude(value) {
-  const reg = /^[-|+]?([0-8]?\d\.\d{1,5}|90\.0{1,5})$/
-  return reg.test(value)
-}
-
-/**
- * @description rtsp校验，只要有rtsp://
- * @param value
- * @returns {boolean}
- */
-export function isRTSP(value) {
-  const reg = /^rtsp:\/\/([a-z]{0,10}:.{0,10}@)?(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])$/
-  const reg1 = /^rtsp:\/\/([a-z]{0,10}:.{0,10}@)?(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5]):[0-9]{1,5}/
-  const reg2 = /^rtsp:\/\/([a-z]{0,10}:.{0,10}@)?(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\.(\d{1,2}|1\d\d|2[0-4]\d|25[0-5])\//
-  return reg.test(value) || reg1.test(value) || reg2.test(value)
-}
-
-/**
  * @description 判断是否为json
  * @param value
  * @returns {boolean}

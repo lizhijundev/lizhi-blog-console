@@ -8,8 +8,13 @@ const fs = require('fs')
  * @param height
  * @returns {string}
  */
+// eslint-disable-next-line no-unused-vars
 function handleRandomImage(width = 50, height = 50) {
-  return `https://picsum.photos/${width}/${height}?random=${Random.guid()}`
+  //return `https://picsum.photos/${width}/${height}?random=${Random.guid()}`
+  return `https://gitee.com/chu1204505056/image/raw/master/table/vab-image-${Random.integer(
+    1,
+    38
+  )}.jpg`
 }
 
 /**

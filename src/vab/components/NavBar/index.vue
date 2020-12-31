@@ -6,24 +6,23 @@
           <fold />
           <el-tabs
             v-if="layout === 'comprehensive'"
-            v-model="firstMenu"
+            v-model="menu.first"
             tab-position="top"
             @tab-click="handleTabClick"
           >
             <el-tab-pane
               v-for="item in handleRoutes"
-              :key="item.path"
-              :name="item.path"
+              :key="item.name"
+              :name="item.name"
             >
               <template #label>
-                <div>
-                  <vab-remix-icon
-                    v-if="item.meta.remixIcon"
-                    :icon="item.meta.remixIcon"
-                    style="min-width: 16px"
-                  />
-                  {{ translateTitle(item.meta.title) }}
-                </div>
+                <vab-icon
+                  v-if="item.meta.icon"
+                  :icon="item.meta.icon"
+                  :is-custom-svg="item.meta.isCustomSvg"
+                  style="min-width: 16px"
+                />
+                {{ translateTitle(item.meta.title) }}
               </template>
             </el-tab-pane>
           </el-tabs>
@@ -48,7 +47,7 @@
 
 <script>
   import { translateTitle } from '@/utils/i18n'
-  import { mapActions, mapGetters } from 'vuex'
+  import { mapGetters } from 'vuex'
   import { openFirstMenu } from '@/config'
 
   export default {
@@ -66,19 +65,25 @@
     },
     computed: {
       ...mapGetters({
+        menu: 'routes/menu',
         routes: 'routes/routes',
       }),
       handleRoutes() {
         return this.routes.filter((item) => item.hidden !== true && item.meta)
       },
+      handlePartialRoutes() {
+        return this.menu.first
+          ? this.routes.find((item) => item.name === this.menu.first).children
+          : []
+      },
     },
     watch: {
       $route: {
         handler(route) {
-          const firstMenu = route.matched[0].path || '/'
-          if (this.firstMenu !== firstMenu) {
-            this.firstMenu = firstMenu
-            this.handleTabClick({ name: firstMenu }, true)
+          const firstMenu = route.matched[0].name
+          if (this.menu.first !== firstMenu) {
+            this.menu.first = firstMenu
+            this.handleTabClick(true)
           }
         },
         immediate: true,
@@ -86,15 +91,9 @@
     },
     methods: {
       translateTitle,
-      ...mapActions({
-        setPartialRoutes: 'routes/setPartialRoutes',
-      }),
-      handleTabClick(tab, mounted) {
-        const childrenArr = this.routes.find((item) => item.path === tab.name)
-          .children
-        this.setPartialRoutes(childrenArr)
-        if (mounted !== true && openFirstMenu)
-          this.$router.push(childrenArr[0].path)
+      handleTabClick(handler) {
+        if (handler !== true && openFirstMenu)
+          this.$router.push(this.handlePartialRoutes[0].path)
       },
     },
   }
@@ -119,11 +118,11 @@
 
       :deep() {
         .breadcrumb-container {
-          margin-left: $base-padding;
+          margin-left: $base-margin;
         }
 
         .el-tabs {
-          margin-left: $base-padding;
+          margin-left: $base-margin;
 
           .el-tabs__header {
             margin: 0;
@@ -156,7 +155,7 @@
 
       :deep() {
         [class*='ri-'] {
-          margin-left: $base-padding;
+          margin-left: $base-margin;
           color: $base-color-gray;
           cursor: pointer;
         }

@@ -1,11 +1,8 @@
 <template>
   <el-breadcrumb class="breadcrumb-container" separator=">">
-    <el-breadcrumb-item v-for="item in levelList" :key="item.path">
+    <el-breadcrumb-item v-for="(item, index) in levelList" :key="index">
       <a @click.prevent="handleLink(item.redirect)">
-        <vab-remix-icon
-          v-if="item.meta && item.meta.remixIcon"
-          :icon="item.meta.remixIcon"
-        />
+        <vab-icon v-if="item.meta && item.meta.icon" :icon="item.meta.icon" />
         {{ translateTitle(item.meta.title) }}
       </a>
     </el-breadcrumb-item>

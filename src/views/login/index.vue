@@ -24,9 +24,7 @@
               tabindex="1"
               type="text"
             >
-              <template #prefix>
-                <vab-remix-icon icon="user-line" />
-              </template>
+              <template #prefix><vab-icon icon="user-line" /></template>
             </el-input>
           </el-form-item>
           <el-form-item prop="password">
@@ -40,17 +38,17 @@
               @keyup.enter="handleLogin"
             >
               <template #prefix>
-                <vab-remix-icon icon="lock-line" />
+                <vab-icon icon="lock-line" />
               </template>
               <template v-if="passwordType === 'password'" #suffix>
-                <vab-remix-icon
+                <vab-icon
                   class="show-password"
                   icon="eye-off-line"
                   @click="handlePassword"
                 />
               </template>
               <template v-else #suffix>
-                <vab-remix-icon
+                <vab-icon
                   class="show-password"
                   icon="eye-line"
                   @click="handlePassword"
@@ -66,6 +64,9 @@
           >
             {{ translateTitle('登录') }}
           </el-button>
+          <router-link to="/register">
+            <div style="margin-top: 20px">{{ translateTitle('注册') }}</div>
+          </router-link>
         </el-form>
       </el-col>
       <el-col :lg="1" :md="1" :sm="24" :xl="1" :xs="24">

@@ -1,6 +1,6 @@
 <template>
   <el-dropdown v-if="theme.showLanguage" @command="handleCommand">
-    <vab-remix-icon icon="translate" />
+    <vab-icon icon="translate" />
     <template #dropdown>
       <el-dropdown-menu>
         <el-dropdown-item command="zh">中文简体</el-dropdown-item>

@@ -1,8 +1,8 @@
 <template>
-  <el-badge v-if="theme.showNotice" :value="badge">
-    <el-popover placement="bottom" trigger="hover" width="300">
+  <el-badge v-if="theme.showNotice" :value="badge" type="danger">
+    <el-popover placement="bottom" trigger="hover" :width="300">
       <template #reference>
-        <vab-remix-icon icon="notification-line" />
+        <vab-icon icon="notification-line" />
       </template>
       <el-tabs v-model="activeName" @tab-click="handleClick">
         <el-tab-pane :label="translateTitle('通知')" name="notice">
@@ -10,8 +10,8 @@
             <el-scrollbar>
               <ul>
                 <li v-for="(item, index) in list" :key="index">
-                  <el-avatar :size="45" :src="item.image"></el-avatar>
-                  <span v-html="item.notice"></span>
+                  <el-avatar :size="45" :src="item.image" />
+                  <span v-html="item.notice" />
                 </li>
               </ul>
             </el-scrollbar>
@@ -22,7 +22,7 @@
             <el-scrollbar>
               <ul>
                 <li v-for="(item, index) in list" :key="index">
-                  <el-avatar :size="45" :src="item.image"></el-avatar>
+                  <el-avatar :size="45" :src="item.image" />
                   <span>{{ item.email }}</span>
                 </li>
               </ul>
@@ -31,10 +31,10 @@
         </el-tab-pane>
       </el-tabs>
       <div class="notice-clear" @click="handleClearNotice">
-        <el-link type="primary">
-          <vab-remix-icon icon="close-circle-line" />
+        <el-button type="text">
+          <vab-icon icon="close-circle-line" />
           {{ translateTitle('清空消息') }}
-        </el-link>
+        </el-button>
       </div>
     </el-popover>
   </el-badge>
@@ -72,11 +72,16 @@
       handleClearNotice() {
         this.badge = null
         this.list = []
-        this.$message.error('清空消息成功')
+        this.$baseMessage(
+          '清空消息成功',
+          'success',
+          false,
+          'vab-hey-message-success'
+        )
       },
       async fetchData() {
         const { data } = await getList()
-        this.badge = data.length
+        this.badge = data.length === 0 ? null : data.length
         this.list = data
       },
     },

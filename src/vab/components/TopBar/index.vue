@@ -84,6 +84,7 @@
     },
   }
 </script>
+
 <style lang="scss" scoped>
   .top-bar-container {
     display: flex;
@@ -94,6 +95,7 @@
 
     .vab-main {
       padding: 0 $base-padding 0 $base-padding;
+
       .right-panel {
         display: flex;
         align-items: center;
@@ -101,6 +103,32 @@
         height: $base-top-bar-height;
 
         :deep() {
+          > .el-menu--horizontal.el-menu
+            > .el-submenu
+            > .el-submenu__title
+            > .el-submenu__icon-arrow {
+            float: right;
+            margin-top: ($base-top-bar-height - 11) / 2 !important;
+          }
+
+          > .el-menu--horizontal.el-menu > .el-menu-item {
+            .el-tag {
+              margin-top: $base-top-bar-height / 2 - 7.5 !important;
+              margin-left: 5px;
+            }
+
+            .vab-dot {
+              float: right;
+              margin-top: ($base-top-bar-height - 6) / 2 + 1;
+            }
+
+            @media only screen and (max-width: 1199px) {
+              .el-tag {
+                display: none;
+              }
+            }
+          }
+
           .el-menu {
             &.el-menu--horizontal {
               display: flex;
@@ -120,6 +148,11 @@
               > .el-submenu {
                 height: $base-top-bar-height;
                 line-height: $base-top-bar-height;
+
+                .el-submenu__icon-arrow {
+                  float: right;
+                  margin-top: ($base-menu-item-height - 16) / 2;
+                }
 
                 > .el-submenu__title {
                   height: $base-top-bar-height;
@@ -154,19 +187,6 @@
                 background: $base-color-blue !important;
               }
             }
-
-            > .el-menu-item {
-              .el-tag {
-                margin-top: calc(#{$base-top-bar-height} / 2 - 7.5px);
-                margin-left: 5px;
-              }
-
-              @media only screen and (max-width: 1199px) {
-                .el-tag {
-                  display: none;
-                }
-              }
-            }
           }
 
           .user-name {
@@ -178,7 +198,7 @@
           }
 
           [class*='ri-'] {
-            margin-left: $base-padding;
+            margin-left: $base-margin;
             color: rgba($base-color-white, 0.9);
             cursor: pointer;
           }

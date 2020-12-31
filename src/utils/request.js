@@ -13,7 +13,7 @@ import store from '@/store'
 import qs from 'qs'
 import router from '@/router'
 import { isArray } from '@/utils/validate'
-import { ElMessage, Loading } from 'element-plus'
+import { ElMessage, ElLoading } from 'element-plus'
 
 let loadingInstance
 
@@ -25,10 +25,10 @@ const codeVerificationArray = isArray(successCode)
 const CODE_MESSAGE = {
   200: '服务器成功返回请求数据',
   201: '新建或修改数据成功',
-  202: '一个请求已经进入后台排队（异步任务）',
+  202: '一个请求已经进入后台排队(异步任务)',
   204: '删除数据成功',
   400: '发出信息有误',
-  401: '用户没有权限（令牌、用户名、密码错误）',
+  401: '用户没有权限(令牌、用户名、密码错误)',
   403: '用户得到授权，但是访问是被禁止的',
   404: '访问资源不存在',
   406: '请求格式不可得',
@@ -49,7 +49,7 @@ const handleData = ({ config, data, status, statusText }) => {
   if (codeVerificationArray.includes(code)) code = 200
   switch (code) {
     case 200:
-      // 业务层级错误处理，以下是假定restful有一套统一输出格式（指不管成功与否都有相应的数据格式）情况下进行处理
+      // 业务层级错误处理，以下是假定restful有一套统一输出格式(指不管成功与否都有相应的数据格式)情况下进行处理
       // 例如响应内容：
       // 错误内容：{ status: 1, msg: '非法参数' }
       // 正确内容：{ status: 200, data: {  }, msg: '操作正常' }
@@ -103,7 +103,7 @@ instance.interceptors.request.use(
     )
       config.data = qs.stringify(config.data)
     if (debounce.some((item) => config.url.includes(item)))
-      loadingInstance = Loading.service({ fullscreen: true })
+      loadingInstance = ElLoading.service({ fullscreen: true })
     return config
   },
   (error) => {

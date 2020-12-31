@@ -1,5 +1,5 @@
 const List = [
-  {
+  /* {
     uuid: '@uuid',
     svg: 'https://gitee.com/chu1204505056/image/raw/master/logo/vdb.svg',
     title: 'vue-datav-beautiful-pro',
@@ -7,7 +7,7 @@ const List = [
     label: ['vue', 'element-ui', '数据大屏'],
     company: 'vdb',
     url: 'https://github.com/vue-datav-beautiful',
-  },
+  }, */
   {
     uuid: '@uuid',
     svg: 'https://gitee.com/chu1204505056/image/raw/master/logo/vab.svg',

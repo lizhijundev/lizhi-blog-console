@@ -4,7 +4,7 @@
       <el-avatar :src="avatar" class="user-avatar" />
       <div class="user-name">
         <span class="hidden-xs-only">{{ username }}</span>
-        <vab-remix-icon
+        <vab-icon
           :class="{ 'vab-dropdown-active': active }"
           class="vab-dropdown"
           icon="arrow-down-s-line"
@@ -13,12 +13,8 @@
     </span>
     <template #dropdown>
       <el-dropdown-menu>
-        <el-dropdown-item command="personalCenter">
-          <vab-remix-icon icon="user-line" />
-          {{ translateTitle('个人中心') }}
-        </el-dropdown-item>
         <el-dropdown-item command="logout">
-          <vab-remix-icon icon="logout-circle-r-line" />
+          <vab-icon icon="logout-circle-r-line" />
           {{ translateTitle('退出登录') }}
         </el-dropdown-item>
       </el-dropdown-menu>
@@ -54,16 +50,10 @@
           case 'logout':
             this.logout()
             break
-          case 'personalCenter':
-            this.personalCenter()
-            break
         }
       },
       handleVisibleChange(val) {
         this.active = val
-      },
-      personalCenter() {
-        this.$router.push('/setting/personalCenter')
       },
       async logout() {
         await this._logout()
@@ -72,6 +62,7 @@
     },
   }
 </script>
+
 <style lang="scss" scoped>
   .avatar-dropdown {
     display: flex;

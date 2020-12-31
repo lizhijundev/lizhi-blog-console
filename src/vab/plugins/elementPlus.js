@@ -1,6 +1,11 @@
 import ElementPlus from 'element-plus'
-import 'element-plus/lib/theme-chalk/index.css'
+import '@/vab/styles/variables/element-variables.scss'
+import 'element-plus/lib/theme-chalk/display.css'
+import { getI18n } from '@/i18n'
 
 export function setup(app) {
-  app.use(ElementPlus, { size: 'small' })
+  app.use(ElementPlus, {
+    i18n: (key, value) => getI18n().t(key, value),
+    size: 'small',
+  })
 }

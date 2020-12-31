@@ -10,6 +10,12 @@ export function setupVab(app) {
     requireTheme(fileName)
   })
 
+  // 加载插件
+  const requirePlugin = require.context('@/vab/plugins', true, /\.js$/)
+  requirePlugin.keys().forEach((fileName) => {
+    requirePlugin(fileName).setup(app)
+  })
+
   // 加载布局
   const requireLayout = require.context('@/vab/layouts', true, /\.vue$/)
   requireLayout.keys().forEach((fileName) => {
@@ -24,12 +30,5 @@ export function setupVab(app) {
     const componentConfig = requireComponent(fileName)
     const componentName = componentConfig.default.name
     app.component(componentName, componentConfig.default || componentConfig)
-  })
-
-  // 加载插件
-  const requirePlugin = require.context('@/vab/plugins', true, /\.js$/)
-  requirePlugin.keys().forEach((fileName) => {
-    if (requirePlugin(fileName).setup) requirePlugin(fileName).setup(app)
-    requirePlugin(fileName)
   })
 }

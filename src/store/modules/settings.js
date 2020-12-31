@@ -3,8 +3,8 @@
  */
 import { isJson } from '@/utils/validate'
 import {
+  columnStyle,
   fixedHeader,
-  galleryStyle,
   i18n,
   layout,
   logo,
@@ -15,7 +15,7 @@ import {
   showRefresh,
   showSearch,
   showTabsBar,
-  showTabsBarRemixIcon,
+  showTabsBarIcon,
   showTheme,
   tabsBarStyle,
   themeName,
@@ -25,12 +25,12 @@ import {
 const defaultTheme = {
   layout,
   themeName,
-  galleryStyle,
+  columnStyle,
   fixedHeader,
   showProgressBar,
   showTabsBar,
   tabsBarStyle,
-  showTabsBarRemixIcon,
+  showTabsBarIcon,
   showLanguage,
   showRefresh,
   showSearch,

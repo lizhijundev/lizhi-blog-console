@@ -1,5 +1,5 @@
 <template>
-  <vab-remix-icon
+  <vab-icon
     v-if="theme.showFullScreen"
     :icon="isFullscreen ? 'fullscreen-exit-fill' : 'fullscreen-fill'"
     @click="click"
@@ -31,7 +31,12 @@
     methods: {
       click() {
         if (!screenfull.isEnabled) {
-          this.$message.error('开启全屏失败')
+          this.$baseMessage(
+            '开启全屏失败',
+            'error',
+            false,
+            'vab-hey-message-error'
+          )
           return false
         }
         screenfull.toggle()

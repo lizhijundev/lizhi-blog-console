@@ -4,13 +4,12 @@
     :index="itemOrMenu.path"
     :popper-append-to-body="false"
   >
-    <template v-slot:title>
-      <vab-remix-icon
-        v-if="itemOrMenu.meta && itemOrMenu.meta.remixIcon"
-        :icon="itemOrMenu.meta.remixIcon"
-        :is-custom-svg="itemOrMenu.meta.isCustomSvgIcon"
+    <template #title>
+      <vab-icon
+        v-if="itemOrMenu.meta && itemOrMenu.meta.icon"
+        :icon="itemOrMenu.meta.icon"
+        :is-custom-svg="itemOrMenu.meta.isCustomSvg"
         :title="translateTitle(itemOrMenu.meta.title)"
-        class="vab-remix-icon"
       />
       <span :title="translateTitle(itemOrMenu.meta.title)">
         {{ translateTitle(itemOrMenu.meta.title) }}

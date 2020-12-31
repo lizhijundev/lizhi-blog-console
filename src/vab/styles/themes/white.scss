@@ -12,7 +12,7 @@ body.vab-theme-white {
     background: $base-menu-background !important;
   }
 
-  @mixin container-gallery {
+  @mixin container-column {
     color: #515a6e !important;
     background: #f7faff !important;
   }
@@ -33,7 +33,7 @@ body.vab-theme-white {
   .logo-container-common {
     @include container;
 
-    .remix-icon,
+    .vab-icon,
     .title {
       @include container;
     }
@@ -42,7 +42,7 @@ body.vab-theme-white {
   .logo-container-vertical {
     @include container;
 
-    .remix-icon,
+    .vab-icon,
     .title {
       @include container;
     }
@@ -51,13 +51,13 @@ body.vab-theme-white {
   .logo-container-comprehensive {
     @include container;
 
-    .remix-icon,
+    .vab-icon,
     .title {
       @include container;
     }
   }
 
-  .logo-container-gallery {
+  .logo-container-column {
     @include container;
 
     .title {
@@ -65,18 +65,18 @@ body.vab-theme-white {
     }
 
     .logo,
-    .remix-icon {
-      @include container-gallery;
+    .vab-icon {
+      @include container-column;
     }
   }
 
-  .gallery-bar-container {
+  .column-bar-container {
     .el-tabs {
-      @include container-gallery;
+      @include container-column;
 
       .el-tabs__item,
       .el-tabs__nav {
-        @include container-gallery;
+        @include container-column;
       }
 
       .el-tabs__item.is-active {
@@ -98,12 +98,22 @@ body.vab-theme-white {
         background-color: rgba($base-color-blue, 0.1) !important;
       }
     }
+
+    &-card {
+      .el-tabs {
+        .el-tabs__item {
+          &.is-active {
+            background: transparent !important;
+          }
+        }
+      }
+    }
   }
 
-  .layout-container-vertical,
-  .layout-container-horizontal,
-  .layout-container-comprehensive,
-  .layout-container-common {
+  .vab-layout-vertical,
+  .vab-layout-horizontal,
+  .vab-layout-comprehensive,
+  .vab-layout-common {
     .el-menu {
       @include container;
 
@@ -166,98 +176,6 @@ body.vab-theme-white {
           }
         }
       }
-    }
-  }
-
-  .tabs-bar-container {
-    .tabs-content-card {
-      .el-tabs__header {
-        .el-tabs__item {
-          &.is-active {
-            color: $base-color-blue !important;
-            background: rgba($base-color-blue, 0.1) !important;
-            border: 1px solid $base-color-blue !important;
-          }
-
-          &:hover {
-            border: 1px solid $base-color-blue !important;
-          }
-        }
-      }
-    }
-
-    .tabs-content-smart {
-      .el-tabs__header {
-        .el-tabs__item {
-          &.is-active {
-            background: rgba($base-color-blue, 0.1) !important;
-          }
-
-          &:after {
-            background-color: $base-color-blue !important;
-          }
-
-          &:hover {
-            background: rgba($base-color-blue, 0.1) !important;
-          }
-        }
-      }
-    }
-
-    .tabs-content-smooth {
-      .el-tabs__header {
-        .el-tabs__item {
-          &.is-active {
-            color: $base-color-blue !important;
-            background: rgba($base-color-blue, 0.1) !important;
-
-            &:hover {
-              color: $base-color-blue !important;
-              background: rgba($base-color-blue, 0.1) !important;
-            }
-          }
-
-          &:hover {
-            color: $base-color-black !important;
-          }
-        }
-      }
-    }
-  }
-
-  .nav-bar-container {
-    .el-tabs__item.is-active,
-    .el-tabs__item:hover {
-      color: $base-color-blue !important;
-    }
-
-    .el-tabs__active-bar {
-      background-color: $base-color-blue !important;
-    }
-  }
-
-  .theme-setting {
-    background: rgba($base-color-blue, 0.1) !important;
-    border: 1px solid rgba($base-color-blue, 0.5) !important;
-
-    > div {
-      padding-top: 10px;
-      border-bottom: 0 !important;
-
-      p,
-      [class*='ri-'] {
-        color: #515a6e !important;
-      }
-    }
-  }
-
-  #nprogress {
-    .bar {
-      background: $base-color-blue !important;
-    }
-
-    .peg {
-      box-shadow: 0 0 10px $base-color-blue, 0 0 5px $base-color-blue !important;
     }
   }
 }

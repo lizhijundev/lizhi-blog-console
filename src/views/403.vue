@@ -20,8 +20,10 @@
             <div class="bullshit-oops">{{ oops }}</div>
             <div class="bullshit-headline">{{ headline }}</div>
             <div class="bullshit-info">{{ info }}</div>
-            <router-link class="bullshit-return-home" to="/">
-              {{ jumpTime }}s&nbsp;{{ btn }}
+            <router-link to="/" custom v-slot="{ navigate }">
+              <a @click="navigate" class="bullshit-return-home">
+                {{ jumpTime }}s&nbsp;{{ btn }}
+              </a>
             </router-link>
           </div>
         </el-col>

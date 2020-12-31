@@ -1,5 +1,5 @@
 <template>
-  <vab-remix-icon
+  <vab-icon
     :icon="collapse ? 'menu-unfold-line' : 'menu-fold-line'"
     class="fold-unfold"
     @click="toggleCollapse"
@@ -26,6 +26,7 @@
     },
   }
 </script>
+
 <style lang="scss" scoped>
   .fold-unfold {
     color: $base-color-gray;
