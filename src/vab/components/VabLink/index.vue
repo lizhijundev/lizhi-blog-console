@@ -5,6 +5,7 @@
 </template>
 
 <script>
+  import { computed } from 'vue'
   import { isExternal } from '@/utils/validate'
 
   export default {
@@ -15,27 +16,28 @@
         required: true,
       },
     },
-    computed: {
-      isExternal() {
-        return isExternal(this.to)
-      },
-      type() {
-        if (this.isExternal) return 'a'
+    setup(props) {
+      const type = computed(() => {
+        if (props.isExternal) return 'a'
         return 'router-link'
-      },
-    },
-    methods: {
-      linkProps(to) {
-        if (this.isExternal)
-          return {
-            href: to,
-            target: '_blank',
-            rel: 'noopener',
-          }
-        return {
-          to: to,
-        }
-      },
+      })
+
+      const linkProps = (to) => {
+        return isExternal(props.icon)
+          ? {
+              href: to,
+              target: '_blank',
+              rel: 'noopener',
+            }
+          : {
+              to: to,
+            }
+      }
+
+      return {
+        type,
+        linkProps,
+      }
     },
   }
 </script>

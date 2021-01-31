@@ -4,7 +4,7 @@
 module.exports = {
   // 开发以及部署时的URL
   // hash模式时在不确定二级目录名称的情况下建议使用""代表相对路径或者"/二级目录/"
-  // history模式默认使用"/"或者"/二级目录/"
+  // history模式默认使用"/"或者"/二级目录/"，记住只有hash时publicPath可以为空！！！
   publicPath: '',
   // 生产环境构建文件的目录名
   outputDir: 'dist',
@@ -13,7 +13,7 @@ module.exports = {
   // 开发环境每次保存时是否输出为eslint编译警告
   lintOnSave: true,
   // 进行编译的依赖
-  transpileDependencies: ['vue-echarts', 'resize-detector'],
+  transpileDependencies: ['resize-detector'],
   // 开发环境端口号
   devPort: '11000',
   // 需要自动注入并加载的模块
@@ -22,4 +22,6 @@ module.exports = {
   build7z: false,
   // npm run build时是否生成gzip
   buildGzip: false,
+  // npm run build时是否开启图片压缩，由于国内网路原因image-webpack-loader必须使用cnpm安装，如无法使用cnpm，请配置false
+  imageCompression: true,
 }

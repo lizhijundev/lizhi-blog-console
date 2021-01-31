@@ -1,9 +1,5 @@
 <template>
-  <el-submenu
-    ref="subMenu"
-    :index="itemOrMenu.path"
-    :popper-append-to-body="false"
-  >
+  <el-submenu ref="subMenu" :index="itemOrMenu.path" popper-append-to-body>
     <template #title>
       <vab-icon
         v-if="itemOrMenu.meta && itemOrMenu.meta.icon"
@@ -32,8 +28,10 @@
         },
       },
     },
-    methods: {
-      translateTitle,
+    setup() {
+      return {
+        translateTitle,
+      }
     },
   }
 </script>

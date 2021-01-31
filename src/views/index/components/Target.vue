@@ -8,7 +8,6 @@
       <vab-chart
         :init-options="initOptions"
         :options="options"
-        autoresize
         theme="vab-echarts-theme"
         class="target-echart1"
       />
@@ -23,7 +22,6 @@
       <vab-chart
         :init-options="initOptions"
         :options="options2"
-        autoresize
         theme="vab-echarts-theme"
         class="target-echart2"
       />

@@ -8,7 +8,6 @@
     <vab-chart
       :init-options="initOptions"
       :options="options"
-      autoresize
       theme="vab-echarts-theme"
     />
     <div class="bottom">

@@ -20,34 +20,28 @@
         route: {},
       }
     },
-    watch: {
-      $route: {
-        handler(route) {
-          this.route = {
-            path: route.matched[route.matched.length - 1].path,
-            fullPath: route.fullPath,
-            params: route.params,
-            query: route.query,
-            name: route.name,
-            meta: route.meta,
-          }
-        },
-        immediate: true,
-      },
-    },
     created() {
+      const route = this.$route
       this.$nextTick(() => {
         this.changeTabsMeta({
           title: 'Params',
           meta: {
-            title: `Params Id: ${this.$route.params.id}`,
+            title: `Params Id: ${route.params.id}`,
           },
         })
+        this.route = {
+          path: route.matched[route.matched.length - 1].path,
+          fullPath: route.fullPath,
+          params: route.params,
+          query: route.query,
+          name: route.name,
+          meta: route.meta,
+        }
       })
     },
     methods: {
       ...mapActions({
-        changeTabsMeta: 'tabsBar/changeTabsMeta',
+        changeTabsMeta: 'tabs/changeTabsMeta',
       }),
     },
   }

@@ -17,6 +17,14 @@
     <div class="pay-button-group">
       <el-button type="primary" @click="handleSubmit">下一步</el-button>
     </div>
+    <el-alert :closable="false">
+      <h3>转账到支付宝</h3>
+      <p>生活好，支付宝。生活好，支付宝。生活好，支付宝。生活好，支付宝。</p>
+      <h3>转账到微信</h3>
+      <p>
+        微不可挡，万众一信。微不可挡，万众一信。微不可挡，万众一信。微不可挡，万众一信。
+      </p>
+    </el-alert>
   </div>
 </template>
 

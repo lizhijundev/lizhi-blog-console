@@ -1,22 +1,25 @@
 <template>
   <div :class="classObj" class="vue-admin-beautiful-wrapper">
     <component
-      :is="theme.layout"
+      :is="'vab-layout-' + theme.layout"
       :collapse="collapse"
       :device="device"
       :fixed-header="theme.fixedHeader"
-      :show-tabs-bar="theme.showTabsBar"
+      :show-tabs="theme.showTabs"
     />
-    <el-backtop />
+    <el-backtop target="#admin-plus" />
+    <!--  主题组件放到layouts下防止主题切换，导致主题组件重新加载 -->
+    <vab-theme-drawer />
+    <vab-theme-setting />
   </div>
 </template>
 
 <script>
   import { useStore } from 'vuex'
-  import { computed, onMounted, onBeforeMount, onBeforeUnmount } from 'vue'
+  import { computed, onBeforeMount, onBeforeUnmount, onMounted } from 'vue'
 
   export default {
-    name: 'Layout',
+    name: 'Layouts',
     setup() {
       const store = useStore()
       const device = computed(() => store.getters['settings/device'])
@@ -29,6 +32,12 @@
 
       let isMobile = false
       let oldLayout = ''
+
+      const classObj = computed(() => {
+        return {
+          mobile: device.value === 'mobile',
+        }
+      })
 
       const handleLayouts = () => {
         const isMobileTemp =
@@ -57,17 +66,13 @@
       })
 
       return {
-        classObj: computed(() => {
-          return {
-            mobile: device.value === 'mobile',
-          }
-        }),
-        device,
-        collapse,
         theme,
-        toggleDevice,
+        device,
+        classObj,
+        collapse,
         foldSideBar,
         openSideBar,
+        toggleDevice,
       }
     },
   }
@@ -89,11 +94,11 @@
       }
 
       &.fixed {
-        padding-top: $base-nav-bar-height + $base-tabs-bar-height;
+        padding-top: $base-nav-height + $base-tabs-height;
       }
 
       &.fixed.no-tabs-bar {
-        padding-top: $base-nav-bar-height;
+        padding-top: $base-nav-height;
       }
     }
 
@@ -129,7 +134,7 @@
     &.mobile {
       :deep() {
         .vab-layout-vertical {
-          .el-scrollbar.side-bar-container.is-collapse {
+          .el-scrollbar.vab-side-bar.is-collapse {
             width: 0;
           }
 

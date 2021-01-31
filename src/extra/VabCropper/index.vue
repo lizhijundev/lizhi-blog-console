@@ -109,6 +109,7 @@
         display: none;
       }
     }
+
     .el-textarea {
       margin-top: $base-margin;
     }
@@ -118,11 +119,13 @@
   /* 未知原因深度选择器不好使，临时全局复写样式！！！！！！#TODO */
   .el-dialog__footer {
     height: 62px;
+
     &:before {
       display: block;
       clear: both;
       content: '';
     }
+
     > .vab-cropper-footer {
       > div {
         display: inline;

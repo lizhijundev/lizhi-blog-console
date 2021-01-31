@@ -26,7 +26,8 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
+  import { computed } from 'vue'
+  import { useStore } from 'vuex'
 
   export default {
     name: 'VabMenu',
@@ -40,32 +41,34 @@
         default: '',
       },
     },
-    data() {
-      return {
-        itemOrMenu: this.item,
-        menuComponent: 'MenuItem',
-      }
-    },
-    computed: {
-      ...mapGetters({
-        collapse: 'settings/collapse',
-      }),
-    },
-    created() {
-      const showChildren = this.handleChildren(this.item.children)
-      if (showChildren.length) {
-        if (showChildren.length === 1 && this.item.alwaysShow !== true)
-          this.itemOrMenu = this.item.children[0]
-        else this.menuComponent = 'Submenu'
-      }
-    },
-    methods: {
-      handleChildren(children = []) {
+    setup(props) {
+      const store = useStore()
+      const collapse = computed(() => store.getters['settings/collapse'])
+
+      const handleChildren = (children = []) => {
         if (!children) return []
         return children.filter((item) => {
           return item.hidden !== true
         })
-      },
+      }
+
+      const showChildren = handleChildren(props.item.children)
+      const itemOrMenu = computed(() => {
+        return showChildren.length === 1 && props.item.alwaysShow !== true
+          ? props.item.children[0]
+          : props.item
+      })
+      const menuComponent = computed(() => {
+        return showChildren.length > 1 && props.item.alwaysShow !== true
+          ? 'Submenu'
+          : 'MenuItem'
+      })
+
+      return {
+        collapse,
+        itemOrMenu,
+        menuComponent,
+      }
     },
   }
 </script>

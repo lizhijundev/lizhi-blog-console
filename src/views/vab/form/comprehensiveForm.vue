@@ -64,6 +64,15 @@
           <el-form-item label="评星">
             <el-rate v-model="form.rate" show-text />
           </el-form-item>
+          <el-form-item label="行政区划">
+            <el-cascader
+              v-model="form.area"
+              :options="areaOptions"
+              :props="{ label: 'name', value: 'code' }"
+              clearable
+              filterable
+            />
+          </el-form-item>
           <el-form-item label="穿梭框">
             <el-transfer
               v-model="form.transfer"
@@ -86,6 +95,8 @@
 </template>
 
 <script>
+  import { getList } from '@/api/area'
+
   export default {
     name: 'ComprehensiveForm',
     data() {
@@ -113,7 +124,11 @@
           type: [],
           resource: '',
           description: '',
+          rate: 0,
+          area: [],
+          transfer: [],
         },
+        areaOptions: [],
         rules: {
           name: [
             { required: true, message: '请输入活动名称', trigger: 'blur' },
@@ -156,7 +171,15 @@
         },
       }
     },
+    created() {
+      this.fetchData()
+    },
     methods: {
+      //获取行政区划
+      async fetchData() {
+        const { data } = await getList()
+        this.areaOptions = data
+      },
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
           if (valid) {
@@ -176,17 +199,23 @@
 </script>
 
 <style lang="scss" scoped>
-  :deep() {
-    .el-form-item__content {
-      .el-rate {
-        display: inline-block;
-        font-size: 0;
-        line-height: 1;
-        vertical-align: middle;
-      }
+  .comprehensive-form-container {
+    .demo-form {
+      margin-top: 10px;
+    }
 
-      .el-transfer__buttons {
-        padding: 10px 10px 0 10px;
+    :deep() {
+      .el-form-item__content {
+        .el-rate {
+          display: inline-block;
+          font-size: 0;
+          line-height: 1;
+          vertical-align: middle;
+        }
+
+        .el-transfer__buttons {
+          padding: 10px 10px 0 10px;
+        }
       }
     }
   }

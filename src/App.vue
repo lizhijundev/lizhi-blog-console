@@ -1,8 +1,5 @@
 <template>
-  <div id="admin-plus">
-    <router-view />
-    <vab-theme-drawer />
-  </div>
+  <router-view />
 </template>
 
 <script>

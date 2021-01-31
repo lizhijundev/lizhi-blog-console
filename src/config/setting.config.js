@@ -11,15 +11,15 @@ module.exports = {
   // 如果为ture : "title - page"
   titleReverse: false,
   // 简写
-  abbreviation: 'vab-pro',
+  abbreviation: 'vab-admin-plus',
   // pro版本copyright可随意修改
   copyright: 'chuzhixin 1204505056@qq.com',
   // 缓存路由的最大数量
   keepAliveMaxNum: 20,
-  // 路由模式，是否为hash模式
-  isHashRouterMode: true,
-  // 不经过token校验的路由
-  routesWhiteList: ['/login', '/404', '/403'],
+  // 路由模式，可选值为 history 或 hash
+  isHashRouterMode: 'hash',
+  // 不经过token校验的路由，白名单路由建议配置到与login页面同级，如果需要放行带传参的页面，请使用query传参，配置时只配置path即可
+  routesWhiteList: ['/login', '/register', '/callback', '/404', '/403'],
   // 加载时显示文字
   loadingText: '正在加载中...',
   // token名称

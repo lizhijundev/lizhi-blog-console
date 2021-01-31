@@ -54,7 +54,7 @@
     },
     computed: {
       ...mapGetters({
-        visitedRoutes: 'tabsBar/visitedRoutes',
+        visitedRoutes: 'tabs/visitedRoutes',
       }),
     },
     mounted() {
@@ -62,7 +62,7 @@
     },
     methods: {
       ...mapActions({
-        delVisitedRoute: 'tabsBar/delVisitedRoute',
+        delVisitedRoute: 'tabs/delVisitedRoute',
       }),
       timeChange() {
         this.timer = setInterval(() => {

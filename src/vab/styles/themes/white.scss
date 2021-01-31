@@ -4,8 +4,8 @@
 
 body.vab-theme-white {
   $base-menu-background: #fff;
-  $base-menu-background-active: #1890ff;
   $base-color-blue: #1890ff;
+  $base-color-blue-light: mix($base-color-white, $base-color-blue, 90%);
 
   @mixin container {
     color: #515a6e !important;
@@ -20,12 +20,12 @@ body.vab-theme-white {
   @mixin active {
     &:hover {
       color: $base-color-blue !important;
-      background-color: rgba($base-menu-background-active, 0.1) !important;
+      background-color: $base-color-blue-light !important;
     }
 
     &.is-active {
       color: $base-color-blue !important;
-      background-color: rgba($base-menu-background-active, 0.1) !important;
+      background-color: $base-color-blue-light !important;
     }
   }
 
@@ -74,6 +74,10 @@ body.vab-theme-white {
     .el-tabs {
       @include container-column;
 
+      .el-tabs__nav-wrap.is-left {
+        background: #f7faff !important;
+      }
+
       .el-tabs__item,
       .el-tabs__nav {
         @include container-column;
@@ -81,7 +85,7 @@ body.vab-theme-white {
 
       .el-tabs__item.is-active {
         color: $base-color-white !important;
-        background: $base-menu-background-active !important;
+        background: $base-color-blue !important;
       }
     }
 
@@ -91,11 +95,11 @@ body.vab-theme-white {
       .el-menu-item:hover,
       .el-submenu__title:hover {
         i {
-          color: $base-menu-background-active !important;
+          color: $base-color-blue !important;
         }
 
-        color: $base-menu-background-active !important;
-        background-color: rgba($base-color-blue, 0.1) !important;
+        color: $base-color-blue !important;
+        background-color: $base-color-blue-light !important;
       }
     }
 
@@ -126,7 +130,7 @@ body.vab-theme-white {
       }
     }
 
-    .side-bar-container,
+    .vab-side-bar,
     .comprehensive-bar-container {
       @include container;
       box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08) !important;
@@ -137,7 +141,7 @@ body.vab-theme-white {
     }
   }
 
-  .top-bar-container {
+  .vab-header {
     @include container;
 
     .right-panel {
@@ -161,20 +165,28 @@ body.vab-theme-white {
       .ri-notification-line {
         color: #515a6e !important;
       }
+    }
+  }
 
-      .el-menu {
-        &--horizontal {
-          .el-menu-item {
-            &.is-active {
-              @include active;
-            }
-          }
+  .el-menu {
+    background-color: $base-color-white !important;
 
-          .el-submenu,
-          .el-menu-item {
-            @include active;
-          }
+    &--horizontal {
+      .el-submenu .el-submenu__title,
+      .el-menu-item {
+        @include container;
+        background-color: $base-color-white !important;
+      }
+
+      .el-menu-item {
+        &.is-active {
+          @include active;
         }
+      }
+
+      .el-submenu,
+      .el-menu-item {
+        @include active;
       }
     }
   }

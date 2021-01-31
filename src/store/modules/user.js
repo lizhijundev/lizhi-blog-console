@@ -4,19 +4,21 @@
 import { getUserInfo, login, logout } from '@/api/user'
 import { getToken, removeToken, setToken } from '@/utils/token'
 import { resetRouter } from '@/router'
-import { isArray } from '@/utils/validate'
+import { isArray, isString } from '@/utils/validate'
 import { title, tokenName } from '@/config'
-import { ElNotification, ElMessage } from 'element-plus'
+import { ElMessage, ElNotification } from 'element-plus'
 
 const state = () => ({
   token: getToken(),
   username: '游客',
   avatar: 'https://i.gtimg.cn/club/item/face/img/2/15922_100.gif',
+  isLogin: false,
 })
 const getters = {
   token: (state) => state.token,
   username: (state) => state.username,
   avatar: (state) => state.avatar,
+  isLogin: (state) => state.isLogin,
 }
 const mutations = {
   /**
@@ -43,6 +45,9 @@ const mutations = {
    */
   setAvatar(state, avatar) {
     state.avatar = avatar
+  },
+  setLogin(state, isLogin) {
+    state.isLogin = isLogin
   },
 }
 const actions = {
@@ -94,32 +99,38 @@ const actions = {
   async getUserInfo({ commit, dispatch }) {
     const { data } = await getUserInfo()
 
-    /* 如果项目较小用不到权限控制如roles和ability字段，那么可以放开以下注释模拟角色、权限 */
-    // data.roles = ['admin']
-    // data.ability = ['READ', 'WRITE', 'DELETE']
-
     const { username, avatar, roles, ability } = data
-    // 必须携带username和avatar
+    /**
+     * 检验返回数据是否正常，无对应参数，将使用默认用户名,头像,Roles和Ability
+     * username {String}
+     * avatar {String}
+     * roles {List}
+     * ability {List}
+     */
     if (
-      username &&
-      avatar &&
-      (!roles || isArray(roles)) &&
-      (!ability || isArray(ability))
+      (username && !isString(username)) ||
+      (avatar && !isString(avatar)) ||
+      (roles && !isArray(roles)) ||
+      (ability && !isArray(ability))
     ) {
-      commit('setUsername', username)
-      commit('setAvatar', avatar)
-      // 当不传递roles或ability时,默认使用管理员权限,可查看所有路由和按钮
-      // 如果不需要权限判断,可以删除条件判断,但不能删除acl/setFull
-      if (!roles && !ability) dispatch('acl/setFull', true, { root: true })
-      // 当返回数据包含roles(角色)或ability(权限),保存至vuex
-      // 如不使用roles权限控制,请不要传递roles,可删除以下代码
-      if (roles) dispatch('acl/setRole', roles, { root: true })
-      // 如不使用ability权限控制,请不要传递ability,可删除以下代码
-      if (ability) dispatch('acl/setAbility', ability, { root: true })
-    } else {
-      ElMessage.error('getUserInfo核心接口异常，请检查返回JSON格式是否正确')
+      ElMessage.error({
+        showClose: true,
+        message: 'getUserInfo核心接口异常，请检查返回JSON格式是否正确',
+        duration: 3000,
+      })
       return Promise.reject()
     }
+
+    // 如不使用username用户名,可删除以下代码
+    if (username) commit('setUsername', username)
+    // 如不使用avatar头像,可删除以下代码
+    if (avatar) commit('setAvatar', avatar)
+    // 如不使用roles权限控制,可删除以下代码
+    if (roles) dispatch('acl/setRole', roles, { root: true })
+    // 如不使用ability权限控制,可删除以下代码
+    if (ability) dispatch('acl/setAbility', ability, { root: true })
+
+    commit('setLogin', true)
   },
 
   /**
@@ -127,7 +138,7 @@ const actions = {
    * @param {*} { dispatch }
    */
   async logout({ dispatch }) {
-    await logout(state.token)
+    await logout()
     await dispatch('resetAll')
   },
   /**
@@ -137,11 +148,12 @@ const actions = {
   async resetAll({ commit, dispatch }) {
     commit('setUsername', '游客')
     commit('setAvatar', 'https://i.gtimg.cn/club/item/face/img/2/15922_100.gif')
+    commit('setLogin', false)
     await dispatch('setToken', '')
     await dispatch('acl/setFull', false, { root: true })
-    await dispatch('acl/setRole', null, { root: true })
-    await dispatch('acl/setAbility', null, { root: true })
-    await dispatch('tabsBar/delAllVisitedRoutes', [], { root: true })
+    await dispatch('acl/setRole', [], { root: true })
+    await dispatch('acl/setAbility', [], { root: true })
+    await dispatch('tabs/delAllVisitedRoutes', [], { root: true })
     await resetRouter()
     removeToken()
   },

@@ -56,11 +56,11 @@
       >
         <template #default="{ row }">
           <span v-if="row.executeResult === '登录成功'">
-            <span class="vab-dot vab-dot-success"><span /></span>
+            <span class="vab-dot vab-dot-success"><span></span></span>
             {{ row.executeResult }}
           </span>
           <span v-else>
-            <span class="vab-dot vab-dot-error"><span /></span>
+            <span class="vab-dot vab-dot-error"><span></span></span>
             {{ row.executeResult }}
           </span>
         </template>

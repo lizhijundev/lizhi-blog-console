@@ -53,19 +53,18 @@ $base-box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
 //横向top-bar、logo、一级菜单的高度
 $base-top-bar-height: 60px;
 //纵向、综合、分栏logo的高度
-$base-logo-height: 65px;
+$base-logo-height: 60px;
 //顶部nav-bar的高度
-$base-nav-bar-height: 60px;
+$base-nav-height: 60px;
 //顶部标签页tabs-bar的高度
-$base-tabs-bar-height: 50px;
+$base-tabs-height: 50px;
 //顶部标签页tabs-bar中每一个item的高度
 $base-tag-item-height: 34px;
 //菜单li标签的高度
 $base-menu-item-height: 50px;
 //app-main的高度
 $base-keep-alive-height: calc(
-  100vh - #{$base-nav-bar-height} - #{$base-tabs-bar-height} - #{$base-padding} *
-  2 - 55px
+  100vh - #{$base-nav-height} - #{$base-tabs-height} - #{$base-padding} * 2 - 55px
 );
 //纵向左侧导航未折叠的宽度
 $base-left-menu-width: 266px;
@@ -77,7 +76,7 @@ $base-left-menu-width-min: 65px;
 $base-right-content-width-min: calc(100% - #{$base-left-menu-width-min});
 //默认动画
 $base-transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), border 0s,
-background 0s, color 0s, font-size 0s;
+  background 0s, color 0s, font-size 0s;
 //默认动画长
 $base-transition-time: 0.3s;
 

@@ -1,27 +1,27 @@
 const data = [
   {
     email: '@email',
+    image: 'https://i.gtimg.cn/club/item/face/img//8/15918_100.gif',
+    notice:
+      'Admin Plus（vue3.0）体验地址（不代表最终效果，2021年2月28日前全款购买pro的用户可免费升级）：<a target="_blank" href="http://chu1204505056.gitee.io/admin-plus?hmsr=noticeAd&hmpl=&hmcu=&hmkw=&hmci=">点我</a>',
+  },
+  {
+    email: '@email',
     image: 'https://i.gtimg.cn/club/item/face/img/2/15922_100.gif',
     notice:
       '官方QQ群1：972435319、官方QQ群2：1139183756，购买PRO请在演示地址首页付款人民币699元，完成付款后联系QQ 1204505056 即可',
   },
   {
     email: '@email',
-    image: 'https://i.gtimg.cn/club/item/face/img//8/15918_100.gif',
-    notice:
-      'pro + vue3.0体验地址（不代表最终效果，2021年2月28日前全款购买pro的用户可免费升级）：<a target="_blank" href="http://beautiful.panm.cn/admin-plus-element-plus?hmsr=noticeAd&hmpl=&hmcu=&hmkw=&hmci=">点我</a>',
-  },
-  {
-    email: '@email',
     image: 'https://i.gtimg.cn/club/item/face/img/2/16022_100.gif',
     notice:
-      'vue3.0 + element-plus 体验地址：<a target="_blank" href="http://beautiful.panm.cn/vue-admin-beautiful-element-plus?hmsr=noticeAd&hmpl=&hmcu=&hmkw=&hmci=">点我</a>',
+      'vue3.0 + element-plus 体验地址：<a target="_blank" href="http://chu1204505056.gitee.io/vue-admin-beautiful-element-plus?hmsr=noticeAd&hmpl=&hmcu=&hmkw=&hmci=">点我</a>',
   },
   {
     email: '@email',
     image: 'https://i.gtimg.cn/club/item/face/img/8/15918_100.gif',
     notice:
-      'vue3.0 + antdv 体验地址：<a target="_blank" href="http://beautiful.panm.cn/vue-admin-beautiful-antdv?hmsr=noticeAd&hmpl=&hmcu=&hmkw=&hmci=">点我</a>',
+      'vue3.0 + antdv 体验地址：<a target="_blank" href="http://chu1204505056.gitee.io/vue-admin-beautiful-antdv?hmsr=noticeAd&hmpl=&hmcu=&hmkw=&hmci=">点我</a>',
   },
   {
     email: '@email',

@@ -7,12 +7,12 @@
       type="success"
     />
     <el-popover
+      :width="292"
       popper-class="icon-selector-popper"
       trigger="hover"
-      :width="292"
     >
       <template #reference>
-        <el-button plain type="primary">
+        <el-button>
           <vab-icon :icon="icon" />
           图标选择器
           <vab-icon icon="arrow-down-s-line" />

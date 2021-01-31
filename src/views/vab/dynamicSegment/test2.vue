@@ -20,22 +20,8 @@
         route: {},
       }
     },
-    watch: {
-      $route: {
-        handler(route) {
-          this.route = {
-            path: route.path,
-            fullPath: route.fullPath,
-            params: route.params,
-            query: route.query,
-            name: route.name,
-            meta: route.meta,
-          }
-        },
-        immediate: true,
-      },
-    },
     created() {
+      const route = this.$route
       this.$nextTick(() => {
         this.changeTabsMeta({
           title: 'Query',
@@ -43,11 +29,19 @@
             title: `Query Id: ${this.$route.query.id}`,
           },
         })
+        this.route = {
+          path: route.path,
+          fullPath: route.fullPath,
+          params: route.params,
+          query: route.query,
+          name: route.name,
+          meta: route.meta,
+        }
       })
     },
     methods: {
       ...mapActions({
-        changeTabsMeta: 'tabsBar/changeTabsMeta',
+        changeTabsMeta: 'tabs/changeTabsMeta',
       }),
     },
   }

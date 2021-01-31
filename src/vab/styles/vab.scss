@@ -50,14 +50,15 @@ html {
       .vab-main {
         transition: $base-transition;
 
-        .app-main-container {
+        .vab-app-main {
           width: 100%;
           padding: $base-padding;
           overflow: hidden;
           transition: $base-transition;
 
-          .app-main-content {
+          > section {
             background: $base-color-white;
+            transition: $base-transition;
 
             > [class*='-container'],
             .vab-keep-alive > [class*='-container'],
@@ -75,6 +76,10 @@ html {
     * {
       box-sizing: border-box;
       @include base-scrollbar;
+    }
+
+    [class*='ri'] {
+      margin-right: 3px;
     }
 
     /*a标签 */
@@ -174,13 +179,9 @@ html {
       }
     }
 
-    span + span,
-    a + a,
-    span + a,
+    a + .el-button,
     .el-button + a {
-      .el-button {
-        margin-left: 10px;
-      }
+      margin-left: 10px;
     }
 
     .el-drawer__container {
@@ -211,7 +212,7 @@ html {
       z-index: $base-z-index - 10 !important;
 
       &.is-fullscreen {
-        z-index: $base-z-index + 1 !important;
+        z-index: $base-z-index + 99 !important;
       }
     }
 
@@ -267,7 +268,7 @@ html {
 
       &--success.is-light {
         color: $base-color-green;
-        background-color: rgba($base-color-green, 0.1);
+        background-color: mix($base-color-white, $base-color-green, 90%);
         border: 1px solid $base-color-green;
 
         i {
@@ -277,7 +278,7 @@ html {
 
       &--info.is-light {
         color: $base-color-blue;
-        background-color: rgba($base-color-blue, 0.1);
+        background-color: mix($base-color-white, $base-color-blue, 90%);
         border: 1px solid $base-color-blue;
 
         i {
@@ -287,7 +288,7 @@ html {
 
       &--warning.is-light {
         color: $base-color-yellow;
-        background-color: rgba($base-color-yellow, 0.1);
+        background-color: mix($base-color-white, $base-color-yellow, 90%);
         border: 1px solid $base-color-yellow;
 
         i {
@@ -297,7 +298,7 @@ html {
 
       &--error.is-light {
         color: $base-color-red;
-        background-color: rgba($base-color-red, 0.1);
+        background-color: mix($base-color-white, $base-color-red, 90%);
         border: 1px solid $base-color-red;
 
         i {
@@ -331,15 +332,6 @@ html {
         text-overflow: ellipsis;
         -webkit-line-clamp: 1;
         -webkit-box-orient: vertical;
-      }
-    }
-
-    /* el-image-viewer表格大图展示*/
-    .el-image-viewer {
-      &__close {
-        .el-icon-circle-close {
-          color: $base-color-white;
-        }
       }
     }
 
@@ -426,7 +418,12 @@ html {
         background-color: $base-color-white;
         border-color: $base-color-white;
         box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
-        .el-message__content,
+
+        .el-message__content {
+          padding-right: $base-padding;
+          color: #34495e;
+        }
+
         .el-icon-close {
           color: #34495e;
 
@@ -440,7 +437,7 @@ html {
         @include vab-hey-message;
 
         i {
-          color: $base-color-green;
+          color: $base-color-gray;
         }
       }
 

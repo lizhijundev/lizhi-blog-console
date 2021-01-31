@@ -153,10 +153,14 @@
     mounted() {
       this.form.username = 'admin'
       this.form.password = '123456'
-      // 为了演示效果，自动登录到首页
-      this.timer = setTimeout(() => {
-        this.handleLogin()
-      }, 5000)
+      // 为了演示效果，会在官网演示页自动登录到首页，正式开发可删除
+      if (
+        document.domain === 'vue-admin-beautiful.com' ||
+        document.domain === 'chu1204505056.gitee.io'
+      )
+        this.timer = setTimeout(() => {
+          this.handleLogin()
+        }, 5000)
     },
     methods: {
       ...mapActions({

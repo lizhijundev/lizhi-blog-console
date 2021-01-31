@@ -2,7 +2,7 @@
   <div class="step-form-container">
     <el-row :gutter="20">
       <el-col
-        :lg="{ span: 12, offset: 6 }"
+        :lg="{ span: 10, offset: 7 }"
         :md="{ span: 20, offset: 2 }"
         :sm="{ span: 20, offset: 2 }"
         :xl="{ span: 10, offset: 7 }"
@@ -54,8 +54,56 @@
 
 <style lang="scss" scoped>
   .step-form-container {
-    .el-steps {
-      margin-bottom: $base-margin;
+    :deep() {
+      .el-steps {
+        margin: $base-margin auto $base-margin * 2 auto;
+
+        .el-step__head.is-finish {
+          .el-step__icon.is-text {
+            color: $base-color-white;
+            background: $base-color-blue;
+          }
+
+          .el-step__line {
+            height: 1px;
+            background: $base-color-blue;
+          }
+        }
+
+        .el-step__head.is-process {
+          color: $base-color-blue;
+          border-color: $base-color-blue;
+
+          .el-step__icon.is-text {
+            color: $base-color-blue;
+            background: mix($base-color-white, $base-color-blue, 90%);
+            border: 1px solid;
+          }
+
+          .el-step__line {
+            height: 1px;
+          }
+        }
+
+        .el-step__title.is-process {
+          color: $base-color-blue;
+        }
+
+        .el-step__description.is-process {
+          color: $base-color-blue;
+        }
+
+        .el-step__head.is-wait {
+          .el-step__icon.is-text {
+            border: 1px solid;
+          }
+
+          .el-step__line {
+            height: 1px;
+            background: $base-color-blue;
+          }
+        }
+      }
     }
   }
 </style>

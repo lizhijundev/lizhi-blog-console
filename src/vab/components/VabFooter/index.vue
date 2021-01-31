@@ -13,9 +13,9 @@
     name: 'VabFooter',
     setup() {
       return {
-        fullYear: new Date().getFullYear(),
-        copyright,
         title,
+        copyright,
+        fullYear: new Date().getFullYear(),
       }
     },
   }

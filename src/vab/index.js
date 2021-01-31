@@ -1,14 +1,21 @@
 // 加载图标
 import '@/icon'
-// 加载样式
-import '@/vab/styles/vab.scss'
+// 加载组件
+import VabIcon from 'vab-icons'
+import 'vab-icons/lib/vab-icons.css'
 
 export function setupVab(app) {
+  // 加载组件
+  app.component('VabIcon', VabIcon)
+
   // 加载主题
   const requireTheme = require.context('@/vab/styles/themes', false, /\.scss$/)
   requireTheme.keys().forEach((fileName) => {
     requireTheme(fileName)
   })
+
+  // 加载全局样式样式（务必在加载主题后加载全局样式）
+  require('./styles/vab.scss')
 
   // 加载插件
   const requirePlugin = require.context('@/vab/plugins', true, /\.js$/)

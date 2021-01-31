@@ -42,7 +42,16 @@ const List = [
     price: '免费',
     label: ['spring-boot', 'vue-admin-beautiful'],
     company: 'OPSLI',
-    url: 'https://opsli.com',
+    url: 'http://demo.opsli.arcinbj.com/',
+  },
+  {
+    uuid: '@uuid',
+    title: 'artemis快速开发平台',
+    icon: 'compass-2-line',
+    price: '免费',
+    label: ['spring-boot', 'vue-admin-beautiful'],
+    company: '迈特云',
+    url: 'https://cloud.mate.vip/',
   },
 ]
 

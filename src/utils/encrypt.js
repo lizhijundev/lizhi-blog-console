@@ -34,7 +34,6 @@ export async function encryptedData(data) {
   encrypt.setPublicKey(
     `-----BEGIN PUBLIC KEY-----${publicKey}-----END PUBLIC KEY-----`
   )
-  data = encrypt.encrypt(JSON.stringify(data))
   let bufTmp = ''
   let hexTmp = ''
   let result = ''

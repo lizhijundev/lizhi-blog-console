@@ -35,11 +35,7 @@ export function setupGuard(router) {
       else next()
     } else {
       if (hasToken) {
-        const hasAccess =
-          store.getters['acl/admin'] ||
-          store.getters['acl/role'] ||
-          store.getters['acl/ability']
-        if (hasAccess) {
+        if (store.getters['user/isLogin']) {
           next()
         } else {
           try {

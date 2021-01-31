@@ -13,7 +13,7 @@ import store from '@/store'
 import qs from 'qs'
 import router from '@/router'
 import { isArray } from '@/utils/validate'
-import { ElMessage, ElLoading } from 'element-plus'
+import { ElLoading, ElMessage } from 'element-plus'
 
 let loadingInstance
 

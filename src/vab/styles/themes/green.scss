@@ -4,8 +4,8 @@
 
 .vab-theme-green {
   $base-menu-background: #16181d;
-  $base-menu-background-active: #009688;
   $base-color-blue: #009688;
+  $base-color-blue-light: mix($base-color-white, $base-color-blue, 90%);
 
   @mixin container {
     background: $base-menu-background !important;
@@ -18,12 +18,12 @@
   @mixin active {
     &:hover {
       color: $base-color-white !important;
-      background-color: $base-menu-background-active !important;
+      background-color: $base-color-blue !important;
     }
 
     &.is-active {
       color: $base-color-white !important;
-      background-color: $base-menu-background-active !important;
+      background-color: $base-color-blue !important;
     }
   }
 
@@ -44,12 +44,16 @@
 
   .column-bar-container.el-scrollbar {
     .el-tabs {
+      .el-tabs__nav-wrap.is-left {
+        @include container;
+      }
+
       .el-tabs__nav {
         @include container;
       }
 
       .el-tabs__item.is-active {
-        background: $base-menu-background-active !important;
+        background: $base-color-blue !important;
       }
     }
 
@@ -59,11 +63,11 @@
       .el-menu-item:hover,
       .el-submenu__title:hover {
         i {
-          color: $base-menu-background-active !important;
+          color: $base-color-blue !important;
         }
 
-        color: $base-menu-background-active !important;
-        background-color: rgba($base-color-blue, 0.1) !important;
+        color: $base-color-blue !important;
+        background-color: $base-color-blue-light !important;
       }
     }
   }
@@ -95,7 +99,7 @@
       }
     }
 
-    .side-bar-container,
+    .vab-side-bar,
     .comprehensive-bar-container {
       @include container;
 
@@ -118,7 +122,7 @@
       }
     }
 
-    .side-bar-container {
+    .vab-side-bar {
       @include container-common;
 
       .el-menu-item {
@@ -127,36 +131,34 @@
     }
   }
 
-  .top-bar-container {
+  .vab-header {
     @include container;
 
     .vab-main {
       @include container;
+    }
+  }
 
-      .right-panel {
-        .el-menu.el-menu {
-          &--horizontal {
-            .el-submenu,
-            .el-menu-item {
-              @include active;
+  .el-menu {
+    &--horizontal {
+      .el-submenu,
+      .el-menu-item {
+        @include active;
 
-              &.is-active {
-                background-color: $base-menu-background-active !important;
-              }
-            }
-          }
+        &.is-active {
+          background-color: $base-color-blue !important;
         }
       }
     }
   }
 
-  .tabs-bar-container {
-    .tabs-content-card {
+  .vab-tabs {
+    .vab-tabs-content-card {
       .el-tabs__header {
         .el-tabs__item {
           &.is-active {
             color: $base-color-blue !important;
-            background: rgba($base-color-blue, 0.1) !important;
+            background: $base-color-blue-light !important;
             border: 1px solid $base-color-blue !important;
           }
 
@@ -167,11 +169,11 @@
       }
     }
 
-    .tabs-content-smart {
+    .vab-tabs-content-smart {
       .el-tabs__header {
         .el-tabs__item {
           &.is-active {
-            background: rgba($base-color-blue, 0.1) !important;
+            background: $base-color-blue-light !important;
           }
 
           &:after {
@@ -179,22 +181,22 @@
           }
 
           &:hover {
-            background: rgba($base-color-blue, 0.1) !important;
+            background: $base-color-blue-light !important;
           }
         }
       }
     }
 
-    .tabs-content-smooth {
+    .vab-tabs-content-smooth {
       .el-tabs__header {
         .el-tabs__item {
           &.is-active {
             color: $base-color-blue !important;
-            background: rgba($base-color-blue, 0.1) !important;
+            background: $base-color-blue-light !important;
 
             &:hover {
               color: $base-color-blue !important;
-              background: rgba($base-color-blue, 0.1) !important;
+              background: $base-color-blue-light !important;
             }
           }
 
@@ -206,7 +208,7 @@
     }
   }
 
-  .nav-bar-container {
+  .vab-nav {
     .el-tabs__item.is-active,
     .el-tabs__item:hover {
       color: $base-color-blue !important;
@@ -214,12 +216,6 @@
 
     .el-tabs__active-bar {
       background-color: $base-color-blue !important;
-    }
-  }
-
-  .vab-theme-setting {
-    > div {
-      background: $base-color-blue !important;
     }
   }
 

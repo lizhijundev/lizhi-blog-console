@@ -43,7 +43,12 @@
                 </p>
               </div>
               <template #reference>
-                <el-button type="primary">获取源码 ￥699</el-button>
+                <a
+                  target="_blank"
+                  href="https://chu1204505056.gitee.io/authorization"
+                >
+                  <el-button type="primary">购买源码 ￥699</el-button>
+                </a>
               </template>
             </el-popover>
             <el-popover trigger="hover" :width="400">

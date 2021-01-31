@@ -117,7 +117,7 @@ export function translateDataToTree(data) {
     (value) => value.parentId === 'undefined' || value.parentId == null
   )
   const children = data.filter(
-    (value) => value.parentId !== 'undefined' && value.parentId != null
+    (value) => value.parentId !== 'undefined' && value.parentId !== null
   )
   const translator = (parent, children) => {
     parent.forEach((parent) => {

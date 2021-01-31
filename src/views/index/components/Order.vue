@@ -80,7 +80,6 @@
           <vab-chart
             :init-options="initOptions"
             :options="options"
-            autoresize
             theme="vab-echarts-theme"
             class="order-chart"
           />

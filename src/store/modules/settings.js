@@ -14,9 +14,10 @@ import {
   showProgressBar,
   showRefresh,
   showSearch,
-  showTabsBar,
+  showTabs,
   showTabsBarIcon,
   showTheme,
+  showThemeSetting,
   tabsBarStyle,
   themeName,
   title,
@@ -28,7 +29,7 @@ const defaultTheme = {
   columnStyle,
   fixedHeader,
   showProgressBar,
-  showTabsBar,
+  showTabs,
   tabsBarStyle,
   showTabsBarIcon,
   showLanguage,
@@ -37,6 +38,7 @@ const defaultTheme = {
   showTheme,
   showNotice,
   showFullScreen,
+  showThemeSetting,
 }
 const getLocalStorage = (key) => {
   const value = localStorage.getItem(key)
@@ -54,7 +56,7 @@ const state = () => ({
   device: 'desktop',
   collapse: collapse || false,
   language: language || i18n,
-  theme: getLocalStorage('theme') || defaultTheme,
+  theme: getLocalStorage('theme') || { ...defaultTheme },
 })
 const getters = {
   logo: (state) => state.logo,

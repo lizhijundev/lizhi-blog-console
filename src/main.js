@@ -10,7 +10,9 @@ const app = createApp(App)
 /**
  * @description 正式环境默认使用mock，正式项目记得注释后再打包
  */
-if (process.env.NODE_ENV === 'production') {
+import { baseURL } from './config'
+import { isExternal } from '@/utils/validate'
+if (process.env.NODE_ENV === 'production' && !isExternal(baseURL)) {
   const { mockXHR } = require('@/utils/static')
   mockXHR()
 }

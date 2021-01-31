@@ -71,7 +71,7 @@
     methods: {
       ...mapActions({
         changeMenuMeta: 'routes/changeMenuMeta',
-        changeTabsMeta: 'tabsBar/changeTabsMeta',
+        changeTabsMeta: 'tabs/changeTabsMeta',
       }),
       handleBadge(name) {
         let badge = this.badge + 1

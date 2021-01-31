@@ -26,9 +26,11 @@
 </template>
 
 <script>
-  import { translateTitle } from '@/utils/i18n'
+  import { computed } from 'vue'
+  import { useStore } from 'vuex'
+  import { useRoute, useRouter } from 'vue-router'
   import { isExternal } from '@/utils/validate'
-  import { mapActions, mapGetters } from 'vuex'
+  import { translateTitle } from '@/utils/i18n'
 
   export default {
     name: 'MenuItem',
@@ -40,31 +42,32 @@
         },
       },
     },
-    computed: {
-      ...mapGetters({
-        device: 'settings/device',
-      }),
-    },
-    methods: {
-      translateTitle,
-      ...mapActions({
-        foldSideBar: 'settings/foldSideBar',
-      }),
-      handleLink() {
-        const routePath = this.itemOrMenu.path
-        const target = this.itemOrMenu.meta.target
+    setup(props) {
+      const store = useStore()
+      const route = useRoute()
+      const router = useRouter()
+      const device = computed(() => store.getters['settings/device'])
+      const foldSideBar = () => store.dispatch('settings/foldSideBar')
+
+      const handleLink = () => {
+        const routePath = props.itemOrMenu.path
+        const target = props.itemOrMenu.meta.target
         if (target === '_blank') {
           if (isExternal(routePath)) window.open(routePath)
-          else if (this.$route.fullPath !== routePath)
-            window.open(routePath.href)
+          else if (route.fullPath !== routePath) window.open(routePath.href)
         } else {
           if (isExternal(routePath)) window.location.href = routePath
-          else if (this.$route.fullPath !== routePath) {
-            if (this.device === 'mobile') this.foldSideBar()
-            this.$router.push(routePath)
+          else if (route.fullPath !== routePath) {
+            if (device.value === 'mobile') foldSideBar()
+            router.push(routePath)
           }
         }
-      },
+      }
+
+      return {
+        handleLink,
+        translateTitle,
+      }
     },
   }
 </script>

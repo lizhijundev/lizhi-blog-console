@@ -38,3 +38,4 @@ package-lock.json
 public/video
 *.zip
 *.7z
+*.rar

@@ -7,15 +7,15 @@ module.exports = {
   // 主题名称：默认default、海洋之心ocean、绿荫草场green、碰触纯白white
   themeName: 'default',
   // 分栏风格(仅针对分栏布局column时生效)：横向风格horizontal、纵向风格vertical、卡片风格card
-  columnStyle: 'vertical',
+  columnStyle: 'card',
   // 是否固定头部固定
   fixedHeader: true,
   // 是否开启顶部进度条
   showProgressBar: true,
   // 是否开启标签页
-  showTabsBar: true,
+  showTabs: true,
   // 显示标签页时标签页样式：卡片风格card、灵动风格smart、圆滑风格smooth
-  tabsBarStyle: 'card',
+  tabsBarStyle: 'smooth',
   // 是否标签页图标
   showTabsBarIcon: true,
   // 是否开启语言选择组件
@@ -30,4 +30,6 @@ module.exports = {
   showNotice: true,
   // 是否开启全屏组件
   showFullScreen: true,
+  // 是否开启右侧悬浮窗
+  showThemeSetting: true,
 }

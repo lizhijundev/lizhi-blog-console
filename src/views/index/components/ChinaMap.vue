@@ -10,7 +10,6 @@
     <vab-chart
       :init-options="initOptions"
       :options="options"
-      autoresize
       theme="vab-echarts-theme"
       style="height: 320px"
     />
