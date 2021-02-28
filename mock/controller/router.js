@@ -19,7 +19,7 @@ const data = [
         meta: {
           title: '首页',
           icon: 'home-2-line',
-          affix: true,
+          noClosable: true,
         },
       },
       {
@@ -102,6 +102,7 @@ const data = [
             component: '@/views/vab/table/comprehensiveTable',
             meta: {
               title: '综合表格',
+              badge: 'Pro',
             },
           },
           {
@@ -112,6 +113,7 @@ const data = [
             meta: {
               title: '详情页',
               activeMenu: '/vab/table/comprehensiveTable',
+              dynamicNewTab: true,
             },
           },
           {
@@ -129,6 +131,7 @@ const data = [
             component: '@/views/vab/table/customTable',
             meta: {
               title: '自定义表格',
+              badge: 'Pro',
             },
           },
         ],
@@ -248,7 +251,7 @@ const data = [
         children: [
           {
             path: 'test1/:id',
-            name: 'test1/:id',
+            name: 'Test1',
             component: '@/views/vab/dynamicSegment/test1',
             hidden: true,
             meta: {
@@ -277,36 +280,6 @@ const data = [
             name: 'test2?id=1',
             component: '@/views/vab/dynamicSegment/test2',
             meta: { title: 'Query id=1' },
-          },
-        ],
-      },
-      {
-        path: 'drag',
-        name: 'Drag',
-        component: '@/views/vab/drag',
-        redirect: '/vab/drag/dialogDrag',
-        meta: {
-          title: '拖拽',
-          roles: ['admin'],
-          icon: 'drag-drop-line',
-        },
-        children: [
-          {
-            path: 'cardDrag',
-            name: 'CardDrag',
-            component: '@/views/vab/drag/cardDrag',
-            meta: {
-              title: '卡片拖拽',
-            },
-          },
-          {
-            path: 'flowSheetDrag',
-            name: 'FlowSheetDrag',
-            component: '@/views/vab/drag/flowSheetDrag',
-            meta: {
-              title: '流程图拖拽',
-              noKeepAlive: true,
-            },
           },
         ],
       },
@@ -435,7 +408,6 @@ const data = [
         meta: {
           title: '外链',
           target: '_blank',
-          // 等价roles: ['admin', 'editor'],
           roles: {
             role: ['admin', 'editor'],
             mode: 'oneOf',
@@ -447,11 +419,47 @@ const data = [
         path: 'iframe',
         name: 'Iframe',
         component: '@/views/vab/iframe',
+        redirect: '/vab/iframe/search',
         meta: {
           title: 'Iframe',
           roles: ['admin'],
           icon: 'window-line',
         },
+        children: [
+          {
+            path: 'view',
+            name: 'IframeView',
+            component: '@/views/vab/iframe/view',
+            hidden: true,
+            meta: {
+              title: 'Iframe',
+              icon: 'window-line',
+              dynamicNewTab: true,
+            },
+          },
+          {
+            path: 'view?url=https%3A%2Fwww.baidu.com&title=%E7%99%BE%E5%BA%A6',
+            name: 'baiduIframe',
+            component: '@/views/vab/iframe/view',
+            meta: { title: '百度', icon: 'baidu-fill' },
+          },
+          {
+            path:
+              'view?url=https%3A%2Fgitee.com%2Fchu1204505056%2Fvue-admin-beautiful&title=Gitee',
+            name: 'githubIframe',
+            component: '@/views/vab/iframe/view',
+            meta: { title: 'Gitee', icon: 'github-fill' },
+          },
+          {
+            path: 'search',
+            name: 'IframeSearch',
+            component: '@/views/vab/iframe/search',
+            meta: {
+              title: '自定义Iframe',
+              icon: 'search-2-line',
+            },
+          },
+        ],
       },
       {
         path: 'excel',

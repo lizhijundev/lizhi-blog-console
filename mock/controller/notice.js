@@ -3,7 +3,7 @@ const data = [
     email: '@email',
     image: 'https://i.gtimg.cn/club/item/face/img//8/15918_100.gif',
     notice:
-      'Admin Plus（vue3.0）体验地址（不代表最终效果，2021年2月28日前全款购买pro的用户可免费升级）：<a target="_blank" href="http://chu1204505056.gitee.io/admin-plus?hmsr=noticeAd&hmpl=&hmcu=&hmkw=&hmci=">点我</a>',
+      'Vab Admin Plus（vue3.0）体验地址（不代表最终效果，2021年2月28日前全款购买pro的用户可免费升级）：<a target="_blank" href="http://chu1204505056.gitee.io/admin-plus?hmsr=noticeAd&hmpl=&hmcu=&hmkw=&hmci=">点我</a>',
   },
   {
     email: '@email',
@@ -39,7 +39,7 @@ const data = [
     email: '@email',
     image: 'https://i.gtimg.cn/club/item/face/img/9/15919_100.gif',
     notice:
-      "gitee开源地址：<a target='_blank' href='http://beautiful.panm.cn/vue-admin-beautiful?hmsr=noticeAd&hmpl=&hmcu=&hmkw=&hmci='>点我</a>",
+      "gitee开源地址：<a target='_blank' href='https://gitee.com/chu1204505056/vue-admin-beautiful?_from=gitee_search'>点我</a>",
   },
 ]
 module.exports = [

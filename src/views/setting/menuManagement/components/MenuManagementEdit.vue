@@ -1,7 +1,7 @@
 <template>
   <el-dialog
-    :title="title"
     v-model="dialogFormVisible"
+    :title="title"
     width="60%"
     @close="close"
   >
@@ -51,8 +51,8 @@
       <el-form-item label="自定义svg图标" prop="isCustomSvg">
         <el-switch v-model="form.meta.isCustomSvg" />
       </el-form-item>
-      <el-form-item label="固定" prop="affix">
-        <el-switch v-model="form.meta.affix" />
+      <el-form-item label="固定" prop="noClosable">
+        <el-switch v-model="form.meta.noClosable" />
       </el-form-item>
       <el-form-item label="无缓存" prop="noKeepAlive">
         <el-switch v-model="form.meta.noKeepAlive" />
@@ -75,6 +75,7 @@
   export default {
     name: 'MenuManagementEdit',
     components: { VabIconSelector },
+    emits: ['fetch-data'],
     data() {
       return {
         form: {
@@ -99,7 +100,6 @@
         dialogFormVisible: false,
       }
     },
-    emits: ['fetch-data'],
     methods: {
       handleIcon(item) {
         this.form.meta.icon = item

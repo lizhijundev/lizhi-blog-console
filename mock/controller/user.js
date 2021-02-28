@@ -1,7 +1,8 @@
+const { Random } = require('mockjs')
 const tokens = {
-  admin: 'admin-token',
-  editor: 'editor-token',
-  test: 'test-token',
+  admin: `admin-token-${Random.guid()}`,
+  editor: `editor-token-${Random.guid()}`,
+  test: `test-token-${Random.guid()}`,
 }
 
 module.exports = [
@@ -70,21 +71,22 @@ module.exports = [
     url: '/userInfo',
     type: 'get',
     response(config) {
-      const { token } = config.headers
+      const authorization =
+        config.headers.authorization || config.headers.Authorization
       let roles = ['admin']
       let ability = ['READ']
       let username = 'admin'
-      if ('admin-token' === token) {
+      if (authorization.includes('admin-token')) {
         roles = ['admin']
         ability = ['READ', 'WRITE', 'DELETE']
         username = 'admin'
       }
-      if ('editor-token' === token) {
+      if (authorization.includes('editor-token')) {
         roles = ['editor']
         ability = ['READ', 'WRITE']
         username = 'editor'
       }
-      if ('test-token' === token) {
+      if (authorization.includes('test-token')) {
         roles = ['admin', 'editor']
         ability = ['READ']
         username = 'test'

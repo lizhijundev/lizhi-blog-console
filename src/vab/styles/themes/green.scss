@@ -153,6 +153,17 @@
   }
 
   .vab-tabs {
+    &-more {
+      &:hover {
+        .vab-tabs-more-icon {
+          .box:before,
+          .box:after {
+            background: $base-color-blue !important;
+          }
+        }
+      }
+    }
+
     .vab-tabs-content-card {
       .el-tabs__header {
         .el-tabs__item {

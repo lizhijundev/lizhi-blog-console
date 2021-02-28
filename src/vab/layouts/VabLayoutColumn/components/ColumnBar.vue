@@ -72,8 +72,8 @@
       const store = useStore()
       const route = useRoute()
       const router = useRouter()
-      const extra = computed(() => store.getters['routes/extra'])
       const routes = computed(() => store.getters['routes/routes'])
+      const extra = computed(() => store.getters['settings/extra'])
       const theme = computed(() => store.getters['settings/theme'])
       const collapse = computed(() => store.getters['settings/collapse'])
 
@@ -83,16 +83,16 @@
         return routes.value.filter((item) => item.hidden !== true && item.meta)
       })
       const handlePartialRoutes = computed(() => {
-        return extra.value.first
-          ? routes.value.find((item) => item.name === extra.value.first)
-              .children
-          : []
+        const activeMenu = routes.value.find(
+          (_) => _.name === extra.value.first
+        )
+        return activeMenu ? activeMenu.children : []
       })
       const handleGroupTitle = computed(() => {
-        const group = routes.value.find(
-          (item) => item.name === extra.value.first
+        const activeMenu = routes.value.find(
+          (_) => _.name === extra.value.first
         )
-        return group ? group.meta.title : ''
+        return activeMenu ? activeMenu.meta.title : ''
       })
 
       const handleTabClick = (handler) => {

@@ -307,13 +307,6 @@ html {
       }
     }
 
-    /* el-dropdown-menu */
-    .el-dropdown-menu__item {
-      [class*='ri-'] {
-        margin-right: 0;
-      }
-    }
-
     /* markdown编辑器*/
     .editor-toolbar {
       .no-mobile,
@@ -363,7 +356,6 @@ html {
       th {
         position: relative;
         box-sizing: border-box;
-        padding: 7.5px 0;
 
         .cell {
           font-size: $base-font-size-default;

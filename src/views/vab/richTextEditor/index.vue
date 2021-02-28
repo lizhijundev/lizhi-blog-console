@@ -12,6 +12,7 @@
       </el-form-item>
       <el-form-item class="vab-quill-content" label="内容" prop="content">
         <vab-quill
+          ref="vab-quill"
           v-model="form.content"
           :min-height="400"
           :options="options"
@@ -123,6 +124,11 @@
           readOnly: false,
         },
       }
+    },
+    mounted() {
+      // this.$nextTick(() => {
+      //   console.log(this.$refs['vab-quill'].Quill)
+      // })
     },
     methods: {
       handlePreview() {

@@ -3,7 +3,19 @@ module.exports = {
   env: {
     node: true,
   },
-  extends: ['plugin:vue/vue3-essential', 'eslint:recommended', '@vue/prettier'],
+  extends: [
+    'plugin:vue/vue3-recommended',
+    'eslint:recommended',
+    '@vue/prettier',
+  ],
+  parser: 'vue-eslint-parser',
+  parserOptions: {
+    ecmaVersion: 2020,
+    sourceType: 'module',
+    ecmaFeatures: {
+      jsx: true,
+    },
+  },
   rules: {
     'no-console': 'off',
     'no-debugger': 'off',
@@ -20,9 +32,6 @@ module.exports = {
         math: 'always',
       },
     ],
-  },
-  parserOptions: {
-    parser: 'babel-eslint',
   },
   overrides: [
     {

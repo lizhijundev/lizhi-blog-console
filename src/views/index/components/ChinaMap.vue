@@ -11,7 +11,7 @@
       :init-options="initOptions"
       :options="options"
       theme="vab-echarts-theme"
-      style="height: 320px"
+      style="height: 283px"
     />
   </el-card>
 </template>

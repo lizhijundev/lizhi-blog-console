@@ -20,10 +20,10 @@
           <td>{{ dependencies['vue-router'] }}</td>
         </tr>
         <tr>
+          <td>vue-i18n</td>
+          <td>{{ dependencies['vue-i18n'] }}</td>
           <td>element-plus</td>
           <td>{{ dependencies['element-plus'] }}</td>
-          <td>axios</td>
-          <td>{{ dependencies['axios'] }}</td>
         </tr>
         <tr>
           <td>授权渠道</td>
@@ -31,13 +31,11 @@
             <el-popover trigger="hover" :width="400">
               <div style="text-align: center">
                 <el-image
-                  :src="require('@/assets/skm.jpg')"
+                  src="https://gitee.com/chu1204505056/image/raw/master/zfb_799.jpg"
                   style="width: 200px"
                 />
                 <p style="font-size: 13px">
-                  付款后加QQ 1204505056
-                  获取下载权限，是否购买pro填是即可(赠送VIP专属问题解答群，包含PRO详细文档、PRO基础版源码、PRO标准版源码、绑定git后拥有随时克隆及更新权限、跟进Vue3.x
-                  +
+                  付款后加QQ 1204505056 Vue3.x +
                   element-plus，拥有完整的登录鉴权和前后端多种配置的动态路由流程，仅限自己及团队使用，源码不得二次出售转卖，恶意分享取消使用资格
                   )
                 </p>
@@ -47,23 +45,8 @@
                   target="_blank"
                   href="https://chu1204505056.gitee.io/authorization"
                 >
-                  <el-button type="primary">购买源码 ￥699</el-button>
+                  <el-button type="primary">购买源码 ￥799</el-button>
                 </a>
-              </template>
-            </el-popover>
-            <el-popover trigger="hover" :width="400">
-              <div style="text-align: center">
-                <el-image
-                  :src="require('@/assets/skm3.jpg')"
-                  style="width: 200px"
-                />
-                <p style="font-size: 13px">
-                  付款后加QQ 1204505056
-                  获取VIP群加群资格，是否购买VIP填是即可(包含开源版及PRO版技术支持、开源版及PRO版问题解答、开源版详细文档，PRO版用户(已付699)无需购买此项!!!(此项不包含PRO版源码))
-                </p>
-              </div>
-              <template #reference>
-                <el-button type="primary">开源版技术支持</el-button>
               </template>
             </el-popover>
             <a

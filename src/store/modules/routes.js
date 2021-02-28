@@ -9,12 +9,10 @@ import { isArray } from '@/utils/validate'
 import { ElMessage } from 'element-plus'
 
 const state = () => ({
-  extra: { first: null, refreshRoutePath: '' },
   routes: [],
   cachedRoutes: [],
 })
 const getters = {
-  extra: (state) => state.extra,
   routes: (state) => state.routes,
   cachedRoutes: (state) => state.cachedRoutes,
 }

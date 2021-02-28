@@ -7,7 +7,7 @@ import {
   requestTimeout,
   statusName,
   successCode,
-  tokenName,
+  // tokenName,
 } from '@/config'
 import store from '@/store'
 import qs from 'qs'
@@ -95,7 +95,13 @@ const instance = axios.create({
 instance.interceptors.request.use(
   (config) => {
     const token = store.getters['user/token']
-    if (token) config.headers[tokenName] = token
+
+    // 不规范写法 可根据setting.config.js tokenName配置随意自定义headers
+    // if (token) config.headers[tokenName] = token
+
+    // 规范写法 不可随意自定义
+    if (token) config.headers['Authorization'] = `Bearer ${token}`
+
     if (
       config.data &&
       config.headers['Content-Type'] ===

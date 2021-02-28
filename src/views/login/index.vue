@@ -96,18 +96,14 @@
     },
     data() {
       const validateUsername = (rule, value, callback) => {
-        if ('' === value) {
+        if ('' === value)
           callback(new Error(this.translateTitle('用户名不能为空')))
-        } else {
-          callback()
-        }
+        else callback()
       }
       const validatePassword = (rule, value, callback) => {
-        if (!isPassword(value)) {
+        if (!isPassword(value))
           callback(new Error(this.translateTitle('密码不能少于6位')))
-        } else {
-          callback()
-        }
+        else callback()
       }
       return {
         nodeEnv: process.env.NODE_ENV,

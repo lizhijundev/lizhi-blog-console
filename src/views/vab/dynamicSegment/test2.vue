@@ -26,7 +26,7 @@
         this.changeTabsMeta({
           title: 'Query',
           meta: {
-            title: `Query Id: ${this.$route.query.id}`,
+            title: `Query Id=${this.$route.query.id}`,
           },
         })
         this.route = {

@@ -22,7 +22,7 @@
                   :is-custom-svg="item.meta.isCustomSvg"
                   style="min-width: 16px"
                 />
-                <span>{{ translateTitle(item.meta.title) }}</span>
+                {{ translateTitle(item.meta.title) }}
               </template>
             </el-tab-pane>
           </el-tabs>
@@ -64,17 +64,17 @@
       const store = useStore()
       const route = useRoute()
       const router = useRouter()
-      const extra = computed(() => store.getters['routes/extra'])
+      const extra = computed(() => store.getters['settings/extra'])
       const routes = computed(() => store.getters['routes/routes'])
 
       const handleRoutes = computed(() => {
         return routes.value.filter((item) => item.hidden !== true && item.meta)
       })
       const handlePartialRoutes = computed(() => {
-        return extra.value.first
-          ? routes.value.find((item) => item.name === extra.value.first)
-              .children
-          : []
+        const activeMenu = routes.value.find(
+          (_) => _.name === extra.value.first
+        )
+        return activeMenu ? activeMenu.children : []
       })
 
       const handleTabClick = (handler) => {

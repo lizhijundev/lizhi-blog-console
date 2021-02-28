@@ -14,61 +14,109 @@
       <el-tab-pane
         v-for="item in visitedRoutes"
         :key="item.path"
-        :closable="!isAffix(item)"
+        :closable="!isNoCLosable(item)"
         :name="item.path"
       >
         <template #label>
-          <span v-if="theme.showTabsBarIcon">
-            <vab-icon
-              v-if="item.meta && item.meta.icon"
-              :icon="item.meta.icon"
-              :is-custom-svg="item.meta.isCustomSvg"
-            />
-            <!--  如果没有图标那么取第二级的图标 -->
-            <vab-icon v-else :icon="item.parentIcon" />
-          </span>
-          <span>
-            {{ translateTitle(item.meta.title) }}
+          <span
+            style="display: inline-block"
+            @contextmenu.prevent="openMenu($event, item)"
+          >
+            <template v-if="theme.showTabsBarIcon">
+              <vab-icon
+                v-if="item.meta && item.meta.icon"
+                :icon="item.meta.icon"
+                :is-custom-svg="item.meta.isCustomSvg"
+              />
+              <!--  如果没有图标那么取第二级的图标 -->
+              <vab-icon v-else :icon="item.parentIcon" />
+            </template>
+            <span>
+              {{ translateTitle(item.meta.title) }}
+            </span>
           </span>
         </template>
       </el-tab-pane>
     </el-tabs>
 
     <el-dropdown @command="handleCommand" @visible-change="handleVisibleChange">
-      <span class="more">
-        {{ translateTitle('更多') }}
-        <vab-icon
-          :class="{ 'vab-dropdown-active': active }"
-          class="vab-dropdown"
-          icon="arrow-down-s-line"
-        />
+      <span class="vab-tabs-more">
+        <span class="vab-tabs-more-icon">
+          <i class="box box-t"></i>
+          <i class="box box-b"></i>
+        </span>
       </span>
       <template #dropdown>
         <el-dropdown-menu class="tabs-more">
           <el-dropdown-item command="closeOthersTabs">
             <vab-icon icon="close-line" />
-            {{ translateTitle('关闭其他') }}
+            <span>
+              {{ translateTitle('关闭其他') }}
+            </span>
           </el-dropdown-item>
           <el-dropdown-item command="closeLeftTabs">
             <vab-icon icon="arrow-left-line" />
-            {{ translateTitle('关闭左侧') }}
+            <span>
+              {{ translateTitle('关闭左侧') }}
+            </span>
           </el-dropdown-item>
           <el-dropdown-item command="closeRightTabs">
             <vab-icon icon="arrow-right-line" />
-            {{ translateTitle('关闭右侧') }}
+            <span>
+              {{ translateTitle('关闭右侧') }}
+            </span>
           </el-dropdown-item>
           <el-dropdown-item command="closeAllTabs">
             <vab-icon icon="close-line" />
-            {{ translateTitle('关闭全部') }}
+            <span>
+              {{ translateTitle('关闭全部') }}
+            </span>
           </el-dropdown-item>
         </el-dropdown-menu>
       </template>
     </el-dropdown>
+    <ul
+      v-if="visible"
+      :style="{ left: left + 'px', top: top + 'px' }"
+      class="contextmenu el-dropdown-menu el-dropdown-menu--small"
+    >
+      <li
+        :class="{ 'is-disabled': visitedRoutes.length === 1 }"
+        class="el-dropdown-menu__item"
+        @click="closeOthersTabs"
+      >
+        <vab-icon icon="close-line" />
+        <span>{{ translateTitle('关闭其他') }}</span>
+      </li>
+      <li
+        :class="{ 'is-disabled': !visitedRoutes.indexOf(hoverRoute) }"
+        class="el-dropdown-menu__item"
+        @click="closeLeftTabs"
+      >
+        <vab-icon icon="arrow-left-line" />
+        <span>{{ translateTitle('关闭左侧') }}</span>
+      </li>
+      <li
+        :class="{
+          'is-disabled':
+            visitedRoutes.indexOf(hoverRoute) === visitedRoutes.length - 1,
+        }"
+        class="el-dropdown-menu__item"
+        @click="closeRightTabs"
+      >
+        <vab-icon icon="arrow-right-line" />
+        <span>{{ translateTitle('关闭右侧') }}</span>
+      </li>
+      <li class="el-dropdown-menu__item" @click="closeAllTabs">
+        <vab-icon icon="close-line" />
+        <span>{{ translateTitle('关闭全部') }}</span>
+      </li>
+    </ul>
   </div>
 </template>
 
 <script>
-  import { computed, ref, watchEffect } from 'vue'
+  import { computed, getCurrentInstance, ref, watchEffect } from 'vue'
   import { useStore } from 'vuex'
   import { useRoute, useRouter } from 'vue-router'
   import { translateTitle } from '@/utils/i18n'
@@ -86,6 +134,7 @@
       const store = useStore()
       const route = useRoute()
       const router = useRouter()
+      const { ctx } = getCurrentInstance()
       const theme = computed(() => store.getters['settings/theme'])
       const routes = computed(() => store.getters['routes/routes'])
       const visitedRoutes = computed(() => store.getters['tabs/visitedRoutes'])
@@ -105,11 +154,16 @@
       const tabActive = ref('')
       const active = ref(false)
 
+      const hoverRoute = ref(null)
+      const visible = ref(false)
+      const top = ref(0)
+      const left = ref(0)
+
       const isActive = (path) => {
         return path === handleActivePath(route, true)
       }
-      const isAffix = (tag) => {
-        return tag.meta && tag.meta.affix
+      const isNoCLosable = (tag) => {
+        return tag.meta && tag.meta.noCLosable
       }
       const handleTabClick = (tab) => {
         if (!isActive(tab.name)) router.push(visitedRoutes.value[tab.index])
@@ -117,10 +171,10 @@
       const handleVisibleChange = (val) => {
         active.value = val
       }
-      const initAffixTabs = (routes) => {
+      const initNoCLosableTabs = (routes) => {
         routes.forEach((route) => {
-          if (route.meta && route.meta.affix) addTabs(route, true)
-          if (route.children) initAffixTabs(route.children)
+          if (route.meta && route.meta.noCLosable) addTabs(route, true)
+          if (route.children) initNoCLosableTabs(route.children)
         })
       }
       /**
@@ -140,9 +194,7 @@
             query: tag.query,
             params: tag.params,
             name: tag.name,
-            matched: init
-              ? [tag.name]
-              : tag.matched.map((item) => item.components.default.name),
+            matched: init ? [tag.name] : tag.matched.map((item) => item.name),
             parentIcon,
             meta: { ...tag.meta },
           })
@@ -155,8 +207,8 @@
        * @returns {Promise<void>}
        */
       const handleTabRemove = async (rawPath) => {
+        if (isActive(rawPath)) await toLastTab()
         await delVisitedRoute(rawPath)
-        if (isActive(rawPath)) toLastTab()
       }
       const handleCommand = (command) => {
         switch (command) {
@@ -179,21 +231,33 @@
        * @returns {Promise<void>}
        */
       const closeOthersTabs = async () => {
-        await delOthersVisitedRoutes(handleActivePath(route, true))
+        if (hoverRoute.value) {
+          await router.push(hoverRoute.value)
+          await delOthersVisitedRoutes(hoverRoute.value.path)
+        } else await delOthersVisitedRoutes(handleActivePath(route, true))
+        await closeMenu()
       }
       /**
        * 删除左侧标签页
        * @returns {Promise<void>}
        */
       const closeLeftTabs = async () => {
-        await delLeftVisitedRoutes(handleActivePath(route, true))
+        if (hoverRoute.value) {
+          await router.push(hoverRoute.value)
+          await delLeftVisitedRoutes(hoverRoute.value.path)
+        } else await delLeftVisitedRoutes(handleActivePath(route, true))
+        await closeMenu()
       }
       /**
        * 删除右侧标签页
        * @returns {Promise<void>}
        */
       const closeRightTabs = async () => {
-        await delRightVisitedRoutes(handleActivePath(route, true))
+        if (hoverRoute.value) {
+          await router.push(hoverRoute.value)
+          await delRightVisitedRoutes(hoverRoute.value.path)
+        } else await delRightVisitedRoutes(handleActivePath(route, true))
+        await closeMenu()
       }
       /**
        * 删除所有标签页
@@ -201,30 +265,63 @@
        */
       const closeAllTabs = async () => {
         await delAllVisitedRoutes()
-        toLastTab()
+        await toLastTab()
+        await closeMenu()
       }
       /**
        * 跳转最后一个标签页
        */
-      const toLastTab = () => {
-        const latestView = visitedRoutes.value.slice(-1)[0]
-        if (latestView) router.push(latestView)
-        else router.push('/')
+      const toLastTab = async () => {
+        const latestView = visitedRoutes.value
+          .filter((_) => _.path !== handleActivePath(route, true))
+          .slice(-1)[0]
+        if (latestView) await router.push(latestView)
+        else await router.push('/')
+      }
+      const openMenu = (e, item) => {
+        const offsetLeft = ctx.$el.getBoundingClientRect().left
+        const offsetWidth = ctx.$el.offsetWidth
+        const maxLeft = Math.round(offsetWidth)
+        const leftTemp = Math.round(e.clientX - offsetLeft)
+        if (leftTemp > maxLeft) left.value = maxLeft
+        else left.value = leftTemp
+        top.value = Math.round(e.clientY - 65)
+        hoverRoute.value = item
+        hoverRoute.value.fullPath = item.path
+        visible.value = true
+      }
+      const closeMenu = () => {
+        visible.value = false
+        hoverRoute.value = null
       }
 
-      initAffixTabs(routes.value)
+      initNoCLosableTabs(routes.value)
 
       watchEffect(() => {
         addTabs(route)
       })
+      watchEffect(() => {
+        if (visible.value) document.body.addEventListener('click', closeMenu)
+        else document.body.removeEventListener('click', closeMenu)
+      })
 
       return {
+        top,
+        left,
         theme,
         active,
-        isAffix,
+        visible,
+        openMenu,
+        closeMenu,
         tabActive,
+        hoverRoute,
+        isNoCLosable,
         visitedRoutes,
         handleCommand,
+        closeOthersTabs,
+        closeLeftTabs,
+        closeRightTabs,
+        closeAllTabs,
         handleTabClick,
         translateTitle,
         handleTabRemove,
@@ -242,7 +339,7 @@
     align-content: center;
     align-items: center;
     justify-content: space-between;
-    height: $base-tabs-height;
+    min-height: $base-tabs-height;
     padding-right: $base-padding;
     padding-left: $base-padding;
     user-select: none;
@@ -253,10 +350,14 @@
       .fold-unfold {
         margin-right: $base-margin;
       }
+
+      [class*='ri'] {
+        margin-right: 3px;
+      }
     }
 
-    .vab-tabs-content {
-      width: calc(100% - 60px);
+    &-content {
+      width: calc(100% - 40px);
 
       &-card {
         height: $base-tag-item-height;
@@ -288,6 +389,7 @@
                 color: $base-color-blue;
                 background: mix($base-color-white, $base-color-blue, 90%);
                 border: 1px solid $base-color-blue;
+                outline: none;
               }
 
               &:hover {
@@ -320,10 +422,12 @@
               margin-right: 5px;
               line-height: $base-tag-item-height;
               border: 0;
+              outline: none;
               transition: padding 0.3s cubic-bezier(0.645, 0.045, 0.355, 1) !important;
 
               &.is-active {
                 background: mix($base-color-white, $base-color-blue, 90%);
+                outline: none;
 
                 &:after {
                   width: 100%;
@@ -379,14 +483,15 @@
               margin-right: -18px;
               line-height: $base-tag-item-height + 4;
               text-align: center;
-              text-align: center;
               border: 0;
+              outline: none;
               transition: padding 0.3s cubic-bezier(0.645, 0.045, 0.355, 1) !important;
 
               &.is-active {
                 padding: 0 30px 0 30px;
                 color: $base-color-blue;
                 background: mix($base-color-white, $base-color-blue, 90%);
+                outline: none;
                 mask: url('~@/assets/tabs_images/vab-tab.png');
                 mask-size: 100% 100%;
 
@@ -412,11 +517,71 @@
       }
     }
 
-    .more {
-      display: flex;
-      align-content: center;
-      align-items: center;
-      cursor: pointer;
+    .contextmenu {
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: 10;
+    }
+
+    &-more {
+      position: relative;
+      &:hover {
+        &:after {
+          position: absolute;
+          bottom: -1px;
+          left: 0;
+          height: 0;
+          content: '';
+        }
+        .vab-tabs-more-icon {
+          transform: rotate(90deg);
+          .box-t {
+            &:before {
+              transform: rotate(45deg);
+            }
+          }
+          .box:before,
+          .box:after {
+            background: $base-color-blue;
+          }
+        }
+      }
+      &-icon {
+        display: inline-block;
+        color: #9a9a9a;
+        cursor: pointer;
+        transition: transform 0.3s ease-out;
+        .box {
+          position: relative;
+          display: block;
+          width: 14px;
+          height: 8px;
+          &:before {
+            position: absolute;
+            top: 0;
+            left: 0px;
+            width: 6px;
+            height: 6px;
+            content: '';
+            background: #9a9a9a;
+          }
+          &:after {
+            position: absolute;
+            top: 0;
+            left: 8px;
+            width: 6px;
+            height: 6px;
+            content: '';
+            background: #9a9a9a;
+          }
+        }
+        .box-t {
+          &:before {
+            transition: transform 0.3s ease-out 0.3s;
+          }
+        }
+      }
     }
   }
 </style>

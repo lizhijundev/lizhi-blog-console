@@ -30,6 +30,7 @@
 
 <script>
   export default {
+    emits: ['change-step'],
     data() {
       return {
         form: {

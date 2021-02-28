@@ -48,12 +48,12 @@
             url:
               'https://github.com/chuzhixin/vue-admin-beautiful/tree/vue3.0-antdv',
           },
-          {
+          /* {
             image: require('@/assets/index_images/image.jpg'),
             title: 'vue-admin-beautiful-template',
             description: '基础版',
             url: 'https://github.com/chuzhixin/vue-admin-beautiful-template',
-          },
+          }, */
         ],
       }
     },

@@ -20,8 +20,8 @@
             <div class="bullshit-oops">{{ oops }}</div>
             <div class="bullshit-headline">{{ headline }}</div>
             <div class="bullshit-info">{{ info }}</div>
-            <router-link to="/" custom v-slot="{ navigate }">
-              <a @click="navigate" class="bullshit-return-home">
+            <router-link v-slot="{ navigate }" to="/" custom>
+              <a class="bullshit-return-home" @click="navigate">
                 {{ jumpTime }}s&nbsp;{{ btn }}
               </a>
             </router-link>

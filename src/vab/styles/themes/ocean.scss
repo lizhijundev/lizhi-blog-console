@@ -129,7 +129,9 @@ body.vab-theme-ocean {
     background-color: $base-color-blue !important;
   }
   .el-menu {
-    background-color: $base-color-blue !important;
+    &--popup-bottom-start {
+      background-color: $base-color-blue !important;
+    }
 
     &--horizontal {
       .el-submenu,

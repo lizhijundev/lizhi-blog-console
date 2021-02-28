@@ -1,15 +1,7 @@
 <template>
-  <div class="custom-table-container">
+  <div ref="custom-table" class="custom-table-container">
     <vab-query-form>
       <vab-query-form-left-panel>
-        <el-button icon="el-icon-plus" type="primary" @click="handleAdd">
-          添加
-        </el-button>
-        <el-button icon="el-icon-delete" type="danger" @click="handleDelete">
-          删除
-        </el-button>
-      </vab-query-form-left-panel>
-      <vab-query-form-right-panel>
         <el-form
           ref="form"
           :inline="true"
@@ -29,16 +21,90 @@
             >
               查询
             </el-button>
+            <el-button icon="el-icon-plus" type="primary" @click="handleAdd">
+              添加
+            </el-button>
+            <el-button
+              icon="el-icon-delete"
+              type="danger"
+              @click="handleDelete"
+            >
+              删除
+            </el-button>
           </el-form-item>
         </el-form>
+      </vab-query-form-left-panel>
+      <vab-query-form-right-panel>
+        <div class="stripe-panel">
+          <el-checkbox v-model="stripe">斑马纹</el-checkbox>
+        </div>
+        <div class="border-panel">
+          <el-checkbox v-model="border">边框（可拉伸列）</el-checkbox>
+        </div>
+        <el-button
+          style="margin: 0 10px 10px 0 !important"
+          plain
+          type="primary"
+          @click="clickFullScreen"
+        >
+          <vab-icon
+            :icon="isFullscreen ? 'fullscreen-exit-fill' : 'fullscreen-fill'"
+          />
+          表格全屏
+        </el-button>
+        <el-popover popper-class="custom-table-checkbox" trigger="hover">
+          <el-radio-group v-model="lineHeight">
+            <el-radio label="medium">大</el-radio>
+            <el-radio label="small">中</el-radio>
+            <el-radio label="mini">小</el-radio>
+          </el-radio-group>
+          <template #reference>
+            <el-button
+              style="margin: 0 10px 10px 0 !important"
+              plain
+              type="primary"
+            >
+              <vab-icon icon="line-height" />
+              表格尺寸
+            </el-button>
+          </template>
+        </el-popover>
+        <el-popover popper-class="custom-table-checkbox" trigger="hover">
+          <el-checkbox-group v-model="checkList">
+            <vab-draggable v-bind="dragOptions" :list="columns">
+              <el-checkbox
+                v-for="(item, index) in columns"
+                :key="item + index"
+                :disabled="item.disableCheck === true"
+                :label="item.label"
+              >
+                <vab-icon icon="drag-drop-line" />
+                {{ item.label }}
+              </el-checkbox>
+            </vab-draggable>
+          </el-checkbox-group>
+          <template #reference>
+            <el-button
+              style="margin: 0 0 10px 0 !important"
+              icon="el-icon-setting"
+              plain
+              type="primary"
+            >
+              可拖拽列设置
+            </el-button>
+          </template>
+        </el-popover>
       </vab-query-form-right-panel>
     </vab-query-form>
 
     <el-table
       ref="tableSort"
       v-loading="listLoading"
+      :border="border"
       :data="list"
-      border
+      :height="height"
+      :size="lineHeight"
+      :stripe="stripe"
       @selection-change="setSelectRows"
     >
       <el-table-column align="center" type="selection" width="55" />
@@ -64,29 +130,16 @@
           <span v-if="item.label === '评级'">
             <el-rate v-model="row.rate" disabled />
           </span>
-          <span v-else-if="item.label === '头像'">
-            <el-image :preview-src-list="imageList" :src="row.img" />
-          </span>
           <span v-else>{{ row[item.prop] }}</span>
         </template>
       </el-table-column>
 
-      <el-table-column align="center" show-overflow-tooltip width="85">
-        <template #header>
-          <el-popover popper-class="custom-table-checkbox" trigger="hover">
-            <el-checkbox-group v-model="checkList">
-              <el-checkbox
-                v-for="(item, index) in columns"
-                :key="index"
-                :disabled="'标题' === item.label"
-                :label="item.label"
-              />
-            </el-checkbox-group>
-            <template #reference>
-              <el-button icon="el-icon-setting" />
-            </template>
-          </el-popover>
-        </template>
+      <el-table-column
+        align="center"
+        label="操作"
+        show-overflow-tooltip
+        width="85"
+      >
         <template #default="{ row }">
           <el-button type="text" @click="handleEdit(row)">编辑</el-button>
           <el-button type="text" @click="handleDelete(row)">删除</el-button>
@@ -113,56 +166,52 @@
 </template>
 
 <script>
-  import _ from 'lodash'
+  import screenfull from 'screenfull'
   import { doDelete, getList } from '@/api/table'
   import TableEdit from './components/TableEdit'
+  import VabDraggable from 'vuedraggable'
 
   export default {
     name: 'CustomTable',
     components: {
       TableEdit,
+      VabDraggable,
     },
     data() {
       return {
-        checkList: ['标题', '作者', '评级', '头像', '点击量', '时间'],
+        isFullscreen: false,
+        border: true,
+        height: this.$baseTableHeight(1),
+        stripe: false,
+        lineHeight: 'medium',
+        checkList: ['标题', '作者', '评级', '点击量', '时间'],
         columns: [
           {
-            order: 2,
             label: '标题',
             width: 'auto',
             prop: 'title',
             sortable: true,
+            disableCheck: true,
           },
           {
-            order: 3,
             label: '作者',
             width: 'auto',
             prop: 'author',
             sortable: true,
           },
           {
-            order: 4,
             label: '评级',
             width: '200',
             prop: 'rate',
             sortable: true,
           },
           {
-            order: 5,
-            label: '头像',
-            width: 'auto',
-            prop: 'img',
-            sortable: true,
-          },
-          {
-            order: 6,
             label: '点击量',
             width: 'auto',
             prop: 'pageViews',
             sortable: true,
           },
           {
-            order: 7,
             label: '时间',
             width: 'auto',
             prop: 'datetime',
@@ -177,26 +226,54 @@
         selectRows: '',
         queryForm: {
           pageNo: 1,
-          pageSize: 10,
+          pageSize: 20,
           title: '',
         },
       }
     },
     computed: {
+      dragOptions() {
+        return {
+          animation: 600,
+          group: 'description',
+        }
+      },
       finallyColumns() {
-        let finallyArray = []
-        this.checkList.forEach((checkItem) => {
-          finallyArray.push(
-            this.columns.filter((item) => item.label === checkItem)[0]
-          )
-        })
-        return _.sortBy(finallyArray, (item) => item.order)
+        return this.columns.filter((item) =>
+          this.checkList.includes(item.label)
+        )
       },
     },
     created() {
       this.fetchData()
     },
+    beforeMount() {
+      window.addEventListener('resize', this.handleHeight)
+    },
+    beforeUnmount() {
+      window.removeEventListener('resize', this.handleHeight)
+    },
     methods: {
+      clickFullScreen() {
+        if (screenfull.isEnabled) screenfull.on('change', this.change)
+        else {
+          this.$baseMessage(
+            '开启全屏失败',
+            'error',
+            false,
+            'vab-hey-message-error'
+          )
+          return false
+        }
+        screenfull.toggle(this.$refs['custom-table'])
+      },
+      change() {
+        this.isFullscreen = screenfull.isFullscreen
+      },
+      handleHeight() {
+        if (!this.isFullscreen) this.height = this.$baseTableHeight(1) + 210
+        else this.height = this.$baseTableHeight(1)
+      },
       setSelectRows(val) {
         this.selectRows = val
       },
@@ -272,13 +349,17 @@
         cursor: pointer;
       }
     }
+    .stripe-panel,
+    .border-panel {
+      margin: 0 10px $base-margin/2 10px !important;
+    }
   }
 </style>
 <style lang="scss">
   .custom-table-checkbox {
     .el-checkbox {
       display: block !important;
-      margin: 0 0 $base-margin/4 10px;
+      margin: 8px 0 8px 10px;
     }
   }
 </style>

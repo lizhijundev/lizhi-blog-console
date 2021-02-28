@@ -188,8 +188,8 @@ export function setup(app) {
    */
   app.config.globalProperties.$baseTableHeight = (formType) => {
     let height = window.innerHeight
-    let paddingHeight = 313
-    const formHeight = 50
+    let paddingHeight = 291
+    const formHeight = 60
 
     if ('number' == typeof formType) {
       height = height - paddingHeight - formHeight * formType

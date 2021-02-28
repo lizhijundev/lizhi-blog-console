@@ -1,7 +1,7 @@
 import App from './App.vue'
 import { createApp } from 'vue'
 import { setupVab } from '@/vab'
-import { setupI18n } from './i18n'
+import { setupI18n } from '@/i18n'
 import { setupStore } from '@/store'
 import { setupRouter } from '@/router'
 

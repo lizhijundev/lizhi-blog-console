@@ -46,9 +46,7 @@
           if (isMobileTemp) {
             oldLayout = theme.value.layout
             foldSideBar()
-          } else {
-            openSideBar()
-          }
+          } else openSideBar()
           theme.value.layout = isMobileTemp ? 'vertical' : oldLayout
           toggleDevice(isMobileTemp ? 'mobile' : 'desktop')
           isMobile = isMobileTemp
@@ -59,9 +57,11 @@
         handleLayouts()
       })
       onBeforeMount(() => {
+        oldLayout = theme.value.layout
         window.addEventListener('resize', handleLayouts)
       })
       onBeforeUnmount(() => {
+        theme.value.layout = oldLayout
         window.removeEventListener('resize', handleLayouts)
       })
 
@@ -110,7 +110,6 @@
         left: 0;
         z-index: $base-z-index - 1;
         width: 100%;
-        overflow: hidden;
       }
 
       .vab-main {

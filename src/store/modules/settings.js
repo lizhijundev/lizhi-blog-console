@@ -57,6 +57,7 @@ const state = () => ({
   collapse: collapse || false,
   language: language || i18n,
   theme: getLocalStorage('theme') || { ...defaultTheme },
+  extra: { first: '', transferRouteName: '' },
 })
 const getters = {
   logo: (state) => state.logo,
@@ -65,6 +66,7 @@ const getters = {
   collapse: (state) => state.collapse,
   language: (state) => state.language,
   theme: (state) => state.theme,
+  extra: (state) => state.extra,
 }
 const mutations = {
   openSideBar(state) {

@@ -97,7 +97,7 @@
           >
             <template #default="{ row }">
               <span v-if="row.meta">
-                {{ row.meta.affix ? '是' : '否' }}
+                {{ row.meta.noClosable ? '是' : '否' }}
               </span>
             </template>
           </el-table-column>

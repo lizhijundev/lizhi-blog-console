@@ -41,6 +41,7 @@
 
   export default {
     name: 'VabIconSelector',
+    emits: ['handle-icon'],
     data() {
       return {
         icon: '24-hours-fill',

@@ -15,11 +15,11 @@
       <el-dropdown-menu>
         <el-dropdown-item command="personalCenter">
           <vab-icon icon="user-line" />
-          {{ translateTitle('个人中心') }}
+          <span>{{ translateTitle('个人中心') }}</span>
         </el-dropdown-item>
         <el-dropdown-item command="logout">
           <vab-icon icon="logout-circle-r-line" />
-          {{ translateTitle('退出登录') }}
+          <span>{{ translateTitle('退出登录') }}</span>
         </el-dropdown-item>
       </el-dropdown-menu>
     </template>
@@ -48,7 +48,7 @@
       const handleCommand = async (command) => {
         switch (command) {
           case 'logout':
-            await logout
+            await logout()
             await router.push(toLoginRoute(route.path))
             break
           case 'personalCenter':

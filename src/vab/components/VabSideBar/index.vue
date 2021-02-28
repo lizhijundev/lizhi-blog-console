@@ -42,15 +42,19 @@
     setup(props) {
       const store = useStore()
       const route = useRoute()
-      const extra = computed(() => store.getters['routes/extra'])
+      const extra = computed(() => store.getters['settings/extra'])
       const routes = computed(() => store.getters['routes/routes'])
       const collapse = computed(() => store.getters['settings/collapse'])
 
+      const activeMenu = computed(() => {
+        return handleActivePath(route)
+      })
+
       const handlePartialRoutes = () => {
-        return extra.value.first
-          ? routes.value.find((item) => item.name === extra.value.first)
-              .children
-          : []
+        const activeMenu = routes.value.find(
+          (_) => _.name === extra.value.first
+        )
+        return activeMenu ? activeMenu.children : []
       }
 
       const handleRoutes = computed(() => {
@@ -61,10 +65,6 @@
                 ? route.children
                 : route
             )
-      })
-
-      const activeMenu = computed(() => {
-        return handleActivePath(route)
       })
 
       return {

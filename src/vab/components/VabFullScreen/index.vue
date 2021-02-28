@@ -35,15 +35,11 @@
       }
 
       onMounted(() => {
-        if (screenfull.isEnabled) {
-          screenfull.on('change', change)
-        }
+        if (screenfull.isEnabled) screenfull.on('change', change)
       })
 
       onBeforeUnmount(() => {
-        if (screenfull.isEnabled) {
-          screenfull.off('change', change)
-        }
+        if (screenfull.isEnabled) screenfull.off('change', change)
       })
 
       return {

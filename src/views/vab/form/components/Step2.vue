@@ -36,6 +36,7 @@
         },
       },
     },
+    emits: ['change-step'],
     data() {
       return {
         form: {

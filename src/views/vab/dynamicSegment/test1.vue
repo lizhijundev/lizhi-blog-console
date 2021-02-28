@@ -26,7 +26,7 @@
         this.changeTabsMeta({
           title: 'Params',
           meta: {
-            title: `Params Id: ${route.params.id}`,
+            title: `Params Id=${route.params.id}`,
           },
         })
         this.route = {

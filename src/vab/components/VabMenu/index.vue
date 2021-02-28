@@ -59,7 +59,7 @@
           : props.item
       })
       const menuComponent = computed(() => {
-        return showChildren.length > 1 && props.item.alwaysShow !== true
+        return showChildren.length > 1 || props.item.alwaysShow === true
           ? 'Submenu'
           : 'MenuItem'
       })

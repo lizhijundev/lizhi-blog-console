@@ -26,9 +26,7 @@ const mutations = {
    * @returns
    */
   delVisitedRoute(state, path) {
-    state.visitedRoutes.forEach((item, index) => {
-      if (item.path === path) state.visitedRoutes.splice(index, 1)
-    })
+    state.visitedRoutes = state.visitedRoutes.filter((_) => _.path !== path)
   },
   /**
    * @description 删除当前标签页以外其它全部标签页
@@ -38,7 +36,7 @@ const mutations = {
    */
   delOthersVisitedRoutes(state, path) {
     state.visitedRoutes = state.visitedRoutes.filter(
-      (item) => item.meta.affix || item.path === path
+      (item) => item.meta.noClosable || item.path === path
     )
   },
   /**
@@ -52,7 +50,7 @@ const mutations = {
       state.visitedRoutes.find((item) => item.path === path)
     )
     state.visitedRoutes = state.visitedRoutes.filter((item, index) => {
-      return item.meta.affix || index >= idx
+      return item.meta.noClosable || index >= idx
     })
   },
   /**
@@ -66,7 +64,7 @@ const mutations = {
       state.visitedRoutes.find((item) => item.path === path)
     )
     state.visitedRoutes = state.visitedRoutes.filter((item, index) => {
-      return item.meta.affix || index <= idx
+      return item.meta.noClosable || index <= idx
     })
   },
   /**
@@ -75,7 +73,9 @@ const mutations = {
    * @returns
    */
   delAllVisitedRoutes(state) {
-    state.visitedRoutes = state.visitedRoutes.filter((item) => item.meta.affix)
+    state.visitedRoutes = state.visitedRoutes.filter(
+      (item) => item.meta.noClosable
+    )
   },
   /**
    * @description 修改标题
@@ -92,7 +92,6 @@ const mutations = {
         return route
       })
     }
-
     state.visitedRoutes = handleVisitedRoutes(state.visitedRoutes)
   },
 }
@@ -110,32 +109,32 @@ const actions = {
    * @param {*} { commit }
    * @param {*} route
    */
-  delVisitedRoute({ commit }, route) {
-    commit('delVisitedRoute', route)
+  delVisitedRoute({ commit }, path) {
+    commit('delVisitedRoute', path)
   },
   /**
    * @description 删除当前标签页以外其它全部标签页
    * @param {*} { commit }
-   * @param {*} route
+   * @param {*} path
    */
-  delOthersVisitedRoutes({ commit }, route) {
-    commit('delOthersVisitedRoutes', route)
+  delOthersVisitedRoutes({ commit }, path) {
+    commit('delOthersVisitedRoutes', path)
   },
   /**
    * @description 删除当前标签页左边全部标签页
    * @param {*} { commit }
-   * @param {*} route
+   * @param {*} path
    */
-  delLeftVisitedRoutes({ commit }, route) {
-    commit('delLeftVisitedRoutes', route)
+  delLeftVisitedRoutes({ commit }, path) {
+    commit('delLeftVisitedRoutes', path)
   },
   /**
    * @description 删除当前标签页右边全部标签页
    * @param {*} { commit }
-   * @param {*} route
+   * @param {*} path
    */
-  delRightVisitedRoutes({ commit }, route) {
-    commit('delRightVisitedRoutes', route)
+  delRightVisitedRoutes({ commit }, path) {
+    commit('delRightVisitedRoutes', path)
   },
   /**
    * @description 删除全部标签页

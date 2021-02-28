@@ -264,7 +264,6 @@
 
 <style lang="scss" scoped>
   .order {
-    height: 200px;
     &-card1 {
       &-content {
         text-align: center;
@@ -283,13 +282,14 @@
 
     &-card2 {
       height: 490px;
+      margin-top: $base-margin;
 
       &-content {
         text-align: center;
 
         .order-chart {
           width: 100%;
-          height: 345px;
+          height: 296px;
         }
       }
     }

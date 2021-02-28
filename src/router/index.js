@@ -7,27 +7,13 @@ import {
   createWebHistory,
 } from 'vue-router'
 import Layout from '@/vab/layouts'
+/* 多级路由不需要缓存时可放开注释直接引入 用法component:VabEmptyLayout*/
+/* import VabEmptyLayout from '@/vab/layouts/VabEmptyLayout' */
 import { getNames } from '@/utils/routes'
 import { setupGuard } from '@/router/guard'
 import { isHashRouterMode, publicPath } from '@/config'
 
 export const constantRoutes = [
-  {
-    path: '/redirect',
-    component: Layout,
-    hidden: true,
-    meta: {
-      title: '首页',
-      icon: 'home-2-line',
-      affix: true,
-    },
-    children: [
-      {
-        path: '',
-        component: () => import('@/views/redirect/index'),
-      },
-    ],
-  },
   {
     path: '/login',
     component: () => import('@/views/login'),
@@ -75,7 +61,7 @@ export const asyncRoutes = [
         meta: {
           title: '首页',
           icon: 'home-2-line',
-          affix: true,
+          noClosable: true,
         },
       },
       {
@@ -159,6 +145,7 @@ export const asyncRoutes = [
             component: () => import('@/views/vab/table/comprehensiveTable'),
             meta: {
               title: '综合表格',
+              badge: 'Pro',
             },
           },
           {
@@ -169,7 +156,7 @@ export const asyncRoutes = [
             meta: {
               title: '详情页',
               activeMenu: '/vab/table/comprehensiveTable',
-              // tabHidden: true,
+              dynamicNewTab: true, //详情页根据id传参不同可打开多个
             },
           },
           {
@@ -187,6 +174,7 @@ export const asyncRoutes = [
             component: () => import('@/views/vab/table/customTable'),
             meta: {
               title: '自定义表格',
+              badge: 'Pro',
             },
           },
         ],
@@ -335,36 +323,6 @@ export const asyncRoutes = [
             name: 'test2?id=1',
             component: () => import('@/views/vab/dynamicSegment/test2'),
             meta: { title: 'Query id=1' },
-          },
-        ],
-      },
-      {
-        path: 'drag',
-        name: 'Drag',
-        component: () => import('@/views/vab/drag'),
-        redirect: '/vab/drag/dialogDrag',
-        meta: {
-          title: '拖拽',
-          roles: ['admin'],
-          icon: 'drag-drop-line',
-        },
-        children: [
-          {
-            path: 'cardDrag',
-            name: 'CardDrag',
-            component: () => import('@/views/vab/drag/cardDrag'),
-            meta: {
-              title: '卡片拖拽',
-            },
-          },
-          {
-            path: 'flowSheetDrag',
-            name: 'FlowSheetDrag',
-            component: () => import('@/views/vab/drag/flowSheetDrag'),
-            meta: {
-              title: '流程图拖拽',
-              noKeepAlive: true,
-            },
           },
         ],
       },
@@ -518,11 +476,47 @@ export const asyncRoutes = [
         path: 'iframe',
         name: 'Iframe',
         component: () => import('@/views/vab/iframe'),
+        redirect: '/vab/iframe/search',
         meta: {
           title: 'Iframe',
           roles: ['admin'],
           icon: 'window-line',
         },
+        children: [
+          {
+            path: 'view',
+            name: 'IframeView',
+            component: () => import('@/views/vab/iframe/view'),
+            hidden: true,
+            meta: {
+              title: 'Iframe',
+              icon: 'window-line',
+              dynamicNewTab: true,
+            },
+          },
+          {
+            path: 'view?url=https%3A%2Fwww.baidu.com&title=%E7%99%BE%E5%BA%A6',
+            name: 'baiduIframe',
+            component: () => import('@/views/vab/iframe/view'),
+            meta: { title: '百度', icon: 'baidu-fill' },
+          },
+          {
+            path:
+              'view?url=https%3A%2Fgitee.com%2Fchu1204505056%2Fvue-admin-beautiful&title=Gitee',
+            name: 'githubIframe',
+            component: () => import('@/views/vab/iframe/view'),
+            meta: { title: 'Gitee', icon: 'github-fill' },
+          },
+          {
+            path: 'search',
+            name: 'IframeSearch',
+            component: () => import('@/views/vab/iframe/search'),
+            meta: {
+              title: '自定义Iframe',
+              icon: 'search-2-line',
+            },
+          },
+        ],
       },
       {
         path: 'excel',

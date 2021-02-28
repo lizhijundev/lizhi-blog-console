@@ -12,13 +12,11 @@ const state = () => ({
   token: getToken(),
   username: '游客',
   avatar: 'https://i.gtimg.cn/club/item/face/img/2/15922_100.gif',
-  isLogin: false,
 })
 const getters = {
   token: (state) => state.token,
   username: (state) => state.username,
   avatar: (state) => state.avatar,
-  isLogin: (state) => state.isLogin,
 }
 const mutations = {
   /**
@@ -45,9 +43,6 @@ const mutations = {
    */
   setAvatar(state, avatar) {
     state.avatar = avatar
-  },
-  setLogin(state, isLogin) {
-    state.isLogin = isLogin
   },
 }
 const actions = {
@@ -129,10 +124,7 @@ const actions = {
     if (roles) dispatch('acl/setRole', roles, { root: true })
     // 如不使用ability权限控制,可删除以下代码
     if (ability) dispatch('acl/setAbility', ability, { root: true })
-
-    commit('setLogin', true)
   },
-
   /**
    * @description 退出登录
    * @param {*} { dispatch }
@@ -148,7 +140,7 @@ const actions = {
   async resetAll({ commit, dispatch }) {
     commit('setUsername', '游客')
     commit('setAvatar', 'https://i.gtimg.cn/club/item/face/img/2/15922_100.gif')
-    commit('setLogin', false)
+    commit('routes/setRoutes', [], { root: true })
     await dispatch('setToken', '')
     await dispatch('acl/setFull', false, { root: true })
     await dispatch('acl/setRole', [], { root: true })

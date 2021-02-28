@@ -168,10 +168,14 @@
               </span>
             </template>
           </el-table-column>
-          <el-table-column align="center" label="affix" show-overflow-tooltip>
+          <el-table-column
+            align="center"
+            label="noClosable"
+            show-overflow-tooltip
+          >
             <template #default="{ row }">
               <span v-if="row.meta">
-                {{ row.meta.affix || false }}
+                {{ row.meta.noClosable || false }}
               </span>
             </template>
           </el-table-column>

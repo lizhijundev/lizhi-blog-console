@@ -1,7 +1,7 @@
 <template>
   <el-dialog
-    :title="title"
     v-model="dialogFormVisible"
+    :title="title"
     width="500px"
     @close="close"
   >
@@ -22,6 +22,7 @@
 
   export default {
     name: 'RoleManagementEdit',
+    emits: ['fetch-data'],
     data() {
       return {
         form: {},
@@ -32,7 +33,6 @@
         dialogFormVisible: false,
       }
     },
-    emits: ['fetch-data'],
     methods: {
       showEdit(row) {
         if (!row) {

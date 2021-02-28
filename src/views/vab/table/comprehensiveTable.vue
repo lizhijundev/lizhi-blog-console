@@ -3,7 +3,7 @@
     <el-alert
       :closable="false"
       show-icon
-      title="三级路由【缓存路由、固定表格高度、并根据窗口大小自适应】的示例"
+      title="三级路由【缓存路由、固定表格高度、并根据窗口大小自适应】的示例。详情页请点击操作列按钮，支持tab多开并高亮左侧菜单"
       type="success"
     />
     <vab-query-form>
@@ -22,9 +22,16 @@
           $baseConfirm
         </el-button>
         <el-button type="primary" @click="handleNotify">$baseNotify</el-button>
-        <el-button type="primary" @click="handleDetail">
-          详情页高亮左侧菜单
-        </el-button>
+        <el-badge value="New" class="item">
+          <el-button
+            icon="el-icon-info"
+            style="margin: 0 0 10px 0 !important"
+            type="primary"
+            @click="handleDetail"
+          >
+            详情页支持tab多开并高亮左侧菜单
+          </el-button>
+        </el-badge>
       </vab-query-form-left-panel>
       <vab-query-form-right-panel>
         <el-form ref="form" :inline="true" :model="queryForm" @submit.prevent>
@@ -64,7 +71,7 @@
         align="center"
         label="序号"
         show-overflow-tooltip
-        width="95"
+        width="55"
       >
         <template #default="{ $index }">
           {{ $index + 1 }}
@@ -145,9 +152,10 @@
         align="center"
         label="操作"
         show-overflow-tooltip
-        width="85"
+        width="130"
       >
         <template #default="{ row }">
+          <el-button type="text" @click="handleDetail(row)">详情</el-button>
           <el-button type="text" @click="handleEdit(row)">编辑</el-button>
           <el-button type="text" @click="handleDelete(row)">删除</el-button>
         </template>
@@ -265,6 +273,29 @@
           }
         }
       },
+      handleDetail(row) {
+        if (row.id)
+          this.$router.push({
+            path: '/vab/table/detail',
+            query: row,
+          })
+        else {
+          if (this.selectRows.length === 1) {
+            this.$router.push({
+              path: '/vab/table/detail',
+              query: this.selectRows[0],
+            })
+          } else {
+            this.$baseMessage(
+              '请选择一行进行详情页跳转',
+              'error',
+              false,
+              'vab-hey-message-error'
+            )
+            return false
+          }
+        }
+      },
       handleSizeChange(val) {
         this.queryForm.pageSize = val
         this.fetchData()
@@ -288,6 +319,10 @@
         this.imageList = imageList
         this.total = totalCount
         this.listLoading = false
+
+        setTimeout(() => {
+          this.toggleSelection([this.list[0]])
+        }, 0)
       },
       handleMessage() {
         this.$baseMessage('test1', 'success', false, 'vab-hey-message-success')
@@ -316,8 +351,14 @@
       handleNotify() {
         this.$baseNotify('测试消息提示', 'test', 'success', 'bottom-right')
       },
-      handleDetail() {
-        this.$router.push('/vab/table/detail')
+      toggleSelection(rows) {
+        if (rows) {
+          rows.forEach((row) => {
+            this.$refs.tableSort.toggleRowSelection(row)
+          })
+        } else {
+          this.$refs.tableSort.clearSelection()
+        }
       },
     },
   }

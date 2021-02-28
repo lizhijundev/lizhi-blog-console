@@ -14,9 +14,10 @@
       <icon-list />
       <el-col :lg="12" :md="12" :sm="24" :xl="12" :xs="24">
         <china-map />
+        <my-project />
       </el-col>
       <el-col :lg="12" :md="12" :sm="24" :xl="12" :xs="24">
-        <my-project />
+        <plan />
       </el-col>
     </el-row>
   </div>
@@ -27,9 +28,10 @@
   import Access from './components/Access'
   import Authorization from './components/Authorization'
   import ChinaMap from './components/ChinaMap'
-  import MyProject from './components/MyProject'
-  import VersionInformation from './components/VersionInformation'
   import IconList from './components/IconList'
+  import MyProject from './components/MyProject'
+  import Plan from './components/Plan'
+  import VersionInformation from './components/VersionInformation'
 
   export default {
     name: 'Index',
@@ -41,6 +43,7 @@
       VersionInformation,
       IconList,
       MyProject,
+      Plan,
     },
   }
 </script>

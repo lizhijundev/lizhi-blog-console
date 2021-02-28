@@ -1,7 +1,7 @@
 <template>
   <el-dialog
-    :title="title"
     v-model="dialogFormVisible"
+    :title="title"
     width="500px"
     @close="close"
   >
@@ -46,6 +46,7 @@
 
   export default {
     name: 'DepartmentManagementEdit',
+    emits: ['fetch-data'],
     data() {
       return {
         treeData: [],
@@ -71,7 +72,6 @@
     created() {
       this.fetchData()
     },
-    emits: ['fetch-data'],
     methods: {
       async fetchData() {
         const { data } = await getList()

@@ -3,7 +3,7 @@
     <el-breadcrumb-item v-for="(item, index) in getBreadcrumb" :key="index">
       <a @click.prevent="handleLink(item.redirect)">
         <vab-icon v-if="item.meta && item.meta.icon" :icon="item.meta.icon" />
-        {{ translateTitle(item.meta.title) }}
+        <span>{{ translateTitle(item.meta.title) }}</span>
       </a>
     </el-breadcrumb-item>
   </el-breadcrumb>

@@ -33,7 +33,7 @@
       <div class="notice-clear" @click="handleClearNotice">
         <el-button type="text">
           <vab-icon icon="close-circle-line" />
-          {{ translateTitle('清空消息') }}
+          <span>{{ translateTitle('清空消息') }}</span>
         </el-button>
       </div>
     </el-popover>

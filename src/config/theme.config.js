@@ -1,5 +1,5 @@
 /**
- * @description 导出主题配置，此配置下的项修改后需清理浏览器缓存
+ * @description 导出主题配置，注意事项：此配置下的项修改后需清理浏览器缓存！！！
  */
 module.exports = {
   // 布局种类：横向布局horizontal、纵向布局vertical、分栏布局column、综合布局comprehensive、常规布局common
