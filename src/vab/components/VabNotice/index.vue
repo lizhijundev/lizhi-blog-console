@@ -58,9 +58,9 @@
       const theme = computed(() => store.getters['settings/theme'])
 
       const fetchData = async () => {
-        const { data } = await getList()
-        badge.value = data.length === 0 ? null : data.length
-        list.value = data
+        const { list, total } = await getList()
+        list.value = list
+        badge.value = total === 0 ? null : total
       }
 
       nextTick(() => {

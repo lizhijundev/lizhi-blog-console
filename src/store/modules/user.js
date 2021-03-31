@@ -61,7 +61,7 @@ const actions = {
    * @param {*} userInfo
    */
   async login({ commit }, userInfo) {
-    const { data } = await login(userInfo)
+    const data = await login(userInfo)
     const token = data[tokenName]
     if (token) {
       commit('setToken', token)
@@ -92,9 +92,7 @@ const actions = {
    * @returns
    */
   async getUserInfo({ commit, dispatch }) {
-    const { data } = await getUserInfo()
-
-    const { username, avatar, roles, ability } = data
+    const { username, avatar, roles, ability } = await getUserInfo()
     /**
      * 检验返回数据是否正常，无对应参数，将使用默认用户名,头像,Roles和Ability
      * username {String}

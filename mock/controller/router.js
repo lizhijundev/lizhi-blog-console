@@ -1,7 +1,7 @@
 /**
  * @description router全局配置，如有必要可分文件抽离，其中asyncRoutes只有在intelligence模式下才会用到，pro版只支持remixIcon图标，具体配置请查看vip群文档
  */
-const data = [
+const List = [
   {
     path: '/',
     name: 'Root',
@@ -89,6 +89,7 @@ const data = [
         redirect: '/vab/table/comprehensiveTable',
         meta: {
           title: '表格',
+          // 非editor角色的用户可见
           roles: {
             role: ['editor'],
             mode: 'except',
@@ -102,7 +103,6 @@ const data = [
             component: '@/views/vab/table/comprehensiveTable',
             meta: {
               title: '综合表格',
-              badge: 'Pro',
             },
           },
           {
@@ -113,7 +113,7 @@ const data = [
             meta: {
               title: '详情页',
               activeMenu: '/vab/table/comprehensiveTable',
-              dynamicNewTab: true,
+              dynamicNewTab: true, //详情页根据id传参不同可打开多个
             },
           },
           {
@@ -131,7 +131,6 @@ const data = [
             component: '@/views/vab/table/customTable',
             meta: {
               title: '自定义表格',
-              badge: 'Pro',
             },
           },
         ],
@@ -185,9 +184,52 @@ const data = [
         ],
       },
       {
+        path: 'richTextEditor',
+        name: 'RichTextEditor',
+        component: '@/views/vab/richTextEditor',
+        meta: {
+          title: '富文本编辑器',
+          roles: ['admin'],
+          icon: 'edit-2-line',
+        },
+      },
+    ],
+  },
+  {
+    path: '/other',
+    name: 'Other',
+    component: 'Layout',
+    redirect: '/other/workflow',
+    meta: {
+      title: '其他',
+      icon: 'archive-line',
+      roles: ['admin'],
+    },
+    children: [
+      {
+        path: 'workflow',
+        name: 'Workflow',
+        component: '@/views/other/workflow',
+        meta: {
+          title: '工作流',
+          roles: ['admin'],
+          icon: 'flow-chart',
+        },
+      },
+      {
+        path: 'print',
+        name: 'Print',
+        component: '@/views/other/print',
+        meta: {
+          title: '打印',
+          roles: ['admin'],
+          icon: 'printer-line',
+        },
+      },
+      {
         path: 'cropper',
         name: 'Cropper',
-        component: '@/views/vab/cropper',
+        component: '@/views/other/cropper',
         meta: {
           title: '头像裁剪',
           roles: ['admin'],
@@ -197,29 +239,27 @@ const data = [
       {
         path: 'notice',
         name: 'Notice',
-        component: '@/views/vab/notice',
+        component: '@/views/other/notice',
         meta: {
           title: '通知',
           roles: ['admin'],
           icon: 'message-2-line',
-          badge: 'New',
         },
       },
       {
         path: 'timeline',
         name: 'Timeline',
-        component: '@/views/vab/timeline',
+        component: '@/views/other/timeline',
         meta: {
           title: '时间线',
           roles: ['admin'],
           icon: 'time-line',
-          badge: 'New',
         },
       },
       {
         path: 'count',
         name: 'Count',
-        component: '@/views/vab/count',
+        component: '@/views/other/count',
         meta: {
           title: '数字自增长',
           roles: ['admin'],
@@ -229,7 +269,7 @@ const data = [
       {
         path: 'dynamicMeta',
         name: 'DynamicMeta',
-        component: '@/views/vab/dynamicMeta',
+        component: '@/views/other/dynamicMeta',
         meta: {
           title: '动态Meta',
           roles: ['admin'],
@@ -240,7 +280,7 @@ const data = [
       {
         path: 'dynamicSegment',
         name: 'DynamicSegment',
-        component: '@/views/vab/dynamicSegment',
+        component: '@/views/other/dynamicSegment',
         redirect: '/vab/dynamicSegment/test1/1',
         alwaysShow: true,
         meta: {
@@ -252,7 +292,7 @@ const data = [
           {
             path: 'test1/:id',
             name: 'Test1',
-            component: '@/views/vab/dynamicSegment/test1',
+            component: '@/views/other/dynamicSegment/test1',
             hidden: true,
             meta: {
               title: 'Params',
@@ -262,13 +302,13 @@ const data = [
           {
             path: 'test1/1',
             name: 'test1/1',
-            component: '@/views/vab/dynamicSegment/test1',
+            component: '@/views/other/dynamicSegment/test1',
             meta: { title: 'Params id=1' },
           },
           {
             path: 'test2',
             name: 'Test2',
-            component: '@/views/vab/dynamicSegment/test2',
+            component: '@/views/other/dynamicSegment/test2',
             hidden: true,
             meta: {
               title: 'Query',
@@ -278,26 +318,57 @@ const data = [
           {
             path: 'test2?id=1',
             name: 'test2?id=1',
-            component: '@/views/vab/dynamicSegment/test2',
+            component: '@/views/other/dynamicSegment/test2',
             meta: { title: 'Query id=1' },
           },
         ],
       },
       {
-        path: 'richTextEditor',
-        name: 'RichTextEditor',
-        component: '@/views/vab/richTextEditor',
+        path: 'contextmenu',
+        name: 'Contextmenu',
+        component: '@/views/other/contextmenu',
         meta: {
-          title: '富文本编辑器',
+          title: '右键菜单',
           roles: ['admin'],
-          icon: 'edit-2-line',
+          icon: 'menu-2-fill',
+        },
+      },
+      {
+        path: 'loading',
+        name: 'Loading',
+        component: '@/views/other/loading',
+        meta: {
+          title: '加载',
+          roles: ['admin'],
+          icon: 'loader-line',
+        },
+      },
+      {
+        path: 'player',
+        name: 'Player',
+        component: '@/views/other/player',
+        meta: {
+          title: '视频播放器',
+          roles: ['admin'],
+          icon: 'video-line',
+          noKeepAlive: true,
+        },
+      },
+      {
+        path: 'upload',
+        name: 'Upload',
+        component: '@/views/other/upload',
+        meta: {
+          title: '上传',
+          roles: ['admin'],
+          icon: 'chat-upload-line',
         },
       },
       {
         path: 'menu1',
         name: 'Menu1',
-        component: '@/views/vab/nested/menu1',
-        redirect: '/vab/menu1/menu1-1/menu1-1-1/menu1-1-1-1',
+        component: '@/views/other/nested/menu1',
+        redirect: '/other/menu1/menu1-1/menu1-1-1/menu1-1-1-1',
         alwaysShow: true,
         meta: {
           title: '多级路由缓存',
@@ -308,8 +379,8 @@ const data = [
           {
             path: 'menu1-1',
             name: 'Menu1-1',
-            component: '@/views/vab/nested/menu1/menu1-1',
-            redirect: '/vab/menu1/menu1-1/menu1-1-1/menu1-1-1-1',
+            component: '@/views/other/nested/menu1/menu1-1',
+            redirect: '/other/menu1/menu1-1/menu1-1-1/menu1-1-1-1',
             alwaysShow: true,
             meta: {
               title: '多级路由1-1',
@@ -318,8 +389,8 @@ const data = [
               {
                 path: 'menu1-1-1',
                 name: 'Menu1-1-1',
-                component: '@/views/vab/nested/menu1/menu1-1/menu1-1-1',
-                redirect: '/vab/menu1/menu1-1/menu1-1-1/menu1-1-1-1',
+                component: '@/views/other/nested/menu1/menu1-1/menu1-1-1',
+                redirect: '/other/menu1/menu1-1/menu1-1-1/menu1-1-1-1',
                 alwaysShow: true,
                 meta: {
                   title: '多级路由1-1-1',
@@ -332,7 +403,7 @@ const data = [
                       title: '多级路由1-1-1-1',
                     },
                     component:
-                      '@/views/vab/nested/menu1/menu1-1/menu1-1-1/menu1-1-1-1',
+                      '@/views/other/nested/menu1/menu1-1/menu1-1-1/menu1-1-1-1',
                   },
                 ],
               },
@@ -341,40 +412,9 @@ const data = [
         ],
       },
       {
-        path: 'loading',
-        name: 'Loading',
-        component: '@/views/vab/loading',
-        meta: {
-          title: '加载',
-          roles: ['admin'],
-          icon: 'loader-line',
-        },
-      },
-      {
-        path: 'player',
-        name: 'Player',
-        component: '@/views/vab/player',
-        meta: {
-          title: '视频播放器',
-          roles: ['admin'],
-          icon: 'video-line',
-          noKeepAlive: true,
-        },
-      },
-      {
-        path: 'upload',
-        name: 'Upload',
-        component: '@/views/vab/upload',
-        meta: {
-          title: '上传',
-          roles: ['admin'],
-          icon: 'chat-upload-line',
-        },
-      },
-      {
         path: 'log',
         name: 'Log',
-        component: '@/views/vab/errorLog',
+        component: '@/views/other/errorLog',
         meta: {
           title: '错误日志模拟',
           roles: ['admin'],
@@ -384,7 +424,7 @@ const data = [
       {
         path: 'cssfx',
         name: 'Cssfx',
-        component: '@/views/vab/cssfx',
+        component: '@/views/other/cssfx',
         meta: {
           title: 'Css动画',
           roles: ['admin'],
@@ -394,13 +434,23 @@ const data = [
       {
         path: 'social',
         name: 'Social',
-        component: '@/views/vab/social',
+        component: '@/views/other/social',
         meta: {
           title: '第三方登录',
           roles: ['admin'],
           icon: 'github-fill',
         },
       },
+      // {
+      //   path: 'mobilePreview',
+      //   name: 'MobilePreview',
+      //   component: '@/views/vab/mobilePreview',
+      //   meta: {
+      //     title: '手机预览',
+      //     roles: ['admin'],
+      //     icon: 'smartphone-line',
+      //   },
+      // },
       {
         path:
           'https://github.com/chuzhixin/vue-admin-beautiful?utm_source=gold_browser_extension',
@@ -408,6 +458,7 @@ const data = [
         meta: {
           title: '外链',
           target: '_blank',
+          // 等价roles: ['admin', 'editor'],
           roles: {
             role: ['admin', 'editor'],
             mode: 'oneOf',
@@ -418,8 +469,8 @@ const data = [
       {
         path: 'iframe',
         name: 'Iframe',
-        component: '@/views/vab/iframe',
-        redirect: '/vab/iframe/search',
+        component: '@/views/other/iframe',
+        redirect: '/other/iframe/search',
         meta: {
           title: 'Iframe',
           roles: ['admin'],
@@ -429,7 +480,7 @@ const data = [
           {
             path: 'view',
             name: 'IframeView',
-            component: '@/views/vab/iframe/view',
+            component: '@/views/other/iframe/view',
             hidden: true,
             meta: {
               title: 'Iframe',
@@ -440,20 +491,20 @@ const data = [
           {
             path: 'view?url=https%3A%2Fwww.baidu.com&title=%E7%99%BE%E5%BA%A6',
             name: 'baiduIframe',
-            component: '@/views/vab/iframe/view',
+            component: '@/views/other/iframe/view',
             meta: { title: '百度', icon: 'baidu-fill' },
           },
           {
             path:
               'view?url=https%3A%2Fgitee.com%2Fchu1204505056%2Fvue-admin-beautiful&title=Gitee',
             name: 'githubIframe',
-            component: '@/views/vab/iframe/view',
+            component: '@/views/other/iframe/view',
             meta: { title: 'Gitee', icon: 'github-fill' },
           },
           {
             path: 'search',
             name: 'IframeSearch',
-            component: '@/views/vab/iframe/search',
+            component: '@/views/other/iframe/search',
             meta: {
               title: '自定义Iframe',
               icon: 'search-2-line',
@@ -464,8 +515,8 @@ const data = [
       {
         path: 'excel',
         name: 'Excel',
-        component: '@/views/vab/excel',
-        redirect: '/vab/excel/exportExcel',
+        component: '@/views/other/excel',
+        redirect: '/other/excel/exportExcel',
         meta: {
           title: 'Excel',
           roles: ['admin'],
@@ -475,7 +526,7 @@ const data = [
           {
             path: 'exportExcel',
             name: 'ExportExcel',
-            component: '@/views/vab/excel/exportExcel',
+            component: '@/views/other/excel/exportExcel',
             meta: {
               title: '导出Excel',
             },
@@ -483,7 +534,7 @@ const data = [
           {
             path: 'exportSelectedExcel',
             name: 'SelectExcel',
-            component: '@/views/vab/excel/exportSelectExcel',
+            component: '@/views/other/excel/exportSelectExcel',
             meta: {
               title: '导出选中行Excel',
             },
@@ -491,7 +542,7 @@ const data = [
           {
             path: 'exportMergeHeaderExcel',
             name: 'MergeHeaderExcel',
-            component: '@/views/vab/excel/exportMergeHeaderExcel',
+            component: '@/views/other/excel/exportMergeHeaderExcel',
             meta: {
               title: '导出合并Excel',
             },
@@ -630,7 +681,7 @@ module.exports = [
       return {
         code: 200,
         msg: 'success',
-        data,
+        data: { list: List },
       }
     },
   },

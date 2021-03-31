@@ -191,9 +191,9 @@
             n--
             this.phoneCode = this.translateTitle('获取验证码 ') + n + 's'
           } else {
-            this.getPhoneInterval = null
             clearInterval(this.getPhoneInterval)
             this.phoneCode = this.translateTitle('获取验证码')
+            this.getPhoneInterval = null
             this.isGetPhone = false
           }
         }, 1000)

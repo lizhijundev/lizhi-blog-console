@@ -1,6 +1,5 @@
 <template>
   <div class="count-container">
-    <el-alert :closable="false" show-icon title="数字自增长" type="success" />
     <div class="count-container-text">
       <vab-count
         v-if="show"

@@ -10,22 +10,24 @@ import Layout from '@/vab/layouts'
 /* 多级路由不需要缓存时可放开注释直接引入 用法component:VabEmptyLayout*/
 /* import VabEmptyLayout from '@/vab/layouts/VabEmptyLayout' */
 import { getNames } from '@/utils/routes'
-import { setupGuard } from '@/router/guard'
 import { isHashRouterMode, publicPath } from '@/config'
 
 export const constantRoutes = [
   {
     path: '/login',
+    name: 'Login',
     component: () => import('@/views/login'),
     hidden: true,
   },
   {
     path: '/register',
+    name: 'Register',
     component: () => import('@/views/register'),
     hidden: true,
   },
   {
     path: '/callback',
+    name: 'Callback',
     component: () => import('@/views/callback'),
     hidden: true,
   },
@@ -145,7 +147,6 @@ export const asyncRoutes = [
             component: () => import('@/views/vab/table/comprehensiveTable'),
             meta: {
               title: '综合表格',
-              badge: 'Pro',
             },
           },
           {
@@ -174,7 +175,6 @@ export const asyncRoutes = [
             component: () => import('@/views/vab/table/customTable'),
             meta: {
               title: '自定义表格',
-              badge: 'Pro',
             },
           },
         ],
@@ -228,9 +228,52 @@ export const asyncRoutes = [
         ],
       },
       {
+        path: 'richTextEditor',
+        name: 'RichTextEditor',
+        component: () => import('@/views/vab/richTextEditor'),
+        meta: {
+          title: '富文本编辑器',
+          roles: ['admin'],
+          icon: 'edit-2-line',
+        },
+      },
+    ],
+  },
+  {
+    path: '/other',
+    name: 'Other',
+    component: Layout,
+    redirect: '/other/workflow',
+    meta: {
+      title: '其他',
+      icon: 'archive-line',
+      roles: ['admin'],
+    },
+    children: [
+      {
+        path: 'workflow',
+        name: 'Workflow',
+        component: () => import('@/views/other/workflow'),
+        meta: {
+          title: '工作流',
+          roles: ['admin'],
+          icon: 'flow-chart',
+        },
+      },
+      {
+        path: 'print',
+        name: 'Print',
+        component: () => import('@/views/other/print'),
+        meta: {
+          title: '打印',
+          roles: ['admin'],
+          icon: 'printer-line',
+        },
+      },
+      {
         path: 'cropper',
         name: 'Cropper',
-        component: () => import('@/views/vab/cropper'),
+        component: () => import('@/views/other/cropper'),
         meta: {
           title: '头像裁剪',
           roles: ['admin'],
@@ -240,29 +283,27 @@ export const asyncRoutes = [
       {
         path: 'notice',
         name: 'Notice',
-        component: () => import('@/views/vab/notice'),
+        component: () => import('@/views/other/notice'),
         meta: {
           title: '通知',
           roles: ['admin'],
           icon: 'message-2-line',
-          badge: 'New',
         },
       },
       {
         path: 'timeline',
         name: 'Timeline',
-        component: () => import('@/views/vab/timeline'),
+        component: () => import('@/views/other/timeline'),
         meta: {
           title: '时间线',
           roles: ['admin'],
           icon: 'time-line',
-          badge: 'New',
         },
       },
       {
         path: 'count',
         name: 'Count',
-        component: () => import('@/views/vab/count'),
+        component: () => import('@/views/other/count'),
         meta: {
           title: '数字自增长',
           roles: ['admin'],
@@ -272,7 +313,7 @@ export const asyncRoutes = [
       {
         path: 'dynamicMeta',
         name: 'DynamicMeta',
-        component: () => import('@/views/vab/dynamicMeta'),
+        component: () => import('@/views/other/dynamicMeta'),
         meta: {
           title: '动态Meta',
           roles: ['admin'],
@@ -283,7 +324,7 @@ export const asyncRoutes = [
       {
         path: 'dynamicSegment',
         name: 'DynamicSegment',
-        component: () => import('@/views/vab/dynamicSegment'),
+        component: () => import('@/views/other/dynamicSegment'),
         redirect: '/vab/dynamicSegment/test1/1',
         alwaysShow: true,
         meta: {
@@ -295,7 +336,7 @@ export const asyncRoutes = [
           {
             path: 'test1/:id',
             name: 'Test1',
-            component: () => import('@/views/vab/dynamicSegment/test1'),
+            component: () => import('@/views/other/dynamicSegment/test1'),
             hidden: true,
             meta: {
               title: 'Params',
@@ -305,13 +346,13 @@ export const asyncRoutes = [
           {
             path: 'test1/1',
             name: 'test1/1',
-            component: () => import('@/views/vab/dynamicSegment/test1'),
+            component: () => import('@/views/other/dynamicSegment/test1'),
             meta: { title: 'Params id=1' },
           },
           {
             path: 'test2',
             name: 'Test2',
-            component: () => import('@/views/vab/dynamicSegment/test2'),
+            component: () => import('@/views/other/dynamicSegment/test2'),
             hidden: true,
             meta: {
               title: 'Query',
@@ -321,26 +362,47 @@ export const asyncRoutes = [
           {
             path: 'test2?id=1',
             name: 'test2?id=1',
-            component: () => import('@/views/vab/dynamicSegment/test2'),
+            component: () => import('@/views/other/dynamicSegment/test2'),
             meta: { title: 'Query id=1' },
           },
         ],
       },
       {
-        path: 'richTextEditor',
-        name: 'RichTextEditor',
-        component: () => import('@/views/vab/richTextEditor'),
+        path: 'loading',
+        name: 'Loading',
+        component: () => import('@/views/other/loading'),
         meta: {
-          title: '富文本编辑器',
+          title: '加载',
           roles: ['admin'],
-          icon: 'edit-2-line',
+          icon: 'loader-line',
+        },
+      },
+      {
+        path: 'player',
+        name: 'Player',
+        component: () => import('@/views/other/player'),
+        meta: {
+          title: '视频播放器',
+          roles: ['admin'],
+          icon: 'video-line',
+          noKeepAlive: true,
+        },
+      },
+      {
+        path: 'upload',
+        name: 'Upload',
+        component: () => import('@/views/other/upload'),
+        meta: {
+          title: '上传',
+          roles: ['admin'],
+          icon: 'chat-upload-line',
         },
       },
       {
         path: 'menu1',
         name: 'Menu1',
-        component: () => import('@/views/vab/nested/menu1'),
-        redirect: '/vab/menu1/menu1-1/menu1-1-1/menu1-1-1-1',
+        component: () => import('@/views/other/nested/menu1'),
+        redirect: '/other/menu1/menu1-1/menu1-1-1/menu1-1-1-1',
         alwaysShow: true,
         meta: {
           title: '多级路由缓存',
@@ -351,8 +413,8 @@ export const asyncRoutes = [
           {
             path: 'menu1-1',
             name: 'Menu1-1',
-            component: () => import('@/views/vab/nested/menu1/menu1-1'),
-            redirect: '/vab/menu1/menu1-1/menu1-1-1/menu1-1-1-1',
+            component: () => import('@/views/other/nested/menu1/menu1-1'),
+            redirect: '/other/menu1/menu1-1/menu1-1-1/menu1-1-1-1',
             alwaysShow: true,
             meta: {
               title: '多级路由1-1',
@@ -362,8 +424,8 @@ export const asyncRoutes = [
                 path: 'menu1-1-1',
                 name: 'Menu1-1-1',
                 component: () =>
-                  import('@/views/vab/nested/menu1/menu1-1/menu1-1-1'),
-                redirect: '/vab/menu1/menu1-1/menu1-1-1/menu1-1-1-1',
+                  import('@/views/other/nested/menu1/menu1-1/menu1-1-1'),
+                redirect: '/other/menu1/menu1-1/menu1-1-1/menu1-1-1-1',
                 alwaysShow: true,
                 meta: {
                   title: '多级路由1-1-1',
@@ -377,7 +439,7 @@ export const asyncRoutes = [
                     },
                     component: () =>
                       import(
-                        '@/views/vab/nested/menu1/menu1-1/menu1-1-1/menu1-1-1-1'
+                        '@/views/other/nested/menu1/menu1-1/menu1-1-1/menu1-1-1-1'
                       ),
                   },
                 ],
@@ -387,40 +449,9 @@ export const asyncRoutes = [
         ],
       },
       {
-        path: 'loading',
-        name: 'Loading',
-        component: () => import('@/views/vab/loading'),
-        meta: {
-          title: '加载',
-          roles: ['admin'],
-          icon: 'loader-line',
-        },
-      },
-      {
-        path: 'player',
-        name: 'Player',
-        component: () => import('@/views/vab/player'),
-        meta: {
-          title: '视频播放器',
-          roles: ['admin'],
-          icon: 'video-line',
-          noKeepAlive: true,
-        },
-      },
-      {
-        path: 'upload',
-        name: 'Upload',
-        component: () => import('@/views/vab/upload'),
-        meta: {
-          title: '上传',
-          roles: ['admin'],
-          icon: 'chat-upload-line',
-        },
-      },
-      {
         path: 'log',
         name: 'Log',
-        component: () => import('@/views/vab/errorLog'),
+        component: () => import('@/views/other/errorLog'),
         meta: {
           title: '错误日志模拟',
           roles: ['admin'],
@@ -430,7 +461,7 @@ export const asyncRoutes = [
       {
         path: 'cssfx',
         name: 'Cssfx',
-        component: () => import('@/views/vab/cssfx'),
+        component: () => import('@/views/other/cssfx'),
         meta: {
           title: 'Css动画',
           roles: ['admin'],
@@ -440,7 +471,7 @@ export const asyncRoutes = [
       {
         path: 'social',
         name: 'Social',
-        component: () => import('@/views/vab/social'),
+        component: () => import('@/views/other/social'),
         meta: {
           title: '第三方登录',
           roles: ['admin'],
@@ -475,8 +506,8 @@ export const asyncRoutes = [
       {
         path: 'iframe',
         name: 'Iframe',
-        component: () => import('@/views/vab/iframe'),
-        redirect: '/vab/iframe/search',
+        component: () => import('@/views/other/iframe'),
+        redirect: '/other/iframe/search',
         meta: {
           title: 'Iframe',
           roles: ['admin'],
@@ -486,7 +517,7 @@ export const asyncRoutes = [
           {
             path: 'view',
             name: 'IframeView',
-            component: () => import('@/views/vab/iframe/view'),
+            component: () => import('@/views/other/iframe/view'),
             hidden: true,
             meta: {
               title: 'Iframe',
@@ -497,20 +528,20 @@ export const asyncRoutes = [
           {
             path: 'view?url=https%3A%2Fwww.baidu.com&title=%E7%99%BE%E5%BA%A6',
             name: 'baiduIframe',
-            component: () => import('@/views/vab/iframe/view'),
+            component: () => import('@/views/other/iframe/view'),
             meta: { title: '百度', icon: 'baidu-fill' },
           },
           {
             path:
               'view?url=https%3A%2Fgitee.com%2Fchu1204505056%2Fvue-admin-beautiful&title=Gitee',
             name: 'githubIframe',
-            component: () => import('@/views/vab/iframe/view'),
+            component: () => import('@/views/other/iframe/view'),
             meta: { title: 'Gitee', icon: 'github-fill' },
           },
           {
             path: 'search',
             name: 'IframeSearch',
-            component: () => import('@/views/vab/iframe/search'),
+            component: () => import('@/views/other/iframe/search'),
             meta: {
               title: '自定义Iframe',
               icon: 'search-2-line',
@@ -521,8 +552,8 @@ export const asyncRoutes = [
       {
         path: 'excel',
         name: 'Excel',
-        component: () => import('@/views/vab/excel'),
-        redirect: '/vab/excel/exportExcel',
+        component: () => import('@/views/other/excel'),
+        redirect: '/other/excel/exportExcel',
         meta: {
           title: 'Excel',
           roles: ['admin'],
@@ -532,7 +563,7 @@ export const asyncRoutes = [
           {
             path: 'exportExcel',
             name: 'ExportExcel',
-            component: () => import('@/views/vab/excel/exportExcel'),
+            component: () => import('@/views/other/excel/exportExcel'),
             meta: {
               title: '导出Excel',
             },
@@ -540,7 +571,7 @@ export const asyncRoutes = [
           {
             path: 'exportSelectedExcel',
             name: 'SelectExcel',
-            component: () => import('@/views/vab/excel/exportSelectExcel'),
+            component: () => import('@/views/other/excel/exportSelectExcel'),
             meta: {
               title: '导出选中行Excel',
             },
@@ -548,7 +579,8 @@ export const asyncRoutes = [
           {
             path: 'exportMergeHeaderExcel',
             name: 'MergeHeaderExcel',
-            component: () => import('@/views/vab/excel/exportMergeHeaderExcel'),
+            component: () =>
+              import('@/views/other/excel/exportMergeHeaderExcel'),
             meta: {
               title: '导出合并Excel',
             },
@@ -681,6 +713,7 @@ export const asyncRoutes = [
   {
     path: '/:pathMatch(.*)*',
     redirect: '/404',
+    name: 'NotFound',
     hidden: true,
   },
 ]
@@ -702,15 +735,13 @@ function addRouter(routes) {
 export function resetRouter(routes = constantRoutes) {
   const names = getNames(routes)
   router.getRoutes().forEach((route) => {
-    if (route.name && !names.includes(route.name))
-      router.removeRoute(route.name)
+    if (!names.includes(route.name)) router.removeRoute(route.name)
   })
   addRouter(routes)
 }
 
 export function setupRouter(app) {
   app.use(router)
-  setupGuard(router)
   return router
 }
 

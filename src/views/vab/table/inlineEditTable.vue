@@ -137,13 +137,13 @@
     methods: {
       async fetchData() {
         this.listLoading = true
-        const { data, totalCount } = await getList(this.queryForm)
-        this.list = data.map((v) => {
+        const { list, total } = await getList(this.queryForm)
+        this.list = list.map((v) => {
           v.edit = false
           v.originalTitle = v.title
           return v
         })
-        this.total = totalCount
+        this.total = total
         this.listLoading = false
       },
       handleSizeChange(val) {

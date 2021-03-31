@@ -49,20 +49,17 @@ module.exports = [
     type: 'get',
     response: (config) => {
       const { name, pageNo = 1, pageSize = 20 } = config.query
-
       let mockList = List.filter(
         (item) => !(name && item.name.indexOf(name) < 0)
       )
-      const pageList = mockList.filter(
+      const list = mockList.filter(
         (item, index) =>
           index < pageSize * pageNo && index >= pageSize * (pageNo - 1)
       )
-
       return {
         code: 200,
         msg: 'success',
-        totalCount: mockList.length,
-        data: pageList,
+        data: { list, ...{ total: mockList.length } },
       }
     },
   },

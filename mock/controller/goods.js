@@ -37,7 +37,7 @@ const List = [
   },
   {
     uuid: '@uuid',
-    title: 'OPSLI快速开发平台',
+    title: 'OPSLI',
     image: 'https://gitee.com/chu1204505056/image/raw/master/goods/OPSLI.png',
     price: '免费',
     label: ['spring-boot', 'vue-admin-beautiful'],
@@ -46,7 +46,7 @@ const List = [
   },
   {
     uuid: '@uuid',
-    title: 'artemis快速开发平台',
+    title: 'artemis',
     icon: 'compass-2-line',
     price: '免费',
     label: ['spring-boot', 'vue-admin-beautiful'],
@@ -64,15 +64,14 @@ module.exports = [
       let mockList = List.filter(
         (item) => !(title && item.title.indexOf(title) < 0)
       )
-      const pageList = mockList.filter(
+      const list = mockList.filter(
         (item, index) =>
           index < pageSize * pageNo && index >= pageSize * (pageNo - 1)
       )
       return {
         code: 200,
         msg: 'success',
-        totalCount: mockList.length,
-        data: pageList,
+        data: { list, ...{ total: mockList.length } },
       }
     },
   },

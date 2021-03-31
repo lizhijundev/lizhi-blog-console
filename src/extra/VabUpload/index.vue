@@ -71,7 +71,7 @@
 
 <script>
   import _ from 'lodash'
-  import { tokenName } from '@/config'
+  import { mapGetters } from 'vuex'
 
   export default {
     name: 'VabUpload',
@@ -117,19 +117,16 @@
       }
     },
     computed: {
+      ...mapGetters({
+        token: 'user/token',
+      }),
       percentage() {
         if (this.allImgNum === 0) return 0
         return _.round(this.imgNum / this.allImgNum, 2) * 100
       },
     },
     created() {
-      /*  if ("development" === process.env.NODE_ENV) {
-  this.api = baseURL;
-} else {
-  this.api = `${window.location.protocol}//${window.location.host}`;
-}
-this.action = this.api + this.url; */
-      this.headers[tokenName] = this.$baseToken()
+      this.headers['Authorization'] = `Bearer xxx`
     },
     methods: {
       submitUpload() {
@@ -217,14 +214,7 @@ this.action = this.api + this.url; */
         this.imgNum = 0
         this.imgSuccessNum = 0
         this.imgErrorNum = 0
-        /* if ("development" === process.env.NODE_ENV) {
-    this.api = process.env.VUE_APP_BASE_API;
-  } else {
-    this.api = `${window.location.protocol}//${window.location.host}`;
-  }
-
-  this.action = this.api + this.url; */
-        this.headers[tokenName] = this.$baseToken()
+        this.headers['Authorization'] = `Bearer xxx`
         this.dialogFormVisible = false
       },
     },

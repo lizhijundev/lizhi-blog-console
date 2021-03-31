@@ -31,15 +31,14 @@ module.exports = [
       let mockList = List.filter(
         (item) => !(title && item.title.indexOf(title) < 0)
       )
-      const pageList = mockList.filter(
+      const list = mockList.filter(
         (item, index) =>
           index < pageSize * pageNo && index >= pageSize * (pageNo - 1)
       )
       return {
         code: 200,
         msg: 'success',
-        totalCount: mockList.length,
-        data: pageList,
+        data: { list, ...{ total: mockList.length } },
       }
     },
   },

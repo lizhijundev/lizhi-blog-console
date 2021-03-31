@@ -18,7 +18,7 @@
       const isFullscreen = ref(false)
 
       const change = () => {
-        this.isFullscreen = screenfull.isFullscreen
+        isFullscreen.value = screenfull.isFullscreen
       }
 
       const click = () => {

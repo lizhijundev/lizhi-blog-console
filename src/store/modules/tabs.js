@@ -92,6 +92,7 @@ const mutations = {
         return route
       })
     }
+
     state.visitedRoutes = handleVisitedRoutes(state.visitedRoutes)
   },
 }

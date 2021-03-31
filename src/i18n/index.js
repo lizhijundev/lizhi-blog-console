@@ -20,16 +20,13 @@ function getLanguage() {
   return store.getters['settings/language'] || 'zh'
 }
 
-let i18n
+const i18n = createI18n({
+  locale: getLanguage(),
+  messages,
+})
 
 export function setupI18n(app) {
-  i18n = createI18n({
-    locale: getLanguage(),
-    messages,
-  })
   app.use(i18n)
 }
 
-export function getI18n() {
-  return i18n
-}
+export default i18n

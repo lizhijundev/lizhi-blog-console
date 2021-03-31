@@ -1,11 +1,6 @@
 <template>
   <div class="goods-container">
-    <el-alert
-      :closable="false"
-      show-icon
-      title="物料商城物料由第三方提供，vue-admin-beautiful作者不提供技术支持，不对物料质量负责，每一位开发者都可以联系作者提供优质的第三方物料，经过审核后可上线物料市场。"
-      type="success"
-    />
+    <el-alert :closable="false" :title="title" show-icon type="success" />
     <vab-query-form>
       <vab-query-form-right-panel :span="24">
         <el-form ref="form" :inline="true" :model="queryForm" @submit.prevent>
@@ -102,13 +97,15 @@
         listLoading: true,
         layout: 'total, sizes, prev, pager, next, jumper',
         total: 0,
+        title: unescape(
+          '\u7269\u6599\u5546\u57ce\u7269\u6599\u7531\u7b2c\u4e09\u65b9\u63d0\u4f9b\uff0c\u0076\u0075\u0065\u002d\u0061\u0064\u006d\u0069\u006e\u002d\u0062\u0065\u0061\u0075\u0074\u0069\u0066\u0075\u006c\u4f5c\u8005\u4e0d\u63d0\u4f9b\u6280\u672f\u652f\u6301\uff0c\u4e0d\u5bf9\u7269\u6599\u8d28\u91cf\u8d1f\u8d23\uff0c\u6bcf\u4e00\u4f4d\u5f00\u53d1\u8005\u90fd\u53ef\u4ee5\u8054\u7cfb\u4f5c\u8005\u63d0\u4f9b\u4f18\u8d28\u7684\u7b2c\u4e09\u65b9\u7269\u6599\uff0c\u7ecf\u8fc7\u5ba1\u6838\u540e\u53ef\u4e0a\u7ebf\u7269\u6599\u5e02\u573a\u3002'
+        ),
       }
     },
     created() {
       this.fetchData()
     },
     methods: {
-      handleBuy() {},
       handleSizeChange(val) {
         this.queryForm.pageSize = val
         this.fetchData()
@@ -123,9 +120,9 @@
       },
       async fetchData() {
         this.listLoading = true
-        const { data, totalCount } = await getList(this.queryForm)
-        this.list = data
-        this.total = totalCount
+        const { list, total } = await getList(this.queryForm)
+        this.list = list
+        this.total = total
       },
     },
   }

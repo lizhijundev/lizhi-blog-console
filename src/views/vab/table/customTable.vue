@@ -52,7 +52,11 @@
           />
           表格全屏
         </el-button>
-        <el-popover popper-class="custom-table-checkbox" trigger="hover">
+        <el-popover
+          :width="220"
+          popper-class="custom-table-checkbox"
+          trigger="hover"
+        >
           <el-radio-group v-model="lineHeight">
             <el-radio label="medium">大</el-radio>
             <el-radio label="small">中</el-radio>
@@ -71,16 +75,13 @@
         </el-popover>
         <el-popover popper-class="custom-table-checkbox" trigger="hover">
           <el-checkbox-group v-model="checkList">
-            <vab-draggable v-bind="dragOptions" :list="columns">
-              <el-checkbox
-                v-for="(item, index) in columns"
-                :key="item + index"
-                :disabled="item.disableCheck === true"
-                :label="item.label"
-              >
-                <vab-icon icon="drag-drop-line" />
-                {{ item.label }}
-              </el-checkbox>
+            <vab-draggable :list="columns" item-key="label">
+              <template #item="{ element }">
+                <el-checkbox :label="element.label">
+                  <vab-icon icon="drag-drop-line" />
+                  {{ element.label }}
+                </el-checkbox>
+              </template>
             </vab-draggable>
           </el-checkbox-group>
           <template #reference>
@@ -118,12 +119,12 @@
           {{ $index + 1 }}
         </template>
       </el-table-column>
+      <!--  TODO element-plus未知原因不支持拖拽后宽度重新计算，暂时放弃 -->
       <el-table-column
         v-for="(item, index) in finallyColumns"
         :key="index"
         :label="item.label"
         :sortable="item.sortable"
-        :width="item.width"
         align="center"
       >
         <template #default="{ row }">
@@ -179,6 +180,11 @@
     },
     data() {
       return {
+        list2: [
+          { name: 'John', id: 0 },
+          { name: 'Joao', id: 1 },
+          { name: 'Jean', id: 2 },
+        ],
         isFullscreen: false,
         border: true,
         height: this.$baseTableHeight(1),
@@ -232,12 +238,6 @@
       }
     },
     computed: {
-      dragOptions() {
-        return {
-          animation: 600,
-          group: 'description',
-        }
-      },
       finallyColumns() {
         return this.columns.filter((item) =>
           this.checkList.includes(item.label)
@@ -328,14 +328,14 @@
       },
       async fetchData() {
         this.listLoading = true
-        const { data, totalCount } = await getList(this.queryForm)
-        this.list = data
+        const { list, total } = await getList(this.queryForm)
+        this.list = list
         const imageList = []
-        data.forEach((item) => {
+        list.forEach((item) => {
           imageList.push(item.img)
         })
         this.imageList = imageList
-        this.total = totalCount
+        this.total = total
         this.listLoading = false
       },
     },

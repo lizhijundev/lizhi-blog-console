@@ -7,7 +7,7 @@
       :fixed-header="theme.fixedHeader"
       :show-tabs="theme.showTabs"
     />
-    <el-backtop target="#admin-plus" />
+    <el-backtop target="#app" />
     <!--  主题组件放到layouts下防止主题切换，导致主题组件重新加载 -->
     <vab-theme-drawer />
     <vab-theme-setting />
@@ -16,7 +16,7 @@
 
 <script>
   import { useStore } from 'vuex'
-  import { computed, onBeforeMount, onBeforeUnmount, onMounted } from 'vue'
+  import { computed, onBeforeMount, onBeforeUnmount } from 'vue'
 
   export default {
     name: 'Layouts',
@@ -53,15 +53,13 @@
         }
       }
 
-      onMounted(() => {
-        handleLayouts()
-      })
       onBeforeMount(() => {
         oldLayout = theme.value.layout
         window.addEventListener('resize', handleLayouts)
+        handleLayouts()
       })
       onBeforeUnmount(() => {
-        theme.value.layout = oldLayout
+        if (isMobile) theme.value.layout = oldLayout
         window.removeEventListener('resize', handleLayouts)
       })
 

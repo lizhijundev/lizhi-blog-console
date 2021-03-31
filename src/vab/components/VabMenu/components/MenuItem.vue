@@ -31,6 +31,7 @@
   import { useRoute, useRouter } from 'vue-router'
   import { isExternal } from '@/utils/validate'
   import { translateTitle } from '@/utils/i18n'
+  import { isHashRouterMode } from '@/config'
 
   export default {
     name: 'MenuItem',
@@ -54,7 +55,10 @@
         const target = props.itemOrMenu.meta.target
         if (target === '_blank') {
           if (isExternal(routePath)) window.open(routePath)
-          else if (route.fullPath !== routePath) window.open(routePath.href)
+          else if (route.fullPath !== routePath)
+            isHashRouterMode
+              ? window.open('/#' + routePath)
+              : window.open(routePath)
         } else {
           if (isExternal(routePath)) window.location.href = routePath
           else if (route.fullPath !== routePath) {

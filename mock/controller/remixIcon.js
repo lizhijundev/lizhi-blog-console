@@ -1,4 +1,4 @@
-const data = [
+const List = [
   '24-hours-fill',
   '24-hours-line',
   '4k-fill',
@@ -2277,16 +2277,15 @@ module.exports = [
     type: 'get',
     response(config) {
       const { title, pageNo = 1, pageSize = 72 } = config.query
-      let mockList = data.filter((item) => !(title && item.indexOf(title) < 0))
-      const pageList = mockList.filter(
+      let mockList = List.filter((item) => !(title && item.indexOf(title) < 0))
+      const list = mockList.filter(
         (item, index) =>
           index < pageSize * pageNo && index >= pageSize * (pageNo - 1)
       )
       return {
         code: 200,
         msg: 'success',
-        totalCount: mockList.length,
-        data: pageList,
+        data: { list, ...{ total: mockList.length } },
       }
     },
   },

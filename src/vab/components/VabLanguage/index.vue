@@ -14,8 +14,8 @@
   import { computed } from 'vue'
   import { useStore } from 'vuex'
   import { useRoute } from 'vue-router'
-  import { getI18n } from '@/i18n'
   import getPageTitle from '@/utils/pageTitle'
+  import i18n from '@/i18n'
 
   export default {
     name: 'VabLanguage',
@@ -26,7 +26,7 @@
 
       const handleCommand = (command) => {
         changeLanguage(command)
-        getI18n().global.locale = command
+        i18n.global.locale = command
         document.title = getPageTitle(route.meta.title)
       }
 

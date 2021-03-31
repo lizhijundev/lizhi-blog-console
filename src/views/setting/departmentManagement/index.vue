@@ -173,9 +173,9 @@
       },
       async fetchData() {
         this.listLoading = true
-        const { data, totalCount } = await getList(this.queryForm)
-        this.list = data
-        this.total = totalCount
+        const { list, total } = await getList(this.queryForm)
+        this.list = list
+        this.total = total
         this.listLoading = false
       },
     },

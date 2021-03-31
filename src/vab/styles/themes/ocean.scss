@@ -127,28 +127,29 @@ body.vab-theme-ocean {
 
   .vab-header {
     background-color: $base-color-blue !important;
-  }
-  .el-menu {
-    &--popup-bottom-start {
-      background-color: $base-color-blue !important;
-    }
 
-    &--horizontal {
-      .el-submenu,
-      .el-menu-item {
+    .vab-main {
+      .el-menu.el-menu {
         background-color: $base-color-blue !important;
 
-        &.is-active {
-          background-color: $base-color-blue-active !important;
-        }
-      }
+        &--horizontal {
+          .el-submenu,
+          .el-menu-item {
+            background-color: $base-color-blue !important;
 
-      > .el-menu-item,
-      .el-submenu__title {
-        background-color: $base-color-blue !important;
+            &.is-active {
+              background-color: $base-color-blue-active !important;
+            }
+          }
 
-        &.is-active {
-          background-color: $base-color-blue-active !important;
+          > .el-menu-item,
+          .el-submenu__title {
+            background-color: $base-color-blue !important;
+
+            &.is-active {
+              background-color: $base-color-blue-active !important;
+            }
+          }
         }
       }
     }

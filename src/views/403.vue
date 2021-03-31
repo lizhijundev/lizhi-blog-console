@@ -181,7 +181,7 @@
           margin-bottom: 30px;
           font-size: 13px;
           line-height: 21px;
-          color: $base-color-gray;
+          color: $base-color-grey;
           opacity: 0;
           animation-name: slideUp;
           animation-duration: 0.5s;

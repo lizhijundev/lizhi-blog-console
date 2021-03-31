@@ -1,19 +1,13 @@
 import store from '@/store'
 import { errorLog } from '@/config'
-import { isArray, isString } from '@/utils/validate'
+import { isArray } from '@/utils/validate'
+
+export const checkNeed = () => {
+  const errorLogArray = isArray(errorLog) ? [...errorLog] : [...[errorLog]]
+  return errorLogArray.includes(process.env.NODE_ENV)
+}
 
 export function setup(app) {
-  const needErrorLog = errorLog
-  const checkNeed = () => {
-    const env = process.env.NODE_ENV
-    if (isString(needErrorLog)) {
-      return env === needErrorLog
-    }
-    if (isArray(needErrorLog)) {
-      return needErrorLog.includes(env)
-    }
-    return false
-  }
   if (checkNeed()) {
     app.config.errorHandler = (err, vm, info) => {
       // eslint-disable-next-line no-console

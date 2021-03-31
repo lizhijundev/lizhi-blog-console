@@ -65,11 +65,11 @@ const actions = {
     const control = mode === 'visit' ? false : rolesControl
     // 设置后端路由(不需要可以删除)
     if (authentication === 'all') {
-      const { data } = await getRouterList()
-      if (!isArray(data)) ElMessage.error('路由格式返回有误')
-      if (data[data.length - 1].path !== '/:pathMatch(.*)*')
-        data.push({ path: '/:pathMatch(.*)*', redirect: '/404', hidden: true })
-      routes = convertRouter(data)
+      const { list } = await getRouterList()
+      if (!isArray(list)) ElMessage.error('路由格式返回有误')
+      if (list[list.length - 1].path !== '*')
+        list.push({ path: '/:pathMatch(.*)*', redirect: '/404', hidden: true })
+      routes = convertRouter(list)
     }
     // 根据权限和rolesControl过滤路由
     const finallyRoutes = filterRoutes([...constantRoutes, ...routes], control)

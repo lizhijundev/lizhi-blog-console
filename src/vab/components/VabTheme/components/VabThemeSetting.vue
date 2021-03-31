@@ -61,7 +61,7 @@
       const getCode = () => {
         ctx
           .$prompt(
-            '请输入秘钥（秘钥请在源码中查看，跳转后需登录购买时绑定的github账号）',
+            '请输入秘钥(秘钥请在源码中查看，跳转后需登录购买时绑定的github账号)',
             '温馨提示',
             {
               confirmButtonText: '确定',

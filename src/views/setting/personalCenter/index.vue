@@ -35,11 +35,11 @@
               </li>
               <li>
                 <vab-icon icon="community-line" />
-                VAB集团 - PRO事业群 - 菜鸟技术部
+                集团 - 事业群 - 技术部
               </li>
               <li>
                 <vab-icon icon="map-pin-2-line" />
-                中国 • 汉东省 • 京州市
+                中国 • 广东省 • 深圳市
               </li>
               <li>
                 <vab-icon icon="code-s-slash-line" />
@@ -172,10 +172,12 @@
       return {
         activeName: 'second',
         form: {
-          fullName: '楚芝馨',
+          fullName: unescape('\u695a\u829d\u99a8'),
           nickname: 'good luck',
           sex: 2,
-          description: '富在术数，不在劳身；利在势居，不在力耕。',
+          description: unescape(
+            '\u5bcc\u5728\u672f\u6570\uff0c\u4e0d\u5728\u52b3\u8eab\uff1b\u5229\u5728\u52bf\u5c45\uff0c\u4e0d\u5728\u529b\u8015\u3002'
+          ),
         },
       }
     },

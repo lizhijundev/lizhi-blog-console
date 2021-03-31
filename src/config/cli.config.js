@@ -1,5 +1,5 @@
 /**
- * @description 导出vue/cli配置
+ * @description 导出vue/cli配置，以下所有配置修改需要重启项目
  */
 module.exports = {
   // 开发以及部署时的URL
@@ -15,7 +15,7 @@ module.exports = {
   // 进行编译的依赖
   transpileDependencies: ['resize-detector'],
   // 开发环境端口号
-  devPort: '11000',
+  devPort: 10999,
   // 需要自动注入并加载的模块
   providePlugin: {},
   // npm run build时是否自动生成7z压缩包

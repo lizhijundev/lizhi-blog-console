@@ -7,6 +7,68 @@
       type="success"
     />
     <vab-query-form>
+      <vab-query-form-top-panel>
+        <el-form
+          ref="form"
+          :inline="true"
+          :model="queryForm"
+          label-width="49px"
+          @submit.prevent
+        >
+          <el-form-item label="标题">
+            <el-input v-model="queryForm.title" placeholder="请输入标题" />
+          </el-form-item>
+          <el-form-item label="标题">
+            <el-input v-model="queryForm.title" placeholder="请输入标题" />
+          </el-form-item>
+          <el-form-item v-show="!fold" label="标题">
+            <el-input v-model="queryForm.title" placeholder="请输入标题" />
+          </el-form-item>
+          <el-form-item v-show="!fold" label="标题">
+            <el-input v-model="queryForm.title" placeholder="请输入标题" />
+          </el-form-item>
+          <el-form-item v-show="!fold" label="标题">
+            <el-input v-model="queryForm.title" placeholder="请输入标题" />
+          </el-form-item>
+          <el-form-item v-show="!fold" label="标题">
+            <el-input v-model="queryForm.title" placeholder="请输入标题" />
+          </el-form-item>
+          <el-form-item v-show="!fold" label="标题">
+            <el-input v-model="queryForm.title" placeholder="请输入标题" />
+          </el-form-item>
+          <el-form-item v-show="!fold" label="标题">
+            <el-input v-model="queryForm.title" placeholder="请输入标题" />
+          </el-form-item>
+          <el-form-item v-show="!fold" label="标题">
+            <el-input v-model="queryForm.title" placeholder="请输入标题" />
+          </el-form-item>
+          <el-form-item v-show="!fold" label="标题">
+            <el-input v-model="queryForm.title" placeholder="请输入标题" />
+          </el-form-item>
+          <el-form-item v-show="!fold" label="标题">
+            <el-input v-model="queryForm.title" placeholder="请输入标题" />
+          </el-form-item>
+          <el-form-item>
+            <el-button
+              icon="el-icon-search"
+              native-type="submit"
+              type="primary"
+              @click="handleQuery"
+            >
+              查询
+            </el-button>
+            <el-button type="text" @click="handleFold">
+              <span v-if="fold">展开</span>
+              <span v-else>合并</span>
+              <vab-icon
+                :class="{ 'vab-dropdown-active': fold }"
+                class="vab-dropdown"
+                icon="arrow-up-s-line"
+              />
+            </el-button>
+          </el-form-item>
+        </el-form>
+      </vab-query-form-top-panel>
       <vab-query-form-left-panel>
         <el-button icon="el-icon-plus" type="primary" @click="handleAdd">
           添加
@@ -22,7 +84,7 @@
           $baseConfirm
         </el-button>
         <el-button type="primary" @click="handleNotify">$baseNotify</el-button>
-        <el-badge value="New" class="item">
+        <el-badge value="New" class="item" type="danger">
           <el-button
             icon="el-icon-info"
             style="margin: 0 0 10px 0 !important"
@@ -33,23 +95,6 @@
           </el-button>
         </el-badge>
       </vab-query-form-left-panel>
-      <vab-query-form-right-panel>
-        <el-form ref="form" :inline="true" :model="queryForm" @submit.prevent>
-          <el-form-item>
-            <el-input v-model="queryForm.title" placeholder="请输入标题" />
-          </el-form-item>
-          <el-form-item>
-            <el-button
-              icon="el-icon-search"
-              native-type="submit"
-              type="primary"
-              @click="handleQuery"
-            >
-              查询
-            </el-button>
-          </el-form-item>
-        </el-form>
-      </vab-query-form-right-panel>
     </vab-query-form>
 
     <el-table
@@ -191,7 +236,8 @@
     },
     data() {
       return {
-        height: this.$baseTableHeight(2),
+        fold: false,
+        height: this.$baseTableHeight(3) - 30,
         imgShow: true,
         list: [],
         imageList: [],
@@ -223,8 +269,13 @@
         }
         return statusMap[status]
       },
+      handleFold() {
+        this.fold = !this.fold
+        this.handleHeight()
+      },
       handleHeight() {
-        this.height = this.$baseTableHeight(2)
+        if (this.fold) this.height = this.$baseTableHeight(2) - 47
+        else this.height = this.$baseTableHeight(3) - 30
       },
       tableSortChange() {
         const imageList = []
@@ -310,14 +361,14 @@
       },
       async fetchData() {
         this.listLoading = true
-        const { data, totalCount } = await getList(this.queryForm)
-        this.list = data
+        const { list, total } = await getList(this.queryForm)
+        this.list = list
         const imageList = []
-        data.forEach((item) => {
+        list.forEach((item) => {
           imageList.push(item.img)
         })
         this.imageList = imageList
-        this.total = totalCount
+        this.total = total
         this.listLoading = false
 
         setTimeout(() => {

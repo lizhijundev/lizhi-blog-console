@@ -12,22 +12,28 @@
     data() {
       return { url: '' }
     },
+    watch: {
+      $route: 'handleIframe',
+    },
     created() {
-      this.url = this.$route.query.url
-      if (this.$route.query.title)
-        this.$nextTick(() => {
-          this.changeTabsMeta({
-            title: 'Iframe',
-            meta: {
-              title: this.$route.query.title,
-            },
-          })
-        })
+      this.handleIframe()
     },
     methods: {
       ...mapActions({
         changeTabsMeta: 'tabs/changeTabsMeta',
       }),
+      handleIframe() {
+        this.url = this.$route.query.url
+        if (this.$route.query.title)
+          this.$nextTick(() => {
+            this.changeTabsMeta({
+              title: 'Iframe',
+              meta: {
+                title: this.$route.query.title,
+              },
+            })
+          })
+      },
     },
   }
 </script>

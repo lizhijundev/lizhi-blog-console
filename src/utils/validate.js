@@ -163,7 +163,7 @@ export function isChina(value) {
  */
 export function isBlank(value) {
   return (
-    value == null ||
+    value === null ||
     false ||
     value === '' ||
     value.trim() === '' ||
@@ -197,10 +197,10 @@ export function isNum(value) {
  * @returns {boolean}
  */
 export function isJson(value) {
-  if (typeof value == 'string') {
+  if (typeof value === 'string') {
     try {
       const obj = JSON.parse(value)
-      return !!(typeof obj == 'object' && obj)
+      return !!(typeof obj === 'object' && obj)
     } catch (e) {
       return false
     }

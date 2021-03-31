@@ -1,10 +1,5 @@
 <template>
   <div class="menu-management-container">
-    <el-alert
-      :closable="false"
-      title="演示环境仅做基础功能展示，若想实现不同角色的真实菜单配置，需将config/setting.config.js路由加载模式改为all模式，由后端全面接管路由渲染与角色权限控制"
-      type="success"
-    />
     <el-row>
       <el-col :lg="4" :md="8" :sm="24" :xl="4" :xs="24">
         <el-tree
@@ -186,8 +181,8 @@
       },
       async fetchData() {
         this.listLoading = true
-        const { data } = await getList()
-        this.list = data
+        const { list } = await getList()
+        this.list = list
         this.listLoading = false
       },
       handleNodeClick() {

@@ -78,7 +78,7 @@ function sheet_from_array_of_arrays(data) {
       let cell = {
         v: data[R][C],
       }
-      if (cell.v == null) continue
+      if (cell.v === null) continue
       let cell_ref = XLSX.utils.encode_cell({
         c: C,
         r: R,
@@ -173,7 +173,7 @@ export function export_json_to_excel({
   if (autoWidth) {
     const colWidth = data.map((row) =>
       row.map((val) => {
-        if (val == null) {
+        if (val === null) {
           return {
             wch: 10,
           }

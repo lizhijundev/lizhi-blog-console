@@ -40,7 +40,7 @@
     </el-tabs>
 
     <el-dropdown @command="handleCommand" @visible-change="handleVisibleChange">
-      <span class="vab-tabs-more">
+      <span :class="{ 'vab-tabs-more-active': active }" class="vab-tabs-more">
         <span class="vab-tabs-more-icon">
           <i class="box box-t"></i>
           <i class="box box-b"></i>
@@ -163,7 +163,7 @@
         return path === handleActivePath(route, true)
       }
       const isNoCLosable = (tag) => {
-        return tag.meta && tag.meta.noCLosable
+        return tag.meta && tag.meta.noClosable
       }
       const handleTabClick = (tab) => {
         if (!isActive(tab.name)) router.push(visitedRoutes.value[tab.index])
@@ -173,7 +173,7 @@
       }
       const initNoCLosableTabs = (routes) => {
         routes.forEach((route) => {
-          if (route.meta && route.meta.noCLosable) addTabs(route, true)
+          if (route.meta && route.meta.noClosable) addTabs(route, true)
           if (route.children) initNoCLosableTabs(route.children)
         })
       }
@@ -184,9 +184,12 @@
        * @returns {Promise<void>}
        */
       const addTabs = async (tag, init = false) => {
-        let parentIcon = ''
-        if (tag.matched && tag.matched.length > 1)
-          parentIcon = tag.matched[1].meta.icon
+        let parentIcon = null
+        if (tag.matched)
+          for (let i = tag.matched.length - 2; i >= 0; i--)
+            if (!parentIcon && tag.matched[i].meta.icon)
+              parentIcon = tag.matched[i].meta.icon
+        if (!parentIcon) parentIcon = 'menu-line'
         if (tag.name && tag.meta && tag.meta.tabHidden !== true) {
           const path = handleActivePath(tag, true)
           await addVisitedRoute({
@@ -194,7 +197,7 @@
             query: tag.query,
             params: tag.params,
             name: tag.name,
-            matched: init ? [tag.name] : tag.matched.map((item) => item.name),
+            matched: init ? [tag.name] : tag.matched.map((_) => _.name),
             parentIcon,
             meta: { ...tag.meta },
           })
@@ -285,7 +288,7 @@
         const leftTemp = Math.round(e.clientX - offsetLeft)
         if (leftTemp > maxLeft) left.value = maxLeft
         else left.value = leftTemp
-        top.value = Math.round(e.clientY - 65)
+        top.value = Math.round(e.clientY - 60)
         hoverRoute.value = item
         hoverRoute.value.fullPath = item.path
         visible.value = true
@@ -526,6 +529,8 @@
 
     &-more {
       position: relative;
+
+      &-active,
       &:hover {
         &:after {
           position: absolute;
@@ -534,29 +539,35 @@
           height: 0;
           content: '';
         }
+
         .vab-tabs-more-icon {
           transform: rotate(90deg);
+
           .box-t {
             &:before {
               transform: rotate(45deg);
             }
           }
+
           .box:before,
           .box:after {
             background: $base-color-blue;
           }
         }
       }
+
       &-icon {
         display: inline-block;
         color: #9a9a9a;
         cursor: pointer;
         transition: transform 0.3s ease-out;
+
         .box {
           position: relative;
           display: block;
           width: 14px;
           height: 8px;
+
           &:before {
             position: absolute;
             top: 0;
@@ -566,6 +577,7 @@
             content: '';
             background: #9a9a9a;
           }
+
           &:after {
             position: absolute;
             top: 0;
@@ -576,6 +588,7 @@
             background: #9a9a9a;
           }
         }
+
         .box-t {
           &:before {
             transition: transform 0.3s ease-out 0.3s;

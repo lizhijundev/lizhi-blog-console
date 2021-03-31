@@ -2,6 +2,7 @@
  * @description 路由守卫，目前两种模式：all模式与intelligence模式
  */
 import store from '@/store'
+import router from '@/router'
 import VabProgress from 'nprogress'
 import 'nprogress/nprogress.css'
 import getPageTitle from '@/utils/pageTitle'
@@ -13,7 +14,7 @@ import {
   supportVisit,
 } from '@/config'
 
-export function setupGuard(router) {
+export function setup() {
   VabProgress.configure({
     easing: 'ease',
     speed: 500,
@@ -42,7 +43,8 @@ export function setupGuard(router) {
           // 根据路由模式获取路由并根据权限过滤
           await store.dispatch('routes/setRoutes', authentication)
           next({ ...to, replace: true })
-        } catch {
+        } catch (err) {
+          console.error('vue-admin-beautiful错误拦截:', err)
           await store.dispatch('user/resetAll')
           next(toLoginRoute(to.path))
         }

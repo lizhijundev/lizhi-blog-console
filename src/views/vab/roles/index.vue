@@ -112,12 +112,9 @@
       </el-form-item>
     </el-form>
     <h3>intelligence模式(前端控制路由)</h3>
-    <p>前端根据roles角色和ability数组处理路由，具体细节请阅读pro文档</p>
-    <h3>all模式(后端控制路由)</h3>
-    <p>
-      config/setting.config.js配置authentication为all即可路由交由后端控制,mock中有后端接口示例,角色繁琐,有几十种角色的项目直接用这种,
-      当开启rolesControl:true时前端也可以根据roles角色和ability数组处理路由
-    </p>
+    <p>用法请阅读文档</p>
+    <h3>all模式(后端动态路由控制)</h3>
+    <p>用法请阅读文档</p>
     <el-row :gutter="20">
       <el-col :span="24">
         <el-table
@@ -273,8 +270,8 @@
         await location.reload()
       },
       async fetchData() {
-        const { data } = await getRouterList()
-        this.tableData = filterRoutes([...data])
+        const { list } = await getRouterList()
+        this.tableData = filterRoutes([...list])
       },
     },
   }

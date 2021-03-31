@@ -1,10 +1,5 @@
 <template>
   <div class="role-management-container">
-    <el-alert
-      :closable="false"
-      title="演示环境仅做基础功能展示，若想实现不同角色的真实菜单配置，需将config/setting.config.js路由加载模式改为all模式，由后端全面接管路由渲染与角色权限控制"
-      type="success"
-    />
     <vab-query-form>
       <vab-query-form-left-panel :span="12">
         <el-button icon="el-icon-plus" type="primary" @click="handleEdit">
@@ -167,9 +162,9 @@
       },
       async fetchData() {
         this.listLoading = true
-        const { data, totalCount } = await getList(this.queryForm)
-        this.list = data
-        this.total = totalCount
+        const { list, total } = await getList(this.queryForm)
+        this.list = list
+        this.total = total
         this.listLoading = false
       },
     },

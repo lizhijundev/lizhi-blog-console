@@ -1,6 +1,6 @@
 import { ElMessageBox } from 'element-plus'
 import { title } from '@/config'
-import { devDependencies } from '../../../package.json'
+import { dependencies } from '../../../package.json'
 
 export function setup(app) {
   if (!!window.ActiveXObject || 'ActiveXObject' in window) {
@@ -26,10 +26,9 @@ export function setup(app) {
     )
   }
   if (process.env.NODE_ENV !== 'development') {
-    const str =
-      '\u0076\u0075\u0065\u002d\u0070\u006c\u0075\u0067\u0069\u006e\u002d\u0072\u0065\u006c\u0079'
+    const str = '\u0076\u0061\u0062\u002d\u0069\u0063\u006f\u006e\u0073'
     const key = unescape(str.replace(/\\u/g, '%u'))
-    if (!devDependencies[key]) app.config.globalProperties = null
+    if (!dependencies[key]) app.config.globalProperties = null
     if (!process.env.VUE_APP_SECRET_KEY) app.config.globalProperties = null
   }
 }

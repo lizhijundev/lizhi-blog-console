@@ -114,7 +114,7 @@ export function paramObj(url) {
  */
 export function translateDataToTree(data) {
   const parent = data.filter(
-    (value) => value.parentId === 'undefined' || value.parentId == null
+    (value) => value.parentId === 'undefined' || value.parentId === null
   )
   const children = data.filter(
     (value) => value.parentId !== 'undefined' && value.parentId !== null

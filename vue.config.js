@@ -1,6 +1,7 @@
 /**
  * @description vue.config.js全局配置
  */
+/* \u6b63\u7248\u4e0d\u8d35\uff0c\u611f\u6069\u76f8\u9047\uff0c\u4f7f\u7528\u76d7\u7248\uff0c\u5f97\u4e0d\u507f\u5931\uff0c\u6076\u610f\u5206\u4eab\uff0c\u683c\u76d8\u4e0d\u8c22 */
 const path = require('path')
 const {
   /* baseURL,*/
@@ -17,13 +18,9 @@ const {
   buildGzip,
   imageCompression,
 } = require('./src/config')
-const str =
-  '\u0076\u0075\u0065\u002d\u0070\u006c\u0075\u0067\u0069\u006e\u002d\u0072\u0065\u006c\u0079'
-require(unescape(str.replace(/\\u/g, '%u')))
+const rely = require('vue-plugin-rely')
 const { webpackBarName, webpackBanner } = require('./vab.config')
-const { version, author, devDependencies } = require('./package.json')
-if (devDependencies[unescape(str.replace(/\\u/g, '%u'))])
-  process.env.VUE_APP_RELY = 'success'
+const { version, author } = require('./package.json')
 const Webpack = require('webpack')
 const WebpackBar = require('webpackbar')
 const FileManagerPlugin = require('filemanager-webpack-plugin')
@@ -35,6 +32,7 @@ process.env.VUE_APP_TITLE = title
 process.env.VUE_APP_AUTHOR = author
 process.env.VUE_APP_UPDATE_TIME = dateTime
 process.env.VUE_APP_VERSION = version
+process.env.VUE_APP_RELY = rely
 const resolve = (dir) => {
   return path.join(__dirname, dir)
 }
@@ -144,13 +142,15 @@ module.exports = {
       if (build7z)
         config.plugin('fileManager').use(FileManagerPlugin, [
           {
-            onEnd: {
-              archive: [
-                {
-                  source: `./${outputDir}`,
-                  destination: `./${outputDir}/${abbreviation}_${dateTime}.7z`,
-                },
-              ],
+            events: {
+              onEnd: {
+                archive: [
+                  {
+                    source: `./${outputDir}`,
+                    destination: `./${outputDir}/${abbreviation}_${dayjs().unix()}.7z`,
+                  },
+                ],
+              },
             },
           },
         ])

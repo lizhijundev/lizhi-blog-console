@@ -158,7 +158,7 @@
       :deep() {
         [class*='ri-'] {
           margin-left: $base-margin;
-          color: $base-color-gray;
+          color: $base-color-grey;
           cursor: pointer;
         }
 

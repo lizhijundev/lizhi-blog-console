@@ -334,7 +334,7 @@
       padding: 0 $base-padding/2 $base-padding/2 $base-padding/2;
 
       .el-divider--horizontal {
-        margin: 28px 0 28px 0;
+        margin: 20px 0 20px 0;
       }
 
       .el-form-item {

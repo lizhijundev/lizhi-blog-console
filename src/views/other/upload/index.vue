@@ -1,11 +1,5 @@
 <template>
   <div class="upload-container">
-    <el-alert
-      :closable="false"
-      show-icon
-      title="演示环境可能无法模拟上传"
-      type="success"
-    />
     <vab-upload
       ref="vabUpload"
       :limit="50"

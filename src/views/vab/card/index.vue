@@ -6,7 +6,7 @@
           ref="form"
           :inline="true"
           :model="queryForm"
-          label-width="60px"
+          label-width="50px"
           @submit.prevent
         >
           <el-form-item label="区域">
@@ -114,9 +114,9 @@
       },
       async fetchData() {
         this.listLoading = true
-        const { data, totalCount } = await getList(this.queryForm)
-        this.list = data
-        this.total = totalCount
+        const { list, total } = await getList(this.queryForm)
+        this.list = list
+        this.total = total
       },
     },
   }

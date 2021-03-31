@@ -3,16 +3,20 @@
  */
 
 .vab-theme-green {
-  $base-menu-background: #16181d;
-  $base-color-blue: #009688;
-  $base-color-blue-light: mix($base-color-white, $base-color-blue, 90%);
+  $base-menu-background: #20222a;
+
+  $base-color-blue: #41b584;
+  $base-color-green: #67c23a;
+  $base-color-yellow: #e6a23c;
+  $base-color-red: #f56c6c;
+  @import '../default.scss';
 
   @mixin container {
     background: $base-menu-background !important;
   }
 
   @mixin container-common {
-    background: #20222a !important;
+    background: $base-menu-background !important;
   }
 
   @mixin active {
@@ -27,11 +31,8 @@
     }
   }
 
+  .logo-container-vertical,
   .logo-container-horizontal,
-  .logo-container-vertical {
-    @include container;
-  }
-
   .logo-container-comprehensive {
     @include container;
   }
@@ -67,7 +68,7 @@
         }
 
         color: $base-color-blue !important;
-        background-color: $base-color-blue-light !important;
+        background-color: $base-color-blue-light-9 !important;
       }
     }
   }
@@ -136,17 +137,19 @@
 
     .vab-main {
       @include container;
-    }
-  }
 
-  .el-menu {
-    &--horizontal {
-      .el-submenu,
-      .el-menu-item {
-        @include active;
+      .right-panel {
+        .el-menu.el-menu {
+          &--horizontal {
+            .el-submenu,
+            .el-menu-item {
+              @include active;
 
-        &.is-active {
-          background-color: $base-color-blue !important;
+              &.is-active {
+                background-color: $base-color-blue !important;
+              }
+            }
+          }
         }
       }
     }
@@ -154,6 +157,7 @@
 
   .vab-tabs {
     &-more {
+      &-active,
       &:hover {
         .vab-tabs-more-icon {
           .box:before,
@@ -169,7 +173,7 @@
         .el-tabs__item {
           &.is-active {
             color: $base-color-blue !important;
-            background: $base-color-blue-light !important;
+            background: $base-color-blue-light-9 !important;
             border: 1px solid $base-color-blue !important;
           }
 
@@ -184,7 +188,7 @@
       .el-tabs__header {
         .el-tabs__item {
           &.is-active {
-            background: $base-color-blue-light !important;
+            background: $base-color-blue-light-9 !important;
           }
 
           &:after {
@@ -192,7 +196,7 @@
           }
 
           &:hover {
-            background: $base-color-blue-light !important;
+            background: $base-color-blue-light-9 !important;
           }
         }
       }
@@ -203,11 +207,11 @@
         .el-tabs__item {
           &.is-active {
             color: $base-color-blue !important;
-            background: $base-color-blue-light !important;
+            background: $base-color-blue-light-9 !important;
 
             &:hover {
               color: $base-color-blue !important;
-              background: $base-color-blue-light !important;
+              background: $base-color-blue-light-9 !important;
             }
           }
 
@@ -238,5 +242,63 @@
     .peg {
       box-shadow: 0 0 10px $base-color-blue, 0 0 5px $base-color-blue !important;
     }
+  }
+
+  .step-form-container {
+    .el-steps {
+      .el-step__head.is-finish {
+        .el-step__icon.is-text {
+          color: $base-color-white !important;
+          background: $base-color-blue !important;
+        }
+
+        .el-step__line {
+          background: $base-color-blue !important;
+        }
+      }
+
+      .el-step__head.is-process {
+        color: $base-color-blue !important;
+        border-color: $base-color-blue !important;
+
+        .el-step__icon.is-text {
+          color: $base-color-blue !important;
+          background: mix($base-color-white, $base-color-blue, 90%) !important;
+        }
+      }
+
+      .el-step__title.is-process {
+        color: $base-color-blue !important;
+      }
+
+      .el-step__description.is-process {
+        color: $base-color-blue !important;
+      }
+
+      .el-step__head.is-wait {
+        .el-step__line {
+          background: $base-color-blue !important;
+        }
+      }
+    }
+  }
+
+  .el-alert {
+    &--info.is-light {
+      color: $base-color-blue !important;
+      background-color: mix(
+        $base-color-white,
+        $base-color-blue,
+        90%
+      ) !important;
+      border: 1px solid $base-color-blue !important;
+
+      i {
+        color: $base-color-blue !important;
+      }
+    }
+  }
+  .remix-icon-container .el-card__body::after {
+    background-color: $base-color-blue !important;
   }
 }

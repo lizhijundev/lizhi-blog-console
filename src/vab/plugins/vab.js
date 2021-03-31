@@ -5,37 +5,26 @@ import {
   ElMessageBox,
   ElNotification,
 } from 'element-plus'
-import store from '@/store'
-import { getToken } from '@/utils/token'
-import { devDependencies } from '../../../package.json'
+import { dependencies } from '../../../package.json'
 
 export function setup(app) {
-  const token = store.getters['user/token']
-
-  /**
-   * @description 全局token
-   */
-  app.config.globalProperties.$baseToken = () => {
-    return token || getToken()
-  }
-
   /**
    * @description 全局加载层
    * @param {*} index
    * @param {*} text
    */
-  app.config.globalProperties.$baseLoading = (index, text) => {
+  app.config.globalProperties.$baseLoading = (index, text = loadingText) => {
     let loading
     if (!index) {
       loading = ElLoading.service({
         lock: true,
-        text: text || loadingText,
+        text: text,
         background: 'hsla(0,0%,100%,.8)',
       })
     } else {
       loading = ElLoading.service({
         lock: true,
-        text: text || loadingText,
+        text: text,
         spinner: 'vab-loading-type' + index,
         background: 'hsla(0,0%,100%,.8)',
       })
@@ -48,12 +37,15 @@ export function setup(app) {
    * @param {*} index
    * @param {*} text
    */
-  app.config.globalProperties.$baseColorfullLoading = (index, text) => {
+  app.config.globalProperties.$baseColorfullLoading = (
+    index,
+    text = loadingText
+  ) => {
     let loading
     if (!index) {
       loading = ElLoading.service({
         lock: true,
-        text: text || loadingText,
+        text: text,
         spinner: 'dots-loader',
         background: 'hsla(0,0%,100%,.8)',
       })
@@ -138,12 +130,12 @@ export function setup(app) {
     title,
     callback1,
     callback2,
-    confirmButtonText,
-    cancelButtonText
+    confirmButtonText = '确定',
+    cancelButtonText = '取消'
   ) => {
     ElMessageBox.confirm(content, title || '温馨提示', {
-      confirmButtonText: confirmButtonText || '确定',
-      cancelButtonText: cancelButtonText || '取消',
+      confirmButtonText: confirmButtonText,
+      cancelButtonText: cancelButtonText,
       closeOnClickModal: false,
       type: 'warning',
       lockScroll: false,
@@ -170,14 +162,14 @@ export function setup(app) {
   app.config.globalProperties.$baseNotify = (
     message,
     title,
-    type,
-    position
+    type = 'success',
+    position = 'top-right'
   ) => {
     ElNotification({
       title: title,
       message: message,
-      position: position || 'top-right',
-      type: type || 'success',
+      position: position,
+      type: type,
       duration: messageDuration,
     })
   }
@@ -191,7 +183,7 @@ export function setup(app) {
     let paddingHeight = 291
     const formHeight = 60
 
-    if ('number' == typeof formType) {
+    if ('number' === typeof formType) {
       height = height - paddingHeight - formHeight * formType
     } else {
       height = height - paddingHeight
@@ -200,10 +192,9 @@ export function setup(app) {
   }
 
   if (process.env.NODE_ENV !== 'development') {
-    const str =
-      '\u0076\u0075\u0065\u002d\u0070\u006c\u0075\u0067\u0069\u006e\u002d\u0072\u0065\u006c\u0079'
+    const str = '\u0076\u0061\u0062\u002d\u0069\u0063\u006f\u006e\u0073'
     const key = unescape(str.replace(/\\u/g, '%u'))
-    if (!devDependencies[key]) app.config.globalProperties = null
+    if (!dependencies[key]) app.config.globalProperties = null
     if (!process.env.VUE_APP_SECRET_KEY) app.config.globalProperties = null
   }
 }

@@ -7,12 +7,13 @@ import {
   requestTimeout,
   statusName,
   successCode,
-  // tokenName,
+  /* tokenName, */
 } from '@/config'
 import store from '@/store'
 import qs from 'qs'
 import router from '@/router'
 import { isArray } from '@/utils/validate'
+import { checkNeed } from '@/vab/plugins/errorLog'
 import { ElLoading, ElMessage } from 'element-plus'
 
 let loadingInstance
@@ -41,12 +42,10 @@ const CODE_MESSAGE = {
 
 const handleData = ({ config, data, status, statusText }) => {
   if (loadingInstance) loadingInstance.close()
-  // 极个别情况，若将错误code设置为0时，防止识别成false影响判断
-  if (data[statusName] === 0) data[statusName] = '0'
   // 若data.code存在，覆盖默认code
   let code = data && data[statusName] ? data[statusName] : status
   // 若code属于操作正常code，则status修改为200
-  if (codeVerificationArray.includes(code)) code = 200
+  if (codeVerificationArray.indexOf(data[statusName]) + 1) code = 200
   switch (code) {
     case 200:
       // 业务层级错误处理，以下是假定restful有一套统一输出格式(指不管成功与否都有相应的数据格式)情况下进行处理
@@ -54,15 +53,18 @@ const handleData = ({ config, data, status, statusText }) => {
       // 错误内容：{ status: 1, msg: '非法参数' }
       // 正确内容：{ status: 200, data: {  }, msg: '操作正常' }
       // 修改返回内容为 `data` 内容，对于绝大多数场景已经无须再关心业务状态码(code)和消息(msg)
-      // return data.data ? data.data : data.msg
       // 或者依然保持完整的格式
-      return data
+      // return data
+      return data.data ? data.data : data.msg
     case 401:
-      store.dispatch('user/resetAll')
-      router.push({ path: '/login', replace: true })
+      store
+        .dispatch('user/resetAll')
+        .then(() =>
+          router.push({ path: '/login', replace: true }).then(() => {})
+        )
       break
     case 403:
-      router.push({ path: '/403' })
+      router.push({ path: '/403' }).then(() => {})
       break
   }
   // 异常处理
@@ -74,7 +76,15 @@ const handleData = ({ config, data, status, statusText }) => {
       ? statusText
       : data[messageName]
   }`
-  ElMessage.error(message)
+  if (checkNeed())
+    store
+      .dispatch('errorLog/addErrorLog', {
+        err: new Error(message),
+        vm: null,
+        info: message,
+        url: config.url,
+      })
+      .then(() => {})
   return Promise.reject(message)
 }
 

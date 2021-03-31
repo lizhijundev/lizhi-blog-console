@@ -177,8 +177,7 @@
     methods: {
       //获取行政区划
       async fetchData() {
-        const { data } = await getList()
-        this.areaOptions = data
+        this.areaOptions = await getList()
       },
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {

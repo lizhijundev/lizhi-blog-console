@@ -75,9 +75,9 @@
         this.fetchData()
       },
       async fetchData() {
-        const { data, totalCount } = await getIconList(this.queryForm)
-        this.queryIcon = data
-        this.total = totalCount
+        const { list, total } = await getIconList(this.queryForm)
+        this.queryIcon = list
+        this.total = total
       },
       handleIcon(item) {
         this.icon = item
@@ -100,7 +100,7 @@
 
       i {
         font-size: 28px;
-        color: $base-color-gray;
+        color: $base-color-grey;
         text-align: center;
         vertical-align: middle;
         pointer-events: none;

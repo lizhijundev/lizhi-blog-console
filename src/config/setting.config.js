@@ -3,7 +3,7 @@
  */
 module.exports = {
   // 标题，此项修改后需要重启项目！！！ (包括初次加载雪花屏的标题 页面的标题 浏览器的标题)
-  title: 'Vab Admin Plus',
+  title: 'Vue Admin Plus',
   // 标题分隔符
   titleSeparator: ' - ',
   // 标题是否反转
@@ -28,7 +28,7 @@ module.exports = {
   tokenTableName: 'admin-plus-token',
   // token存储位置localStorage sessionStorage cookie
   storage: 'localStorage',
-  // token失效回退到登录页时是否记录本次的路由
+  // token失效回退到登录页时是否记录本次的路由（是否记录当前tab页）
   recordRoute: true,
   // 是否开启logo，不显示时设置false，请填写src/icon路径下的图标名称
   // 如需使用内置RemixIcon图标，请自行去logo组件切换注释代码(内置svg雪碧图较大，对性能有一定影响)
@@ -37,8 +37,8 @@ module.exports = {
   i18n: 'zh',
   // 消息框消失时间
   messageDuration: 3000,
-  // 在哪些环境下显示高亮错误
-  errorLog: ['development' /* , 'production' */],
+  // 在哪些环境下显示高亮错误 ['development', 'production']
+  errorLog: 'development',
   // 是否开启登录拦截
   loginInterception: true,
   // 是否开启登录RSA加密
@@ -52,11 +52,16 @@ module.exports = {
   // vertical column comprehensive common布局时是否只保持一个子菜单的展开
   uniqueOpened: false,
   // vertical column comprehensive common布局时默认展开的菜单path，使用逗号隔开建议只展开一个
-  defaultOpeneds: ['/vab'],
+  defaultOpeneds: [
+    '/vab',
+    '/vab/table',
+    '/vab/icon',
+    '/vab/form',
+    '/vab/editor',
+    '/vab/editor',
+  ],
   // 需要加loading层的请求，防止重复提交
   debounce: ['doEdit'],
   // 分栏布局和综合布局时，是否点击一级菜单默认开启第一个二级菜单
   openFirstMenu: true,
-  // 代码生成机生成在view下的文件夹名称
-  templateFolder: 'project',
 }

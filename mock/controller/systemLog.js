@@ -27,20 +27,17 @@ module.exports = [
     type: 'get',
     response: (config) => {
       const { account, pageNo = 1, pageSize = 20 } = config.query
-
       let mockList = List.filter((item) => {
         return !(account && item.account.indexOf(account) < 0)
       })
-      const pageList = mockList.filter(
+      const list = mockList.filter(
         (item, index) =>
           index < pageSize * pageNo && index >= pageSize * (pageNo - 1)
       )
-
       return {
         code: 200,
         msg: 'success',
-        totalCount: mockList.length,
-        data: pageList,
+        data: { list, ...{ total: mockList.length } },
       }
     },
   },

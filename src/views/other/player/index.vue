@@ -1,15 +1,9 @@
 <template>
   <div v-if="show" class="player-container">
-    <el-alert
-      :closable="false"
-      show-icon
-      title="m3u8、flv演示环境暂不支持，请在正式环境查看效果"
-      type="success"
-    />
     <el-row :gutter="20">
       <el-col :lg="12" :md="24" :sm="24" :xl="12" :xs="24">
         <el-card shadow="hover">
-          <template #header>常见视频格式播放(可配置弹幕)</template>
+          <template #header>常规视频播放(可配置弹幕)</template>
           <vab-player-mp4
             :config="mp4Config"
             @player="$vabPlayerMp4 = $event"
@@ -26,7 +20,7 @@
       </el-col>
       <el-col :lg="12" :md="24" :sm="24" :xl="12" :xs="24">
         <el-card shadow="hover">
-          <template #header>Hls推流，不暴露视频地址(可配置弹幕)</template>
+          <template #header>Hls推流、m3u8播放(可配置弹幕)</template>
           <vab-player-hls
             :config="hlsConfig"
             @player="$vabPlayerHls = $event"
@@ -51,7 +45,7 @@
       return {
         show: false,
         form: {
-          danmu: 'admin-plus是世界上最好用的vue-admin框架。。。',
+          danmu: 'admin-plus',
         },
         mp4Config: {
           id: 'mse1',
@@ -67,7 +61,7 @@
                 duration: 15000,
                 id: uuid(),
                 start: 3000,
-                txt: 'admin-plus是世界上最好用的vue-admin框架。。。',
+                txt: 'admin-plus',
                 mode: 'scroll',
                 style: {
                   color: '#fff',

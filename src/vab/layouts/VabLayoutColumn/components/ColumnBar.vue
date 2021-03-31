@@ -277,8 +277,6 @@
         position: fixed;
 
         .el-tabs__header.is-left {
-          margin-right: -3px !important;
-
           .el-tabs__nav-wrap.is-left {
             margin-right: 0 !important;
             background: $base-column-first-menu-background;

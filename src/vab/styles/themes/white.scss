@@ -29,30 +29,14 @@ body.vab-theme-white {
     }
   }
 
+  .logo-container-common,
+  .logo-container-vertical,
   .logo-container-horizontal,
-  .logo-container-common {
-    @include container;
-
-    .vab-icon,
-    .title {
-      @include container;
-    }
-  }
-
-  .logo-container-vertical {
-    @include container;
-
-    .vab-icon,
-    .title {
-      @include container;
-    }
-  }
-
   .logo-container-comprehensive {
     @include container;
 
-    .vab-icon,
-    .title {
+    .title,
+    .vab-icon {
       @include container;
     }
   }
@@ -165,28 +149,20 @@ body.vab-theme-white {
       .ri-notification-line {
         color: #515a6e !important;
       }
-    }
-  }
 
-  .el-menu {
-    background-color: $base-color-white !important;
+      .el-menu {
+        &--horizontal {
+          .el-menu-item {
+            &.is-active {
+              @include active;
+            }
+          }
 
-    &--horizontal {
-      .el-submenu .el-submenu__title,
-      .el-menu-item {
-        @include container;
-        background-color: $base-color-white !important;
-      }
-
-      .el-menu-item {
-        &.is-active {
-          @include active;
+          .el-submenu,
+          .el-menu-item {
+            @include active;
+          }
         }
-      }
-
-      .el-submenu,
-      .el-menu-item {
-        @include active;
       }
     }
   }

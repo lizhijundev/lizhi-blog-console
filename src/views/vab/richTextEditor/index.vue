@@ -28,7 +28,7 @@
         <el-button type="primary" @click="handleSave">保存</el-button>
       </el-form-item>
     </el-form>
-    <el-dialog v-model:visible="dialogTableVisible" title="预览效果">
+    <el-dialog v-model="dialogTableVisible" title="预览效果">
       <h1 class="news-title">{{ form.title }}</h1>
       <div class="news-content" v-html="form.content" />
     </el-dialog>

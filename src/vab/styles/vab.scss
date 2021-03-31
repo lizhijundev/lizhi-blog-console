@@ -1,7 +1,10 @@
-/** @description 全局样式 */
+/**
+ * @description 全局样式
+ */
+
+@import './loading.scss';
 @import './normalize.scss';
 @import './transition.scss';
-@import 'loading';
 
 @mixin base-scrollbar {
   &::-webkit-scrollbar {
@@ -42,7 +45,7 @@ html {
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 
-    #admin-plus {
+    #app {
       height: 100vh;
       overflow: auto;
       @include base-scrollbar;
@@ -75,11 +78,8 @@ html {
 
     * {
       box-sizing: border-box;
+      outline: none !important;
       @include base-scrollbar;
-    }
-
-    [class*='ri'] {
-      margin-right: 3px;
     }
 
     /*a标签 */
@@ -98,8 +98,16 @@ html {
       }
     }
 
+    /* plus处理图标间距 */
+
+    i + span {
+      margin-left: 3px;
+    }
+
     /* vab-dropdown下拉动画 */
     .vab-dropdown {
+      transition: $base-transition;
+
       &-active {
         transform: rotateZ(180deg);
       }
@@ -179,12 +187,14 @@ html {
       }
     }
 
+    a + a,
+    span + span,
     a + .el-button,
     .el-button + a {
       margin-left: 10px;
     }
 
-    .el-drawer__container {
+    .el-drawer__wrapper {
       outline: none !important;
 
       * {
@@ -238,6 +248,10 @@ html {
       .el-form-item__label {
         padding: 0;
       }
+    }
+
+    .el-form-item__label {
+      padding: 0 10px 0 0;
     }
 
     .el-range-editor--small {
@@ -304,6 +318,13 @@ html {
         i {
           color: $base-color-red;
         }
+      }
+    }
+
+    /* el-dropdown-menu */
+    .el-dropdown-menu__item {
+      [class*='ri-'] {
+        margin-right: 0;
       }
     }
 
@@ -429,7 +450,7 @@ html {
         @include vab-hey-message;
 
         i {
-          color: $base-color-gray;
+          color: $base-color-grey;
         }
       }
 

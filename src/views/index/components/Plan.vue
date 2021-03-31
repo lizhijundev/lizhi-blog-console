@@ -4,7 +4,7 @@
       <vab-icon icon="send-plane-2-line" />
       计划
       <el-tag class="card-header-tag" type="success">
-        祝用框架的小伙伴都住上别墅，开上保时捷
+        祝用框架的小伙伴都能住上别墅，开上保时捷
       </el-tag>
     </template>
     <el-table :data="tableData" row-key="title" height="283px">
@@ -38,9 +38,9 @@
             color: '#95de64',
           },
           {
-            title: '帮助10000个人',
+            title: '帮助10万个人',
             endTIme: '2029-12-31',
-            percentage: 67,
+            percentage: 8,
             color: '#69c0ff',
           },
           {

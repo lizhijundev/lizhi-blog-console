@@ -74,8 +74,8 @@
     },
     methods: {
       async fetchData() {
-        const { data } = await getList()
-        this.treeData = data
+        const { list } = await getList()
+        this.treeData = list
       },
       handleNodeClick(node) {
         this.form.parentName = node.name

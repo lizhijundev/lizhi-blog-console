@@ -47,8 +47,8 @@
       })
 
       const loadAll = async () => {
-        const { data } = await getList()
-        state.restaurants = data
+        const { list } = await getList()
+        state.restaurants = list
       }
 
       onMounted(() => {

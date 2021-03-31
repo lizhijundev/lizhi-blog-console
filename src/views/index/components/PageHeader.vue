@@ -66,8 +66,8 @@
           : `晚上好 ${this.username}，愿你天黑有灯，下雨有伞。`
       },
       async fetchData() {
-        const { data } = await getList()
-        this.description = data.description
+        const { description } = await getList()
+        this.description = description
       },
     },
   }
@@ -75,7 +75,7 @@
 
 <style lang="scss" scoped>
   .page-header {
-    min-height: 145px;
+    min-height: 105px;
     transition: $base-transition;
 
     :deep() {

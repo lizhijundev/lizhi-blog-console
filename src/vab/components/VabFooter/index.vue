@@ -2,19 +2,18 @@
   <footer class="vab-footer">
     Copyright
     <vab-icon icon="copyright-line" />
-    {{ title }} {{ fullYear }} by {{ copyright }}
+    {{ title }} {{ fullYear }}
   </footer>
 </template>
 
 <script>
-  import { copyright, title } from '@/config'
+  import { title } from '@/config'
 
   export default {
     name: 'VabFooter',
     setup() {
       return {
         title,
-        copyright,
         fullYear: new Date().getFullYear(),
       }
     },

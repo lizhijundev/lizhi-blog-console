@@ -1,5 +1,6 @@
 <div align="center"><img width="200" src="https://gitee.com/chu1204505056/image/raw/master/logo/vab.svg" alt="VAB"/>
 <h1> admin-plus</h1>
+<h3> admin-plus为测试版本，请使用admin-pro开发正式项目</h3>
 </div>
 
 ## 🔈 框架使用约定
@@ -20,7 +21,7 @@
 - 💻 常规版演示地址：[admin-plus](https://chu1204505056.gitee.io/admin-pro/)
 - 📝 使用文档：(文档地址及密码请查看 vip 群群公告)
 - 🗃 更新日志：[Releases](https://github.com/vue-admin-beautiful/admin-pro/releases)
-- 📌 购买地址：[购买地址](https://chu1204505056.gitee.io/authorization/)
+- 📌 购买地址：[购买地址](http://vue-admin-beautiful.com/authorization/)
 
 ## 🌱 版本
 
@@ -64,3 +65,17 @@ npm i
 # 本地开发 启动项目
 npm run serve
 ```
+
+### 版权须知
+
+Vab Admin 系列产品受国家计算机软件著作权保护（证书号：软著登字第 7051316 号），
+禁止公开及传播产品源文件、二次出售等，
+违者将承担相应的法律责任，并影响自身使用。
+
+### TODO
+
+目前暂时没有好的解决方案的几项待办事项，如果您有好的解决方案可以对仓库 【dev】 分支进行 pull request
+
+- [ ] 分栏布局时，tab 过多时火狐浏览器滚动条不美观
+- [ ] 由于 element 的菜单组件不支持设置超出自适应，所以导致横向布局时，菜单过多时处理不理想
+- [ ] 头像上传组件浏览器 blob 转化异常
