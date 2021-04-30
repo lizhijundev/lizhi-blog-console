@@ -4,17 +4,17 @@
       v-if="!loginInterception"
       :closable="false"
       show-icon
-      title="检测到您当前的登录拦截已关闭，无法模拟切换角色功能，请在src/config/settings.js中配置loginInterception为ture，开启登录拦截"
+      title="检测到您当前的登录拦截已关闭，无法模拟切换角色功能，请在src/config/setting.config.js中配置loginInterception为ture，开启登录拦截"
       type="success"
     />
     <el-alert
       :closable="false"
-      :title="`当前路由模式为：{ authentication:${authentication} }，是否开启角色权限控制功能：{ rolesControl:${rolesControl} }`"
       show-icon
+      :title="`当前路由模式为：{ authentication:${authentication} }，是否开启角色权限控制功能：{ rolesControl:${rolesControl} }`"
       type="success"
     />
 
-    <el-form ref="form" :model="form" label-position="top" label-width="140px">
+    <el-form ref="form" label-position="top" label-width="140px" :model="form">
       <el-form-item label="账号切换">
         <el-radio-group v-model="form.account" @change="handleChangeRole">
           <el-radio-button label="admin">admin</el-radio-button>
@@ -22,11 +22,18 @@
           <el-radio-button label="test">test</el-radio-button>
         </el-radio-group>
       </el-form-item>
+      <el-form-item label="token无痛刷新">
+        <el-button type="primary" @click="refreshToken">
+          点击模拟token无痛刷新
+        </el-button>
+      </el-form-item>
       <el-form-item label="描述">
         当前账号拥有的角色
         <el-tag>{{ JSON.stringify(role) }}</el-tag>
         ，权限点
         <el-tag>{{ JSON.stringify(ability) }}</el-tag>
+        ，当前token
+        <el-tag>{{ token }}</el-tag>
       </el-form-item>
       <el-form-item label="按钮级角色">
         <el-button v-permissions="['admin']" type="primary">
@@ -118,11 +125,11 @@
     <el-row :gutter="20">
       <el-col :span="24">
         <el-table
-          :data="tableData"
-          :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
           border
+          :data="tableData"
           default-expand-all
           row-key="path"
+          :tree-props="{ children: 'children', hasChildren: 'hasChildren' }"
         >
           <el-table-column
             align="center"
@@ -236,6 +243,7 @@
   } from '@/config'
   import { getRouterList } from '@/api/router'
   import { filterRoutes } from '@/utils/routes'
+  import { refreshToken } from '@/api/refreshToken'
 
   export default {
     name: 'Roles',
@@ -254,9 +262,10 @@
     },
     computed: {
       ...mapGetters({
-        username: 'user/username',
-        role: 'acl/role',
         ability: 'acl/ability',
+        role: 'acl/role',
+        token: 'user/token',
+        username: 'user/username',
       }),
     },
     created() {
@@ -270,8 +279,14 @@
         await location.reload()
       },
       async fetchData() {
-        const { list } = await getRouterList()
+        const { data } = await getRouterList()
+        const { list } = data
         this.tableData = filterRoutes([...list])
+      },
+      async refreshToken() {
+        const { msg, data } = await refreshToken()
+        const { token } = data
+        this.$baseMessage(' [' + token + '] ' + msg, 'success')
       },
     },
   }

@@ -1,5 +1,5 @@
 <template>
-  <el-submenu ref="subMenu" :index="itemOrMenu.path" popper-append-to-body>
+  <el-submenu ref="subMenu" :index="itemOrMenu.fullPath" popper-append-to-body>
     <template #title>
       <vab-icon
         v-if="itemOrMenu.meta && itemOrMenu.meta.icon"

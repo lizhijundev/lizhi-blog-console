@@ -5,8 +5,8 @@
         <el-form
           ref="form"
           :inline="true"
-          :model="queryForm"
           label-width="0"
+          :model="queryForm"
           @submit.prevent
         >
           <el-form-item>
@@ -42,8 +42,8 @@
           <el-checkbox v-model="border">边框（可拉伸列）</el-checkbox>
         </div>
         <el-button
-          style="margin: 0 10px 10px 0 !important"
           plain
+          style="margin: 0 10px 10px 0 !important"
           type="primary"
           @click="clickFullScreen"
         >
@@ -53,7 +53,7 @@
           表格全屏
         </el-button>
         <el-popover
-          :width="220"
+          ref="popover"
           popper-class="custom-table-checkbox"
           trigger="hover"
         >
@@ -64,8 +64,9 @@
           </el-radio-group>
           <template #reference>
             <el-button
-              style="margin: 0 10px 10px 0 !important"
+              v-if="!isFullscreen"
               plain
+              style="margin: 0 10px 10px 0 !important"
               type="primary"
             >
               <vab-icon icon="line-height" />
@@ -75,7 +76,7 @@
         </el-popover>
         <el-popover popper-class="custom-table-checkbox" trigger="hover">
           <el-checkbox-group v-model="checkList">
-            <vab-draggable :list="columns" item-key="label">
+            <vab-draggable item-key="label" :list="columns">
               <template #item="{ element }">
                 <el-checkbox :label="element.label">
                   <vab-icon icon="drag-drop-line" />
@@ -86,9 +87,10 @@
           </el-checkbox-group>
           <template #reference>
             <el-button
-              style="margin: 0 0 10px 0 !important"
+              v-if="!isFullscreen"
               icon="el-icon-setting"
               plain
+              style="margin: 0 0 10px 0 !important"
               type="primary"
             >
               可拖拽列设置
@@ -123,9 +125,10 @@
       <el-table-column
         v-for="(item, index) in finallyColumns"
         :key="index"
+        align="center"
         :label="item.label"
         :sortable="item.sortable"
-        align="center"
+        :width="item.width"
       >
         <template #default="{ row }">
           <span v-if="item.label === '评级'">
@@ -148,17 +151,17 @@
       </el-table-column>
       <template #empty>
         <el-image
-          :src="require('@/assets/empty_images/data_empty.png')"
           class="vab-data-empty"
+          :src="require('@/assets/empty_images/data_empty.png')"
         />
       </template>
     </el-table>
     <el-pagination
+      background
       :current-page="queryForm.pageNo"
       :layout="layout"
       :page-size="queryForm.pageSize"
       :total="total"
-      background
       @current-change="handleCurrentChange"
       @size-change="handleSizeChange"
     />
@@ -263,7 +266,6 @@
             false,
             'vab-hey-message-error'
           )
-          return false
         }
         screenfull.toggle(this.$refs['custom-table'])
       },
@@ -310,7 +312,6 @@
               false,
               'vab-hey-message-error'
             )
-            return false
           }
         }
       },
@@ -328,7 +329,8 @@
       },
       async fetchData() {
         this.listLoading = true
-        const { list, total } = await getList(this.queryForm)
+        const { data } = await getList(this.queryForm)
+        const { list, total } = data
         this.list = list
         const imageList = []
         list.forEach((item) => {

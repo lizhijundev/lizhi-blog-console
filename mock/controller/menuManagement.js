@@ -6,25 +6,27 @@ module.exports = [
       return {
         code: 200,
         msg: 'success',
-        totalCount: 999,
-        data: [
-          {
-            id: 'root',
-            label: '全部角色',
-            children: [
-              {
-                id: '@id',
-                role: 'admin',
-                label: 'admin角色',
-              },
-              {
-                id: '@id',
-                role: 'editor',
-                label: 'editor角色',
-              },
-            ],
-          },
-        ],
+        data: {
+          total: 999,
+          list: [
+            {
+              id: 'root',
+              label: '全部角色',
+              children: [
+                {
+                  id: '@id',
+                  role: 'admin',
+                  label: 'admin角色',
+                },
+                {
+                  id: '@id',
+                  role: 'editor',
+                  label: 'editor角色',
+                },
+              ],
+            },
+          ],
+        },
       }
     },
   },

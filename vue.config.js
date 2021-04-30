@@ -1,7 +1,6 @@
 /**
  * @description vue.config.js全局配置
  */
-/* \u6b63\u7248\u4e0d\u8d35\uff0c\u611f\u6069\u76f8\u9047\uff0c\u4f7f\u7528\u76d7\u7248\uff0c\u5f97\u4e0d\u507f\u5931\uff0c\u6076\u610f\u5206\u4eab\uff0c\u683c\u76d8\u4e0d\u8c22 */
 const path = require('path')
 const {
   /* baseURL,*/
@@ -52,8 +51,12 @@ module.exports = {
       warnings: true,
       errors: true,
     },
-    // 注释掉的地方是前端配置代理访问后端的示例，一定要注意，这里配置了跨域及代理只针对开发环境生效！！！
-    // 不建议你在前端配置跨域，建议你后端配置放行token字段，一步到位
+    // 注释掉的地方是前端配置代理访问后端的示例
+    // baseURL必须为/xxx，而不是后端服务器，请先了解代理逻辑，再设置前端代理
+    // ！！！一定要注意！！！
+    // 1.这里配置了跨域及代理只针对开发环境生效
+    // 2.不建议你在前端配置跨域，建议你后端配置Allow-Origin,Method,Headers，放行token字段，一步到位
+    // 3.后端配置了跨域，就不需要前端再配置，会发生Origin冲突
     // proxy: {
     //   [baseURL]: {
     //     target: `http://你的后端接口地址`,
@@ -70,8 +73,9 @@ module.exports = {
     return {
       resolve: {
         alias: {
+          '~': resolve('.'),
           '@': resolve('src'),
-          '*': resolve(''),
+          '@vab': resolve('src/vab/plugins/vab'),
         },
       },
       plugins: [

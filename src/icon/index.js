@@ -1,5 +1,2 @@
-const req = require.context('.', true, /\.svg$/)
-const requireAll = (requireContext) => {
-  return requireContext.keys().map(requireContext)
-}
-requireAll(req)
+const icons = require.context('.', true, /\.svg$/)
+icons.keys().map(icons)

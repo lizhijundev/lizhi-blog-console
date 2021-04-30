@@ -8,13 +8,14 @@ const List = [
     role: 'editor',
   },
 ]
+
 module.exports = [
   {
     url: '/roleManagement/getList',
     type: 'get',
     response(config) {
       const { role, pageNo = 1, pageSize = 20 } = config.query
-      let mockList = List.filter(
+      const mockList = List.filter(
         (item) => !(role && item.title.indexOf(role) < 0)
       )
       const list = mockList.filter(

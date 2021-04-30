@@ -38,12 +38,12 @@
 
       <el-col :span="24">
         <el-pagination
+          background
           :current-page="queryForm.pageNo"
           :layout="layout"
           :page-size="queryForm.pageSize"
           :page-sizes="[72, 144, 216, 288]"
           :total="total"
-          background
           @current-change="handleCurrentChange"
           @size-change="handleSizeChange"
         />
@@ -87,7 +87,8 @@
         this.fetchData()
       },
       async fetchData() {
-        const { list, total } = await getIconList(this.queryForm)
+        const { data } = await getIconList(this.queryForm)
+        const { list, total } = data
         this.queryIcon = list
         this.total = total
       },

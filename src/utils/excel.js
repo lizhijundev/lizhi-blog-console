@@ -2,15 +2,15 @@ import { saveAs } from 'file-saver'
 import XLSX from 'xlsx'
 
 function generateArray(table) {
-  let out = []
-  let rows = table.querySelectorAll('tr')
-  let ranges = []
+  const out = []
+  const rows = table.querySelectorAll('tr')
+  const ranges = []
   for (let R = 0; R < rows.length; ++R) {
-    let outRow = []
-    let row = rows[R]
-    let columns = row.querySelectorAll('td')
+    const outRow = []
+    const row = rows[R]
+    const columns = row.querySelectorAll('td')
     for (let C = 0; C < columns.length; ++C) {
-      let cell = columns[C]
+      const cell = columns[C]
       let colspan = cell.getAttribute('colspan')
       let rowspan = cell.getAttribute('rowspan')
       let cellValue = cell.innerText
@@ -53,13 +53,13 @@ function generateArray(table) {
 
 function datenum(v, date1904) {
   if (date1904) v += 1462
-  let epoch = Date.parse(v)
+  const epoch = Date.parse(v)
   return (epoch - new Date(Date.UTC(1899, 11, 30))) / (24 * 60 * 60 * 1000)
 }
 
 function sheet_from_array_of_arrays(data) {
-  let ws = {}
-  let range = {
+  const ws = {}
+  const range = {
     s: {
       c: 10000000,
       r: 10000000,
@@ -75,11 +75,11 @@ function sheet_from_array_of_arrays(data) {
       if (range.s.c > C) range.s.c = C
       if (range.e.r < R) range.e.r = R
       if (range.e.c < C) range.e.c = C
-      let cell = {
+      const cell = {
         v: data[R][C],
       }
       if (cell.v === null) continue
-      let cell_ref = XLSX.utils.encode_cell({
+      const cell_ref = XLSX.utils.encode_cell({
         c: C,
         r: R,
       })
@@ -106,21 +106,21 @@ function Workbook() {
 }
 
 function s2ab(s) {
-  let buf = new ArrayBuffer(s.length)
-  let view = new Uint8Array(buf)
+  const buf = new ArrayBuffer(s.length)
+  const view = new Uint8Array(buf)
   for (let i = 0; i !== s.length; ++i) view[i] = s.charCodeAt(i) & 0xff
   return buf
 }
 
 export function export_table_to_excel(id) {
-  let theTable = document.getElementById(id)
-  let oo = generateArray(theTable)
-  let ranges = oo[1]
+  const theTable = document.getElementById(id)
+  const oo = generateArray(theTable)
+  const ranges = oo[1]
 
-  let data = oo[0]
-  let ws_name = 'SheetJS'
+  const data = oo[0]
+  const ws_name = 'SheetJS'
 
-  let wb = new Workbook(),
+  const wb = new Workbook(),
     ws = sheet_from_array_of_arrays(data)
 
   ws['!merges'] = ranges
@@ -128,7 +128,7 @@ export function export_table_to_excel(id) {
   wb.SheetNames.push(ws_name)
   wb.Sheets[ws_name] = ws
 
-  let wbout = XLSX.write(wb, {
+  const wbout = XLSX.write(wb, {
     bookType: 'xlsx',
     bookSST: false,
     type: 'binary',
@@ -159,8 +159,8 @@ export function export_json_to_excel({
     data.unshift(multiHeader[i])
   }
 
-  let ws_name = 'SheetJS'
-  let wb = new Workbook(),
+  const ws_name = 'SheetJS'
+  const wb = new Workbook(),
     ws = sheet_from_array_of_arrays(data)
 
   if (merges.length > 0) {
@@ -188,7 +188,7 @@ export function export_json_to_excel({
         }
       })
     )
-    let result = colWidth[0]
+    const result = colWidth[0]
     for (let i = 1; i < colWidth.length; i++) {
       for (let j = 0; j < colWidth[i].length; j++) {
         if (result[j]['wch'] < colWidth[i][j]['wch']) {
@@ -202,7 +202,7 @@ export function export_json_to_excel({
   wb.SheetNames.push(ws_name)
   wb.Sheets[ws_name] = ws
 
-  let wbout = XLSX.write(wb, {
+  const wbout = XLSX.write(wb, {
     bookType: bookType,
     bookSST: false,
     type: 'binary',

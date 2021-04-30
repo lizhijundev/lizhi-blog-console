@@ -8,10 +8,10 @@
         定位还原
       </el-button>
       <el-button plain size="small" @click="$_reset">还原(大小&定位)</el-button>
-      <el-button plain size="small" :disabled="undoDisable" @click="$_undo">
+      <el-button :disabled="undoDisable" plain size="small" @click="$_undo">
         上一步(ctrl+z)
       </el-button>
-      <el-button plain size="small" :disabled="redoDisable" @click="$_redo">
+      <el-button :disabled="redoDisable" plain size="small" @click="$_redo">
         下一步(ctrl+y)
       </el-button>
       <el-button plain size="small" @click="$_download">下载图片</el-button>
@@ -19,6 +19,7 @@
     </el-button-group>
   </div>
 </template>
+
 <script>
   export default {
     name: 'Control',

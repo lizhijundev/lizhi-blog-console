@@ -9,13 +9,11 @@ export const checkNeed = () => {
 
 export function setup(app) {
   if (checkNeed()) {
-    app.config.errorHandler = (err, vm, info) => {
+    app.config.errorHandler = (err) => {
       // eslint-disable-next-line no-console
-      console.error('vue-admin-beautiful错误拦截:', err, vm, info)
+      console.error('vue-admin-beautiful错误拦截:', err)
       const url = window.location.href
-      store
-        .dispatch('errorLog/addErrorLog', { err, vm, info, url })
-        .then(() => {})
+      store.dispatch('errorLog/addErrorLog', { err, url }).then(() => {})
     }
   }
 }

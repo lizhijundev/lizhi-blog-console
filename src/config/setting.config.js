@@ -58,7 +58,6 @@ module.exports = {
     '/vab/icon',
     '/vab/form',
     '/vab/editor',
-    '/vab/editor',
   ],
   // 需要加loading层的请求，防止重复提交
   debounce: ['doEdit'],

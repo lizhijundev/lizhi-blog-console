@@ -1,6 +1,6 @@
 <template>
   <div class="goods-container">
-    <el-alert :closable="false" :title="title" show-icon type="success" />
+    <el-alert :closable="false" show-icon :title="title" type="success" />
     <vab-query-form>
       <vab-query-form-right-panel :span="24">
         <el-form ref="form" :inline="true" :model="queryForm" @submit.prevent>
@@ -69,11 +69,11 @@
       </el-col>
     </el-row>
     <el-pagination
+      background
       :current-page="queryForm.pageNo"
       :layout="layout"
       :page-size="queryForm.pageSize"
       :total="total"
-      background
       @current-change="handleCurrentChange"
       @size-change="handleSizeChange"
     />
@@ -120,7 +120,8 @@
       },
       async fetchData() {
         this.listLoading = true
-        const { list, total } = await getList(this.queryForm)
+        const { data } = await getList(this.queryForm)
+        const { list, total } = data
         this.list = list
         this.total = total
       },

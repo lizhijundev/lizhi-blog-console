@@ -21,13 +21,14 @@ for (let i = 0; i < count; i++) {
     })
   )
 }
+
 module.exports = [
   {
     url: '/systemLog/getList',
     type: 'get',
     response: (config) => {
       const { account, pageNo = 1, pageSize = 20 } = config.query
-      let mockList = List.filter((item) => {
+      const mockList = List.filter((item) => {
         return !(account && item.account.indexOf(account) < 0)
       })
       const list = mockList.filter(

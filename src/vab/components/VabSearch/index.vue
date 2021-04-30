@@ -47,7 +47,8 @@
       })
 
       const loadAll = async () => {
-        const { list } = await getList()
+        const { data } = await getList()
+        const { list } = data
         state.restaurants = list
       }
 
@@ -61,8 +62,8 @@
       }
 
       const querySearchAsync = (queryString, cb) => {
-        let restaurants = state.restaurants
-        let results = queryString
+        const restaurants = state.restaurants
+        const results = queryString
           ? restaurants.filter(createFilter(queryString))
           : restaurants
         clearTimeout(timeout)

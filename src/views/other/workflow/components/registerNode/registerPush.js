@@ -20,20 +20,14 @@ export default function registerPush(lf, clickPlus, mouseDownPlus) {
           })
         )
       }
-      getPulsShape() {
+      getPlusShape() {
         const attributes = this.getAttributes()
         // 判断当前节点是否子节点
         const graphData = lf.getGraphData()
         const edges = graphData.edges
-        let hasChildNode = false
-        edges.some((item) => {
-          if (item.sourceNodeId === attributes.id) {
-            hasChildNode = true
-            return true
-          }
-        })
+        const hasChildNode = edges.some((_) => _.sourceNodeId === attributes.id)
         if (hasChildNode) {
-          return
+          return false
         }
         return h(
           'svg',
@@ -93,7 +87,7 @@ export default function registerPush(lf, clickPlus, mouseDownPlus) {
               fillOpacity,
             }),
             this.getIconShape(),
-            this.getPulsShape(),
+            this.getPlusShape(),
           ]
         )
       }

@@ -1,7 +1,7 @@
 <template>
   <el-col :span="24">
     <el-card class="page-header" shadow="never">
-      <el-avatar :src="avatar" class="page-header-avatar" />
+      <el-avatar class="page-header-avatar" :src="avatar" />
       <div class="page-header-tip">
         <p class="page-header-tip-title">
           {{ handleTips() }}
@@ -66,7 +66,8 @@
           : `晚上好 ${this.username}，愿你天黑有灯，下雨有伞。`
       },
       async fetchData() {
-        const { description } = await getList()
+        const { data } = await getList()
+        const { description } = data
         this.description = description
       },
     },

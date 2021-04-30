@@ -49,7 +49,7 @@ module.exports = [
     type: 'get',
     response: (config) => {
       const { name, pageNo = 1, pageSize = 20 } = config.query
-      let mockList = List.filter(
+      const mockList = List.filter(
         (item) => !(name && item.name.indexOf(name) < 0)
       )
       const list = mockList.filter(

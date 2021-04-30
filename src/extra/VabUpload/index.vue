@@ -14,13 +14,16 @@
       />
       <el-upload
         ref="upload"
+        accept="image/png, image/jpeg"
         :action="action"
         :auto-upload="false"
+        class="upload-content"
         :close-on-click-modal="false"
         :data="data"
         :file-list="fileList"
         :headers="headers"
         :limit="limit"
+        list-type="picture-card"
         :multiple="true"
         :name="name"
         :on-change="handleChange"
@@ -30,9 +33,6 @@
         :on-progress="handleProgress"
         :on-remove="handleRemove"
         :on-success="handleSuccess"
-        accept="image/png, image/jpeg"
-        class="upload-content"
-        list-type="picture-card"
       >
         <template #trigger>
           <i class="el-icon-plus" />
@@ -126,7 +126,7 @@
       },
     },
     created() {
-      this.headers['Authorization'] = `Bearer xxx`
+      this.headers['Authorization'] = `Bearer ${this.token}`
     },
     methods: {
       submitUpload() {
@@ -138,11 +138,7 @@
       },
       handleChange(file, fileList) {
         if (file.size > 1048576 * this.size) {
-          fileList.map((item, index) => {
-            if (item === file) {
-              fileList.splice(index, 1)
-            }
-          })
+          fileList.filter((item) => item !== file)
           this.fileList = fileList
         } else {
           this.allImgNum = fileList.length
@@ -214,7 +210,7 @@
         this.imgNum = 0
         this.imgSuccessNum = 0
         this.imgErrorNum = 0
-        this.headers['Authorization'] = `Bearer xxx`
+        this.headers['Authorization'] = `Bearer ${this.token}`
         this.dialogFormVisible = false
       },
     },

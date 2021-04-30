@@ -5,18 +5,18 @@
 </template>
 
 <script>
-  import { computed } from 'vue'
+  import { computed, getCurrentInstance } from 'vue'
   import { useStore } from 'vuex'
   import { translateTitle } from '@/utils/i18n'
-  import emitter from '@/vab/plugins/emitter'
 
   export default {
     name: 'VabTheme',
     setup() {
       const store = useStore()
+      const { proxy } = getCurrentInstance()
 
       const handleOpenTheme = () => {
-        emitter.$emit('theme')
+        proxy.$pub('theme')
       }
 
       return {

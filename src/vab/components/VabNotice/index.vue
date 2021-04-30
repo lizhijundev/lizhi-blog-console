@@ -1,6 +1,6 @@
 <template>
-  <el-badge v-if="theme.showNotice" :value="badge" type="danger">
-    <el-popover :width="300" placement="bottom" trigger="hover">
+  <el-badge v-if="theme.showNotice" type="danger" :value="badge">
+    <el-popover placement="bottom" trigger="hover" :width="300">
       <template #reference>
         <vab-icon icon="notification-line" />
       </template>
@@ -9,7 +9,7 @@
           <div class="notice-list">
             <el-scrollbar>
               <ul>
-                <li v-for="(item, index) in list" :key="index">
+                <li v-for="(item, index) in notices" :key="index">
                   <el-avatar :size="45" :src="item.image" />
                   <span v-html="item.notice" />
                 </li>
@@ -21,7 +21,7 @@
           <div class="notice-list">
             <el-scrollbar>
               <ul>
-                <li v-for="(item, index) in list" :key="index">
+                <li v-for="(item, index) in notices" :key="index">
                   <el-avatar :size="45" :src="item.image" />
                   <span>{{ item.email }}</span>
                 </li>
@@ -41,7 +41,7 @@
 </template>
 
 <script>
-  import { computed, getCurrentInstance, nextTick, ref } from 'vue'
+  import { computed, nextTick, ref, getCurrentInstance } from 'vue'
   import { useStore } from 'vuex'
   import { translateTitle } from '@/utils/i18n'
   import { getList } from '@/api/notice'
@@ -50,16 +50,17 @@
     name: 'VabNotice',
     setup() {
       const store = useStore()
-      const { ctx } = getCurrentInstance()
+      const { proxy } = getCurrentInstance()
 
-      const list = ref([])
+      const notices = ref([])
       const badge = ref(null)
       const activeName = ref('notice')
       const theme = computed(() => store.getters['settings/theme'])
 
       const fetchData = async () => {
-        const { list, total } = await getList()
-        list.value = list
+        const { data } = await getList()
+        const { list, total } = data
+        notices.value = list
         badge.value = total === 0 ? null : total
       }
 
@@ -73,8 +74,8 @@
 
       const handleClearNotice = () => {
         badge.value = null
-        list.value = []
-        ctx.$baseMessage(
+        notices.value = []
+        proxy.$baseMessage(
           '清空消息成功',
           'success',
           false,
@@ -83,9 +84,9 @@
       }
 
       return {
-        list,
         badge,
         theme,
+        notices,
         fetchData,
         activeName,
         handleClick,

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-form ref="form" :model="form" :rules="rules" label-width="100px">
+    <el-form ref="form" label-width="100px" :model="form" :rules="rules">
       <el-form-item label="付款账户" prop="payAccount">
         <el-input v-model="form.payAccount" />
       </el-form-item>

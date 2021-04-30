@@ -2271,13 +2271,16 @@ const List = [
   'zzz-fill',
   'zzz-line',
 ]
+
 module.exports = [
   {
     url: '/remixIcon/getList',
     type: 'get',
     response(config) {
       const { title, pageNo = 1, pageSize = 72 } = config.query
-      let mockList = List.filter((item) => !(title && item.indexOf(title) < 0))
+      const mockList = List.filter(
+        (item) => !(title && item.indexOf(title) < 0)
+      )
       const list = mockList.filter(
         (item, index) =>
           index < pageSize * pageNo && index >= pageSize * (pageNo - 1)

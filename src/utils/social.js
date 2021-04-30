@@ -4,7 +4,7 @@ import qs from 'qs'
 let _win
 let _winTime
 
-export async function login(url, options) {
+export function login(url, options) {
   return new Promise((resolve, reject) => {
     _win = window.open(`${url}?${qs.stringify(options)}`)
     // 以小框的形式打开第三方登录页

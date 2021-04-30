@@ -6,6 +6,10 @@ import {
   ElNotification,
 } from 'element-plus'
 import { dependencies } from '../../../package.json'
+import mitt from 'mitt'
+import _ from 'lodash'
+
+export let gp
 
 export function setup(app) {
   /**
@@ -13,23 +17,16 @@ export function setup(app) {
    * @param {*} index
    * @param {*} text
    */
-  app.config.globalProperties.$baseLoading = (index, text = loadingText) => {
-    let loading
-    if (!index) {
-      loading = ElLoading.service({
-        lock: true,
-        text: text,
-        background: 'hsla(0,0%,100%,.8)',
-      })
-    } else {
-      loading = ElLoading.service({
-        lock: true,
-        text: text,
-        spinner: 'vab-loading-type' + index,
-        background: 'hsla(0,0%,100%,.8)',
-      })
-    }
-    return loading
+  app.config.globalProperties.$baseLoading = (
+    index = null,
+    text = loadingText
+  ) => {
+    return ElLoading.service({
+      lock: true,
+      text: text,
+      spinner: index ? 'vab-loading-type' + index : index,
+      background: 'hsla(0,0%,100%,.8)',
+    })
   }
 
   /**
@@ -180,7 +177,7 @@ export function setup(app) {
    */
   app.config.globalProperties.$baseTableHeight = (formType) => {
     let height = window.innerHeight
-    let paddingHeight = 291
+    const paddingHeight = 291
     const formHeight = 60
 
     if ('number' === typeof formType) {
@@ -190,6 +187,19 @@ export function setup(app) {
     }
     return height
   }
+
+  const _emitter = mitt()
+  app.config.globalProperties.$pub = (...args) => {
+    _emitter.emit(_.head(args), args.slice(1))
+  }
+  app.config.globalProperties.$sub = function () {
+    Reflect.apply(_emitter.on, _emitter, _.toArray(arguments))
+  }
+  app.config.globalProperties.$unsub = function () {
+    Reflect.apply(_emitter.off, _emitter, _.toArray(arguments))
+  }
+
+  gp = app.config.globalProperties
 
   if (process.env.NODE_ENV !== 'development') {
     const str = '\u0076\u0061\u0062\u002d\u0069\u0063\u006f\u006e\u0073'

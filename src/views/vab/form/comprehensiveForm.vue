@@ -19,11 +19,11 @@
         </vab-query-form>
         <el-form
           ref="form"
+          class="demo-form"
           :label-position="labelPosition"
+          label-width="100px"
           :model="form"
           :rules="rules"
-          class="demo-form"
-          label-width="100px"
         >
           <el-form-item label="活动名称" prop="name">
             <el-input v-model="form.name" />
@@ -67,10 +67,10 @@
           <el-form-item label="行政区划">
             <el-cascader
               v-model="form.area"
-              :options="areaOptions"
-              :props="{ label: 'name', value: 'code' }"
               clearable
               filterable
+              :options="areaOptions"
+              :props="{ label: 'name', value: 'code' }"
             />
           </el-form-item>
           <el-form-item label="穿梭框">
@@ -177,7 +177,9 @@
     methods: {
       //获取行政区划
       async fetchData() {
-        this.areaOptions = await getList()
+        const { data } = await getList()
+        const { list } = data
+        this.areaOptions = list
       },
       submitForm(formName) {
         this.$refs[formName].validate((valid) => {
@@ -186,7 +188,6 @@
           } else {
             // eslint-disable-next-line no-console
             console.log('error submit!!')
-            return false
           }
         })
       },

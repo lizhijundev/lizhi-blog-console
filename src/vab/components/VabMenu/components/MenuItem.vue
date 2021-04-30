@@ -1,5 +1,5 @@
 <template>
-  <el-menu-item :index="itemOrMenu.path" @click="handleLink">
+  <el-menu-item :index="itemOrMenu.fullPath" @click="handleLink">
     <vab-icon
       v-if="itemOrMenu.meta && itemOrMenu.meta.icon"
       :icon="itemOrMenu.meta.icon"
@@ -63,7 +63,7 @@
           if (isExternal(routePath)) window.location.href = routePath
           else if (route.fullPath !== routePath) {
             if (device.value === 'mobile') foldSideBar()
-            router.push(routePath)
+            router.push(props.itemOrMenu.fullPath)
           }
         }
       }

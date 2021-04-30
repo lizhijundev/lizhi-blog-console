@@ -11,9 +11,9 @@
         <el-form
           ref="form"
           label-position="top"
+          label-width="100px"
           :model="form"
           :rules="rules"
-          label-width="100px"
           @submit.prevent
         >
           <el-form-item label="请输入跳转url" prop="url">

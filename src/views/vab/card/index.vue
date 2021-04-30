@@ -5,8 +5,8 @@
         <el-form
           ref="form"
           :inline="true"
-          :model="queryForm"
           label-width="50px"
+          :model="queryForm"
           @submit.prevent
         >
           <el-form-item label="区域">
@@ -53,10 +53,10 @@
           shadow="hover"
         >
           <vab-magnifier
-            :url="item.img"
-            :width="150"
             style="width: 100%; height: 228px"
             type="circle"
+            :url="item.img"
+            :width="150"
           />
           <div class="card-title">{{ item.title }}</div>
           <div class="card-description">{{ item.description }}</div>
@@ -65,11 +65,11 @@
       </el-col>
     </el-row>
     <el-pagination
+      background
       :current-page="queryForm.pageNo"
       :layout="layout"
       :page-size="queryForm.pageSize"
       :total="total"
-      background
       @current-change="handleCurrentChange"
       @size-change="handleSizeChange"
     />
@@ -114,7 +114,8 @@
       },
       async fetchData() {
         this.listLoading = true
-        const { list, total } = await getList(this.queryForm)
+        const { data } = await getList(this.queryForm)
+        const { list, total } = data
         this.list = list
         this.total = total
       },

@@ -6,7 +6,7 @@ export function setup(app) {
    */
   app.directive('permissions', {
     mounted(el, binding) {
-      let { value } = binding
+      const { value } = binding
       if (value) {
         if (!hasAccess(value)) {
           el.parentNode && el.parentNode.removeChild(el)

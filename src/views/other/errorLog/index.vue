@@ -24,7 +24,6 @@
             false,
             'vab-hey-message-error'
           )
-          return false
         }
         this.show = true
       },

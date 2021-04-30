@@ -79,7 +79,7 @@
 
       const handleTabClick = (handler) => {
         if (handler !== true && openFirstMenu)
-          router.push(handlePartialRoutes.value[0].path)
+          router.push(handlePartialRoutes.value[0])
       }
 
       watchEffect(() => {

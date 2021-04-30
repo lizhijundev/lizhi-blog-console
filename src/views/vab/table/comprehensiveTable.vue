@@ -11,8 +11,8 @@
         <el-form
           ref="form"
           :inline="true"
-          :model="queryForm"
           label-width="49px"
+          :model="queryForm"
           @submit.prevent
         >
           <el-form-item label="标题">
@@ -61,8 +61,8 @@
               <span v-if="fold">展开</span>
               <span v-else>合并</span>
               <vab-icon
-                :class="{ 'vab-dropdown-active': fold }"
                 class="vab-dropdown"
+                :class="{ 'vab-dropdown-active': fold }"
                 icon="arrow-up-s-line"
               />
             </el-button>
@@ -84,7 +84,7 @@
           $baseConfirm
         </el-button>
         <el-button type="primary" @click="handleNotify">$baseNotify</el-button>
-        <el-badge value="New" class="item" type="danger">
+        <el-badge class="item" type="danger" value="New">
           <el-button
             icon="el-icon-info"
             style="margin: 0 0 10px 0 !important"
@@ -100,9 +100,9 @@
     <el-table
       ref="tableSort"
       v-loading="listLoading"
+      border
       :data="list"
       :height="height"
-      border
       @selection-change="setSelectRows"
       @sort-change="tableSortChange"
     >
@@ -175,8 +175,8 @@
       <el-table-column align="center" label="状态" show-overflow-tooltip>
         <template #default="{ row }">
           <el-tooltip
-            :content="row.status"
             class="item"
+            :content="row.status"
             effect="dark"
             placement="top-start"
           >
@@ -207,17 +207,17 @@
       </el-table-column>
       <template #empty>
         <el-image
-          :src="require('@/assets/empty_images/data_empty.png')"
           class="vab-data-empty"
+          :src="require('@/assets/empty_images/data_empty.png')"
         />
       </template>
     </el-table>
     <el-pagination
+      background
       :current-page="queryForm.pageNo"
       :layout="layout"
       :page-size="queryForm.pageSize"
       :total="total"
-      background
       @current-change="handleCurrentChange"
       @size-change="handleSizeChange"
     />
@@ -320,7 +320,6 @@
               false,
               'vab-hey-message-error'
             )
-            return false
           }
         }
       },
@@ -343,7 +342,6 @@
               false,
               'vab-hey-message-error'
             )
-            return false
           }
         }
       },
@@ -361,7 +359,8 @@
       },
       async fetchData() {
         this.listLoading = true
-        const { list, total } = await getList(this.queryForm)
+        const { data } = await getList(this.queryForm)
+        const { list, total } = data
         this.list = list
         const imageList = []
         list.forEach((item) => {

@@ -24,13 +24,14 @@ const List = [
     datatime: '@datetime',
   },
 ]
+
 module.exports = [
   {
     url: '/userManagement/getList',
     type: 'get',
     response(config) {
       const { username, pageNo = 1, pageSize = 20 } = config.query
-      let mockList = List.filter(
+      const mockList = List.filter(
         (item) => !(username && item.username.indexOf(username) < 0)
       )
       const list = mockList.filter(

@@ -75,7 +75,8 @@
         this.fetchData()
       },
       async fetchData() {
-        const { list, total } = await getIconList(this.queryForm)
+        const { data } = await getIconList(this.queryForm)
+        const { list, total } = data
         this.queryIcon = list
         this.total = total
       },

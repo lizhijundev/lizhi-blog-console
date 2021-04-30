@@ -5,6 +5,7 @@ const List = [
     value: 'vue-admin-beautiful官网',
   },
 ]
+
 module.exports = [
   {
     url: '/search/getList',

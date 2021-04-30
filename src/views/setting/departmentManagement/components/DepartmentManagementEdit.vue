@@ -5,7 +5,7 @@
     width="500px"
     @close="close"
   >
-    <el-form ref="form" :model="form" :rules="rules" label-width="80px">
+    <el-form ref="form" label-width="80px" :model="form" :rules="rules">
       <el-form-item label="父节点" prop="parentName">
         <el-select
           v-model="form.parentId"
@@ -14,14 +14,14 @@
         >
           <el-option
             :label="form.parentName"
-            :value="form.parentId"
             style="height: auto; padding: 0"
+            :value="form.parentId"
           >
             <el-tree
               ref="tree"
               :data="treeData"
-              :props="defaultProps"
               default-expand-all
+              :props="defaultProps"
               @node-click="handleNodeClick"
             />
           </el-option>
@@ -74,7 +74,8 @@
     },
     methods: {
       async fetchData() {
-        const { list } = await getList()
+        const { data } = await getList()
+        const { list } = data
         this.treeData = list
       },
       handleNodeClick(node) {
@@ -102,8 +103,6 @@
             this.$baseMessage(msg, 'success', false, 'vab-hey-message-success')
             this.$emit('fetch-data')
             this.close()
-          } else {
-            return false
           }
         })
       },

@@ -14,7 +14,7 @@ import qs from 'qs'
 import router from '@/router'
 import { isArray } from '@/utils/validate'
 import { checkNeed } from '@/vab/plugins/errorLog'
-import { ElLoading, ElMessage } from 'element-plus'
+import { gp } from '@vab'
 
 let loadingInstance
 
@@ -29,7 +29,8 @@ const CODE_MESSAGE = {
   202: '一个请求已经进入后台排队(异步任务)',
   204: '删除数据成功',
   400: '发出信息有误',
-  401: '用户没有权限(令牌、用户名、密码错误)',
+  401: '用户没有权限(令牌失效、用户名、密码错误、登录过期)',
+  402: '前端无痛刷新token',
   403: '用户得到授权，但是访问是被禁止的',
   404: '访问资源不存在',
   406: '请求格式不可得',
@@ -50,12 +51,10 @@ const handleData = ({ config, data, status, statusText }) => {
     case 200:
       // 业务层级错误处理，以下是假定restful有一套统一输出格式(指不管成功与否都有相应的数据格式)情况下进行处理
       // 例如响应内容：
-      // 错误内容：{ status: 1, msg: '非法参数' }
-      // 正确内容：{ status: 200, data: {  }, msg: '操作正常' }
-      // 修改返回内容为 `data` 内容，对于绝大多数场景已经无须再关心业务状态码(code)和消息(msg)
-      // 或者依然保持完整的格式
+      // 错误内容：{ code: 1, msg: '非法参数' }
+      // 正确内容：{ code: 200, data: {  }, msg: '操作正常' }
       // return data
-      return data.data ? data.data : data.msg
+      return data
     case 401:
       store
         .dispatch('user/resetAll')
@@ -63,29 +62,32 @@ const handleData = ({ config, data, status, statusText }) => {
           router.push({ path: '/login', replace: true }).then(() => {})
         )
       break
+    case 402:
+      store.dispatch('user/setToken', data.data.token)
+      return data
     case 403:
       router.push({ path: '/403' }).then(() => {})
       break
   }
   // 异常处理
   // 若data.msg存在，覆盖默认提醒消息
-  const message = `${config.url} 后端接口 ${code} 异常：${
-    !data
+  const errMsg = `${config.url} 后端接口 ${code} 异常：${
+    data && data[messageName]
+      ? data[messageName]
+      : CODE_MESSAGE[code]
       ? CODE_MESSAGE[code]
-      : !data[messageName]
-      ? statusText
-      : data[messageName]
+      : statusText
   }`
+  gp.$baseMessage(errMsg, 'error', false, 'vab-hey-message-error')
+  const err = new Error(errMsg)
   if (checkNeed())
     store
       .dispatch('errorLog/addErrorLog', {
-        err: new Error(message),
-        vm: null,
-        info: message,
+        err,
         url: config.url,
       })
       .then(() => {})
-  return Promise.reject(message)
+  return Promise.reject(err)
 }
 
 /**
@@ -119,7 +121,7 @@ instance.interceptors.request.use(
     )
       config.data = qs.stringify(config.data)
     if (debounce.some((item) => config.url.includes(item)))
-      loadingInstance = ElLoading.service({ fullscreen: true })
+      loadingInstance = gp.$baseLoading()
     return config
   },
   (error) => {
@@ -135,8 +137,9 @@ instance.interceptors.response.use(
   (error) => {
     const { response } = error
     if (response === undefined) {
-      ElMessage.error(
-        '未可知错误，大部分是由于后端不支持跨域CORS或无效配置引起'
+      gp.$baseMessage(
+        '未可知错误，大部分是由于后端不支持跨域CORS或无效配置引起',
+        'error'
       )
       return {}
     } else return handleData(response)

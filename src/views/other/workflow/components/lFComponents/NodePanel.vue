@@ -16,6 +16,7 @@
     </div>
   </div>
 </template>
+
 <script>
   export default {
     name: 'NodePanel',
@@ -71,6 +72,7 @@
     },
   }
 </script>
+
 <style lang="scss" scoped>
   .node-panel {
     position: absolute;

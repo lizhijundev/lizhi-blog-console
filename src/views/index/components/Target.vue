@@ -6,10 +6,10 @@
         小目标
       </template>
       <vab-chart
+        class="target-echart1"
         :init-options="initOptions"
         :options="options"
         theme="vab-echarts-theme"
-        class="target-echart1"
       />
     </el-card>
     <el-card class="target-card2" shadow="hover">
@@ -20,10 +20,10 @@
         </span>
       </template>
       <vab-chart
+        class="target-echart2"
         :init-options="initOptions"
         :options="options2"
         theme="vab-echarts-theme"
-        class="target-echart2"
       />
     </el-card>
   </div>

@@ -2,11 +2,11 @@
   <div class="test2-container">
     <el-alert
       :closable="false"
-      title="取值方式：this.query"
       show-icon
+      title="取值方式：this.query"
       type="success"
     />
-    <vab-json-viewer :value="route" :expand-depth="5" copyable sort />
+    <vab-json-viewer copyable :expand-depth="5" sort :value="route" />
   </div>
 </template>
 

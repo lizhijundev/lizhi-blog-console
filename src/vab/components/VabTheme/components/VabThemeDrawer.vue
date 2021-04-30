@@ -1,15 +1,15 @@
 <template>
   <el-drawer
     v-model="drawerVisible"
-    :title="translateTitle('主题配置')"
     append-to-body
     custom-class="vab-drawer"
     direction="rtl"
     size="280px"
+    :title="translateTitle('主题配置')"
   >
     <el-scrollbar class="theme-scrollbar">
       <div class="el-drawer__body">
-        <el-form ref="form" :model="theme" label-position="left">
+        <el-form ref="form" label-position="left" :model="theme">
           <el-divider content-position="left">
             <vab-icon icon="settings-3-line" />
             {{ translateTitle('常用设置') }}
@@ -216,17 +216,16 @@
 </template>
 
 <script>
-  import { computed, getCurrentInstance, ref } from 'vue'
+  import { ref, computed, getCurrentInstance } from 'vue'
   import { useStore } from 'vuex'
   import { translateTitle } from '@/utils/i18n'
-  import emitter from '@/vab/plugins/emitter'
   import _ from 'lodash'
 
   export default {
     name: 'VabThemeDrawer',
     setup() {
       const store = useStore()
-      const internalInstance = getCurrentInstance()
+      const { proxy } = getCurrentInstance()
       const theme = computed(() => store.getters['settings/theme'])
       const device = computed(() => store.getters['settings/device'])
       const saveTheme = () => store.dispatch('settings/saveTheme')
@@ -249,9 +248,7 @@
       }
 
       const randomTheme = async () => {
-        const loading = internalInstance.appContext.config.globalProperties.$baseColorfullLoading(
-          0
-        )
+        const loading = proxy.$baseColorfullLoading(0)
         // 随机换肤重置移除主题，防止代码更新影响样式
         await resetTheme()
         const themeNameArray = ['default', 'ocean', 'green', 'white']
@@ -296,10 +293,10 @@
       }
       setTheme()
 
-      emitter.$on('theme', () => {
+      proxy.$sub('theme', () => {
         handleOpenTheme()
       })
-      emitter.$on('random-theme', () => {
+      proxy.$sub('random-theme', () => {
         randomTheme()
       })
 

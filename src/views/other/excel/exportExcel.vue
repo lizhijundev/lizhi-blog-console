@@ -32,7 +32,7 @@
       </vab-query-form-left-panel>
     </vab-query-form>
 
-    <el-table v-loading="listLoading" :data="list" border>
+    <el-table v-loading="listLoading" border :data="list">
       <el-table-column align="center" label="序号" width="55">
         <template #default="{ $index }">
           {{ $index + 1 }}
@@ -82,12 +82,12 @@
       this.fetchData()
     },
     methods: {
-      fetchData() {
+      async fetchData() {
         this.listLoading = true
-        getList().then((response) => {
-          this.list = response.data
-          this.listLoading = false
-        })
+        const { data } = await getList()
+        const { list } = data
+        this.list = list
+        this.listLoading = false
       },
       handleDownload() {
         this.downloadLoading = true

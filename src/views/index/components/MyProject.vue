@@ -16,8 +16,8 @@
         :xs="24"
       >
         <div
-          :style="'background-image:url(' + item.image + ')'"
           class="project-card"
+          :style="'background-image:url(' + item.image + ')'"
           @click="handleOpenWindow(item.url)"
         >
           <div class="project-card-title">{{ item.title }}</div>

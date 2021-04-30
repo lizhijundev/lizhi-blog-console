@@ -10,8 +10,8 @@
     <vab-chart
       :init-options="initOptions"
       :options="options"
-      theme="vab-echarts-theme"
       style="height: 283px"
+      theme="vab-echarts-theme"
     />
   </el-card>
 </template>

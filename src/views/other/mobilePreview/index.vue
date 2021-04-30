@@ -28,8 +28,8 @@
             <p>
               对了这是我知乎对于vue-admin-beautiful项目的回答，骂我可以，但请不要骂我的孩子。
               <a
-                target="_blank"
                 href="https://www.zhihu.com/question/423592827/answer/1502779880"
+                target="_blank"
               >
                 https://www.zhihu.com/question/423592827/answer/1502779880
               </a>
@@ -37,8 +37,8 @@
             <p>
               admin-plus购买链接
               <a
-                target="_blank"
                 href="https://gitee.com/chu1204505056/image/raw/master/zfb_699.jpg"
+                target="_blank"
               >
                 https://gitee.com/chu1204505056/image/raw/master/zfb_699.jpg
               </a>

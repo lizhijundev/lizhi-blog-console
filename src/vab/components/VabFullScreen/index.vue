@@ -29,7 +29,6 @@
             false,
             'vab-hey-message-error'
           )
-          return false
         }
         screenfull.toggle()
       }

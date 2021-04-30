@@ -18,8 +18,8 @@
     <el-table
       ref="multipleTable"
       v-loading="listLoading"
-      :data="list"
       border
+      :data="list"
       @selection-change="handleSelectionChange"
     >
       <el-table-column align="center" type="selection" />
@@ -70,12 +70,12 @@
       this.fetchData()
     },
     methods: {
-      fetchData() {
+      async fetchData() {
         this.listLoading = true
-        getList(this.listQuery).then((response) => {
-          this.list = response.data
-          this.listLoading = false
-        })
+        const { data } = await getList()
+        const { list } = data
+        this.list = list
+        this.listLoading = false
       },
       handleSelectionChange(val) {
         this.multipleSelection = val

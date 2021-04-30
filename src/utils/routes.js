@@ -1,6 +1,6 @@
-import path from 'path'
-import { isExternal } from '@/utils/validate'
+import { resolve } from 'path'
 import { hasAccess } from '@/utils/hasAccess'
+import { isExternal } from '@/utils/validate'
 import { recordRoute } from '@/config'
 
 /**
@@ -43,9 +43,13 @@ export function filterRoutes(routes, rolesControl, baseUrl = '/') {
     })
     .map((route) => {
       if (route.path !== '*' && !isExternal(route.path))
-        route.path = path.resolve(baseUrl, route.path)
+        route.fullPath = resolve(baseUrl, route.path)
       if (route.children)
-        route.children = filterRoutes(route.children, rolesControl, route.path)
+        route.children = filterRoutes(
+          route.children,
+          rolesControl,
+          route.fullPath
+        )
       return route
     })
 }
@@ -57,10 +61,10 @@ export function filterRoutes(routes, rolesControl, baseUrl = '/') {
  * @returns {string|*}
  */
 export function handleActivePath(route, isTabsBar = false) {
-  const { meta, path, fullPath } = route
+  const { meta, fullPath } = route
   const rawPath = route.matched
     ? route.matched[route.matched.length - 1].path
-    : path
+    : fullPath
   if (isTabsBar) return meta.dynamicNewTab ? fullPath : rawPath
   if (meta.activeMenu) return meta.activeMenu
   return fullPath ? fullPath : rawPath

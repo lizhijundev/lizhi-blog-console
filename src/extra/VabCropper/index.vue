@@ -1,6 +1,7 @@
 <template>
   <el-dialog
     v-model="dialogVisible"
+    v-model:visible="dialogVisible"
     :close-on-click-modal="false"
     title="头像裁剪"
     width="470px"
@@ -25,11 +26,11 @@
       <div class="vab-cropper-footer">
         <el-button type="primary" @click="upload">上传并保存</el-button>
         <el-upload
-          :auto-upload="false"
-          :on-change="onChange"
           accept="image/jpeg,image/gif,image/png"
           action="#"
+          :auto-upload="false"
           list-type="picture-card"
+          :on-change="onChange"
         >
           <template #default>
             <el-button type="primary">选择图片</el-button>

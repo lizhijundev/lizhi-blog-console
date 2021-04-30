@@ -110,11 +110,11 @@
       clearInterval(this.timer)
     },
     mounted() {
-      let base = +new Date(2020, 1, 1)
-      let oneDay = 24 * 3600 * 1000
-      let date = []
+      const base = +new Date(2020, 1, 1)
+      const oneDay = 24 * 3600 * 1000
+      const date = []
 
-      let data = [Math.random() * 1500]
+      const data = [Math.random() * 1500]
       let now = new Date(base)
 
       const addData = (shift) => {

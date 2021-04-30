@@ -4,12 +4,8 @@
 import Mock from 'mockjs'
 import { paramObj } from '@/utils/index'
 
-const mocks = []
-const files = require.context('../../mock/controller', false, /\.js$/)
-
-files.keys().forEach((key) => {
-  mocks.push(...files(key))
-})
+const files = require.context('../../mock/controller', true, /\.js$/)
+const mocks = files.keys().flatMap(files)
 
 export function mockXHR() {
   Mock.XHR.prototype.proxy_send = Mock.XHR.prototype.send

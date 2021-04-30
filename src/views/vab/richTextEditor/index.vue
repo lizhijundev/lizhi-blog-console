@@ -1,6 +1,6 @@
 <template>
-  <div class="rich-text-container">
-    <el-form ref="form" :model="form" :rules="rules" label-width="100px">
+  <div class="editor-container">
+    <el-form ref="form" label-width="100px" :model="form" :rules="rules">
       <el-form-item label="标题" prop="title">
         <el-input v-model="form.title" maxlength="20" />
       </el-form-item>
@@ -35,8 +35,8 @@
     <vab-upload
       ref="vabUpload"
       :limit="50"
-      :size="2"
       name="file"
+      :size="2"
       url="/upload"
     />
   </div>
@@ -136,8 +136,6 @@
           this.$refs.form.validateField('content', () => {})
           if (valid) {
             this.dialogTableVisible = true
-          } else {
-            return false
           }
         })
       },
@@ -156,8 +154,6 @@
               false,
               'vab-hey-message-success'
             )
-          } else {
-            return false
           }
         })
       },

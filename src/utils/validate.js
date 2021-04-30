@@ -4,7 +4,7 @@
  * @returns {boolean}
  */
 export function isExternal(path) {
-  return /^(https?:|mailto:|tel:)/.test(path)
+  return /^(https?:|mailto:|tel:|\/\/)/.test(path)
 }
 
 /**
@@ -198,11 +198,8 @@ export function isNum(value) {
  */
 export function isJson(value) {
   if (typeof value === 'string') {
-    try {
-      const obj = JSON.parse(value)
-      return !!(typeof obj === 'object' && obj)
-    } catch (e) {
-      return false
-    }
+    const obj = JSON.parse(value)
+    return !!(typeof obj === 'object' && obj)
   }
+  return false
 }

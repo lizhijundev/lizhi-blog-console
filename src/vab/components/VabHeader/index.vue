@@ -12,14 +12,14 @@
               :active-text-color="variables['menu-color-active']"
               :background-color="variables['menu-background']"
               :default-active="activeMenu"
-              :text-color="variables['menu-color']"
               menu-trigger="hover"
               mode="horizontal"
+              :text-color="variables['menu-color']"
             >
               <template v-for="route in handleRoutes">
                 <vab-menu
                   v-if="!route.hidden"
-                  :key="route.path"
+                  :key="route.fullPath"
                   :item="route"
                   :layout="layout"
                 />
@@ -41,7 +41,7 @@
 </template>
 
 <script>
-  import { computed, ref } from 'vue'
+  import { ref, computed } from 'vue'
   import { useStore } from 'vuex'
   import { useRoute } from 'vue-router'
   import { handleActivePath } from '@/utils/routes'

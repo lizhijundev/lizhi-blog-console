@@ -10,20 +10,19 @@
     </el-button>
     <img
       ref="vab-print-image"
-      style="display: block; width: 520px"
       src="https://gitee.com/chu1204505056/image/raw/master/fapiao.png"
+      style="display: block; width: 520px"
     />
     <br />
     <el-table ref="vab-print-table" :data="tableData" style="width: 520px">
-      <el-table-column prop="name" label="姓名" width="120px" />
-      <el-table-column prop="address" label="地址" />
+      <el-table-column label="姓名" prop="name" width="120px" />
+      <el-table-column label="地址" prop="address" />
     </el-table>
   </div>
 </template>
 
 <script>
   import { mapActions } from 'vuex'
-
   import VabPrint from '@/extra/VabPrint'
 
   export default {

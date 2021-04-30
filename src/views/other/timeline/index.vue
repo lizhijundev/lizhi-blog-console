@@ -133,6 +133,7 @@
     methods: {},
   }
 </script>
+
 <style lang="scss" scoped>
   .timeline-container {
     :deep() {

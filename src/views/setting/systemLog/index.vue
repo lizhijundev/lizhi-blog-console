@@ -4,8 +4,8 @@
       <vab-query-form-top-panel>
         <el-form
           :inline="true"
-          :model="queryForm"
           label-width="60px"
+          :model="queryForm"
           @submit.prevent
         >
           <el-form-item label="账号">
@@ -74,19 +74,19 @@
       />
       <template #empty>
         <el-image
-          :src="require('@/assets/empty_images/data_empty.png')"
           class="vab-data-empty"
+          :src="require('@/assets/empty_images/data_empty.png')"
         />
       </template>
     </el-table>
     <el-pagination
+      background
       :current-page="queryForm.pageNo"
       :layout="layout"
       :page-size="queryForm.pageSize"
       :total="total"
-      background
-      @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
+      @size-change="handleSizeChange"
     />
   </div>
 </template>
@@ -128,7 +128,8 @@
       },
       async fetchData() {
         this.listLoading = true
-        const { list, total } = await getList(this.queryForm)
+        const { data } = await getList(this.queryForm)
+        const { list, total } = data
         this.list = list
         this.total = total
         this.listLoading = false

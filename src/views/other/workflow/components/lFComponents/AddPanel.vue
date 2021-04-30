@@ -4,8 +4,8 @@
       <div v-for="item in nodeList" :key="item.type">
         <el-button
           class="add-node-btn"
-          type="primary"
           size="mini"
+          type="primary"
           @click="$_addNode(item)"
         >
           {{ item.label }}
@@ -15,8 +15,8 @@
     <el-tab-pane label="添加组">
       <el-button
         class="add-node-btn"
-        type="primary"
         size="mini"
+        type="primary"
         @click="$_addTempalte"
       >
         模板
@@ -24,6 +24,7 @@
     </el-tab-pane>
   </el-tabs>
 </template>
+
 <script>
   export default {
     name: 'AddPanel',

@@ -1,4 +1,4 @@
-const data = [
+const list = [
   {
     name: '北京市',
     code: '110000',
@@ -13686,7 +13686,7 @@ module.exports = [
       return {
         code: 200,
         msg: 'success',
-        data,
+        data: { list },
       }
     },
   },

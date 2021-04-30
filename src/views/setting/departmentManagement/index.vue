@@ -29,39 +29,23 @@
 
     <el-table
       v-loading="listLoading"
-      :data="list"
-      :tree-props="{ children: 'children' }"
       border
+      :data="list"
       default-expand-all
       row-key="id"
+      :tree-props="{ children: 'children' }"
       @selection-change="setSelectRows"
     >
-      <el-table-column align="center" show-overflow-tooltip type="selection" />
+      <el-table-column show-overflow-tooltip type="selection" />
+      <el-table-column label="名称" prop="name" show-overflow-tooltip />
+      <el-table-column label="父节点Id" prop="parentId" show-overflow-tooltip />
+      <el-table-column label="排序" prop="order" show-overflow-tooltip />
       <el-table-column
-        align="center"
-        label="名称"
-        prop="name"
-        show-overflow-tooltip
-      />
-      <el-table-column
-        align="center"
-        label="父节点Id"
-        prop="parentId"
-        show-overflow-tooltip
-      />
-      <el-table-column
-        align="center"
-        label="排序"
-        prop="order"
-        show-overflow-tooltip
-      />
-      <el-table-column
-        align="center"
         label="创建时间"
         prop="createTime"
         show-overflow-tooltip
       />
-      <el-table-column align="center" label="操作" width="85">
+      <el-table-column label="操作" width="85">
         <template #default="{ row }">
           <el-button type="text" @click="handleEdit(row)">编辑</el-button>
           <el-button
@@ -75,19 +59,19 @@
       </el-table-column>
       <template #empty>
         <el-image
-          :src="require('@/assets/empty_images/data_empty.png')"
           class="vab-data-empty"
+          :src="require('@/assets/empty_images/data_empty.png')"
         />
       </template>
     </el-table>
     <el-pagination
+      background
       :current-page="queryForm.pageNo"
       :layout="layout"
       :page-size="queryForm.pageSize"
       :total="total"
-      background
-      @size-change="handleSizeChange"
       @current-change="handleCurrentChange"
+      @size-change="handleSizeChange"
     />
     <edit ref="edit" @fetch-data="fetchData" />
   </div>
@@ -155,7 +139,6 @@
               false,
               'vab-hey-message-error'
             )
-            return false
           }
         }
       },
@@ -173,7 +156,8 @@
       },
       async fetchData() {
         this.listLoading = true
-        const { list, total } = await getList(this.queryForm)
+        const { data } = await getList(this.queryForm)
+        const { list, total } = data
         this.list = list
         this.total = total
         this.listLoading = false

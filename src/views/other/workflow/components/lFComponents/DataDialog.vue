@@ -1,8 +1,9 @@
 <template>
   <div>
-    <vab-json-viewer :value="data" :expand-depth="5" copyable sort />
+    <vab-json-viewer copyable :expand-depth="5" sort :value="data" />
   </div>
 </template>
+
 <script>
   import VabJsonViewer from 'vue-json-viewer'
 

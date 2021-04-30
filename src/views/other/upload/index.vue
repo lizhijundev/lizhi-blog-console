@@ -3,8 +3,8 @@
     <vab-upload
       ref="vabUpload"
       :limit="50"
-      :size="2"
       name="file"
+      :size="2"
       url="/upload"
     />
     <el-button type="primary" @click="handleShow()">模拟上传</el-button>

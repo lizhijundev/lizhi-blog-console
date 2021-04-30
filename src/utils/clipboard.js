@@ -1,8 +1,8 @@
 import Clipboard from 'clipboard'
-import { ElMessage } from 'element-plus'
+import { gp } from '@vab'
 
 function clipboardSuccess(text) {
-  ElMessage.success(
+  gp.$baseMessage(
     `复制${text}成功`,
     'success',
     false,
@@ -11,7 +11,7 @@ function clipboardSuccess(text) {
 }
 
 function clipboardError(text) {
-  ElMessage.error(`复制${text}失败`, 'error', false, 'vab-hey-message-success')
+  gp.$baseMessage(`复制${text}失败`, 'error', false, 'vab-hey-message-success')
 }
 
 /**

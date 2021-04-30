@@ -10,14 +10,14 @@
       >
         <vab-menu
           v-for="route in item.children"
-          :key="route.path"
+          :key="route.fullPath"
           :item="route"
         />
       </el-scrollbar>
       <template v-else>
         <vab-menu
           v-for="route in item.children"
-          :key="route.path"
+          :key="route.fullPath"
           :item="route"
         />
       </template>

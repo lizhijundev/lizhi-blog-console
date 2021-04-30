@@ -18,6 +18,7 @@ const List = [
       "gitee开源地址：<a target='_blank' href='https://gitee.com/chu1204505056/vue-admin-beautiful?_from=gitee_search'>点我</a>",
   },
 ]
+
 module.exports = [
   {
     url: '/notice/getList',

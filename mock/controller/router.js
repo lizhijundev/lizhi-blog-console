@@ -673,6 +673,7 @@ const List = [
     ],
   },
 ]
+
 module.exports = [
   {
     url: '/router/getList',

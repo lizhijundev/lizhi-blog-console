@@ -64,6 +64,7 @@ export default {
     关闭全部: 'Close all',
     退出登录: 'Logout',
     登录: 'Login',
+    验证码: 'Verification code',
     注册: 'register',
     主题配置: 'Theme',
     主题: 'Theme',

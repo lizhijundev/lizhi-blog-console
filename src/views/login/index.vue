@@ -7,10 +7,10 @@
       <el-col :lg="9" :md="12" :sm="24" :xl="9" :xs="24">
         <el-form
           ref="form"
-          :model="form"
-          :rules="rules"
           class="login-form"
           label-position="left"
+          :model="form"
+          :rules="rules"
         >
           <div class="title">hello !</div>
           <div class="title-tips">
@@ -33,8 +33,8 @@
               ref="password"
               v-model.trim="form.password"
               :placeholder="translateTitle('请输入密码')"
-              :type="passwordType"
               tabindex="2"
+              :type="passwordType"
               @keyup.enter="handleLogin"
             >
               <template #prefix>
@@ -56,9 +56,20 @@
               </template>
             </el-input>
           </el-form-item>
+          <el-form-item prop="verificationCode">
+            <el-input
+              v-model.trim="form.verificationCode"
+              :placeholder="translateTitle('验证码') + previewText"
+              tabindex="3"
+              type="text"
+            >
+              <template #prefix><vab-icon icon="barcode-box-line" /></template>
+            </el-input>
+            <el-image class="code" :src="codeUrl" @click="changeCode" />
+          </el-form-item>
           <el-button
-            :loading="loading"
             class="login-btn"
+            :loading="loading"
             type="primary"
             @click="handleLogin"
           >
@@ -106,10 +117,10 @@
         else callback()
       }
       return {
-        nodeEnv: process.env.NODE_ENV,
         form: {
           username: '',
           password: '',
+          verificationCode: '',
         },
         rules: {
           username: [
@@ -126,11 +137,20 @@
               validator: validatePassword,
             },
           ],
+          /* verificationCode: [
+            {
+              required: true,
+              trigger: 'blur',
+              message: '验证码不能空',
+            },
+          ], */
         },
         loading: false,
         passwordType: 'password',
         redirect: undefined,
         timer: 0,
+        codeUrl: 'https://www.oschina.net/action/user/captcha',
+        previewText: '',
       }
     },
     computed: {
@@ -153,10 +173,12 @@
       if (
         document.domain === 'vue-admin-beautiful.com' ||
         document.domain === 'chu1204505056.gitee.io'
-      )
+      ) {
+        this.previewText = '（演示地址验证码可不填）'
         this.timer = setTimeout(() => {
           this.handleLogin()
         }, 5000)
+      }
     },
     methods: {
       ...mapActions({
@@ -186,10 +208,11 @@
             } finally {
               this.loading = false
             }
-          } else {
-            return false
           }
         })
+      },
+      changeCode() {
+        this.codeUrl = `https://www.oschina.net/action/user/captcha?timestamp=${new Date().getTime()}`
       },
     },
   }
@@ -331,6 +354,14 @@
           background: #f6f4fc;
           border: 0;
         }
+      }
+
+      .code {
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        cursor: pointer;
+        border-radius: $base-border-radius;
       }
     }
   }

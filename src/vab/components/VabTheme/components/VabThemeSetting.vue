@@ -18,12 +18,12 @@
         <p>{{ translateTitle('购买源码') }}</p>
       </a>
     </li>
-    <li @click="getCode">
+    <!--  <li @click="getCode">
       <a>
         <vab-icon icon="file-copy-line" />
         <p>{{ translateTitle('拷贝源码') }}</p>
       </a>
-    </li>
+    </li> -->
     <li @click="removeLocalStorage">
       <a>
         <vab-icon icon="delete-bin-4-line" />
@@ -39,7 +39,6 @@
   import { computed, getCurrentInstance } from 'vue'
   import { useRoute } from 'vue-router'
   import { translateTitle } from '@/utils/i18n'
-  import emitter from '@/vab/plugins/emitter'
   import { useStore } from 'vuex'
 
   export default {
@@ -47,19 +46,19 @@
     setup() {
       const store = useStore()
       const route = useRoute()
-      const { ctx } = getCurrentInstance()
+      const { proxy } = getCurrentInstance()
 
       const handleOpenTheme = () => {
-        emitter.$emit('theme')
+        proxy.$pub('theme')
       }
       const randomTheme = () => {
-        emitter.$emit('random-theme')
+        proxy.$pub('random-theme')
       }
       const buy = () => {
         window.open('https://chu1204505056.gitee.io/authorization')
       }
       const getCode = () => {
-        ctx
+        proxy
           .$prompt(
             '请输入秘钥(秘钥请在源码中查看，跳转后需登录购买时绑定的github账号)',
             '温馨提示',
@@ -71,16 +70,15 @@
           .then(({ value }) => {
             if (value !== 'vabp') {
               // 留给没有购买VueAdminBeautifulPro框架的人的赠言：既然你已经找到这里了，那说明你的能力很出众，也应该很喜欢这个框架吧，但是不绑定github账号依旧看不到源码的，所以加我qq买一个吧
-              ctx.$baseMessage(
+              proxy.$baseMessage(
                 '秘钥不正确！',
                 'error',
                 false,
                 'vab-hey-message-error'
               )
-              return false
             }
             let path = route.path + '/index.vue'
-            let _path = route.path
+            const _path = route.path
             switch (_path) {
               case '/workbench':
                 path = '/index/workbench.vue'

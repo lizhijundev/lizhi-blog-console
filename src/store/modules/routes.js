@@ -6,7 +6,7 @@ import { getRouterList } from '@/api/router'
 import { convertRouter, filterRoutes } from '@/utils/routes'
 import { authentication, rolesControl } from '@/config'
 import { isArray } from '@/utils/validate'
-import { ElMessage } from 'element-plus'
+import { gp } from '@vab'
 
 const state = () => ({
   routes: [],
@@ -65,10 +65,22 @@ const actions = {
     const control = mode === 'visit' ? false : rolesControl
     // 设置后端路由(不需要可以删除)
     if (authentication === 'all') {
-      const { list } = await getRouterList()
-      if (!isArray(list)) ElMessage.error('路由格式返回有误')
+      const { data } = await getRouterList()
+      const { list } = data
+      if (!isArray(list))
+        gp.$baseMessage(
+          '路由格式返回有误！',
+          'error',
+          false,
+          'vab-hey-message-error'
+        )
       if (list[list.length - 1].path !== '*')
-        list.push({ path: '/:pathMatch(.*)*', redirect: '/404', hidden: true })
+        list.push({
+          path: '/:pathMatch(.*)*',
+          redirect: '/404',
+          name: 'NotFound',
+          hidden: true,
+        })
       routes = convertRouter(list)
     }
     // 根据权限和rolesControl过滤路由

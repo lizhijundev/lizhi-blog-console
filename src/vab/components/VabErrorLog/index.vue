@@ -1,8 +1,8 @@
 <template>
   <div v-if="errorLogs.length > 0">
     <el-badge
-      :value="errorLogs.length"
       type="danger"
+      :value="errorLogs.length"
       @click="dialogTableVisible = true"
     >
       <vab-icon icon="bug-line" />
@@ -14,7 +14,7 @@
       title="admin-plus(vue-admin-beautiful pro 版本) 异常捕获(温馨提示：错误必须解决)"
       width="70%"
     >
-      <el-table :data="errorLogs" border>
+      <el-table border :data="errorLogs">
         <el-table-column label="报错路由">
           <template #default="{ row }">
             <a :href="row.url" target="_blank">
@@ -24,7 +24,7 @@
         </el-table-column>
         <el-table-column label="错误信息">
           <template #default="{ row }">
-            <el-tag type="danger">{{ decodeUnicode(row.err.message) }}</el-tag>
+            <el-tag type="danger">{{ row.err.message }}</el-tag>
           </template>
         </el-table-column>
         <el-table-column label="错误详情" width="120">
@@ -61,7 +61,7 @@
 </template>
 
 <script>
-  import { computed, ref } from 'vue'
+  import { ref, computed } from 'vue'
   import { useStore } from 'vuex'
   import { abbreviation, title } from '@/config'
 
@@ -91,20 +91,12 @@
         dialogTableVisible.value = false
         clearErrorLog()
       }
-      const decodeUnicode = (str) => {
-        str = str.replace(/\\/g, '%')
-        str = unescape(str)
-        str = str.replace(/%/g, '\\')
-        str = str.replace(/\\/g, '')
-        return str
-      }
 
       return {
         title,
         clearAll,
         searchList,
         abbreviation,
-        decodeUnicode,
         dialogTableVisible,
         errorLogs: computed(() => store.getters['errorLog/errorLogs']),
       }

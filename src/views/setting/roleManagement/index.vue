@@ -29,8 +29,8 @@
 
     <el-table
       v-loading="listLoading"
-      :data="list"
       border
+      :data="list"
       @selection-change="setSelectRows"
     >
       <el-table-column align="center" show-overflow-tooltip type="selection" />
@@ -64,17 +64,17 @@
       </el-table-column>
       <template #empty>
         <el-image
-          :src="require('@/assets/empty_images/data_empty.png')"
           class="vab-data-empty"
+          :src="require('@/assets/empty_images/data_empty.png')"
         />
       </template>
     </el-table>
     <el-pagination
+      background
       :current-page="queryForm.pageNo"
       :layout="layout"
       :page-size="queryForm.pageSize"
       :total="total"
-      background
       @current-change="handleCurrentChange"
       @size-change="handleSizeChange"
     />
@@ -144,7 +144,6 @@
               false,
               'vab-hey-message-error'
             )
-            return false
           }
         }
       },
@@ -162,7 +161,8 @@
       },
       async fetchData() {
         this.listLoading = true
-        const { list, total } = await getList(this.queryForm)
+        const { data } = await getList(this.queryForm)
+        const { list, total } = data
         this.list = list
         this.total = total
         this.listLoading = false

@@ -61,7 +61,7 @@ module.exports = [
     type: 'get',
     response(config) {
       const { title, pageNo = 1, pageSize = 20 } = config.query
-      let mockList = List.filter(
+      const mockList = List.filter(
         (item) => !(title && item.title.indexOf(title) < 0)
       )
       const list = mockList.filter(

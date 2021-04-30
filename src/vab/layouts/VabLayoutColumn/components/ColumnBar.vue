@@ -1,10 +1,10 @@
 <template>
   <el-scrollbar
+    class="column-bar-container"
     :class="{
       'is-collapse': collapse,
       ['column-bar-container-' + theme.columnStyle]: true,
     }"
-    class="column-bar-container"
   >
     <vab-logo />
     <el-tabs
@@ -19,11 +19,11 @@
       >
         <template #label>
           <div
+            class="column-grid"
             :class="{
               ['column-grid-' + theme.columnStyle]: true,
             }"
             :title="translateTitle(item.meta.title)"
-            class="column-grid"
           >
             <div>
               <vab-icon
@@ -44,21 +44,21 @@
       :background-color="variables['column-second-menu-background']"
       :default-active="activeMenu"
       :default-openeds="defaultOpeneds"
-      :unique-opened="uniqueOpened"
       mode="vertical"
+      :unique-opened="uniqueOpened"
     >
       <el-divider>
         {{ translateTitle(handleGroupTitle) }}
       </el-divider>
       <template v-for="route in handlePartialRoutes">
-        <vab-menu v-if="!route.hidden" :key="route.path" :item="route" />
+        <vab-menu v-if="!route.hidden" :key="route.fullPath" :item="route" />
       </template>
     </el-menu>
   </el-scrollbar>
 </template>
 
 <script>
-  import { computed, ref, watchEffect } from 'vue'
+  import { ref, computed, watchEffect } from 'vue'
   import { useStore } from 'vuex'
   import { useRoute, useRouter } from 'vue-router'
   import { translateTitle } from '@/utils/i18n'
@@ -97,7 +97,7 @@
 
       const handleTabClick = (handler) => {
         if (handler !== true && openFirstMenu) {
-          router.push(handlePartialRoutes.value[0].path)
+          router.push(handlePartialRoutes.value[0])
           store.dispatch('settings/openSideBar')
         }
       }

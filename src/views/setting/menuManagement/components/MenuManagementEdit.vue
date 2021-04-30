@@ -8,10 +8,13 @@
     <el-form
       ref="form"
       :inline="true"
+      label-width="140px"
       :model="form"
       :rules="rules"
-      label-width="140px"
     >
+      <el-form-item label="父级Id" prop="parentId">
+        <el-input v-model="form.parentId" />
+      </el-form-item>
       <el-form-item label="name" prop="name">
         <el-input v-model="form.name" />
       </el-form-item>
@@ -24,10 +27,10 @@
       <el-form-item label="重定向" prop="redirect">
         <el-input v-model="form.redirect" />
       </el-form-item>
-      <el-form-item label="标题" prop="title">
+      <el-form-item label="标题" prop="meta.title">
         <el-input v-model="form.meta.title" />
       </el-form-item>
-      <el-form-item label="图标" prop="icon">
+      <el-form-item label="图标" prop="meta.icon">
         <el-popover
           popper-class="icon-selector-popper"
           trigger="hover"
@@ -39,25 +42,25 @@
           <vab-icon-selector @handle-icon="handleIcon" />
         </el-popover>
       </el-form-item>
-      <el-form-item label="badge" prop="badge">
+      <el-form-item label="badge">
         <el-input v-model="form.meta.badge" />
       </el-form-item>
-      <el-form-item label="隐藏" prop="hidden">
+      <el-form-item label="隐藏">
         <el-switch v-model="form.hidden" />
       </el-form-item>
-      <el-form-item label="始终显示当前节点" prop="alwaysShow">
+      <el-form-item label="始终显示当前节点">
         <el-switch v-model="form.alwaysShow" />
       </el-form-item>
-      <el-form-item label="自定义svg图标" prop="isCustomSvg">
+      <el-form-item label="自定义svg图标">
         <el-switch v-model="form.meta.isCustomSvg" />
       </el-form-item>
-      <el-form-item label="固定" prop="noClosable">
+      <el-form-item label="固定">
         <el-switch v-model="form.meta.noClosable" />
       </el-form-item>
-      <el-form-item label="无缓存" prop="noKeepAlive">
+      <el-form-item label="无缓存">
         <el-switch v-model="form.meta.noKeepAlive" />
       </el-form-item>
-      <el-form-item label="不显示当前标签页" prop="tabHidden">
+      <el-form-item label="不显示当前标签页">
         <el-switch v-model="form.meta.tabHidden" />
       </el-form-item>
     </el-form>
@@ -84,6 +87,9 @@
           },
         },
         rules: {
+          parentId: [
+            { required: true, trigger: 'blur', message: '请输入父级id' },
+          ],
           name: [{ required: true, trigger: 'blur', message: '请输入name' }],
           path: [{ required: true, trigger: 'blur', message: '请输入path' }],
           component: [
@@ -125,8 +131,6 @@
             this.$baseMessage(msg, 'success', false, 'vab-hey-message-success')
             this.$emit('fetch-data')
             this.close()
-          } else {
-            return false
           }
         })
       },

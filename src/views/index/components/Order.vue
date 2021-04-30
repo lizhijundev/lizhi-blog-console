@@ -78,10 +78,10 @@
         </el-col>
         <el-col :span="24">
           <vab-chart
+            class="order-chart"
             :init-options="initOptions"
             :options="options"
             theme="vab-echarts-theme"
-            class="order-chart"
           />
         </el-col>
       </el-row>

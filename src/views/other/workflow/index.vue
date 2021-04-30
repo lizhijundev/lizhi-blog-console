@@ -10,23 +10,23 @@
     <AddPanel
       v-if="showAddPanel"
       class="add-panel"
-      :style="addPanelStyle"
       :lf="lf"
       :node-data="addClickNode"
+      :style="addPanelStyle"
       @addNodeFinish="hideAddPanel"
     />
     <!-- 属性面板 -->
     <el-drawer
       v-model="dialogVisible"
-      title="设置节点属性"
+      :before-close="closeDialog"
       direction="rtl"
       size="400px"
-      :before-close="closeDialog"
+      title="设置节点属性"
     >
       <PropertyDialog
         v-if="dialogVisible"
-        :node-data="clickNode"
         :lf="lf"
+        :node-data="clickNode"
         @setPropertiesFinish="closeDialog"
       />
     </el-drawer>
@@ -83,7 +83,8 @@
     },
     methods: {
       async fetchData() {
-        this.data = await getList()
+        const { data } = await getList()
+        this.data = data
         this.$nextTick(() => {
           this.$_initLf()
         })

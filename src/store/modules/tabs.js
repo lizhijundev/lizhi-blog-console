@@ -26,7 +26,10 @@ const mutations = {
    * @returns
    */
   delVisitedRoute(state, path) {
-    state.visitedRoutes = state.visitedRoutes.filter((_) => _.path !== path)
+    state.visitedRoutes.splice(
+      state.visitedRoutes.findIndex((_) => _.path === path),
+      1
+    )
   },
   /**
    * @description 删除当前标签页以外其它全部标签页
@@ -46,11 +49,10 @@ const mutations = {
    * @returns
    */
   delLeftVisitedRoutes(state, path) {
-    const idx = state.visitedRoutes.indexOf(
-      state.visitedRoutes.find((item) => item.path === path)
-    )
-    state.visitedRoutes = state.visitedRoutes.filter((item, index) => {
-      return item.meta.noClosable || index >= idx
+    let found = false
+    state.visitedRoutes = state.visitedRoutes.filter((_) => {
+      if (_.path === path) found = true
+      return _.meta.noClosable || found
     })
   },
   /**
@@ -60,11 +62,11 @@ const mutations = {
    * @returns
    */
   delRightVisitedRoutes(state, path) {
-    const idx = state.visitedRoutes.indexOf(
-      state.visitedRoutes.find((item) => item.path === path)
-    )
-    state.visitedRoutes = state.visitedRoutes.filter((item, index) => {
-      return item.meta.noClosable || index <= idx
+    let found = false
+    state.visitedRoutes = state.visitedRoutes.filter((_) => {
+      const close = found
+      if (_.path === path) found = true
+      return _.meta.noClosable || !close
     })
   },
   /**
@@ -92,7 +94,6 @@ const mutations = {
         return route
       })
     }
-
     state.visitedRoutes = handleVisitedRoutes(state.visitedRoutes)
   },
 }
@@ -108,7 +109,7 @@ const actions = {
   /**
    * @description 删除当前标签页
    * @param {*} { commit }
-   * @param {*} route
+   * @param {*} path
    */
   delVisitedRoute({ commit }, path) {
     commit('delVisitedRoute', path)

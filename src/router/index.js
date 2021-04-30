@@ -490,7 +490,7 @@ export const asyncRoutes = [
       // },
       {
         path:
-          'https://github.com/chuzhixin/vue-admin-beautiful?utm_source=gold_browser_extension',
+          '//github.com/chuzhixin/vue-admin-beautiful?utm_source=gold_browser_extension',
         name: 'ExternalLink',
         meta: {
           title: '外链',

@@ -7,10 +7,9 @@
 </template>
 
 <script>
-  import { computed } from 'vue'
+  import { computed, getCurrentInstance } from 'vue'
   import { useStore } from 'vuex'
   import { useRoute, useRouter } from 'vue-router'
-  import emitter from '@/vab/plugins/emitter'
 
   export default {
     name: 'VabRefresh',
@@ -18,6 +17,7 @@
       const store = useStore()
       const route = useRoute()
       const router = useRouter()
+      const { proxy } = getCurrentInstance()
       const extra = computed(() => store.getters['settings/extra'])
       const theme = computed(() => store.getters['settings/theme'])
       const visitedRoutes = computed(() => store.getters['tabs/visitedRoutes'])
@@ -42,7 +42,7 @@
             extra.value.transferRouteName = ''
             router.replace(currentRoute)
           })
-        } else emitter.$emit('reload-router-view')
+        } else proxy.$pub('reload-router-view')
       }
 
       return {

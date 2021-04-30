@@ -37,7 +37,7 @@ export async function encryptedData(data) {
   let bufTmp = ''
   let hexTmp = ''
   let result = ''
-  let buffer = Buffer.from(JSON.stringify(data))
+  const buffer = Buffer.from(JSON.stringify(data))
   let offSet = 0
   const inputLen = buffer.length
   while (inputLen - offSet > 0) {
@@ -66,7 +66,7 @@ export function decryptedData(data) {
   let bufTmp = ''
   let hexTmp = ''
   let result = ''
-  let buffer = atob(data)
+  const buffer = atob(data)
   let offSet = 0
   const inputLen = buffer.length
   while (inputLen - offSet > 0) {

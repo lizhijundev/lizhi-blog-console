@@ -14,10 +14,9 @@
       <icon-list />
       <el-col :lg="12" :md="12" :sm="24" :xl="12" :xs="24">
         <china-map />
-        <my-project />
       </el-col>
       <el-col :lg="12" :md="12" :sm="24" :xl="12" :xs="24">
-        <plan />
+        <my-project />
       </el-col>
     </el-row>
   </div>
@@ -30,7 +29,6 @@
   import ChinaMap from './components/ChinaMap'
   import IconList from './components/IconList'
   import MyProject from './components/MyProject'
-  import Plan from './components/Plan'
   import VersionInformation from './components/VersionInformation'
 
   export default {
@@ -43,7 +41,6 @@
       VersionInformation,
       IconList,
       MyProject,
-      Plan,
     },
   }
 </script>

@@ -25,7 +25,7 @@
         </el-form>
       </vab-query-form-right-panel>
     </vab-query-form>
-    <el-table v-loading="listLoading" :data="list" border>
+    <el-table v-loading="listLoading" border :data="list">
       <el-table-column
         align="center"
         show-overflow-tooltip
@@ -96,17 +96,17 @@
       </el-table-column>
       <template #empty>
         <el-image
-          :src="require('@/assets/empty_images/data_empty.png')"
           class="vab-data-empty"
+          :src="require('@/assets/empty_images/data_empty.png')"
         />
       </template>
     </el-table>
     <el-pagination
+      background
       :current-page="queryForm.pageNo"
       :layout="layout"
       :page-size="queryForm.pageSize"
       :total="total"
-      background
       @current-change="handleCurrentChange"
       @size-change="handleSizeChange"
     />
@@ -137,7 +137,8 @@
     methods: {
       async fetchData() {
         this.listLoading = true
-        const { list, total } = await getList(this.queryForm)
+        const { data } = await getList(this.queryForm)
+        const { list, total } = data
         this.list = list.map((v) => {
           v.edit = false
           v.originalTitle = v.title

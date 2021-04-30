@@ -74,7 +74,7 @@
         changeTabsMeta: 'tabs/changeTabsMeta',
       }),
       handleBadge(name) {
-        let badge = this.badge + 1
+        const badge = this.badge + 1
         this.badge = badge
         this.changeMenuMeta({
           name,

@@ -35,7 +35,7 @@
       <vab-icon :icon="item.icon" :style="{ color: item.color }" />
       <p>{{ item.title }}</p>
     </el-card>
-    <vab-link v-else :to="item.link" target="_blank">
+    <vab-link v-else target="_blank" :to="item.link">
       <el-card class="icon-panel" shadow="hover">
         <vab-icon :icon="item.icon" :style="{ color: item.color }" />
         <p>{{ item.title }}</p>
@@ -45,10 +45,12 @@
 </template>
 
 <script>
-  import emitter from '@/vab/plugins/emitter'
+  import { getCurrentInstance } from 'vue'
 
   export default {
     setup() {
+      const { proxy } = getCurrentInstance()
+
       // 卡片图标
       const iconList = [
         {
@@ -108,13 +110,13 @@
       ]
 
       const changeTheme = () => {
-        emitter.$emit('theme')
+        proxy.$pub('theme')
       }
       const handleMore = () => {
         this.$baseAlert('敬请期待！')
       }
       const randomTheme = () => {
-        emitter.$emit('random-theme')
+        proxy.$pub('random-theme')
       }
 
       return {

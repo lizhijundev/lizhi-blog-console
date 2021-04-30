@@ -10,16 +10,16 @@
 </template>
 
 <script>
-  import { computed, nextTick, ref, watchEffect } from 'vue'
+  import { ref, computed, nextTick, watchEffect, getCurrentInstance } from 'vue'
   import { useStore } from 'vuex'
   import VabProgress from 'nprogress'
-  import emitter from '@/vab/plugins/emitter'
 
   export default {
     name: 'VabAppMain',
     setup() {
       const store = useStore()
       const routerView = ref(true)
+      const { proxy } = getCurrentInstance()
       const theme = computed(() => store.getters['settings/theme'])
       const extra = computed(() => store.getters['settings/extra'])
       const visitedRoutes = computed(() => store.getters['tabs/visitedRoutes'])
@@ -41,7 +41,7 @@
         ])
       })
 
-      emitter.$on('reload-router-view', () => {
+      proxy.$sub('reload-router-view', () => {
         routerView.value = false
         if (theme.value.showProgressBar) VabProgress.start()
         nextTick(() => {

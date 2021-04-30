@@ -5,7 +5,7 @@
     width="500px"
     @close="close"
   >
-    <el-form ref="form" :model="form" :rules="rules" label-width="80px">
+    <el-form ref="form" label-width="80px" :model="form" :rules="rules">
       <el-form-item label="标题" prop="title">
         <el-input v-model.trim="form.title" />
       </el-form-item>
@@ -62,8 +62,6 @@
             this.$baseMessage(msg, 'success', false, 'vab-hey-message-success')
             this.$emit('fetch-data')
             this.close()
-          } else {
-            return false
           }
         })
       },
