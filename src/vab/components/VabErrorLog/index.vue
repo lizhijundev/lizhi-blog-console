@@ -42,7 +42,7 @@
             <a
               v-for="(item, index) in searchList"
               :key="index"
-              :href="item.url + decodeUnicode(row.err.message)"
+              :href="item.url + row.err.message"
               target="_blank"
             >
               <el-button type="primary">

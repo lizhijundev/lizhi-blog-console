@@ -197,7 +197,7 @@
             query: tag.query,
             params: tag.params,
             name: tag.name,
-            matched: init ? [tag.name] : tag.matched.map((_) => _.name),
+            matched: init ? [tag.name] : tag.matched.map((route) => route.name),
             parentIcon,
             meta: { ...tag.meta },
           })
@@ -301,7 +301,7 @@
       initNoCLosableTabs(routes.value)
 
       watch(
-        () => route.path,
+        () => route.fullPath,
         () => {
           addTabs(route)
         },
@@ -488,7 +488,10 @@
             .el-tabs__item {
               height: $base-tag-item-height + 4;
               padding: 0 30px 0 30px;
-              margin-top: ($base-tabs-height - $base-tag-item-height - 4)/2;
+              margin-top: #{math.div(
+                  $base-tabs-height - $base-tag-item-height - 4,
+                  2
+                )};
               margin-right: -18px;
               line-height: $base-tag-item-height + 4;
               text-align: center;

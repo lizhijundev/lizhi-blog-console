@@ -27,7 +27,7 @@ const mutations = {
    */
   delVisitedRoute(state, path) {
     state.visitedRoutes.splice(
-      state.visitedRoutes.findIndex((_) => _.path === path),
+      state.visitedRoutes.findIndex((route) => route.path === path),
       1
     )
   },
@@ -50,9 +50,9 @@ const mutations = {
    */
   delLeftVisitedRoutes(state, path) {
     let found = false
-    state.visitedRoutes = state.visitedRoutes.filter((_) => {
-      if (_.path === path) found = true
-      return _.meta.noClosable || found
+    state.visitedRoutes = state.visitedRoutes.filter((route) => {
+      if (route.path === path) found = true
+      return route.meta.noClosable || found
     })
   },
   /**
@@ -63,10 +63,10 @@ const mutations = {
    */
   delRightVisitedRoutes(state, path) {
     let found = false
-    state.visitedRoutes = state.visitedRoutes.filter((_) => {
+    state.visitedRoutes = state.visitedRoutes.filter((route) => {
       const close = found
-      if (_.path === path) found = true
-      return _.meta.noClosable || !close
+      if (route.path === path) found = true
+      return route.meta.noClosable || !close
     })
   },
   /**

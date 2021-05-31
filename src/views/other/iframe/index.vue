@@ -1,5 +1,5 @@
 <template>
-  <vab-keep-alive />
+  <vab-router-view />
 </template>
 
 <script>

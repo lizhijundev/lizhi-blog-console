@@ -171,6 +171,11 @@
                 :label="translateTitle('卡片')"
                 value="card"
               />
+              <el-option
+                key="arrow"
+                :label="translateTitle('箭头')"
+                value="arrow"
+              />
             </el-select>
           </el-form-item>
           <el-divider content-position="left" style="margin-top: 20px">
@@ -255,7 +260,7 @@
         theme.value.themeName = _.shuffle(
           _.pull(themeNameArray, [theme.value.themeName])
         )[0]
-        const columnStyleArray = ['vertical', 'horizontal', 'card']
+        const columnStyleArray = ['vertical', 'horizontal', 'card', 'arrow']
         theme.value.columnStyle = _.shuffle(
           _.pull(columnStyleArray, [theme.value.columnStyle])
         )[0]
@@ -317,21 +322,24 @@
 
 <style lang="scss" scoped>
   .theme-scrollbar {
-    height: calc(100vh - 118px) !important;
+    height: calc(100vh - 98px) !important;
     overflow: hidden;
   }
 </style>
 <style lang="scss">
   .vab-drawer {
     .el-drawer__header {
-      margin-bottom: $base-margin;
+      margin-bottom: 0;
     }
 
     .el-drawer__body {
-      padding: 0 $base-padding/2 $base-padding/2 $base-padding/2;
+      padding: 0 #{math.div($base-padding, 2)} #{math.div($base-padding, 2)} #{math.div(
+          $base-padding,
+          2
+        )};
 
       .el-divider--horizontal {
-        margin: 20px 0 20px 0;
+        margin: $base-margin * 2 0 $base-margin * 2 0;
       }
 
       .el-form-item {
@@ -355,7 +363,7 @@
     }
 
     .el-drawer__footer {
-      padding: $base-padding/2;
+      padding: #{math.div($base-padding, 2)};
       border-top: 1px solid $base-border-color;
     }
   }

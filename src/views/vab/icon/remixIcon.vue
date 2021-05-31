@@ -113,7 +113,7 @@
         justify-content: center;
         min-height: 60px;
         max-height: 60px;
-        padding: $base-padding/1.4;
+        padding: #{math.div($base-padding, 1.4)};
         cursor: pointer;
 
         i {
@@ -140,7 +140,7 @@
 
         &:hover {
           i {
-            margin-top: -($base-margin / 1.2);
+            margin-top: -#{math.div($base-margin, 1.2)};
           }
 
           &::after {

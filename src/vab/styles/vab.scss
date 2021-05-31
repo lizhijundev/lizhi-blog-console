@@ -62,10 +62,11 @@ html {
           > section {
             background: $base-color-white;
             transition: $base-transition;
-
+            //多级路由 TODO
             > [class*='-container'],
-            .vab-keep-alive > [class*='-container'],
-            .vab-keep-alive > .vab-keep-alive > [class*='-container'] {
+            > div > [class*='-container'],
+            > div > div > [class*='-container'],
+            > div > div > div > [class*='-container'] {
               min-height: $base-keep-alive-height;
               padding: $base-padding;
               background: $base-color-white;
@@ -99,9 +100,21 @@ html {
     }
 
     /* plus处理图标间距 */
-
     i + span {
       margin-left: 3px;
+    }
+
+    /* vab-fullscreen全屏 */
+    .vab-fullscreen {
+      position: fixed !important;
+      top: 0 !important;
+      left: 0 !important;
+      z-index: $base-z-index + 3 !important;
+      box-sizing: border-box !important;
+      width: 100vw !important;
+      height: 100vh !important;
+      padding-bottom: 15px !important;
+      overflow: auto !important;
     }
 
     /* vab-dropdown下拉动画 */
@@ -176,7 +189,7 @@ html {
 
     /* el-button按钮 */
     .el-button {
-      [class*='ri'] {
+      [class*='ri-'] {
         margin-right: 3px;
         font-size: 12px;
         vertical-align: -1.8px;

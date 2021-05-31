@@ -46,7 +46,7 @@
 </template>
 
 <script>
-  import { computed, watchEffect } from 'vue'
+  import { computed, watch } from 'vue'
   import { useStore } from 'vuex'
   import { translateTitle } from '@/utils/i18n'
   import { openFirstMenu } from '@/config'
@@ -68,27 +68,28 @@
       const routes = computed(() => store.getters['routes/routes'])
 
       const handleRoutes = computed(() => {
-        return routes.value.filter((item) => item.hidden !== true && item.meta)
+        return routes.value.filter((route) => {
+          return route.meta && route.meta.hidden !== true
+        })
       })
-      const handlePartialRoutes = computed(() => {
-        const activeMenu = routes.value.find(
-          (_) => _.name === extra.value.first
-        )
-        return activeMenu ? activeMenu.children : []
-      })
-
-      const handleTabClick = (handler) => {
-        if (handler !== true && openFirstMenu)
-          router.push(handlePartialRoutes.value[0])
+      const handleActiveMenu = () => {
+        return routes.value.find((route) => route.name === extra.value.first)
       }
 
-      watchEffect(() => {
-        const firstMenu = route.matched[0].name
-        if (extra.value.first !== firstMenu) {
-          extra.value.first = firstMenu
+      const handleTabClick = (handler) => {
+        if (handler !== true && openFirstMenu) router.push(handleActiveMenu())
+      }
+
+      watch(
+        () => route.matched[0].name,
+        (name) => {
+          extra.value.first = name
           handleTabClick(true)
+        },
+        {
+          immediate: true,
         }
-      })
+      )
 
       return {
         extra,

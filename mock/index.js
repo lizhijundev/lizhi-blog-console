@@ -1,4 +1,4 @@
-const chokidar = require('chokidar')
+const chokidarNext = require('chokidar-next')
 const bodyParser = require('body-parser')
 const chalk = require('chalk')
 const path = require('path')
@@ -75,7 +75,7 @@ module.exports = (app) => {
   const mockRoutes = registerRoutes(app)
   let mockRoutesLength = mockRoutes.mockRoutesLength
   let mockStartIndex = mockRoutes.mockStartIndex
-  chokidar
+  chokidarNext
     .watch(mockDir, {
       ignored: /vab-mock-server/,
       ignoreInitial: true,

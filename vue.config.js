@@ -104,19 +104,40 @@ module.exports = {
       config.performance.set('hints', false)
       config.devtool('none')
       config.optimization.splitChunks({
+        automaticNameDelimiter: '-',
         chunks: 'all',
         cacheGroups: {
-          libs: {
-            name: 'admin-plus-libs',
+          chunk: {
+            name: 'chunk',
             test: /[\\/]node_modules[\\/]/,
+            minSize: 131072,
+            maxSize: 524288,
+            chunks: 'async',
+            minChunks: 2,
             priority: 10,
+          },
+          vue: {
+            name: 'vue',
+            test: /[\\/]node_modules[\\/](vue(.*)|core-js)[\\/]/,
             chunks: 'initial',
+            priority: 20,
           },
           elementUI: {
-            name: 'admin-plus-element-ui',
-            priority: 20,
-            test: /[\\/]node_modules[\\/]_?element-ui(.*)/,
+            name: 'element-ui',
+            test: /[\\/]node_modules[\\/]element-ui(.*)[\\/]/,
+            priority: 30,
           },
+          extra: {
+            name: 'extra',
+            test: resolve('src/extra'),
+            priority: 40,
+          },
+          // 根据使用模块抽取公共代码
+          // echarts: {
+          //   name: 'echarts',
+          //   test: /[\\/]node_modules[\\/](echarts|zrender|tslib)[\\/]/,
+          //   priority: 50,
+          // },
         },
       })
       config
@@ -151,7 +172,7 @@ module.exports = {
                 archive: [
                   {
                     source: `./${outputDir}`,
-                    destination: `./${outputDir}/${abbreviation}_${dayjs().unix()}.7z`,
+                    destination: `./${outputDir}/${abbreviation}_${dayjs().unix()}.zip`,
                   },
                 ],
               },
@@ -174,7 +195,10 @@ module.exports = {
             relativePath.replace(/\\/g, '/') !==
             'src/vab/styles/variables/variables.scss'
           )
-            return '@import "~@/vab/styles/variables/variables.scss";' + content
+            return (
+              '@use "sass:math";@import "~@/vab/styles/variables/variables.scss";' +
+              content
+            )
           return content
         },
       },

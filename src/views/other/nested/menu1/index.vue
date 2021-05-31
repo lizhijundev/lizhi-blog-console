@@ -1,7 +1,7 @@
 <template>
   <div class="menu1-container">
     <el-alert :closable="false" title="多级路由 1" type="success">
-      <vab-keep-alive />
+      <vab-router-view />
     </el-alert>
   </div>
 </template>

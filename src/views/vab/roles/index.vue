@@ -247,7 +247,6 @@
 
   export default {
     name: 'Roles',
-    components: {},
     data() {
       return {
         form: {

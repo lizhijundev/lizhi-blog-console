@@ -14,7 +14,7 @@ body.vab-theme-white {
 
   @mixin container-column {
     color: #515a6e !important;
-    background: #f7faff !important;
+    background: #f7f9ff !important;
   }
 
   @mixin active {
@@ -54,7 +54,7 @@ body.vab-theme-white {
     }
   }
 
-  .column-bar-container {
+  .vab-column-bar-container {
     .el-tabs {
       @include container-column;
 
@@ -92,6 +92,21 @@ body.vab-theme-white {
         .el-tabs__item {
           &.is-active {
             background: transparent !important;
+          }
+        }
+      }
+    }
+
+    &-arrow {
+      .el-tabs {
+        .el-tabs__item {
+          &.is-active {
+            color: $base-color-black !important;
+            background: transparent !important;
+
+            .vab-column-grid {
+              background: transparent !important;
+            }
           }
         }
       }

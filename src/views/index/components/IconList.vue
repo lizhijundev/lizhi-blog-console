@@ -70,11 +70,9 @@
         {
           icon: 'baidu-line',
           title: '百度一下',
-          link:
-            'https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=1&tn=baidu&wd=GitHub-chuzhixin%2Fvue-admin-beautiful%3A%F0%9F%9A%80vue-admi&oq=GitHub-chuzhixin%252Fvue-admin-beautiful%253A%25F0%259F%259A%2580vue-admi...&rsv_pq=a66fa3b80007fbd4&rsv_t=e8e0KMl6if8HMAuFVY8LMAEV2XLPQ%2F%2F29GPh2qVDUL20gxXFWjHTwkD%2BNhE&rqlang=cn&rsv_enter=0&rsv_dl=tb&rsv_btype=t&inputT=1163&rsv_sug3=104&rsv_sug4=1821&bs=GitHub-chuzhixin%2Fvue-admin-beautiful%3A%F0%9F%9A%80vue-admi...',
+          link: 'https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=1&tn=baidu&wd=GitHub-chuzhixin%2Fvue-admin-beautiful%3A%F0%9F%9A%80vue-admi&oq=GitHub-chuzhixin%252Fvue-admin-beautiful%253A%25F0%259F%259A%2580vue-admi...&rsv_pq=a66fa3b80007fbd4&rsv_t=e8e0KMl6if8HMAuFVY8LMAEV2XLPQ%2F%2F29GPh2qVDUL20gxXFWjHTwkD%2BNhE&rqlang=cn&rsv_enter=0&rsv_dl=tb&rsv_btype=t&inputT=1163&rsv_sug3=104&rsv_sug4=1821&bs=GitHub-chuzhixin%2Fvue-admin-beautiful%3A%F0%9F%9A%80vue-admi...',
           color: '#1890FF',
         },
-
         {
           icon: 'video-line',
           title: '视频播放器',

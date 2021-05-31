@@ -65,6 +65,9 @@
 
 <style lang="scss" scoped>
   .loading-container {
+    padding: 0 !important;
+    background: $base-color-background !important;
+
     :deep() {
       .el-button {
         margin-top: 10px;

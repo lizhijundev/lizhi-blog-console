@@ -27,7 +27,7 @@
         extra.value.refreshRoutePath = route.path
         const parentRouteName = route.matched
           .slice(0, -1)
-          .map((item) => item.name)
+          .map((route) => route.name)
           .join(',')
         const otherRoutes = visitedRoutes.value.filter((item) => {
           return item.name !== currentRoute.name

@@ -1,7 +1,7 @@
 <template>
   <div class="menu1-1-1-box">
     <el-alert :closable="false" title="多级路由 1-1-1" type="success">
-      <vab-keep-alive />
+      <vab-router-view />
     </el-alert>
   </div>
 </template>
@@ -12,9 +12,4 @@
   }
 </script>
 
-<style lang="scss" scoped>
-  [class*='-container'] {
-    padding: 15px;
-    background: $base-color-white;
-  }
-</style>
+<style lang="scss" scoped></style>

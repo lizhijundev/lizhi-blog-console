@@ -79,7 +79,7 @@ const actions = {
           path: '/:pathMatch(.*)*',
           redirect: '/404',
           name: 'NotFound',
-          hidden: true,
+          meta: { hidden: true },
         })
       routes = convertRouter(list)
     }

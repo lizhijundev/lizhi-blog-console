@@ -86,7 +86,6 @@
 <script>
   export default {
     name: 'Timeline',
-    components: {},
     data() {
       return {
         reverse1: true,
@@ -136,6 +135,9 @@
 
 <style lang="scss" scoped>
   .timeline-container {
+    padding: 0 !important;
+    background: $base-color-background !important;
+
     :deep() {
       .el-timeline-item__dot {
         [class*='ri'] {

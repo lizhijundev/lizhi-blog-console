@@ -17,9 +17,4 @@
   }
 </script>
 
-<style lang="scss" scoped>
-  [class*='-container'] {
-    padding: 15px;
-    background: $base-color-white;
-  }
-</style>
+<style lang="scss" scoped></style>

@@ -12,7 +12,6 @@
 
   export default {
     name: 'Social',
-    components: {},
     data() {
       return {
         loading: null,

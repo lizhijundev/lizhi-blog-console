@@ -1,5 +1,5 @@
 <template>
-  <div class="editor-container">
+  <div class="rich-text-editor-container">
     <el-form ref="form" label-width="100px" :model="form" :rules="rules">
       <el-form-item label="标题" prop="title">
         <el-input v-model="form.title" maxlength="20" />
@@ -166,7 +166,7 @@
 </script>
 
 <style lang="scss" scoped>
-  .rich-text-container {
+  .rich-text-editor-container {
     .news {
       &-title {
         text-align: center;
@@ -194,7 +194,6 @@
         }
       }
     }
-
     @font-face {
       font-family: 'remixicon';
       src: url('~remixicon/fonts/remixicon.eot?t=1590207869815'); /* IE9*/
@@ -213,7 +212,6 @@
           font-family: 'remixicon' !important;
           font-size: 16px;
           font-weight: 580;
-
           &:before {
             content: '\ee46';
           }

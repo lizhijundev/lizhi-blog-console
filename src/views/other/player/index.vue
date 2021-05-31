@@ -121,3 +121,11 @@
     },
   }
 </script>
+
+<style lang="scss" scoped>
+  $base: '.player';
+  #{$base}-container {
+    padding: 0 !important;
+    background: $base-color-background !important;
+  }
+</style>

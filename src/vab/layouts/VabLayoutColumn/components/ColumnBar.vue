@@ -1,9 +1,9 @@
 <template>
   <el-scrollbar
-    class="column-bar-container"
+    class="vab-column-bar-container"
     :class="{
       'is-collapse': collapse,
-      ['column-bar-container-' + theme.columnStyle]: true,
+      ['vab-column-bar-container-' + theme.columnStyle]: true,
     }"
   >
     <vab-logo />
@@ -19,9 +19,9 @@
       >
         <template #label>
           <div
-            class="column-grid"
+            class="vab-column-grid"
             :class="{
-              ['column-grid-' + theme.columnStyle]: true,
+              ['vab-column-grid-' + theme.columnStyle]: true,
             }"
             :title="translateTitle(item.meta.title)"
           >
@@ -51,14 +51,18 @@
         {{ translateTitle(handleGroupTitle) }}
       </el-divider>
       <template v-for="route in handlePartialRoutes">
-        <vab-menu v-if="!route.hidden" :key="route.fullPath" :item="route" />
+        <vab-menu
+          v-if="route.meta && !route.meta.hidden"
+          :key="route.fullPath"
+          :item="route"
+        />
       </template>
     </el-menu>
   </el-scrollbar>
 </template>
 
 <script>
-  import { ref, computed, watchEffect } from 'vue'
+  import { computed, watch } from 'vue'
   import { useStore } from 'vuex'
   import { useRoute, useRouter } from 'vue-router'
   import { translateTitle } from '@/utils/i18n'
@@ -67,7 +71,7 @@
   import variables from '@/vab/styles/variables/variables.scss'
 
   export default {
-    name: 'ColumnBar',
+    name: 'VabColumnBar',
     setup() {
       const store = useStore()
       const route = useRoute()
@@ -77,39 +81,42 @@
       const theme = computed(() => store.getters['settings/theme'])
       const collapse = computed(() => store.getters['settings/collapse'])
 
-      const activeMenu = ref('')
-
+      const activeMenu = computed(() => {
+        return handleActivePath(route)
+      })
       const handleRoutes = computed(() => {
         return routes.value.filter((item) => item.hidden !== true && item.meta)
       })
       const handlePartialRoutes = computed(() => {
-        const activeMenu = routes.value.find(
-          (_) => _.name === extra.value.first
-        )
+        const activeMenu = handleActiveMenu()
         return activeMenu ? activeMenu.children : []
       })
       const handleGroupTitle = computed(() => {
-        const activeMenu = routes.value.find(
-          (_) => _.name === extra.value.first
-        )
+        const activeMenu = handleActiveMenu()
         return activeMenu ? activeMenu.meta.title : ''
       })
 
+      const handleActiveMenu = () => {
+        return routes.value.find((route) => route.name === extra.value.first)
+      }
+
       const handleTabClick = (handler) => {
         if (handler !== true && openFirstMenu) {
-          router.push(handlePartialRoutes.value[0])
+          router.push(handleActiveMenu())
           store.dispatch('settings/openSideBar')
         }
       }
 
-      watchEffect(() => {
-        activeMenu.value = handleActivePath(route)
-        const firstMenu = route.matched[0].name
-        if (extra.value.first !== firstMenu) {
-          extra.value.first = firstMenu
+      watch(
+        () => route.matched[0].name,
+        (name) => {
+          extra.value.first = name
           handleTabClick(true)
+        },
+        {
+          immediate: true,
         }
-      })
+      )
 
       return {
         extra,
@@ -147,7 +154,7 @@
     }
   }
 
-  .column-bar-container {
+  .vab-column-bar-container {
     position: fixed;
     top: 0;
     bottom: 0;
@@ -165,7 +172,8 @@
     }
 
     &-vertical,
-    &-card {
+    &-card,
+    &-arrow {
       :deep() {
         .el-tabs + .el-menu {
           left: $base-left-menu-width-min;
@@ -201,7 +209,7 @@
           .el-tabs__item {
             padding: 5px !important;
 
-            .column-grid {
+            .vab-column-grid {
               width: $base-left-menu-width-min - 10 !important;
               height: $base-left-menu-width-min - 10 !important;
               border-radius: 5px;
@@ -210,7 +218,7 @@
             &.is-active {
               background: transparent !important;
 
-              .column-grid {
+              .vab-column-grid {
                 background: $base-color-blue;
               }
             }
@@ -230,7 +238,45 @@
       }
     }
 
-    .column-grid {
+    &-arrow {
+      ::v-deep {
+        .el-tabs {
+          .el-tabs__item {
+            &.is-active {
+              background: transparent !important;
+
+              .vab-column-grid {
+                background: transparent !important;
+                &:after {
+                  position: absolute;
+                  right: 0;
+                  width: 0;
+                  height: 0;
+                  overflow: hidden;
+                  content: '';
+                  border-color: transparent #{$base-color-white} transparent transparent;
+                  border-style: solid dashed dashed;
+                  border-width: 8px;
+                }
+              }
+            }
+          }
+        }
+
+        .el-tabs + .el-menu {
+          left: $base-left-menu-width-min + 10;
+          width: $base-left-menu-width - $base-left-menu-width-min - 20;
+        }
+
+        .el-submenu .el-submenu__title,
+        .el-menu-item {
+          min-width: 180px;
+          border-radius: 5px;
+        }
+      }
+    }
+
+    .vab-column-grid {
       display: flex;
       align-items: center;
       width: $base-left-menu-width-min;
@@ -240,7 +286,8 @@
       white-space: nowrap;
 
       &-vertical,
-      &-card {
+      &-card,
+      &-arrow {
         justify-content: center;
         height: $base-left-menu-width-min;
 
@@ -263,8 +310,8 @@
       &-horizontal {
         justify-content: left;
         width: $base-left-menu-width-min * 1.3;
-        height: $base-left-menu-width-min / 1.3;
-        padding-left: $base-padding / 2;
+        height: #{math.div($base-left-menu-width-min, 1.3)};
+        padding-left: #{math.div($base-padding, 2)};
       }
     }
 

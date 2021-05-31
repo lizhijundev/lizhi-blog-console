@@ -133,3 +133,11 @@
     },
   }
 </script>
+
+<style lang="scss" scoped>
+  $base: '.notice';
+  #{$base}-container {
+    padding: 0 !important;
+    background: $base-color-background !important;
+  }
+</style>

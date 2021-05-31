@@ -34,7 +34,7 @@
         <el-popover
           popper-class="icon-selector-popper"
           trigger="hover"
-          width="292"
+          :width="292"
         >
           <template #reference>
             <el-input v-model="form.meta.icon" />

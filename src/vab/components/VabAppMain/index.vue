@@ -1,9 +1,7 @@
 <template>
   <div class="vab-app-main">
     <section>
-      <transition mode="out-in" name="fade-transform">
-        <vab-keep-alive v-if="routerView" />
-      </transition>
+      <vab-router-view />
     </section>
     <vab-footer />
   </div>

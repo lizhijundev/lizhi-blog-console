@@ -104,20 +104,20 @@
               case '/vab/form/stepForm':
                 path = '/vab/form/stepForm.vue'
                 break
-              case '/vab/dynamicSegment/test1/1':
-                path = '/vab/dynamicSegment/test1.vue'
+              case '/other/dynamicSegment/test1/1':
+                path = '/other/dynamicSegment/test1.vue'
                 break
-              case '/vab/dynamicSegment/test2?id=1':
-                path = '/vab/dynamicSegment/test2.vue'
+              case '/other/dynamicSegment/test2?id=1':
+                path = '/other/dynamicSegment/test2.vue'
                 break
-              case '/vab/drag/dialogDrag':
-                path = '/vab/drag/dialogDrag.vue'
+              case '/other/drag/dialogDrag':
+                path = '/other/drag/dialogDrag.vue'
                 break
-              case '/vab/drag/cardDrag':
-                path = '/vab/drag/cardDrag.vue'
+              case '/other/drag/cardDrag':
+                path = '/other/drag/cardDrag.vue'
                 break
-              case '/vab/drag/flowSheetDrag':
-                path = '/vab/drag/flowSheetDrag.vue'
+              case '/other/drag/flowSheetDrag':
+                path = '/other/drag/flowSheetDrag.vue'
                 break
               case '/vab/editor/richTextEditor':
                 path = '/vab/editor/richTextEditor.vue'
@@ -125,17 +125,18 @@
               case '/vab/editor/markdownEditor':
                 path = '/vab/editor/markdownEditor.vue'
                 break
-              case '/vab/menu1/menu1-1/menu1-1-1/menu1-1-1-1':
-                path = '/vab/nested/menu1/menu1-1/menu1-1-1/menu1-1-1-1.vue'
+              case '/other/menu1/menu1-1/menu1-1-1/menu1-1-1-1':
+                path =
+                  '/other/nested/menu1/menu1-1/menu1-1-1/menu1-1-1-1/index.vue'
                 break
-              case '/vab/excel/exportExcel':
-                path = '/vab/excel/exportExcel.vue'
+              case '/other/excel/exportExcel':
+                path = '/other/excel/exportExcel.vue'
                 break
-              case '/vab/excel/exportSelectedExcel':
-                path = '/vab/excel/exportSelectedExcel.vue'
+              case '/other/excel/exportSelectedExcel':
+                path = '/other/excel/exportSelectedExcel.vue'
                 break
-              case '/vab/excel/exportMergeHeaderExcel':
-                path = '/vab/excel/exportMergeHeaderExcel.vue'
+              case '/other/excel/exportMergeHeaderExcel':
+                path = '/other/excel/exportMergeHeaderExcel.vue'
                 break
             }
             window.open(

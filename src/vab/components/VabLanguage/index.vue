@@ -22,11 +22,12 @@
     setup() {
       const store = useStore()
       const route = useRoute()
-      const changeLanguage = () => store.dispatch('settings/changeLanguage')
+      const changeLanguage = (language) =>
+        store.dispatch('settings/changeLanguage', language)
 
-      const handleCommand = (command) => {
-        changeLanguage(command)
-        i18n.global.locale = command
+      const handleCommand = (language) => {
+        changeLanguage(language)
+        i18n.global.locale = language
         document.title = getPageTitle(route.meta.title)
       }
 

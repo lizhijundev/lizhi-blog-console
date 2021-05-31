@@ -22,7 +22,8 @@ export function setupVab(app) {
   const Components = require.context('.', true, /\.vue$/)
   Components.keys()
     .map(Components)
-    .forEach((_) => {
-      app.component(_.default.name, _.default)
+    .forEach((item) => {
+      if (item.default.name && item.default.name !== 'Layouts')
+        app.component(item.default.name, item.default)
     })
 }

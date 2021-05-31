@@ -1,14 +1,11 @@
 <template>
   <div>
-    <vab-json-viewer copyable :expand-depth="5" sort :value="data" />
+    {{ data }}
   </div>
 </template>
 
 <script>
-  import VabJsonViewer from 'vue-json-viewer'
-
   export default {
-    components: { VabJsonViewer },
     props: {
       graphData: {
         type: Object,

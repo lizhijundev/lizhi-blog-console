@@ -42,14 +42,18 @@ export function filterRoutes(routes, rolesControl, baseUrl = '/') {
       else return true
     })
     .map((route) => {
-      if (route.path !== '*' && !isExternal(route.path))
-        route.fullPath = resolve(baseUrl, route.path)
-      if (route.children)
+      route.fullPath =
+        route.path !== '*' && !isExternal(route.path)
+          ? resolve(baseUrl, route.path)
+          : route.path
+      if (route.children) {
         route.children = filterRoutes(
           route.children,
           rolesControl,
           route.fullPath
         )
+        if (!route.redirect) route.redirect = route.children[0].fullPath
+      }
       return route
     })
 }

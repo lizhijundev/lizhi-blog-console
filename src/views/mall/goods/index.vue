@@ -85,7 +85,6 @@
 
   export default {
     name: 'Goods',
-    components: {},
     data() {
       return {
         queryForm: {

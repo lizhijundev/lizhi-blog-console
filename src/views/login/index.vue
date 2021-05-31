@@ -56,6 +56,7 @@
               </template>
             </el-input>
           </el-form-item>
+          <!-- 验证码验证逻辑需自行开发，如不需要验证码功能建议注释 -->
           <el-form-item prop="verificationCode">
             <el-input
               v-model.trim="form.verificationCode"

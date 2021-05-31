@@ -6,24 +6,19 @@
       title="取值方式：this.params"
       type="success"
     />
-    <vab-json-viewer copyable :expand-depth="5" sort :value="route" />
+    {{ route }}
   </div>
 </template>
 
 <script>
   import { mapActions } from 'vuex'
-  import VabJsonViewer from 'vue-json-viewer'
 
   export default {
     name: 'Test1',
-    components: { VabJsonViewer },
     data() {
       return {
         route: {},
       }
-    },
-    watch: {
-      $route: 'handleParams',
     },
     created() {
       this.handleParams()

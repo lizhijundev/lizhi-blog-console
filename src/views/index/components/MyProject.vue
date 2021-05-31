@@ -45,8 +45,7 @@
             title: 'vue-admin-beautiful(vue3.x)',
             description:
               '一款基于vue3.x + ant-design-vue的绝佳的中后台前端开发管理框架',
-            url:
-              'https://github.com/chuzhixin/vue-admin-beautiful/tree/vue3.0-antdv',
+            url: 'https://github.com/chuzhixin/vue-admin-beautiful/tree/vue3.0-antdv',
           },
           /* {
             image: require('@/assets/index_images/image.jpg'),

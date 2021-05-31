@@ -63,7 +63,6 @@
 <script>
   export default {
     name: 'MobilePreview',
-    components: {},
     data() {
       return {}
     },

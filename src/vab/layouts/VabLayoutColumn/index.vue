@@ -7,7 +7,7 @@
       'no-tabs-bar': !showTabs,
     }"
   >
-    <column-bar />
+    <vab-column-bar />
     <div
       class="vab-main"
       :class="{

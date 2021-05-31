@@ -38,7 +38,7 @@ const List = [
     path: '/vab',
     name: 'Vab',
     component: 'Layout',
-    redirect: '/vab/roles',
+    redirect: '/vab/icon/remixIcon',
     meta: {
       title: '组件',
       icon: 'code-box-line',
@@ -89,7 +89,6 @@ const List = [
         redirect: '/vab/table/comprehensiveTable',
         meta: {
           title: '表格',
-          // 非editor角色的用户可见
           roles: {
             role: ['editor'],
             mode: 'except',
@@ -109,8 +108,8 @@ const List = [
             path: 'detail',
             name: 'Detail',
             component: '@/views/vab/table/detail',
-            hidden: true,
             meta: {
+              hidden: true,
               title: '详情页',
               activeMenu: '/vab/table/comprehensiveTable',
               dynamicNewTab: true, //详情页根据id传参不同可打开多个
@@ -181,17 +180,141 @@ const List = [
               title: '分步表单',
             },
           },
+          {
+            path: 'button',
+            name: 'Button',
+            component: '@/views/vab/form/button',
+            meta: {
+              title: '按钮',
+            },
+          },
+          {
+            path: 'link',
+            name: 'Link',
+            component: '@/views/vab/form/link',
+            meta: {
+              title: '文字链接',
+            },
+          },
+          {
+            path: 'radio',
+            name: 'Radio',
+            component: '@/views/vab/form/radio',
+            meta: {
+              title: '单选框',
+            },
+          },
+          {
+            path: 'checkbox',
+            name: 'Checkbox',
+            component: '@/views/vab/form/checkbox',
+            meta: {
+              title: '多选框',
+            },
+          },
+          {
+            path: 'input',
+            name: 'Input',
+            component: '@/views/vab/form/input',
+            meta: {
+              title: '输入框',
+            },
+          },
+          {
+            path: 'inputNumber',
+            name: 'InputNumber',
+            component: '@/views/vab/form/inputNumber',
+            meta: {
+              title: '计数器',
+            },
+          },
+          {
+            path: 'select',
+            name: 'Select',
+            component: '@/views/vab/form/select',
+            meta: {
+              title: '选择器',
+            },
+          },
+          {
+            path: 'switch',
+            name: 'Switch',
+            component: '@/views/vab/form/switch',
+            meta: {
+              title: '开关',
+            },
+          },
+          {
+            path: 'slider',
+            name: 'Slider',
+            component: '@/views/vab/form/slider',
+            meta: {
+              title: '滑块',
+            },
+          },
+          {
+            path: 'timePicker',
+            name: 'TimePicker',
+            component: '@/views/vab/form/timePicker',
+            meta: {
+              title: '时间选择器',
+            },
+          },
+          {
+            path: 'datePicker',
+            name: 'DatePicker',
+            component: '@/views/vab/form/datePicker',
+            meta: {
+              title: '日期选择器',
+            },
+          },
+          {
+            path: 'dateTimePicker',
+            name: 'DateTimePicker',
+            component: '@/views/vab/form/dateTimePicker',
+            meta: {
+              title: '日期时间选择器',
+            },
+          },
+          {
+            path: 'rate',
+            name: 'Rate',
+            component: '@/views/vab/form/rate',
+            meta: {
+              title: '评分',
+            },
+          },
         ],
       },
       {
-        path: 'richTextEditor',
-        name: 'RichTextEditor',
-        component: '@/views/vab/richTextEditor',
+        path: 'editor',
+        name: 'Editor',
+        component: '@/views/vab/editor',
         meta: {
-          title: '富文本编辑器',
+          title: '编辑器',
           roles: ['admin'],
           icon: 'edit-2-line',
         },
+        children: [
+          {
+            path: 'richTextEditor',
+            name: 'RichTextEditor',
+            component: '@/views/vab/editor/richTextEditor',
+            meta: {
+              title: '富文本编辑器',
+              roles: ['admin'],
+            },
+          },
+          {
+            path: 'markdownEditor',
+            name: 'MarkdownEditor',
+            component: '@/views/vab/editor/markdownEditor',
+            meta: {
+              title: 'Markdown编辑器',
+              roles: ['admin'],
+            },
+          },
+        ],
       },
     ],
   },
@@ -267,6 +390,16 @@ const List = [
         },
       },
       {
+        path: 'tabs',
+        name: 'tabs',
+        component: '@/views/other/tabs',
+        meta: {
+          title: '多标签',
+          roles: ['admin'],
+          icon: 'bank-card-line',
+        },
+      },
+      {
         path: 'dynamicMeta',
         name: 'DynamicMeta',
         component: '@/views/other/dynamicMeta',
@@ -282,7 +415,6 @@ const List = [
         name: 'DynamicSegment',
         component: '@/views/other/dynamicSegment',
         redirect: '/vab/dynamicSegment/test1/1',
-        alwaysShow: true,
         meta: {
           title: '动态路径参数',
           roles: ['admin'],
@@ -293,8 +425,8 @@ const List = [
             path: 'test1/:id',
             name: 'Test1',
             component: '@/views/other/dynamicSegment/test1',
-            hidden: true,
             meta: {
+              hidden: true,
               title: 'Params',
               dynamicNewTab: true,
             },
@@ -309,8 +441,8 @@ const List = [
             path: 'test2',
             name: 'Test2',
             component: '@/views/other/dynamicSegment/test2',
-            hidden: true,
             meta: {
+              hidden: true,
               title: 'Query',
               dynamicNewTab: true,
             },
@@ -369,7 +501,6 @@ const List = [
         name: 'Menu1',
         component: '@/views/other/nested/menu1',
         redirect: '/other/menu1/menu1-1/menu1-1-1/menu1-1-1-1',
-        alwaysShow: true,
         meta: {
           title: '多级路由缓存',
           roles: ['admin'],
@@ -378,27 +509,25 @@ const List = [
         children: [
           {
             path: 'menu1-1',
-            name: 'Menu1-1',
+            name: 'Menu11',
             component: '@/views/other/nested/menu1/menu1-1',
             redirect: '/other/menu1/menu1-1/menu1-1-1/menu1-1-1-1',
-            alwaysShow: true,
             meta: {
               title: '多级路由1-1',
             },
             children: [
               {
                 path: 'menu1-1-1',
-                name: 'Menu1-1-1',
+                name: 'Menu111',
                 component: '@/views/other/nested/menu1/menu1-1/menu1-1-1',
                 redirect: '/other/menu1/menu1-1/menu1-1-1/menu1-1-1-1',
-                alwaysShow: true,
                 meta: {
                   title: '多级路由1-1-1',
                 },
                 children: [
                   {
                     path: 'menu1-1-1-1',
-                    name: 'Menu1-1-1-1',
+                    name: 'Menu1111',
                     meta: {
                       title: '多级路由1-1-1-1',
                     },
@@ -441,24 +570,12 @@ const List = [
           icon: 'github-fill',
         },
       },
-      // {
-      //   path: 'mobilePreview',
-      //   name: 'MobilePreview',
-      //   component: '@/views/vab/mobilePreview',
-      //   meta: {
-      //     title: '手机预览',
-      //     roles: ['admin'],
-      //     icon: 'smartphone-line',
-      //   },
-      // },
       {
-        path:
-          'https://github.com/chuzhixin/vue-admin-beautiful?utm_source=gold_browser_extension',
+        path: '//github.com/chuzhixin/vue-admin-beautiful?utm_source=gold_browser_extension',
         name: 'ExternalLink',
         meta: {
           title: '外链',
           target: '_blank',
-          // 等价roles: ['admin', 'editor'],
           roles: {
             role: ['admin', 'editor'],
             mode: 'oneOf',
@@ -481,8 +598,8 @@ const List = [
             path: 'view',
             name: 'IframeView',
             component: '@/views/other/iframe/view',
-            hidden: true,
             meta: {
+              hidden: true,
               title: 'Iframe',
               icon: 'window-line',
               dynamicNewTab: true,
@@ -495,8 +612,7 @@ const List = [
             meta: { title: '百度', icon: 'baidu-fill' },
           },
           {
-            path:
-              'view?url=https%3A%2Fgitee.com%2Fchu1204505056%2Fvue-admin-beautiful&title=Gitee',
+            path: 'view?url=https%3A%2Fgitee.com%2Fchu1204505056%2Fvue-admin-beautiful&title=Gitee',
             name: 'githubIframe',
             component: '@/views/other/iframe/view',
             meta: { title: 'Gitee', icon: 'github-fill' },
@@ -578,7 +694,7 @@ const List = [
     path: '/setting',
     name: 'PersonnelManagement',
     component: 'Layout',
-    redirect: '/setting/userManagement',
+    redirect: '/setting/personalCenter',
     meta: {
       title: '配置',
       icon: 'user-settings-line',
@@ -646,10 +762,10 @@ const List = [
     name: 'Error',
     component: 'Layout',
     redirect: '/error/403',
-    menuHidden: true,
     meta: {
       title: '错误页',
       icon: 'error-warning-line',
+      levelHidden: true,
     },
     children: [
       {

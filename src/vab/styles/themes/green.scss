@@ -43,7 +43,7 @@
     }
   }
 
-  .column-bar-container.el-scrollbar {
+  .vab-column-bar-container.el-scrollbar {
     .el-tabs {
       .el-tabs__nav-wrap.is-left {
         @include container;
@@ -73,13 +73,25 @@
     }
   }
 
-  .column-bar-container-card.el-scrollbar {
+  .vab-column-bar-container-card.el-scrollbar {
     .el-tabs {
       .el-tabs__item.is-active {
         background: transparent !important;
 
-        .column-grid {
+        .vab-column-grid {
           background: $base-color-blue !important;
+        }
+      }
+    }
+  }
+
+  .vab-column-bar-container-arrow.el-scrollbar {
+    .el-tabs {
+      .el-tabs__item.is-active {
+        background: transparent !important;
+
+        .vab-column-grid {
+          background: transparent !important;
         }
       }
     }

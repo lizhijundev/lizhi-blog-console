@@ -34,7 +34,7 @@
   import { isHashRouterMode } from '@/config'
 
   export default {
-    name: 'MenuItem',
+    name: 'VabMenuItem',
     props: {
       itemOrMenu: {
         type: Object,
@@ -83,7 +83,7 @@
       height: 16px;
       padding-right: 4px;
       padding-left: 4px;
-      margin-top: ($base-menu-item-height - 16) / 2;
+      margin-top: #{math.div($base-menu-item-height - 16, 2)};
       line-height: 16px;
       border: 0;
     }
@@ -91,6 +91,6 @@
 
   .vab-dot {
     float: right;
-    margin-top: ($base-menu-item-height - 6) / 2 + 1;
+    margin-top: #{math.div($base-menu-item-height - 6, 2)};
   }
 </style>

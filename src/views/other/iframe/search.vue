@@ -65,8 +65,7 @@
           ],
         },
         form: {
-          url:
-            'https://www.so.com/s?ie=utf-8&fr=none&src=home_suggst_revise&q=vue-admin-beautiful&eci=&nlpv=test_zc_rank1',
+          url: 'https://www.so.com/s?ie=utf-8&fr=none&src=home_suggst_revise&q=vue-admin-beautiful&eci=&nlpv=test_zc_rank1',
           title: '360搜索',
         },
       }

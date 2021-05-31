@@ -6,7 +6,7 @@ module.exports = {
   layout: 'column',
   // 主题名称：默认default、海洋之心ocean、绿荫草场green、碰触纯白white
   themeName: 'default',
-  // 分栏风格(仅针对分栏布局column时生效)：横向风格horizontal、纵向风格vertical、卡片风格card
+  // 分栏风格(仅针对分栏布局column时生效)：横向风格horizontal、纵向风格vertical、卡片风格card、箭头风格arrow
   columnStyle: 'vertical',
   // 是否固定头部固定
   fixedHeader: true,

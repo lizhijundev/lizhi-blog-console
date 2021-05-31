@@ -18,7 +18,7 @@
             >
               <template v-for="route in handleRoutes">
                 <vab-menu
-                  v-if="!route.hidden"
+                  v-if="route.meta && !route.meta.hidden"
                   :key="route.fullPath"
                   :item="route"
                   :layout="layout"
@@ -68,7 +68,7 @@
 
       const handleRoutes = computed(() => {
         return routes.value.flatMap((route) => {
-          return route.menuHidden === true && route.children
+          return route.meta && route.meta.levelHidden === true && route.children
             ? route.children
             : route
         })
@@ -83,43 +83,6 @@
     },
   }
 </script>
-<style lang="scss">
-  .el-menu--horizontal {
-    .el-menu-item,
-    .el-submenu__title {
-      height: $base-top-bar-height/1.3 !important;
-      padding: 0 $base-padding !important;
-      line-height: $base-top-bar-height/1.3 !important;
-    }
-
-    [class*='ri-'] {
-      margin-left: 0;
-      color: rgba($base-color-white, 0.9) !important;
-      cursor: pointer !important;
-    }
-
-    .el-submenu,
-    .el-menu-item {
-      i {
-        color: inherit !important;
-      }
-
-      &.is-active {
-        border-bottom: 0 solid transparent !important;
-
-        .el-submenu__title {
-          border-bottom: 0 solid transparent !important;
-        }
-      }
-    }
-
-    .el-menu-item {
-      &.is-active {
-        background: $base-color-blue !important;
-      }
-    }
-  }
-</style>
 
 <style lang="scss" scoped>
   .vab-header {
@@ -144,18 +107,18 @@
             > .el-submenu__title
             > .el-submenu__icon-arrow {
             float: right;
-            margin-top: ($base-top-bar-height - 11) / 2 !important;
+            margin-top: #{math.div($base-top-bar-height - 11, 2)} !important;
           }
 
           > .el-menu--horizontal.el-menu > .el-menu-item {
             .el-tag {
-              margin-top: $base-top-bar-height / 2 - 7 !important;
+              margin-top: #{math.div($base-top-bar-height, 2)} - 7.5 !important;
               margin-left: 5px;
             }
 
             .vab-dot {
               float: right;
-              margin-top: ($base-top-bar-height - 6) / 2 + 1;
+              margin-top: #{math.div($base-top-bar-height - 6, 2)} + 1;
             }
 
             @media only screen and (max-width: 1199px) {
@@ -167,19 +130,60 @@
 
           .el-menu {
             &.el-menu--horizontal {
-              * {
-                border: 0 !important;
+              display: flex;
+              align-items: center;
+              justify-content: flex-end;
+              height: $base-top-bar-height;
+              border-bottom: 0 solid transparent !important;
+
+              .el-menu-item,
+              .el-submenu__title {
+                height: #{math.div($base-top-bar-height, 1.3)};
+                padding: 0 $base-padding;
+                line-height: #{math.div($base-top-bar-height, 1.3)};
               }
 
               > .el-menu-item,
               > .el-submenu {
-                height: $base-top-bar-height !important;
-                line-height: $base-top-bar-height !important;
+                height: $base-top-bar-height;
+                line-height: $base-top-bar-height;
+
+                .el-submenu__icon-arrow {
+                  float: right;
+                  margin-top: #{math.div($base-menu-item-height - 16, 2)};
+                }
 
                 > .el-submenu__title {
-                  height: $base-top-bar-height !important;
-                  line-height: $base-top-bar-height !important;
+                  height: $base-top-bar-height;
+                  line-height: $base-top-bar-height;
                 }
+              }
+            }
+
+            [class*='ri-'] {
+              margin-left: 0;
+              color: rgba($base-color-white, 0.9);
+              cursor: pointer;
+            }
+
+            .el-submenu,
+            .el-menu-item {
+              i {
+                color: inherit;
+              }
+
+              &.is-active {
+                border-bottom: 0 solid transparent;
+
+                .el-submenu__title {
+                  border-bottom: 0 solid transparent;
+                }
+              }
+            }
+
+            .el-menu-item {
+              &.is-active {
+                background: $base-color-blue !important;
               }
             }
           }

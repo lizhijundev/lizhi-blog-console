@@ -6,24 +6,19 @@
       title="取值方式：this.query"
       type="success"
     />
-    <vab-json-viewer copyable :expand-depth="5" sort :value="route" />
+    {{ route }}
   </div>
 </template>
 
 <script>
   import { mapActions } from 'vuex'
-  import VabJsonViewer from 'vue-json-viewer'
 
   export default {
     name: 'Test2',
-    components: { VabJsonViewer },
     data() {
       return {
         route: {},
       }
-    },
-    watch: {
-      $route: 'handleQuery',
     },
     created() {
       this.handleQuery()

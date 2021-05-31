@@ -17,7 +17,11 @@
       :unique-opened="uniqueOpened"
     >
       <template v-for="route in handleRoutes">
-        <vab-menu v-if="!route.hidden" :key="route.fullPath" :item="route" />
+        <vab-menu
+          v-if="route.meta && !route.meta.hidden"
+          :key="route.fullPath"
+          :item="route"
+        />
       </template>
     </el-menu>
   </el-scrollbar>
@@ -49,23 +53,22 @@
       const activeMenu = computed(() => {
         return handleActivePath(route)
       })
-
-      const handlePartialRoutes = () => {
-        const activeMenu = routes.value.find(
-          (_) => _.name === extra.value.first
-        )
-        return activeMenu ? activeMenu.children : []
-      }
-
       const handleRoutes = computed(() => {
         return props.layout === 'comprehensive'
           ? handlePartialRoutes()
           : routes.value.flatMap((route) =>
-              route.menuHidden === true && route.children
+              route.meta && route.meta.levelHidden === true && route.children
                 ? route.children
                 : route
             )
       })
+
+      const handlePartialRoutes = () => {
+        const activeMenu = routes.value.find(
+          (route) => route.name === extra.value.first
+        )
+        return activeMenu ? activeMenu.children : []
+      }
 
       return {
         routes,

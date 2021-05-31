@@ -1,5 +1,15 @@
 <template>
-  <el-submenu ref="subMenu" :index="itemOrMenu.fullPath" popper-append-to-body>
+  <div v-if="itemOrMenu.meta && itemOrMenu.meta.levelHidden">
+    <template v-for="route in itemOrMenu.children">
+      <vab-menu :key="route.fullPath" :item="route" />
+    </template>
+  </div>
+  <el-submenu
+    v-else
+    ref="subMenu"
+    :index="itemOrMenu.fullPath"
+    :popper-append-to-body="false"
+  >
     <template #title>
       <vab-icon
         v-if="itemOrMenu.meta && itemOrMenu.meta.icon"
@@ -19,7 +29,7 @@
   import { translateTitle } from '@/utils/i18n'
 
   export default {
-    name: 'Submenu',
+    name: 'VabSubmenu',
     props: {
       itemOrMenu: {
         type: Object,

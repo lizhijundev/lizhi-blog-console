@@ -1,5 +1,9 @@
 <template>
-  <div ref="custom-table" class="custom-table-container">
+  <div
+    ref="custom-table"
+    class="custom-table-container"
+    :class="{ 'vab-fullscreen': isFullscreen }"
+  >
     <vab-query-form>
       <vab-query-form-left-panel>
         <el-form
@@ -42,7 +46,6 @@
           <el-checkbox v-model="border">边框（可拉伸列）</el-checkbox>
         </div>
         <el-button
-          plain
           style="margin: 0 10px 10px 0 !important"
           type="primary"
           @click="clickFullScreen"
@@ -63,12 +66,7 @@
             <el-radio label="mini">小</el-radio>
           </el-radio-group>
           <template #reference>
-            <el-button
-              v-if="!isFullscreen"
-              plain
-              style="margin: 0 10px 10px 0 !important"
-              type="primary"
-            >
+            <el-button style="margin: 0 10px 10px 0 !important" type="primary">
               <vab-icon icon="line-height" />
               表格尺寸
             </el-button>
@@ -76,20 +74,23 @@
         </el-popover>
         <el-popover popper-class="custom-table-checkbox" trigger="hover">
           <el-checkbox-group v-model="checkList">
-            <vab-draggable item-key="label" :list="columns">
+            <vab-draggable v-bind="dragOptions" :list="columns">
               <template #item="{ element }">
-                <el-checkbox :label="element.label">
+                <div>
                   <vab-icon icon="drag-drop-line" />
-                  {{ element.label }}
-                </el-checkbox>
+                  <el-checkbox
+                    :disabled="element.disableCheck === true"
+                    :label="element.label"
+                  >
+                    {{ element.label }}
+                  </el-checkbox>
+                </div>
               </template>
             </vab-draggable>
           </el-checkbox-group>
           <template #reference>
             <el-button
-              v-if="!isFullscreen"
               icon="el-icon-setting"
-              plain
               style="margin: 0 0 10px 0 !important"
               type="primary"
             >
@@ -121,6 +122,7 @@
           {{ $index + 1 }}
         </template>
       </el-table-column>
+
       <!--  TODO element-plus未知原因不支持拖拽后宽度重新计算，暂时放弃 -->
       <el-table-column
         v-for="(item, index) in finallyColumns"
@@ -128,7 +130,7 @@
         align="center"
         :label="item.label"
         :sortable="item.sortable"
-        :width="item.width"
+        width="auto"
       >
         <template #default="{ row }">
           <span v-if="item.label === '评级'">
@@ -149,6 +151,7 @@
           <el-button type="text" @click="handleDelete(row)">删除</el-button>
         </template>
       </el-table-column>
+
       <template #empty>
         <el-image
           class="vab-data-empty"
@@ -170,7 +173,6 @@
 </template>
 
 <script>
-  import screenfull from 'screenfull'
   import { doDelete, getList } from '@/api/table'
   import TableEdit from './components/TableEdit'
   import VabDraggable from 'vuedraggable'
@@ -197,32 +199,27 @@
         columns: [
           {
             label: '标题',
-            width: 'auto',
             prop: 'title',
             sortable: true,
             disableCheck: true,
           },
           {
             label: '作者',
-            width: 'auto',
             prop: 'author',
             sortable: true,
           },
           {
             label: '评级',
-            width: '200',
             prop: 'rate',
             sortable: true,
           },
           {
             label: '点击量',
-            width: 'auto',
             prop: 'pageViews',
             sortable: true,
           },
           {
             label: '时间',
-            width: 'auto',
             prop: 'datetime',
             sortable: true,
           },
@@ -241,6 +238,12 @@
       }
     },
     computed: {
+      dragOptions() {
+        return {
+          animation: 600,
+          group: 'description',
+        }
+      },
       finallyColumns() {
         return this.columns.filter((item) =>
           this.checkList.includes(item.label)
@@ -250,30 +253,13 @@
     created() {
       this.fetchData()
     },
-    beforeMount() {
-      window.addEventListener('resize', this.handleHeight)
-    },
-    beforeUnmount() {
-      window.removeEventListener('resize', this.handleHeight)
-    },
     methods: {
       clickFullScreen() {
-        if (screenfull.isEnabled) screenfull.on('change', this.change)
-        else {
-          this.$baseMessage(
-            '开启全屏失败',
-            'error',
-            false,
-            'vab-hey-message-error'
-          )
-        }
-        screenfull.toggle(this.$refs['custom-table'])
-      },
-      change() {
-        this.isFullscreen = screenfull.isFullscreen
+        this.isFullscreen = !this.isFullscreen
+        this.handleHeight()
       },
       handleHeight() {
-        if (!this.isFullscreen) this.height = this.$baseTableHeight(1) + 210
+        if (this.isFullscreen) this.height = this.$baseTableHeight(1) + 210
         else this.height = this.$baseTableHeight(1)
       },
       setSelectRows(val) {
@@ -353,15 +339,19 @@
     }
     .stripe-panel,
     .border-panel {
-      margin: 0 10px $base-margin/2 10px !important;
+      margin: 0 10px #{math.div($base-margin, 2)} 10px !important;
     }
   }
 </style>
 <style lang="scss">
   .custom-table-checkbox {
+    [class*='ri'] {
+      vertical-align: -2.5px;
+      cursor: pointer;
+    }
+
     .el-checkbox {
-      display: block !important;
-      margin: 8px 0 8px 10px;
+      margin: 5px 0 5px 8px;
     }
   }
 </style>
