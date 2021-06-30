@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-form ref="form" label-width="100px" :model="form" :rules="rules">
+    <el-form ref="formRef" label-width="100px" :model="form" :rules="rules">
       <el-form-item label="付款账户" prop="payAccount">
         <el-input v-model="form.payAccount" />
       </el-form-item>
@@ -29,10 +29,13 @@
 </template>
 
 <script>
+  import { reactive, toRefs } from 'vue'
+
   export default {
     emits: ['change-step'],
-    data() {
-      return {
+    setup(props, { emit }) {
+      const state = reactive({
+        formRef: null,
         form: {
           payAccount: 'XXXXXXXXXXXXXXXX',
           gatheringAccount: '1204505056@qq.com',
@@ -55,16 +58,20 @@
             { pattern: /^(\d+)((?:\.\d+)?)$/, message: '请输入合法金额数字' },
           ],
         },
-      }
-    },
-    methods: {
-      handleSubmit() {
-        this.$refs.form.validate((valid) => {
+      })
+
+      const handleSubmit = () => {
+        state['formRef'].validate((valid) => {
           if (valid) {
-            this.$emit('change-step', 2, this.form)
+            emit('change-step', 2, state.form)
           }
         })
-      },
+      }
+
+      return {
+        ...toRefs(state),
+        handleSubmit,
+      }
     },
   }
 </script>

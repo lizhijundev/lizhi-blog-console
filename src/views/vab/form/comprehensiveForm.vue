@@ -18,7 +18,7 @@
           </vab-query-form-left-panel>
         </vab-query-form>
         <el-form
-          ref="form"
+          ref="formRef"
           class="demo-form"
           :label-position="labelPosition"
           label-width="100px"
@@ -83,10 +83,10 @@
             />
           </el-form-item>
           <el-form-item>
-            <el-button type="primary" @click="submitForm('form')">
+            <el-button type="primary" @click="submitForm('formRef')">
               立即创建
             </el-button>
-            <el-button @click="resetForm('form')">重置</el-button>
+            <el-button @click="resetForm('formRef')">重置</el-button>
           </el-form-item>
         </el-form>
       </el-col>
@@ -95,11 +95,12 @@
 </template>
 
 <script>
+  import { reactive, toRefs } from 'vue'
   import { getList } from '@/api/area'
 
   export default {
     name: 'ComprehensiveForm',
-    data() {
+    setup() {
       const generateData = () => {
         const data = []
         const cities = ['上海', '北京', '广州']
@@ -113,7 +114,9 @@
         })
         return data
       }
-      return {
+
+      const state = reactive({
+        formRef: null,
         labelPosition: 'right',
         form: {
           name: '',
@@ -169,20 +172,17 @@
         filterMethod(query, item) {
           return item.pinyin.indexOf(query) > -1
         },
+      })
+
+      const fetchData = async () => {
+        const {
+          data: { list },
+        } = await getList()
+        state.areaOptions = list
       }
-    },
-    created() {
-      this.fetchData()
-    },
-    methods: {
-      //获取行政区划
-      async fetchData() {
-        const { data } = await getList()
-        const { list } = data
-        this.areaOptions = list
-      },
-      submitForm(formName) {
-        this.$refs[formName].validate((valid) => {
+
+      const submitForm = (formName) => {
+        state[formName].validate((valid) => {
           if (valid) {
             alert('submit!')
           } else {
@@ -190,10 +190,19 @@
             console.log('error submit!!')
           }
         })
-      },
-      resetForm(formName) {
-        this.$refs[formName].resetFields()
-      },
+      }
+      const resetForm = (formName) => {
+        state[formName].resetFields()
+      }
+
+      fetchData()
+
+      return {
+        ...toRefs(state),
+        submitForm,
+        resetForm,
+        fetchData,
+      }
     },
   }
 </script>

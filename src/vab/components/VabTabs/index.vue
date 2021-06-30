@@ -134,12 +134,13 @@
       const store = useStore()
       const route = useRoute()
       const router = useRouter()
-      const { proxy } = getCurrentInstance()
+
       const theme = computed(() => store.getters['settings/theme'])
       const routes = computed(() => store.getters['routes/routes'])
       const visitedRoutes = computed(() => store.getters['tabs/visitedRoutes'])
-      const addVisitedRoute = (route) =>
-        store.dispatch('tabs/addVisitedRoute', route)
+
+      const addVisitedRoute = (_route) =>
+        store.dispatch('tabs/addVisitedRoute', _route)
       const delVisitedRoute = (rawPath) =>
         store.dispatch('tabs/delVisitedRoute', rawPath)
       const delOthersVisitedRoutes = (activePath) =>
@@ -151,6 +152,8 @@
       const delAllVisitedRoutes = (activePath) =>
         store.dispatch('tabs/delAllVisitedRoutes', activePath)
 
+      const { proxy } = getCurrentInstance()
+
       const tabActive = ref('')
       const active = ref(false)
 
@@ -159,12 +162,8 @@
       const top = ref(0)
       const left = ref(0)
 
-      const isActive = (path) => {
-        return path === handleActivePath(route, true)
-      }
-      const isNoCLosable = (tag) => {
-        return tag.meta && tag.meta.noClosable
-      }
+      const isActive = (path) => path === handleActivePath(route, true)
+      const isNoCLosable = (tag) => tag.meta && tag.meta.noClosable
       const handleTabClick = (tab) => {
         if (!isActive(tab.name)) router.push(visitedRoutes.value[tab.index])
       }
@@ -172,9 +171,9 @@
         active.value = val
       }
       const initNoCLosableTabs = (routes) => {
-        routes.forEach((route) => {
-          if (route.meta && route.meta.noClosable) addTabs(route, true)
-          if (route.children) initNoCLosableTabs(route.children)
+        routes.forEach((_route) => {
+          if (_route.meta && _route.meta.noClosable) addTabs(_route, true)
+          if (_route.children) initNoCLosableTabs(_route.children)
         })
       }
       /**
@@ -197,7 +196,9 @@
             query: tag.query,
             params: tag.params,
             name: tag.name,
-            matched: init ? [tag.name] : tag.matched.map((route) => route.name),
+            matched: init
+              ? [tag.name]
+              : tag.matched.map((_route) => _route.components.default.name),
             parentIcon,
             meta: { ...tag.meta },
           })
@@ -290,7 +291,7 @@
         else left.value = leftTemp
         top.value = Math.round(e.clientY - 60)
         hoverRoute.value = item
-        hoverRoute.value.fullPath = item.path
+        hoverRoute.value.path = item.path
         visible.value = true
       }
       const closeMenu = () => {
@@ -538,12 +539,13 @@
 
     &-more {
       position: relative;
+      box-sizing: border-box;
 
       &-active,
       &:hover {
         &:after {
           position: absolute;
-          bottom: -1px;
+          bottom: 0;
           left: 0;
           height: 0;
           content: '';
@@ -579,8 +581,8 @@
 
           &:before {
             position: absolute;
-            top: 0;
-            left: 0px;
+            top: 2px;
+            left: 0;
             width: 6px;
             height: 6px;
             content: '';
@@ -589,7 +591,7 @@
 
           &:after {
             position: absolute;
-            top: 0;
+            top: 2px;
             left: 8px;
             width: 6px;
             height: 6px;

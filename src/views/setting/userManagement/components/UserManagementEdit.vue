@@ -5,7 +5,7 @@
     width="500px"
     @close="close"
   >
-    <el-form ref="form" label-width="80px" :model="form" :rules="rules">
+    <el-form ref="formRef" label-width="80px" :model="form" :rules="rules">
       <el-form-item label="用户名" prop="username">
         <el-input v-model.trim="form.username" />
       </el-form-item>
@@ -30,13 +30,17 @@
 </template>
 
 <script>
+  import { getCurrentInstance, reactive, toRefs } from 'vue'
   import { doEdit } from '@/api/userManagement'
 
   export default {
     name: 'UserManagementEdit',
     emits: ['fetch-data'],
-    data() {
-      return {
+    setup(props, { emit }) {
+      const { proxy } = getCurrentInstance()
+
+      const state = reactive({
+        formRef: null,
         form: {
           roles: [],
         },
@@ -52,33 +56,41 @@
         },
         title: '',
         dialogFormVisible: false,
-      }
-    },
-    methods: {
-      showEdit(row) {
+      })
+
+      const showEdit = (row) => {
         if (!row) {
-          this.title = '添加'
+          state.title = '添加'
         } else {
-          this.title = '编辑'
-          this.form = Object.assign({}, row)
+          state.title = '编辑'
+          state.form = Object.assign({}, row)
         }
-        this.dialogFormVisible = true
-      },
-      close() {
-        this.$refs['form'].resetFields()
-        this.form = this.$options.data().form
-        this.dialogFormVisible = false
-      },
-      save() {
-        this.$refs['form'].validate(async (valid) => {
+        state.dialogFormVisible = true
+      }
+      const close = () => {
+        state['formRef'].resetFields()
+        state.form = {
+          roles: [],
+        }
+        state.dialogFormVisible = false
+      }
+      const save = () => {
+        state['formRef'].validate(async (valid) => {
           if (valid) {
-            const { msg } = await doEdit(this.form)
-            this.$baseMessage(msg, 'success', false, 'vab-hey-message-success')
-            this.$emit('fetch-data')
-            this.close()
+            const { msg } = await doEdit(state.form)
+            proxy.$baseMessage(msg, 'success', false, 'vab-hey-message-success')
+            emit('fetch-data')
+            close()
           }
         })
-      },
+      }
+
+      return {
+        ...toRefs(state),
+        showEdit,
+        close,
+        save,
+      }
     },
   }
 </script>

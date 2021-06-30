@@ -7,7 +7,7 @@
     </template>
     <vab-chart
       :init-options="initOptions"
-      :options="options"
+      :option="option"
       theme="vab-echarts-theme"
     />
     <div class="bottom">
@@ -32,14 +32,15 @@
   import VabChart from '@/extra/VabChart'
   import VabCount from '@/extra/VabCount'
   import _ from 'lodash'
+  import { onBeforeMount, onBeforeUnmount, reactive, toRefs } from 'vue'
 
   export default {
     components: {
       VabChart,
       VabCount,
     },
-    data() {
-      return {
+    setup() {
+      const state = reactive({
         timer: null,
         n: 5,
         countConfig: {
@@ -55,7 +56,7 @@
           renderer: 'svg',
         },
         // 授权数
-        options: {
+        option: {
           tooltip: {
             trigger: 'axis',
             extraCssText: 'z-index:1',
@@ -103,23 +104,28 @@
             },
           ],
         },
+      })
+
+      onBeforeMount(() => {
+        state.timer = null
+        clearInterval(state.timer)
+      })
+      onBeforeUnmount(() => {
+        state.timer = setInterval(() => {
+          if (state.n > 0) {
+            state.n--
+          } else {
+            state.option.series[0].type = _.sample(
+              _.pull(['line', 'bar', 'scatter'], [state.option.series[0].type])
+            )
+            state.n = 5
+          }
+        }, 1000)
+      })
+
+      return {
+        ...toRefs(state),
       }
-    },
-    beforeUnmount() {
-      this.timer = null
-      clearInterval(this.timer)
-    },
-    mounted() {
-      this.timer = setInterval(() => {
-        if (this.n > 0) {
-          this.n--
-        } else {
-          this.options.series[0].type = _.sample(
-            _.pull(['line', 'bar', 'scatter'], [this.options.series[0].type])
-          )
-          this.n = 5
-        }
-      }, 1000)
     },
   }
 </script>

@@ -32,6 +32,7 @@ export default function registerEnd(lf) {
           })
         )
       }
+
       getShape() {
         const attributes = this.getAttributes()
         const { x, y, r, fill, stroke, strokeWidth } = attributes
@@ -48,6 +49,7 @@ export default function registerEnd(lf) {
         ])
       }
     }
+
     class EndModel extends CircleNodeModel {
       constructor(data, graphModel) {
         data.text = {
@@ -57,6 +59,7 @@ export default function registerEnd(lf) {
         }
         super(data, graphModel)
       }
+
       getConnectedSourceRules() {
         const rules = super.getConnectedSourceRules()
         const notAsTarget = {
@@ -67,6 +70,7 @@ export default function registerEnd(lf) {
         return rules
       }
     }
+
     return {
       view: EndNode,
       model: EndModel,

@@ -14,7 +14,7 @@
       type="success"
     />
 
-    <el-form ref="form" label-position="top" label-width="140px" :model="form">
+    <el-form label-position="top" label-width="140px" :model="form">
       <el-form-item label="账号切换">
         <el-radio-group v-model="form.account" @change="handleChangeRole">
           <el-radio-button label="admin">admin</el-radio-button>
@@ -23,7 +23,7 @@
         </el-radio-group>
       </el-form-item>
       <el-form-item label="token无痛刷新">
-        <el-button type="primary" @click="refreshToken">
+        <el-button type="primary" @click="handleRefreshToken">
           点击模拟token无痛刷新
         </el-button>
       </el-form-item>
@@ -234,7 +234,8 @@
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
+  import { computed, getCurrentInstance, reactive, toRefs } from 'vue'
+  import { useStore } from 'vuex'
   import {
     authentication,
     loginInterception,
@@ -247,46 +248,55 @@
 
   export default {
     name: 'Roles',
-    data() {
-      return {
+    setup() {
+      const store = useStore()
+
+      const username = computed(() => store.getters['user/username'])
+
+      const { proxy } = getCurrentInstance()
+
+      const state = reactive({
         form: {
-          account: '',
+          account: username.value,
         },
         tableData: [],
         res: [],
         authentication,
         loginInterception,
         rolesControl,
+      })
+
+      const fetchData = async () => {
+        const {
+          data: { list },
+        } = await getRouterList()
+        state.tableData = filterRoutes([...list])
       }
-    },
-    computed: {
-      ...mapGetters({
-        ability: 'acl/ability',
-        role: 'acl/role',
-        token: 'user/token',
-        username: 'user/username',
-      }),
-    },
-    created() {
-      this.form.account = this.username
-      this.fetchData()
-    },
-    methods: {
-      async handleChangeRole() {
-        this.$baseLoading(0, '正在切换账号请稍后...')
-        await localStorage.setItem(tokenTableName, `${this.form.account}-token`)
+      const handleChangeRole = async () => {
+        proxy.$baseLoading(0, '正在切换账号请稍后...')
+        await localStorage.setItem(
+          tokenTableName,
+          `${state.form.account}-token`
+        )
         await location.reload()
-      },
-      async fetchData() {
-        const { data } = await getRouterList()
-        const { list } = data
-        this.tableData = filterRoutes([...list])
-      },
-      async refreshToken() {
+      }
+      const handleRefreshToken = async () => {
         const { msg, data } = await refreshToken()
         const { token } = data
-        this.$baseMessage(' [' + token + '] ' + msg, 'success')
-      },
+        proxy.$baseMessage(' [' + token + '] ' + msg, 'success')
+      }
+
+      fetchData()
+
+      return {
+        ...toRefs(state),
+        role: computed(() => store.getters['acl/role']),
+        ability: computed(() => store.getters['acl/ability']),
+        token: computed(() => store.getters['user/token']),
+        fetchData,
+        handleChangeRole,
+        handleRefreshToken,
+      }
     },
   }
 </script>

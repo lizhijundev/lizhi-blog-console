@@ -13,6 +13,7 @@
     name: 'VabTheme',
     setup() {
       const store = useStore()
+
       const { proxy } = getCurrentInstance()
 
       const handleOpenTheme = () => {

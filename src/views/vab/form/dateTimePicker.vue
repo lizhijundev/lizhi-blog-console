@@ -29,7 +29,7 @@
       <el-date-picker
         v-model="value3"
         align="right"
-        :default-time="['12:00:00', '08:00:00']"
+        :default-time="value2"
         end-placeholder="结束日期"
         start-placeholder="开始日期"
         type="datetimerange"
@@ -39,16 +39,22 @@
 </template>
 
 <script>
+  import { reactive, toRefs } from 'vue'
+
   export default {
     name: 'DateTimePicker',
-    data() {
-      return {
+    setup() {
+      const state = reactive({
         value1: '',
         value2: [
           new Date(2000, 10, 10, 10, 10),
           new Date(2000, 10, 11, 10, 10),
         ],
         value3: '',
+      })
+
+      return {
+        ...toRefs(state),
       }
     },
   }

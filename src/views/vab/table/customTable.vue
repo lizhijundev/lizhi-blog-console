@@ -1,13 +1,11 @@
 <template>
   <div
-    ref="custom-table"
     class="custom-table-container"
     :class="{ 'vab-fullscreen': isFullscreen }"
   >
     <vab-query-form>
       <vab-query-form-left-panel>
         <el-form
-          ref="form"
           :inline="true"
           label-width="0"
           :model="queryForm"
@@ -55,11 +53,7 @@
           />
           表格全屏
         </el-button>
-        <el-popover
-          ref="popover"
-          popper-class="custom-table-checkbox"
-          trigger="hover"
-        >
+        <el-popover popper-class="custom-table-checkbox" trigger="hover">
           <el-radio-group v-model="lineHeight">
             <el-radio label="medium">大</el-radio>
             <el-radio label="small">中</el-radio>
@@ -102,7 +96,6 @@
     </vab-query-form>
 
     <el-table
-      ref="tableSort"
       v-loading="listLoading"
       :border="border"
       :data="list"
@@ -168,11 +161,12 @@
       @current-change="handleCurrentChange"
       @size-change="handleSizeChange"
     />
-    <table-edit ref="edit" @fetch-data="fetchData" />
+    <table-edit ref="editRef" @fetch-data="fetchData" />
   </div>
 </template>
 
 <script>
+  import { computed, getCurrentInstance, reactive, toRefs } from 'vue'
   import { doDelete, getList } from '@/api/table'
   import TableEdit from './components/TableEdit'
   import VabDraggable from 'vuedraggable'
@@ -183,8 +177,11 @@
       TableEdit,
       VabDraggable,
     },
-    data() {
-      return {
+    setup() {
+      const { proxy } = getCurrentInstance()
+
+      const state = reactive({
+        editRef: null,
         list2: [
           { name: 'John', id: 0 },
           { name: 'Joao', id: 1 },
@@ -192,7 +189,7 @@
         ],
         isFullscreen: false,
         border: true,
-        height: this.$baseTableHeight(1),
+        height: proxy.$baseTableHeight(1),
         stripe: false,
         lineHeight: 'medium',
         checkList: ['标题', '作者', '评级', '点击量', '时间'],
@@ -235,64 +232,84 @@
           pageSize: 20,
           title: '',
         },
-      }
-    },
-    computed: {
-      dragOptions() {
+      })
+
+      const dragOptions = computed(() => {
         return {
           animation: 600,
           group: 'description',
         }
-      },
-      finallyColumns() {
-        return this.columns.filter((item) =>
-          this.checkList.includes(item.label)
+      })
+      const finallyColumns = computed(() => {
+        return state.columns.filter((item) =>
+          state.checkList.includes(item.label)
         )
-      },
-    },
-    created() {
-      this.fetchData()
-    },
-    methods: {
-      clickFullScreen() {
-        this.isFullscreen = !this.isFullscreen
-        this.handleHeight()
-      },
-      handleHeight() {
-        if (this.isFullscreen) this.height = this.$baseTableHeight(1) + 210
-        else this.height = this.$baseTableHeight(1)
-      },
-      setSelectRows(val) {
-        this.selectRows = val
-      },
-      handleAdd() {
-        this.$refs['edit'].showEdit()
-      },
-      handleEdit(row) {
-        this.$refs['edit'].showEdit(row)
-      },
-      handleDelete(row) {
+      })
+
+      const fetchData = async () => {
+        state.listLoading = true
+        const {
+          data: { list, total },
+        } = await getList(state.queryForm)
+        state.list = list
+        const imageList = []
+        list.forEach((item) => {
+          imageList.push(item.img)
+        })
+        state.total = total
+        state.listLoading = false
+      }
+      const handleSizeChange = (val) => {
+        state.queryForm.pageSize = val
+        fetchData()
+      }
+      const handleCurrentChange = (val) => {
+        state.queryForm.pageNo = val
+        fetchData()
+      }
+      const queryData = () => {
+        state.queryForm.pageNo = 1
+        fetchData()
+      }
+      const clickFullScreen = () => {
+        state.isFullscreen = !state.isFullscreen
+        handleHeight()
+      }
+      const handleHeight = () => {
+        if (state.isFullscreen) state.height = proxy.$baseTableHeight(1) + 210
+        else state.height = proxy.$baseTableHeight(1)
+      }
+      const setSelectRows = (val) => {
+        state.selectRows = val
+      }
+      const handleAdd = () => {
+        state['editRef'].showEdit()
+      }
+      const handleEdit = (row) => {
+        state['editRef'].showEdit(row)
+      }
+      const handleDelete = (row) => {
         if (row.id) {
-          this.$baseConfirm('你确定要删除当前项吗', null, async () => {
+          proxy.$baseConfirm('你确定要删除当前项吗', null, async () => {
             const { msg } = await doDelete({ ids: row.id })
-            this.$baseMessage(msg, 'success', false, 'vab-hey-message-success')
-            await this.fetchData()
+            proxy.$baseMessage(msg, 'success', false, 'vab-hey-message-success')
+            await fetchData()
           })
         } else {
           if (this.selectRows.length > 0) {
-            const ids = this.selectRows.map((item) => item.id).join()
-            this.$baseConfirm('你确定要删除选中项吗', null, async () => {
+            const ids = state.selectRows.map((item) => item.id).join()
+            proxy.$baseConfirm('你确定要删除选中项吗', null, async () => {
               const { msg } = await doDelete({ ids: ids })
-              this.$baseMessage(
+              proxy.$baseMessage(
                 msg,
                 'success',
                 false,
                 'vab-hey-message-success'
               )
-              await this.fetchData()
+              await fetchData()
             })
           } else {
-            this.$baseMessage(
+            proxy.$baseMessage(
               '未选中任何行',
               'error',
               false,
@@ -300,32 +317,24 @@
             )
           }
         }
-      },
-      handleSizeChange(val) {
-        this.queryForm.pageSize = val
-        this.fetchData()
-      },
-      handleCurrentChange(val) {
-        this.queryForm.pageNo = val
-        this.fetchData()
-      },
-      handleQuery() {
-        this.queryForm.pageNo = 1
-        this.fetchData()
-      },
-      async fetchData() {
-        this.listLoading = true
-        const { data } = await getList(this.queryForm)
-        const { list, total } = data
-        this.list = list
-        const imageList = []
-        list.forEach((item) => {
-          imageList.push(item.img)
-        })
-        this.imageList = imageList
-        this.total = total
-        this.listLoading = false
-      },
+      }
+
+      fetchData()
+
+      return {
+        ...toRefs(state),
+        dragOptions,
+        finallyColumns,
+        handleSizeChange,
+        handleCurrentChange,
+        queryData,
+        clickFullScreen,
+        handleHeight,
+        setSelectRows,
+        handleAdd,
+        handleEdit,
+        handleDelete,
+      }
     },
   }
 </script>
@@ -337,6 +346,7 @@
         cursor: pointer;
       }
     }
+
     .stripe-panel,
     .border-panel {
       margin: 0 10px #{math.div($base-margin, 2)} 10px !important;

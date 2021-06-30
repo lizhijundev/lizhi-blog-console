@@ -8,7 +8,7 @@
     />
     <vab-query-form>
       <vab-query-form-right-panel :span="24">
-        <el-form ref="form" :inline="true" :model="queryForm" @submit.prevent>
+        <el-form :inline="true" :model="queryForm" @submit.prevent>
           <el-form-item>
             <el-input v-model="queryForm.title" placeholder="标题" />
           </el-form-item>
@@ -17,7 +17,7 @@
               icon="el-icon-search"
               native-type="submit"
               type="primary"
-              @click="handleQuery"
+              @click="queryData"
             >
               查询
             </el-button>
@@ -114,12 +114,13 @@
 </template>
 
 <script>
+  import { reactive, toRefs } from 'vue'
   import { getList } from '@/api/table'
 
   export default {
     name: 'InlineEditTable',
-    data() {
-      return {
+    setup() {
+      const state = reactive({
         list: [],
         listLoading: true,
         layout: 'total, sizes, prev, pager, next, jumper',
@@ -129,44 +130,52 @@
           pageSize: 20,
           title: '',
         },
-      }
-    },
-    created() {
-      this.fetchData()
-    },
-    methods: {
-      async fetchData() {
-        this.listLoading = true
-        const { data } = await getList(this.queryForm)
-        const { list, total } = data
-        this.list = list.map((v) => {
+      })
+
+      const fetchData = async () => {
+        state.listLoading = true
+        const {
+          data: { list, total },
+        } = await getList(state.queryForm)
+        state.list = list.map((v) => {
           v.edit = false
           v.originalTitle = v.title
           return v
         })
-        this.total = total
-        this.listLoading = false
-      },
-      handleSizeChange(val) {
-        this.queryForm.pageSize = val
-        this.fetchData()
-      },
-      handleCurrentChange(val) {
-        this.queryForm.pageNo = val
-        this.fetchData()
-      },
-      handleQuery() {
-        this.queryForm.pageNo = 1
-        this.fetchData()
-      },
-      cancelEdit(row) {
+        state.total = total
+        state.listLoading = false
+      }
+      const handleSizeChange = (val) => {
+        state.queryForm.pageSize = val
+        fetchData()
+      }
+      const handleCurrentChange = (val) => {
+        state.queryForm.pageNo = val
+        fetchData()
+      }
+      const queryData = () => {
+        state.queryForm.pageNo = 1
+        fetchData()
+      }
+      const cancelEdit = (row) => {
         row.title = row.originalTitle
         row.edit = false
-      },
-      confirmEdit(row) {
+      }
+      const confirmEdit = (row) => {
         row.edit = false
         row.originalTitle = row.title
-      },
+      }
+
+      fetchData()
+
+      return {
+        ...toRefs(state),
+        handleSizeChange,
+        handleCurrentChange,
+        queryData,
+        cancelEdit,
+        confirmEdit,
+      }
     },
   }
 </script>

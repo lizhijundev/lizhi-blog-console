@@ -21,6 +21,7 @@
         <el-option
           v-for="item in options2"
           :key="item.value"
+          :disabled="item.disabled"
           :label="item.label"
           :value="item.value"
         />
@@ -82,10 +83,12 @@
 </template>
 
 <script>
+  import { reactive, toRefs } from 'vue'
+
   export default {
     name: 'Select',
-    data() {
-      return {
+    setup() {
+      const state = reactive({
         options1: [
           { value: '选项1', label: '黄金糕' },
           { value: '选项2', label: '双皮奶' },
@@ -103,6 +106,10 @@
         ],
         value2: '',
         value3: [],
+      })
+
+      return {
+        ...toRefs(state),
       }
     },
   }

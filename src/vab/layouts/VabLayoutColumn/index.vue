@@ -57,6 +57,7 @@
     },
     setup() {
       const store = useStore()
+
       return {
         theme: computed(() => store.getters['settings/theme']),
       }

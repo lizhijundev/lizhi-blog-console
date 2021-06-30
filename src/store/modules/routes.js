@@ -10,11 +10,9 @@ import { gp } from '@vab'
 
 const state = () => ({
   routes: [],
-  cachedRoutes: [],
 })
 const getters = {
   routes: (state) => state.routes,
-  cachedRoutes: (state) => state.cachedRoutes,
 }
 const mutations = {
   /**
@@ -24,14 +22,6 @@ const mutations = {
    */
   setRoutes(state, routes) {
     state.routes = routes
-  },
-  /**
-   * @description 设置缓存Name数组
-   * @param {*} state
-   * @param {*} routes
-   */
-  setCachedRoutes(state, routes) {
-    state.cachedRoutes = routes
   },
   /**
    * @description 修改Meta
@@ -47,7 +37,6 @@ const mutations = {
         return route
       })
     }
-
     state.routes = handleRoutes(state.routes)
   },
 }
@@ -65,8 +54,9 @@ const actions = {
     const control = mode === 'visit' ? false : rolesControl
     // 设置后端路由(不需要可以删除)
     if (authentication === 'all') {
-      const { data } = await getRouterList()
-      const { list } = data
+      const {
+        data: { list },
+      } = await getRouterList()
       if (!isArray(list))
         gp.$baseMessage(
           '路由格式返回有误！',
@@ -84,19 +74,11 @@ const actions = {
       routes = convertRouter(list)
     }
     // 根据权限和rolesControl过滤路由
-    const finallyRoutes = filterRoutes([...constantRoutes, ...routes], control)
+    const accessRoutes = filterRoutes([...constantRoutes, ...routes], control)
     // 设置菜单所需路由
-    commit('setRoutes', finallyRoutes)
+    commit('setRoutes', JSON.parse(JSON.stringify(accessRoutes)))
     // 根据可访问路由重置Vue Router
-    await resetRouter(finallyRoutes)
-  },
-  /**
-   * @description 设置缓存Name数组
-   * @param {*} { commit }
-   * @param {*} routes
-   */
-  setCachedRoutes({ commit }, routes) {
-    commit('setCachedRoutes', routes)
+    await resetRouter(accessRoutes)
   },
   /**
    * @description 修改Route Meta

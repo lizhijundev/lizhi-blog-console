@@ -1,6 +1,6 @@
 <template>
   <div>
-    <el-form ref="form" label-width="100px" :model="form" :rules="rules">
+    <el-form ref="formRef" label-width="100px" :model="form" :rules="rules">
       <el-form-item label="付款账户">
         {{ infoData.payAccount }}
       </el-form-item>
@@ -27,6 +27,8 @@
 </template>
 
 <script>
+  import { reactive, toRefs } from 'vue'
+
   export default {
     props: {
       infoData: {
@@ -37,8 +39,9 @@
       },
     },
     emits: ['change-step'],
-    data() {
-      return {
+    setup(props, { emit }) {
+      const state = reactive({
+        formRef: null,
         form: {
           password: '123456',
         },
@@ -48,25 +51,30 @@
           ],
         },
         loading: false,
-      }
-    },
-    methods: {
-      handleSubmit() {
-        this.$refs.form.validate((valid) => {
+      })
+
+      const handleSubmit = () => {
+        state['formRef'].validate((valid) => {
           if (valid) {
-            this.loading = true
+            state.loading = true
             setTimeout(() => {
-              this.$emit('change-step', 3)
-              this.loading = false
+              emit('change-step', 3)
+              state.loading = false
             }, 2000)
           } else {
-            this.loading = false
+            state.loading = false
           }
         })
-      },
-      handlePrev() {
-        this.$emit('change-step', 1)
-      },
+      }
+      const handlePrev = () => {
+        emit('change-step', 1)
+      }
+
+      return {
+        ...toRefs(state),
+        handleSubmit,
+        handlePrev,
+      }
     },
   }
 </script>

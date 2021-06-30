@@ -62,6 +62,7 @@
         &:first-child {
           margin-right: 10px;
         }
+
         & + .el-link {
           margin-right: 10px;
           margin-left: 0;

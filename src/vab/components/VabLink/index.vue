@@ -22,8 +22,8 @@
         return 'router-link'
       })
 
-      const linkProps = (to) => {
-        return isExternal(props.icon)
+      const linkProps = (to) =>
+        isExternal(props.icon)
           ? {
               href: to,
               target: '_blank',
@@ -32,7 +32,6 @@
           : {
               to: to,
             }
-      }
 
       return {
         type,

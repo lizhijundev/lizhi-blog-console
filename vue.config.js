@@ -87,6 +87,7 @@ module.exports = {
     }
   },
   chainWebpack(config) {
+    //config.resolve.alias.set('vue-i18n', 'vue-i18n/dist/vue-i18n.cjs.js')
     config.resolve.symlinks(true)
     config.module.rule('svg').exclude.add(resolve('src/icon'))
     config.module
@@ -108,7 +109,7 @@ module.exports = {
         chunks: 'all',
         cacheGroups: {
           chunk: {
-            name: 'chunk',
+            name: 'vab-chunk',
             test: /[\\/]node_modules[\\/]/,
             minSize: 131072,
             maxSize: 524288,
@@ -128,7 +129,7 @@ module.exports = {
             priority: 30,
           },
           extra: {
-            name: 'extra',
+            name: 'vab-extra',
             test: resolve('src/extra'),
             priority: 40,
           },

@@ -3,7 +3,6 @@
     <vab-query-form class="page-header">
       <vab-query-form-top-panel :span="24">
         <el-form
-          ref="form"
           :inline="true"
           label-width="50px"
           :model="queryForm"
@@ -30,7 +29,7 @@
               icon="el-icon-search"
               native-type="submit"
               type="primary"
-              @click="handleQuery"
+              @click="queryData"
             >
               查询
             </el-button>
@@ -77,48 +76,49 @@
 </template>
 
 <script>
+  import { reactive, toRefs } from 'vue'
   import VabMagnifier from '@/extra/VabMagnifier'
   import { getList } from '@/api/table'
 
   export default {
     name: 'Card',
     components: { VabMagnifier },
-    data() {
-      return {
-        queryForm: {
-          pageNo: 1,
-          pageSize: 20,
-          title: '',
-        },
+    setup() {
+      const state = reactive({
         list: [],
-        listLoading: true,
-        layout: 'total, sizes, prev, pager, next, jumper',
         total: 0,
+        queryForm: { pageNo: 1, pageSize: 20, title: '' },
+        layout: 'total, sizes, prev, pager, next, jumper',
+      })
+
+      const fetchData = async () => {
+        const {
+          data: { list, total },
+        } = await getList(state.queryForm)
+        state.list = list
+        state.total = total
       }
-    },
-    created() {
-      this.fetchData()
-    },
-    methods: {
-      handleSizeChange(val) {
-        this.queryForm.pageSize = val
-        this.fetchData()
-      },
-      handleCurrentChange(val) {
-        this.queryForm.pageNo = val
-        this.fetchData()
-      },
-      handleQuery() {
-        this.queryForm.pageNo = 1
-        this.fetchData()
-      },
-      async fetchData() {
-        this.listLoading = true
-        const { data } = await getList(this.queryForm)
-        const { list, total } = data
-        this.list = list
-        this.total = total
-      },
+      const handleSizeChange = (val) => {
+        state.queryForm.pageSize = val
+        fetchData()
+      }
+      const handleCurrentChange = (val) => {
+        state.queryForm.pageNo = val
+        fetchData()
+      }
+      const queryData = () => {
+        state.queryForm.pageNo = 1
+        fetchData()
+      }
+
+      fetchData()
+
+      return {
+        ...toRefs(state),
+        handleSizeChange,
+        handleCurrentChange,
+        queryData,
+      }
     },
   }
 </script>

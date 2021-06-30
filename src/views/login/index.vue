@@ -6,7 +6,7 @@
       </el-col>
       <el-col :lg="9" :md="12" :sm="24" :xl="9" :xs="24">
         <el-form
-          ref="form"
+          ref="formRef"
           class="login-form"
           label-position="left"
           :model="form"
@@ -24,13 +24,15 @@
               tabindex="1"
               type="text"
             >
-              <template #prefix><vab-icon icon="user-line" /></template>
+              <template #prefix>
+                <vab-icon icon="user-line" />
+              </template>
             </el-input>
           </el-form-item>
           <el-form-item prop="password">
             <el-input
               :key="passwordType"
-              ref="password"
+              ref="passwordRef"
               v-model.trim="form.password"
               :placeholder="translateTitle('请输入密码')"
               tabindex="2"
@@ -64,7 +66,9 @@
               tabindex="3"
               type="text"
             >
-              <template #prefix><vab-icon icon="barcode-box-line" /></template>
+              <template #prefix>
+                <vab-icon icon="barcode-box-line" />
+              </template>
             </el-input>
             <el-image class="code" :src="codeUrl" @click="changeCode" />
           </el-form-item>
@@ -89,7 +93,16 @@
 </template>
 
 <script>
-  import { mapActions, mapGetters } from 'vuex'
+  import {
+    computed,
+    nextTick,
+    onBeforeMount,
+    reactive,
+    toRefs,
+    watchEffect,
+  } from 'vue'
+  import { useStore } from 'vuex'
+  import { onBeforeRouteLeave, useRoute, useRouter } from 'vue-router'
   import { translateTitle } from '@/utils/i18n'
   import { isPassword } from '@/utils/validate'
 
@@ -102,22 +115,25 @@
         },
       },
     },
-    beforeRouteLeave(to, from, next) {
-      clearInterval(this.timer)
-      next()
-    },
-    data() {
+    setup() {
+      const store = useStore()
+      const route = useRoute()
+      const router = useRouter()
+
+      const login = (form) => store.dispatch('user/login', form)
+
       const validateUsername = (rule, value, callback) => {
-        if ('' === value)
-          callback(new Error(this.translateTitle('用户名不能为空')))
+        if ('' === value) callback(new Error(translateTitle('用户名不能为空')))
         else callback()
       }
       const validatePassword = (rule, value, callback) => {
         if (!isPassword(value))
-          callback(new Error(this.translateTitle('密码不能少于6位')))
+          callback(new Error(translateTitle('密码不能少于6位')))
         else callback()
       }
-      return {
+
+      const state = reactive({
+        formRef: null,
         form: {
           username: '',
           password: '',
@@ -152,69 +168,69 @@
         timer: 0,
         codeUrl: 'https://www.oschina.net/action/user/captcha',
         previewText: '',
-      }
-    },
-    computed: {
-      ...mapGetters({
-        title: 'settings/title',
-      }),
-    },
-    watch: {
-      $route: {
-        handler(route) {
-          this.redirect = (route.query && route.query.redirect) || '/'
-        },
-        immediate: true,
-      },
-    },
-    mounted() {
-      this.form.username = 'admin'
-      this.form.password = '123456'
-      // 为了演示效果，会在官网演示页自动登录到首页，正式开发可删除
-      if (
-        document.domain === 'vue-admin-beautiful.com' ||
-        document.domain === 'chu1204505056.gitee.io'
-      ) {
-        this.previewText = '（演示地址验证码可不填）'
-        this.timer = setTimeout(() => {
-          this.handleLogin()
-        }, 5000)
-      }
-    },
-    methods: {
-      ...mapActions({
-        login: 'user/login',
-      }),
-      translateTitle,
-      handlePassword() {
-        this.passwordType === 'password'
-          ? (this.passwordType = '')
-          : (this.passwordType = 'password')
-        this.$nextTick(() => {
-          this.$refs.password.focus()
-        })
-      },
-      handleRoute() {
-        return this.redirect === '/404' || this.redirect === '/403'
+      })
+
+      const handleRoute = () => {
+        return state.redirect === '/404' || state.redirect === '/403'
           ? '/'
-          : this.redirect
-      },
-      handleLogin() {
-        this.$refs.form.validate(async (valid) => {
-          if (valid) {
-            try {
-              this.loading = true
-              await this.login(this.form)
-              await this.$router.push(this.handleRoute())
-            } finally {
-              this.loading = false
-            }
-          }
+          : state.redirect
+      }
+      const handlePassword = () => {
+        state.passwordType === 'password'
+          ? (state.passwordType = '')
+          : (state.passwordType = 'password')
+        nextTick(() => {
+          state['passwordRef'].focus()
         })
-      },
-      changeCode() {
-        this.codeUrl = `https://www.oschina.net/action/user/captcha?timestamp=${new Date().getTime()}`
-      },
+      }
+      const handleLogin = async () => {
+        state['formRef'].validate(async (valid) => {
+          if (valid)
+            try {
+              state.loading = true
+              await login(state.form)
+              await router.push(handleRoute())
+            } finally {
+              state.loading = false
+            }
+        })
+      }
+      const changeCode = () => {
+        state.codeUrl = `https://www.oschina.net/action/user/captcha?timestamp=${new Date().getTime()}`
+      }
+
+      onBeforeMount(() => {
+        state.form.username = 'admin'
+        state.form.password = '123456'
+        // 为了演示效果，会在官网演示页自动登录到首页，正式开发可删除
+        if (
+          document.domain === 'vue-admin-beautiful.com' ||
+          document.domain === 'chu1204505056.gitee.io'
+        ) {
+          state.previewText = '（演示地址验证码可不填）'
+          state.timer = setTimeout(() => {
+            handleLogin()
+          }, 5000)
+        }
+      })
+
+      watchEffect(() => {
+        state.redirect = (route.query && route.query.redirect) || '/'
+      })
+
+      onBeforeRouteLeave((to, from, next) => {
+        clearInterval(state.timer)
+        next()
+      })
+
+      return {
+        translateTitle,
+        ...toRefs(state),
+        title: computed(() => store.getters['settings/title']),
+        handlePassword,
+        handleLogin,
+        changeCode,
+      }
     },
   }
 </script>

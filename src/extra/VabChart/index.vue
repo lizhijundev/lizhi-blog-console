@@ -14,7 +14,7 @@
 
   export default {
     props: {
-      options: {
+      option: {
         type: Object,
         default: () => {},
       },
@@ -73,7 +73,7 @@
       })
     },
     mounted() {
-      if (this.options) {
+      if (this.option) {
         echarts.registerTheme('vab-echarts-theme', theme)
         this.init()
       }
@@ -89,21 +89,21 @@
       }
     },
     methods: {
-      mergeOptions(options, notMerge, lazyUpdate) {
+      mergeOptions(option, notMerge, lazyUpdate) {
         if (this.manualUpdate) {
-          this.manualOptions = options
+          this.manualOptions = option
         }
         if (!this.chart) {
-          this.init(options)
+          this.init(option)
         } else {
-          this.delegateMethod('setOption', options, notMerge, lazyUpdate)
+          this.delegateMethod('setOption', option, notMerge, lazyUpdate)
         }
       },
       appendData(params) {
         this.delegateMethod('appendData', params)
       },
-      resize(options) {
-        this.delegateMethod('resize', options)
+      resize(option) {
+        this.delegateMethod('resize', option)
       },
       dispatchAction(payload) {
         this.delegateMethod('dispatchAction', payload)
@@ -117,17 +117,17 @@
       containPixel(finder, value) {
         return this.delegateMethod('containPixel', finder, value)
       },
-      showLoading(type, options) {
-        this.delegateMethod('showLoading', type, options)
+      showLoading(type, option) {
+        this.delegateMethod('showLoading', type, option)
       },
       hideLoading() {
         this.delegateMethod('hideLoading')
       },
-      getDataURL(options) {
-        return this.delegateMethod('getDataURL', options)
+      getDataURL(option) {
+        return this.delegateMethod('getDataURL', option)
       },
-      getConnectedDataURL(options) {
-        return this.delegateMethod('getConnectedDataURL', options)
+      getConnectedDataURL(option) {
+        return this.delegateMethod('getConnectedDataURL', option)
       },
       clear() {
         this.delegateMethod('clear')
@@ -150,7 +150,7 @@
       getArea() {
         return this.$el.offsetWidth * this.$el.offsetHeight
       },
-      init(options) {
+      init(option) {
         if (this.chart) {
           return
         }
@@ -158,10 +158,7 @@
         if (this.group) {
           chart.group = this.group
         }
-        chart.setOption(
-          options || this.manualOptions || this.options || {},
-          true
-        )
+        chart.setOption(option || this.manualOptions || this.option || {}, true)
         /* 没看懂暂时注释 */
         /* // eslint-disable-next-line vue/no-deprecated-dollar-listeners-api
       Object.keys(this.$listeners).forEach((event) => {
@@ -180,10 +177,7 @@
               if (this.lastArea === 0) {
                 this.mergeOptions({}, true)
                 this.resize()
-                this.mergeOptions(
-                  this.options || this.manualOptions || {},
-                  true
-                )
+                this.mergeOptions(this.option || this.manualOptions || {}, true)
               } else {
                 this.resize()
               }
@@ -229,7 +223,7 @@
         }
         if (!this.manualUpdate) {
           this.__unwatchOptions = this.$watch(
-            'options',
+            'option',
             (val, oldVal) => {
               if (!this.chart && val) {
                 this.init()

@@ -50,12 +50,8 @@
       <el-divider>
         {{ translateTitle(handleGroupTitle) }}
       </el-divider>
-      <template v-for="route in handlePartialRoutes">
-        <vab-menu
-          v-if="route.meta && !route.meta.hidden"
-          :key="route.fullPath"
-          :item="route"
-        />
+      <template v-for="route in handlePartialRoutes" :key="route.path">
+        <vab-menu v-if="route.meta && !route.meta.hidden" :item="route" />
       </template>
     </el-menu>
   </el-scrollbar>
@@ -76,17 +72,18 @@
       const store = useStore()
       const route = useRoute()
       const router = useRouter()
+
       const routes = computed(() => store.getters['routes/routes'])
       const extra = computed(() => store.getters['settings/extra'])
       const theme = computed(() => store.getters['settings/theme'])
       const collapse = computed(() => store.getters['settings/collapse'])
 
-      const activeMenu = computed(() => {
-        return handleActivePath(route)
-      })
-      const handleRoutes = computed(() => {
-        return routes.value.filter((item) => item.hidden !== true && item.meta)
-      })
+      const activeMenu = computed(() => handleActivePath(route))
+      const handleRoutes = computed(() =>
+        routes.value.filter(
+          (_route) => _route.meta && _route.meta.hidden !== true
+        )
+      )
       const handlePartialRoutes = computed(() => {
         const activeMenu = handleActiveMenu()
         return activeMenu ? activeMenu.children : []
@@ -96,10 +93,8 @@
         return activeMenu ? activeMenu.meta.title : ''
       })
 
-      const handleActiveMenu = () => {
-        return routes.value.find((route) => route.name === extra.value.first)
-      }
-
+      const handleActiveMenu = () =>
+        routes.value.find((_route) => _route.name === extra.value.first)
       const handleTabClick = (handler) => {
         if (handler !== true && openFirstMenu) {
           router.push(handleActiveMenu())
@@ -239,7 +234,7 @@
     }
 
     &-arrow {
-      ::v-deep {
+      :deep() {
         .el-tabs {
           .el-tabs__item {
             &.is-active {
@@ -247,6 +242,7 @@
 
               .vab-column-grid {
                 background: transparent !important;
+
                 &:after {
                   position: absolute;
                   right: 0;
@@ -324,6 +320,8 @@
         position: fixed;
 
         .el-tabs__header.is-left {
+          margin-right: 0 !important;
+
           .el-tabs__nav-wrap.is-left {
             margin-right: 0 !important;
             background: $base-column-first-menu-background;
@@ -333,8 +331,8 @@
               overflow-y: auto;
 
               &::-webkit-scrollbar {
-                width: 0px;
-                height: 0px;
+                width: 0;
+                height: 0;
               }
             }
           }

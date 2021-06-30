@@ -12,7 +12,7 @@
               icon="el-icon-search"
               native-type="submit"
               type="primary"
-              @click="handleQuery"
+              @click="queryData"
             >
               查询
             </el-button>
@@ -56,6 +56,9 @@
                 {{ label }}
               </el-tag>
             </div>
+            <div class="goods-description">
+              {{ item.description }}
+            </div>
             <div class="goods-detail">
               <a
                 :href="item.url + '?hmsr=admin-plus&hmpl=&hmcu=&hmkw=&hmci='"
@@ -81,49 +84,50 @@
 </template>
 
 <script>
+  import { reactive, toRefs } from 'vue'
   import { getList } from '@/api/goods'
 
   export default {
     name: 'Goods',
-    data() {
-      return {
-        queryForm: {
-          pageNo: 1,
-          pageSize: 20,
-          title: '',
-        },
+    setup() {
+      const state = reactive({
         list: [],
-        listLoading: true,
-        layout: 'total, sizes, prev, pager, next, jumper',
         total: 0,
         title: unescape(
           '\u7269\u6599\u5546\u57ce\u7269\u6599\u7531\u7b2c\u4e09\u65b9\u63d0\u4f9b\uff0c\u0076\u0075\u0065\u002d\u0061\u0064\u006d\u0069\u006e\u002d\u0062\u0065\u0061\u0075\u0074\u0069\u0066\u0075\u006c\u4f5c\u8005\u4e0d\u63d0\u4f9b\u6280\u672f\u652f\u6301\uff0c\u4e0d\u5bf9\u7269\u6599\u8d28\u91cf\u8d1f\u8d23\uff0c\u6bcf\u4e00\u4f4d\u5f00\u53d1\u8005\u90fd\u53ef\u4ee5\u8054\u7cfb\u4f5c\u8005\u63d0\u4f9b\u4f18\u8d28\u7684\u7b2c\u4e09\u65b9\u7269\u6599\uff0c\u7ecf\u8fc7\u5ba1\u6838\u540e\u53ef\u4e0a\u7ebf\u7269\u6599\u5e02\u573a\u3002'
         ),
+        queryForm: { pageNo: 1, pageSize: 10, title: '' },
+        layout: 'total, sizes, prev, pager, next, jumper',
+      })
+
+      const fetchData = async () => {
+        const {
+          data: { list, total },
+        } = await getList(state.queryForm)
+        state.list = list
+        state.total = total
       }
-    },
-    created() {
-      this.fetchData()
-    },
-    methods: {
-      handleSizeChange(val) {
-        this.queryForm.pageSize = val
-        this.fetchData()
-      },
-      handleCurrentChange(val) {
-        this.queryForm.pageNo = val
-        this.fetchData()
-      },
-      handleQuery() {
-        this.queryForm.pageNo = 1
-        this.fetchData()
-      },
-      async fetchData() {
-        this.listLoading = true
-        const { data } = await getList(this.queryForm)
-        const { list, total } = data
-        this.list = list
-        this.total = total
-      },
+      const handleSizeChange = (val) => {
+        state.queryForm.pageSize = val
+        fetchData()
+      }
+      const handleCurrentChange = (val) => {
+        state.queryForm.pageNo = val
+        fetchData()
+      }
+      const queryData = () => {
+        state.queryForm.pageNo = 1
+        fetchData()
+      }
+
+      fetchData()
+
+      return {
+        ...toRefs(state),
+        handleSizeChange,
+        handleCurrentChange,
+        queryData,
+      }
     },
   }
 </script>
@@ -191,6 +195,19 @@
         s {
           color: #c5c8ce;
         }
+      }
+
+      .goods-description {
+        display: -webkit-box;
+        height: 45px;
+        margin-top: $base-margin - 5px;
+        overflow: hidden;
+        font-size: 12px;
+        line-height: 20px;
+        color: #767676;
+        text-overflow: ellipsis;
+        box-orient: vertical;
+        line-clamp: 2;
       }
 
       .goods-detail {

@@ -46,10 +46,12 @@
 </template>
 
 <script>
+  import { reactive, toRefs } from 'vue'
+
   export default {
     name: 'Slider',
-    data() {
-      return {
+    setup() {
+      const state = reactive({
         value1: 0,
         value2: 50,
         value3: 36,
@@ -59,12 +61,16 @@
         value7: 0,
         value8: [4, 8],
         value9: 0,
-      }
-    },
-    methods: {
-      formatTooltip(val) {
+      })
+
+      const formatTooltip = (val) => {
         return val / 100
-      },
+      }
+
+      return {
+        ...toRefs(state),
+        formatTooltip,
+      }
     },
   }
 </script>

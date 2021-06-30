@@ -78,19 +78,23 @@
       @current-change="handleCurrentChange"
       @size-change="handleSizeChange"
     />
-    <edit ref="edit" @fetch-data="fetchData" />
+    <edit ref="editRef" @fetch-data="fetchData" />
   </div>
 </template>
 
 <script>
+  import { getCurrentInstance, reactive, toRefs } from 'vue'
   import { doDelete, getList } from '@/api/roleManagement'
   import Edit from './components/RoleManagementEdit'
 
   export default {
     name: 'RoleManagement',
     components: { Edit },
-    data() {
-      return {
+    setup() {
+      const { proxy } = getCurrentInstance()
+
+      const state = reactive({
+        editRef: null,
         list: [],
         listLoading: true,
         layout: 'total, sizes, prev, pager, next, jumper',
@@ -101,44 +105,40 @@
           pageSize: 10,
           role: '',
         },
+      })
+
+      const setSelectRows = (val) => {
+        state.selectRows = val
       }
-    },
-    created() {
-      this.fetchData()
-    },
-    methods: {
-      setSelectRows(val) {
-        this.selectRows = val
-      },
-      handleEdit(row) {
+      const handleEdit = (row) => {
         if (row.id) {
-          this.$refs['edit'].showEdit(row)
+          state['editRef'].showEdit(row)
         } else {
-          this.$refs['edit'].showEdit()
+          state['editRef'].showEdit()
         }
-      },
-      handleDelete(row) {
+      }
+      const handleDelete = (row) => {
         if (row.id) {
-          this.$baseConfirm('你确定要删除当前项吗', null, async () => {
+          proxy.$baseConfirm('你确定要删除当前项吗', null, async () => {
             const { msg } = await doDelete({ ids: row.id })
-            this.$baseMessage(msg, 'success', false, 'vab-hey-message-success')
-            await this.fetchData()
+            proxy.$baseMessage(msg, 'success', false, 'vab-hey-message-success')
+            await fetchData()
           })
         } else {
           if (this.selectRows.length > 0) {
             const ids = this.selectRows.map((item) => item.id).join()
-            this.$baseConfirm('你确定要删除选中项吗', null, async () => {
+            proxy.$baseConfirm('你确定要删除选中项吗', null, async () => {
               const { msg } = await doDelete({ ids })
-              this.$baseMessage(
+              proxy.$baseMessage(
                 msg,
                 'success',
                 false,
                 'vab-hey-message-success'
               )
-              await this.fetchData()
+              await fetchData()
             })
           } else {
-            this.$baseMessage(
+            proxy.$baseMessage(
               '未选中任何行',
               'error',
               false,
@@ -146,27 +146,41 @@
             )
           }
         }
-      },
-      handleSizeChange(val) {
+      }
+      const handleSizeChange = (val) => {
         this.queryForm.pageSize = val
-        this.fetchData()
-      },
-      handleCurrentChange(val) {
-        this.queryForm.pageNo = val
-        this.fetchData()
-      },
-      queryData() {
-        this.queryForm.pageNo = 1
-        this.fetchData()
-      },
-      async fetchData() {
-        this.listLoading = true
-        const { data } = await getList(this.queryForm)
-        const { list, total } = data
-        this.list = list
-        this.total = total
-        this.listLoading = false
-      },
+        fetchData()
+      }
+      const handleCurrentChange = (val) => {
+        state.queryForm.pageNo = val
+        fetchData()
+      }
+      const queryData = () => {
+        state.queryForm.pageNo = 1
+        fetchData()
+      }
+      const fetchData = async () => {
+        state.listLoading = true
+        const {
+          data: { list, total },
+        } = await getList(state.queryForm)
+        state.list = list
+        state.total = total
+        state.listLoading = false
+      }
+
+      fetchData()
+
+      return {
+        ...toRefs(state),
+        setSelectRows,
+        handleEdit,
+        handleDelete,
+        handleSizeChange,
+        handleCurrentChange,
+        queryData,
+        fetchData,
+      }
     },
   }
 </script>

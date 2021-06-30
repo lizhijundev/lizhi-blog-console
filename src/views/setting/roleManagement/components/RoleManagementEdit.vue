@@ -5,7 +5,7 @@
     width="500px"
     @close="close"
   >
-    <el-form ref="form" label-width="80px" :model="form" :rules="rules">
+    <el-form ref="formRef" label-width="80px" :model="form" :rules="rules">
       <el-form-item label="角色码" prop="role">
         <el-input v-model="form.role" />
       </el-form-item>
@@ -18,46 +18,55 @@
 </template>
 
 <script>
+  import { getCurrentInstance, reactive, toRefs } from 'vue'
   import { doEdit } from '@/api/roleManagement'
 
   export default {
     name: 'RoleManagementEdit',
     emits: ['fetch-data'],
-    data() {
-      return {
+    setup(props, { emit }) {
+      const { proxy } = getCurrentInstance()
+
+      const state = reactive({
         form: {},
         rules: {
           role: [{ required: true, trigger: 'blur', message: '请输入角色码' }],
         },
         title: '',
         dialogFormVisible: false,
-      }
-    },
-    methods: {
-      showEdit(row) {
+      })
+
+      const showEdit = (row) => {
         if (!row) {
-          this.title = '添加'
+          state.title = '添加'
         } else {
-          this.title = '编辑'
-          this.form = Object.assign({}, row)
+          state.title = '编辑'
+          state.form = Object.assign({}, row)
         }
-        this.dialogFormVisible = true
-      },
-      close() {
-        this.$refs['form'].resetFields()
-        this.form = this.$options.data().form
-        this.dialogFormVisible = false
-      },
-      save() {
-        this.$refs['form'].validate(async (valid) => {
+        state.dialogFormVisible = true
+      }
+      const close = () => {
+        state['formRef'].resetFields()
+        state.form = {}
+        state.dialogFormVisible = false
+      }
+      const save = () => {
+        state['formRef'].validate(async (valid) => {
           if (valid) {
             const { msg } = await doEdit(this.form)
-            this.$baseMessage(msg, 'success', false, 'vab-hey-message-success')
-            this.$emit('fetch-data')
-            this.close()
+            proxy.$baseMessage(msg, 'success', false, 'vab-hey-message-success')
+            emit('fetch-data')
+            close()
           }
         })
-      },
+      }
+
+      return {
+        ...toRefs(state),
+        showEdit,
+        close,
+        save,
+      }
     },
   }
 </script>

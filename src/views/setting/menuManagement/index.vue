@@ -106,11 +106,12 @@
         </el-card>
       </el-col>
     </el-row>
-    <edit ref="edit" @fetch-data="fetchData" />
+    <edit ref="editRef" @fetch-data="fetchData" />
   </div>
 </template>
 
 <script>
+  import { getCurrentInstance, reactive, toRefs } from 'vue'
   import { getRouterList as getList } from '@/api/router'
   import { doDelete, getTree } from '@/api/menuManagement'
   import Edit from './components/MenuManagementEdit'
@@ -118,8 +119,11 @@
   export default {
     name: 'MenuManagement',
     components: { Edit },
-    data() {
-      return {
+    setup() {
+      const { proxy } = getCurrentInstance()
+
+      const state = reactive({
+        editRef: null,
         data: [],
         defaultProps: {
           children: 'children',
@@ -127,41 +131,49 @@
         },
         list: [],
         listLoading: true,
-      }
-    },
-    async created() {
-      const { data } = await getTree()
-      const { list } = data
-      this.data = list
-      await this.fetchData()
-    },
-    methods: {
-      handleEdit(row) {
+      })
+
+      const handleEdit = (row) => {
         if (row.path && row.component) {
-          this.$refs['edit'].showEdit(row)
+          state['editRef'].showEdit(row)
         } else {
-          this.$refs['edit'].showEdit()
+          state['editRef'].showEdit()
         }
-      },
-      handleDelete(row) {
+      }
+      const handleDelete = (row) => {
         if (row.path) {
-          this.$baseConfirm('你确定要删除当前项吗', null, async () => {
+          proxy.$baseConfirm('你确定要删除当前项吗', null, async () => {
             const { msg } = await doDelete({ paths: row.path })
-            this.$baseMessage(msg, 'success', false, 'vab-hey-message-success')
-            await this.fetchData()
+            proxy.$baseMessage(msg, 'success', false, 'vab-hey-message-success')
+            await fetchData()
           })
         }
-      },
-      async fetchData(role) {
-        this.listLoading = true
-        const { data } = await getList({ role })
+      }
+      const fetchData = async (role) => {
+        state.listLoading = true
+        const {
+          data: { list },
+        } = await getList({ role })
+        state.list = list
+        state.listLoading = false
+      }
+      const handleNodeClick = ({ role }) => {
+        fetchData(role)
+      }
+
+      getTree().then(({ data }) => {
         const { list } = data
-        this.list = list
-        this.listLoading = false
-      },
-      handleNodeClick({ role }) {
-        this.fetchData(role)
-      },
+        state.data = list
+      })
+      fetchData()
+
+      return {
+        ...toRefs(state),
+        handleEdit,
+        handleDelete,
+        fetchData,
+        handleNodeClick,
+      }
     },
   }
 </script>

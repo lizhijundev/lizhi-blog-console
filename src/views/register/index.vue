@@ -6,7 +6,7 @@
       </el-col>
       <el-col :lg="9" :md="12" :sm="24" :xl="9" :xs="24">
         <el-form
-          ref="registerForm"
+          ref="registerFormRef"
           class="register-form"
           :model="form"
           :rules="registerRules"
@@ -94,6 +94,7 @@
 </template>
 
 <script>
+  import { getCurrentInstance, onBeforeUnmount, reactive, toRefs } from 'vue'
   import { translateTitle } from '@/utils/i18n'
   import { isPassword, isPhone } from '@/utils/validate'
   import { register } from '@/api/user'
@@ -107,32 +108,36 @@
         },
       },
     },
-    data() {
+    setup() {
+      const { proxy } = getCurrentInstance()
+
       const validateUsername = (rule, value, callback) => {
         if ('' === value) {
-          callback(new Error(this.translateTitle('用户名不能为空')))
+          callback(new Error(translateTitle('用户名不能为空')))
         } else {
           callback()
         }
       }
       const validatePassword = (rule, value, callback) => {
         if (!isPassword(value)) {
-          callback(new Error(this.translateTitle('密码不能少于6位')))
+          callback(new Error(translateTitle('密码不能少于6位')))
         } else {
           callback()
         }
       }
       const validatePhone = (rule, value, callback) => {
         if (!isPhone(value)) {
-          callback(new Error(this.translateTitle('请输入正确的手机号')))
+          callback(new Error(translateTitle('请输入正确的手机号')))
         } else {
           callback()
         }
       }
-      return {
+
+      const state = reactive({
+        registerFormRef: null,
         isGetPhone: false,
         getPhoneInterval: null,
-        phoneCode: this.translateTitle('获取验证码'),
+        phoneCode: translateTitle('获取验证码'),
         showRegister: false,
         form: {},
         registerRules: {
@@ -140,7 +145,7 @@
             {
               required: true,
               trigger: 'blur',
-              message: this.translateTitle('请输入用户名'),
+              message: translateTitle('请输入用户名'),
             },
             { validator: validateUsername, trigger: 'blur' },
           ],
@@ -148,7 +153,7 @@
             {
               required: true,
               trigger: 'blur',
-              message: this.translateTitle('请输入手机号'),
+              message: translateTitle('请输入手机号'),
             },
             { validator: validatePhone, trigger: 'blur' },
           ],
@@ -156,7 +161,7 @@
             {
               required: true,
               trigger: 'blur',
-              message: this.translateTitle('请输入密码'),
+              message: translateTitle('请输入密码'),
             },
             { validator: validatePassword, trigger: 'blur' },
           ],
@@ -164,47 +169,53 @@
             {
               required: true,
               trigger: 'blur',
-              message: this.translateTitle('请输入手机验证码'),
+              message: translateTitle('请输入手机验证码'),
             },
           ],
         },
         loading: false,
         passwordType: 'password',
-      }
-    },
-    beforeUnmount() {
-      this.getPhoneInterval = null
-      clearInterval(this.getPhoneInterval)
-    },
-    methods: {
-      translateTitle,
-      getPhoneCode() {
-        if (!isPhone(this.form.phone)) {
-          this.$refs['registerForm'].validateField('phone')
+      })
+
+      const getPhoneCode = () => {
+        if (!isPhone(state.form.phone)) {
+          state['registerFormRef'].validateField('phone')
           return
         }
-        this.isGetPhone = true
+        state.isGetPhone = true
         let n = 60
-        this.getPhoneInterval = setInterval(() => {
+        state.getPhoneInterval = setInterval(() => {
           if (n > 0) {
             n--
-            this.phoneCode = this.translateTitle('获取验证码 ') + n + 's'
+            state.phoneCode = translateTitle('获取验证码 ') + n + 's'
           } else {
-            clearInterval(this.getPhoneInterval)
-            this.phoneCode = this.translateTitle('获取验证码')
-            this.getPhoneInterval = null
-            this.isGetPhone = false
+            clearInterval(state.getPhoneInterval)
+            state.phoneCode = translateTitle('获取验证码')
+            state.getPhoneInterval = null
+            state.isGetPhone = false
           }
         }, 1000)
-      },
-      handleRegister() {
-        this.$refs['registerForm'].validate(async (valid) => {
+      }
+      const handleRegister = () => {
+        state['registerFormRef'].validate(async (valid) => {
           if (valid) {
-            const { msg } = await register(this.form)
-            this.$baseMessage(msg, 'success', false, 'vab-hey-message-success')
+            const { msg } = await register(state.form)
+            proxy.$baseMessage(msg, 'success', false, 'vab-hey-message-success')
           }
         })
-      },
+      }
+
+      onBeforeUnmount(() => {
+        clearInterval(state.getPhoneInterval)
+        state.getPhoneInterval = null
+      })
+
+      return {
+        translateTitle,
+        ...toRefs(state),
+        getPhoneCode,
+        handleRegister,
+      }
     },
   }
 </script>

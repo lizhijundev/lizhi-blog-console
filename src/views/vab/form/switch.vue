@@ -31,14 +31,20 @@
 </template>
 
 <script>
+  import { reactive, toRefs } from 'vue'
+
   export default {
     name: 'Switch',
-    data() {
-      return {
+    setup() {
+      const state = reactive({
         value: true,
         value1: true,
         value2: true,
         value3: false,
+      })
+
+      return {
+        ...toRefs(state),
       }
     },
   }

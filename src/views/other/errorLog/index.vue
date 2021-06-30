@@ -9,24 +9,28 @@
 
 <script>
   import ErrorTest from './components/ErrorTest'
+  import { ref } from 'vue'
 
   export default {
     name: 'ErrorLog',
     components: { ErrorTest },
-    data() {
-      return { show: false }
-    },
-    methods: {
-      handleError() {
+    setup() {
+      const show = ref(false)
+
+      function handleError() {
         if (process.env.NODE_ENV === 'production') {
-          this.$baseMessage(
+          show.value.$baseMessage(
             '\u4e3a\u4e86\u9632\u6b62\u5f15\u8d77\u6b67\u4e49\uff0c\u6f14\u793a\u73af\u5883\u4e0d\u5141\u8bb8\u6a21\u62df\u9519\u8bef\uff0c\u8bf7\u4e0b\u8f7d\u6e90\u7801\u540e\u4f53\u9a8c\u6b64\u529f\u80fd\u3002',
             false,
             'vab-hey-message-error'
           )
         }
-        this.show = true
-      },
+        show.value = true
+      }
+      return {
+        show,
+        handleError,
+      }
     },
   }
 </script>

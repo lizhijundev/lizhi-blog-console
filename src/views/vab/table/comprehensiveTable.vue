@@ -9,7 +9,6 @@
     <vab-query-form>
       <vab-query-form-top-panel>
         <el-form
-          ref="form"
           :inline="true"
           label-width="49px"
           :model="queryForm"
@@ -53,7 +52,7 @@
               icon="el-icon-search"
               native-type="submit"
               type="primary"
-              @click="handleQuery"
+              @click="queryData"
             >
               查询
             </el-button>
@@ -98,7 +97,7 @@
     </vab-query-form>
 
     <el-table
-      ref="tableSort"
+      ref="tableSortRef"
       v-loading="listLoading"
       border
       :data="list"
@@ -221,11 +220,19 @@
       @current-change="handleCurrentChange"
       @size-change="handleSizeChange"
     />
-    <table-edit ref="edit" @fetch-data="fetchData" />
+    <table-edit ref="editRef" @fetch-data="fetchData" />
   </div>
 </template>
 
 <script>
+  import {
+    getCurrentInstance,
+    onBeforeMount,
+    onBeforeUnmount,
+    reactive,
+    toRefs,
+  } from 'vue'
+  import { useRouter } from 'vue-router'
   import { doDelete, getList } from '@/api/table'
   import TableEdit from './components/TableEdit'
 
@@ -234,10 +241,16 @@
     components: {
       TableEdit,
     },
-    data() {
-      return {
+    setup() {
+      const router = useRouter()
+
+      const { proxy } = getCurrentInstance()
+
+      const state = reactive({
+        editRef: null,
+        tableSortRef: null,
         fold: false,
-        height: this.$baseTableHeight(3) - 30,
+        height: proxy.$baseTableHeight(3) - 30,
         imgShow: true,
         list: [],
         imageList: [],
@@ -249,72 +262,92 @@
           pageNo: 1,
           pageSize: 10,
         },
+      })
+
+      const fetchData = async () => {
+        state.listLoading = true
+        const {
+          data: { list, total },
+        } = await getList(state.queryForm)
+        state.list = list
+        const imageList = []
+        list.forEach((item) => {
+          imageList.push(item.img)
+        })
+        state.imageList = imageList
+        state.total = total
+        state.listLoading = false
+
+        setTimeout(() => {
+          toggleSelection([state.list[0]])
+        }, 0)
       }
-    },
-    beforeMount() {
-      window.addEventListener('resize', this.handleHeight)
-    },
-    beforeUnmount() {
-      window.removeEventListener('resize', this.handleHeight)
-    },
-    created() {
-      this.fetchData()
-    },
-    methods: {
-      statusFilter(status) {
+      const handleSizeChange = (val) => {
+        state.queryForm.pageSize = val
+        fetchData()
+      }
+      const handleCurrentChange = (val) => {
+        state.queryForm.pageNo = val
+        fetchData()
+      }
+      const queryData = () => {
+        state.queryForm.pageNo = 1
+        fetchData()
+      }
+      const statusFilter = (status) => {
         const statusMap = {
           published: 'success',
           draft: 'gray',
           deleted: 'danger',
         }
         return statusMap[status]
-      },
-      handleFold() {
-        this.fold = !this.fold
-        this.handleHeight()
-      },
-      handleHeight() {
-        if (this.fold) this.height = this.$baseTableHeight(2) - 47
-        else this.height = this.$baseTableHeight(3) - 30
-      },
-      tableSortChange() {
+      }
+      const handleFold = () => {
+        state.fold = !state.fold
+        handleHeight()
+      }
+      const handleHeight = () => {
+        if (state.fold) state.height = proxy.$baseTableHeight(2) - 47
+        else state.height = proxy.$baseTableHeight(3) - 30
+      }
+      const tableSortChange = () => {
         const imageList = []
-        this.$refs.tableSort.tableData.forEach((item) => {
+        state['tableSortRef'].tableData.forEach((item) => {
           imageList.push(item.img)
         })
         this.imageList = imageList
-      },
-      setSelectRows(val) {
-        this.selectRows = val
-      },
-      handleAdd() {
-        this.$refs['edit'].showEdit()
-      },
-      handleEdit(row) {
-        this.$refs['edit'].showEdit(row)
-      },
-      handleDelete(row) {
+      }
+      const setSelectRows = (val) => {
+        state.selectRows = val
+      }
+      const handleAdd = () => {
+        state['editRef'].showEdit()
+      }
+      const handleEdit = (row) => {
+        state['editRef'].showEdit(row)
+      }
+      const handleDelete = (row) => {
         if (row.id) {
-          this.$baseConfirm('你确定要删除当前项吗', null, async () => {
+          proxy.$baseConfirm('你确定要删除当前项吗', null, async () => {
             const { msg } = await doDelete({ ids: row.id })
-            this.$baseMessage(msg, 'success', false, 'vab-hey-message-success')
-            await this.fetchData()
+            proxy.$baseMessage(msg, 'success', false, 'vab-hey-message-success')
+            await fetchData()
           })
         } else {
-          if (this.selectRows.length > 0) {
-            const ids = this.selectRows.map((item) => item.id).join()
-            this.$baseConfirm('你确定要删除选中项吗', null, async () => {
+          if (state.selectRows.length > 0) {
+            const ids = state.selectRows.map((item) => item.id).join()
+            proxy.$baseConfirm('你确定要删除选中项吗', null, async () => {
               const { msg } = await doDelete({ ids: ids })
-              this.$baseMessage(
+              proxy.$baseMessage(
                 msg,
                 'success',
                 false,
                 'vab-hey-message-success'
               )
-              await this.fetchData()
+              await fetchData()
             })
           } else {
-            this.$baseMessage(
+            proxy.$baseMessage(
               '未选中任何行',
               'error',
               false,
@@ -322,21 +355,21 @@
             )
           }
         }
-      },
-      handleDetail(row) {
+      }
+      const handleDetail = (row) => {
         if (row.id)
-          this.$router.push({
+          router.push({
             path: '/vab/table/detail',
             query: row,
           })
         else {
-          if (this.selectRows.length === 1) {
-            this.$router.push({
+          if (state.selectRows.length === 1) {
+            router.push({
               path: '/vab/table/detail',
-              query: this.selectRows[0],
+              query: state.selectRows[0],
             })
           } else {
-            this.$baseMessage(
+            proxy.$baseMessage(
               '请选择一行进行详情页跳转',
               'error',
               false,
@@ -344,50 +377,21 @@
             )
           }
         }
-      },
-      handleSizeChange(val) {
-        this.queryForm.pageSize = val
-        this.fetchData()
-      },
-      handleCurrentChange(val) {
-        this.queryForm.pageNo = val
-        this.fetchData()
-      },
-      handleQuery() {
-        this.queryForm.pageNo = 1
-        this.fetchData()
-      },
-      async fetchData() {
-        this.listLoading = true
-        const { data } = await getList(this.queryForm)
-        const { list, total } = data
-        this.list = list
-        const imageList = []
-        list.forEach((item) => {
-          imageList.push(item.img)
-        })
-        this.imageList = imageList
-        this.total = total
-        this.listLoading = false
-
-        setTimeout(() => {
-          this.toggleSelection([this.list[0]])
-        }, 0)
-      },
-      handleMessage() {
-        this.$baseMessage('test1', 'success', false, 'vab-hey-message-success')
-      },
-      handleAlert() {
-        this.$baseAlert('11')
-        this.$baseAlert('11', '自定义标题', () => {
+      }
+      const handleMessage = () => {
+        proxy.$baseMessage('test1', 'success', false, 'vab-hey-message-success')
+      }
+      const handleAlert = () => {
+        proxy.$baseAlert('11')
+        proxy.$baseAlert('11', '自定义标题', () => {
           /* 可以写回调; */
         })
-        this.$baseAlert('11', null, () => {
+        proxy.$baseAlert('11', null, () => {
           /* 可以写回调; */
         })
-      },
-      handleConfirm() {
-        this.$baseConfirm(
+      }
+      const handleConfirm = () => {
+        proxy.$baseConfirm(
           '你确定要执行该操作?',
           null,
           () => {
@@ -397,19 +401,49 @@
             /* 可以写回调; */
           }
         )
-      },
-      handleNotify() {
-        this.$baseNotify('测试消息提示', 'test', 'success', 'bottom-right')
-      },
-      toggleSelection(rows) {
+      }
+      const handleNotify = () => {
+        proxy.$baseNotify('测试消息提示', 'test', 'success', 'bottom-right')
+      }
+      const toggleSelection = (rows) => {
         if (rows) {
           rows.forEach((row) => {
-            this.$refs.tableSort.toggleRowSelection(row)
+            state['tableSortRef'].toggleRowSelection(row)
           })
         } else {
-          this.$refs.tableSort.clearSelection()
+          state['tableSortRef'].clearSelection()
         }
-      },
+      }
+
+      onBeforeMount(() => {
+        window.addEventListener('resize', handleHeight)
+      })
+      onBeforeUnmount(() => {
+        window.removeEventListener('resize', handleHeight)
+      })
+
+      fetchData()
+
+      return {
+        ...toRefs(state),
+        handleSizeChange,
+        handleCurrentChange,
+        queryData,
+        statusFilter,
+        handleFold,
+        handleHeight,
+        tableSortChange,
+        setSelectRows,
+        handleAdd,
+        handleEdit,
+        handleDelete,
+        handleDetail,
+        handleMessage,
+        handleAlert,
+        handleConfirm,
+        handleNotify,
+        fetchData,
+      }
     },
   }
 </script>

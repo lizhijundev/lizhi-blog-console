@@ -1,6 +1,6 @@
 <template>
   <el-breadcrumb class="vab-breadcrumb" separator=">">
-    <el-breadcrumb-item v-for="(item, index) in getBreadcrumb" :key="index">
+    <el-breadcrumb-item v-for="(item, index) in breadcrumbList" :key="index">
       <a @click.prevent="handleLink(item.redirect)">
         <vab-icon v-if="item.meta && item.meta.icon" :icon="item.meta.icon" />
         <span>{{ translateTitle(item.meta.title) }}</span>
@@ -10,27 +10,46 @@
 </template>
 
 <script>
-  import { computed } from 'vue'
+  import { computed, ref, watchEffect } from 'vue'
+  import { useStore } from 'vuex'
   import { useRoute, useRouter } from 'vue-router'
   import { translateTitle } from '@/utils/i18n'
 
   export default {
     name: 'VabBreadcrumb',
     setup() {
+      const store = useStore()
       const route = useRoute()
       const router = useRouter()
+
+      const routes = computed(() => store.getters['routes/routes'])
+
+      const breadcrumbList = ref([])
 
       const handleLink = (redirect) => {
         if (redirect) router.push(redirect)
       }
 
-      const getBreadcrumb = computed(() => {
-        return route.matched.filter((item) => item.meta && item.meta.title)
+      const updateBreadcrumbList = (_routes) => {
+        _routes.forEach((_route) => {
+          if (_route.childrenPathList.indexOf(route.path) + 1) {
+            breadcrumbList.value.push(_route)
+            if (_route.children) updateBreadcrumbList(_route.children)
+          }
+        })
+      }
+
+      watchEffect(() => {
+        breadcrumbList.value = []
+        updateBreadcrumbList(routes.value)
+        breadcrumbList.value = breadcrumbList.value.filter(
+          (item) => item.meta && item.meta.title
+        )
       })
 
       return {
         handleLink,
-        getBreadcrumb,
+        breadcrumbList,
         translateTitle,
       }
     },

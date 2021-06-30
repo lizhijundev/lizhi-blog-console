@@ -22,9 +22,9 @@
     setup() {
       const store = useStore()
       const route = useRoute()
+
       const changeLanguage = (language) =>
         store.dispatch('settings/changeLanguage', language)
-
       const handleCommand = (language) => {
         changeLanguage(language)
         i18n.global.locale = language

@@ -36,7 +36,7 @@
           <el-popover
             popper-class="icon-selector-popper"
             trigger="hover"
-            width="292"
+            :width="292"
           >
             <template #reference>
               <el-button>
@@ -54,47 +54,56 @@
 </template>
 
 <script>
-  import { mapActions } from 'vuex'
   import getPageTitle from '@/utils/pageTitle'
   import VabIconSelector from '@/extra/VabIconSelector'
+  import { getCurrentInstance, reactive, toRefs } from 'vue'
+  import { mapActions } from 'vuex'
 
   export default {
     name: 'DynamicMeta',
     components: { VabIconSelector },
-    data() {
-      return {
+    setup() {
+      const { proxy } = getCurrentInstance()
+
+      const state = reactive({
         badge: 0,
-        icon: this.$route.meta.icon,
-        defaultTitle: this.$route.meta.title,
-      }
-    },
-    methods: {
-      ...mapActions({
-        changeMenuMeta: 'routes/changeMenuMeta',
-        changeTabsMeta: 'tabs/changeTabsMeta',
-      }),
-      handleBadge(name) {
-        const badge = this.badge + 1
-        this.badge = badge
-        this.changeMenuMeta({
+        icon: proxy.$route.meta.icon,
+        defaultTitle: proxy.$route.meta.title,
+      })
+
+      function handleBadge(name) {
+        state.badge = state.badge + 1
+        proxy.changeMenuMeta({
           name,
-          meta: { badge },
+          meta: { badge: state.badge },
         })
-      },
-      resetBadge(name, meta) {
-        this.badge = 0
-        this.changeMenuMeta({ name, meta })
-      },
-      handleMeta(name, meta) {
+      }
+      function resetBadge(name, meta) {
+        state.badge = 0
+        proxy.changeMenuMeta({ name, meta })
+      }
+      function handleMeta(name, meta) {
         if (meta.title) document.title = getPageTitle(meta.title)
-        this.changeMenuMeta({ name, meta })
-        this.changeTabsMeta({ name, meta })
-      },
-      handleIcon(item) {
-        this.icon = item
-        this.changeMenuMeta({ name: 'DynamicMeta', meta: { icon: item } })
-        this.changeTabsMeta({ name: 'DynamicMeta', meta: { icon: item } })
-      },
+        proxy.changeMenuMeta({ name, meta })
+        proxy.changeTabsMeta({ name, meta })
+      }
+      function handleIcon(item) {
+        state.icon = item
+        proxy.changeMenuMeta({ name: 'DynamicMeta', meta: { icon: item } })
+        proxy.changeTabsMeta({ name: 'DynamicMeta', meta: { icon: item } })
+      }
+
+      return {
+        ...toRefs(state),
+        ...mapActions({
+          changeMenuMeta: 'routes/changeMenuMeta',
+          changeTabsMeta: 'tabs/changeTabsMeta',
+        }),
+        handleBadge,
+        resetBadge,
+        handleMeta,
+        handleIcon,
+      }
     },
   }
 </script>

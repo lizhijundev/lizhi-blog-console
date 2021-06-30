@@ -1,15 +1,10 @@
 <template>
   <div v-if="itemOrMenu.meta && itemOrMenu.meta.levelHidden">
-    <template v-for="route in itemOrMenu.children">
-      <vab-menu :key="route.fullPath" :item="route" />
+    <template v-for="route in itemOrMenu.children" :key="route.path">
+      <vab-menu :item="route" />
     </template>
   </div>
-  <el-submenu
-    v-else
-    ref="subMenu"
-    :index="itemOrMenu.fullPath"
-    :popper-append-to-body="false"
-  >
+  <el-submenu v-else :index="itemOrMenu.path" :popper-append-to-body="false">
     <template #title>
       <vab-icon
         v-if="itemOrMenu.meta && itemOrMenu.meta.icon"

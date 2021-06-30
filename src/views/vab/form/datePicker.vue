@@ -59,10 +59,12 @@
 </template>
 
 <script>
+  import { reactive, toRefs } from 'vue'
+
   export default {
     name: 'DatePicker',
-    data() {
-      return {
+    setup() {
+      const state = reactive({
         pickerOptions: {
           disabledDate(time) {
             return time.getTime() > Date.now()
@@ -100,6 +102,10 @@
         value6: '',
         value7: '',
         value8: '',
+      })
+
+      return {
+        ...toRefs(state),
       }
     },
   }
@@ -117,9 +123,11 @@
 
       .el-input {
         width: 180px;
+
         &:first-child {
           margin-right: 10px;
         }
+
         & + .el-input {
           margin-right: 10px;
           margin-bottom: 10px;

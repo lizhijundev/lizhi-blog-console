@@ -18,6 +18,10 @@ const mutations = {
     const target = state.visitedRoutes.find((item) => item.path === route.path)
     if (target && !route.meta.dynamicNewTab) Object.assign(target, route)
     else if (!target) state.visitedRoutes.push(Object.assign({}, route))
+
+    //应对极特殊情况：没有配置noClosable的情况，默认使当前tab不可关闭
+    if (!state.visitedRoutes.find((route) => route.meta.noClosable))
+      state.visitedRoutes[0].meta.noClosable = true
   },
   /**
    * @description 删除当前标签页
@@ -39,7 +43,7 @@ const mutations = {
    */
   delOthersVisitedRoutes(state, path) {
     state.visitedRoutes = state.visitedRoutes.filter(
-      (item) => item.meta.noClosable || item.path === path
+      (route) => route.meta.noClosable || route.path === path
     )
   },
   /**
@@ -76,7 +80,7 @@ const mutations = {
    */
   delAllVisitedRoutes(state) {
     state.visitedRoutes = state.visitedRoutes.filter(
-      (item) => item.meta.noClosable
+      (route) => route.meta.noClosable
     )
   },
   /**
@@ -94,6 +98,7 @@ const mutations = {
         return route
       })
     }
+
     state.visitedRoutes = handleVisitedRoutes(state.visitedRoutes)
   },
 }

@@ -9,7 +9,7 @@
     </template>
     <vab-chart
       :init-options="initOptions"
-      :options="options"
+      :option="option"
       style="height: 283px"
       theme="vab-echarts-theme"
     />
@@ -17,6 +17,7 @@
 </template>
 
 <script>
+  import { reactive, toRefs } from 'vue'
   import axios from 'axios'
   import VabChart from '@/extra/VabChart'
   import _ from 'lodash'
@@ -25,8 +26,8 @@
     components: {
       VabChart,
     },
-    data() {
-      return {
+    setup() {
+      const state = reactive({
         countConfig: {
           startVal: 0,
           endVal: _.random(1000, 20000),
@@ -40,20 +41,16 @@
           renderer: 'svg',
         },
         // 中国地图
-        options: {},
-      }
-    },
-    created() {
-      this.getMap()
-    },
-    methods: {
-      async getMap() {
+        option: {},
+      })
+
+      const getMap = async () => {
         const { data } = await axios({
           url: 'https://cdn.jsdelivr.net/npm/echarts@4.9.0/map/json/china.json',
           method: 'get',
         })
         VabChart.registerMap('china', data)
-        this.options = {
+        state.option = {
           title: {
             text: '2099年全国GDP分布',
             subtext: '数据来自vue-admin-beautiful杜撰',
@@ -115,7 +112,13 @@
             },
           ],
         }
-      },
+      }
+
+      getMap()
+
+      return {
+        ...toRefs(state),
+      }
     },
   }
 </script>

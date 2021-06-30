@@ -37,15 +37,16 @@
 
 <script>
   import { computed, getCurrentInstance } from 'vue'
+  import { useStore } from 'vuex'
   import { useRoute } from 'vue-router'
   import { translateTitle } from '@/utils/i18n'
-  import { useStore } from 'vuex'
 
   export default {
     name: 'VabThemeSetting',
     setup() {
       const store = useStore()
       const route = useRoute()
+
       const { proxy } = getCurrentInstance()
 
       const handleOpenTheme = () => {
@@ -55,7 +56,7 @@
         proxy.$pub('random-theme')
       }
       const buy = () => {
-        window.open('https://chu1204505056.gitee.io/authorization')
+        window.open('http://vue-admin-beautiful.com/authorization')
       }
       const getCode = () => {
         proxy

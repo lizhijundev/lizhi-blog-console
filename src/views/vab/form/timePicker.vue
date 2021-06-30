@@ -55,14 +55,20 @@
 </template>
 
 <script>
+  import { toRefs, reactive } from 'vue'
+
   export default {
     name: 'Timepicker',
-    data() {
-      return {
+    setup() {
+      const state = reactive({
         value: '',
         value1: new Date(2016, 9, 10, 18, 40),
         startTime: '',
         endTime: '',
+      })
+
+      return {
+        ...toRefs(state),
       }
     },
   }

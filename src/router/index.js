@@ -7,9 +7,6 @@ import {
   createWebHistory,
 } from 'vue-router'
 import Layout from '@/vab/layouts'
-/* 多级路由不需要缓存时可放开注释直接引入 用法component:VabEmptyLayout*/
-/* import VabEmptyLayout from '@/vab/layouts/VabEmptyLayout' */
-import { getNames } from '@/utils/routes'
 import { isHashRouterMode, publicPath } from '@/config'
 
 export const constantRoutes = [
@@ -101,7 +98,6 @@ export const asyncRoutes = [
       {
         path: 'icon',
         name: 'Icon',
-        component: () => import('@/views/vab/icon'),
         redirect: '/vab/icon/remixIcon',
         meta: {
           title: '图标',
@@ -139,7 +135,6 @@ export const asyncRoutes = [
       {
         path: 'table',
         name: 'Table',
-        component: () => import('@/views/vab/table'),
         redirect: '/vab/table/comprehensiveTable',
         meta: {
           title: '表格',
@@ -212,7 +207,6 @@ export const asyncRoutes = [
       {
         path: 'form',
         name: 'Form',
-        component: () => import('@/views/vab/form'),
         meta: {
           title: '表单',
           roles: ['admin'],
@@ -375,6 +369,16 @@ export const asyncRoutes = [
         },
       },
       {
+        path: 'echarts',
+        name: 'Echarts',
+        component: () => import('@/views/other/echarts'),
+        meta: {
+          title: '图表',
+          roles: ['admin'],
+          icon: 'bubble-chart-line',
+        },
+      },
+      {
         path: 'print',
         name: 'Print',
         component: () => import('@/views/other/print'),
@@ -448,8 +452,7 @@ export const asyncRoutes = [
       {
         path: 'dynamicSegment',
         name: 'DynamicSegment',
-        component: () => import('@/views/other/dynamicSegment'),
-        redirect: '/vab/dynamicSegment/test1/1',
+        redirect: '/other/dynamicSegment/test1/1',
         meta: {
           title: '动态路径参数',
           roles: ['admin'],
@@ -524,7 +527,6 @@ export const asyncRoutes = [
       {
         path: 'menu1',
         name: 'Menu1',
-        component: () => import('@/views/other/nested/menu1'),
         redirect: '/other/menu1/menu1-1/menu1-1-1/menu1-1-1-1',
         meta: {
           title: '多级路由缓存',
@@ -535,7 +537,6 @@ export const asyncRoutes = [
           {
             path: 'menu1-1',
             name: 'Menu11',
-            component: () => import('@/views/other/nested/menu1/menu1-1'),
             redirect: '/other/menu1/menu1-1/menu1-1-1/menu1-1-1-1',
             meta: {
               title: '多级路由1-1',
@@ -544,8 +545,6 @@ export const asyncRoutes = [
               {
                 path: 'menu1-1-1',
                 name: 'Menu111',
-                component: () =>
-                  import('@/views/other/nested/menu1/menu1-1/menu1-1-1'),
                 redirect: '/other/menu1/menu1-1/menu1-1-1/menu1-1-1-1',
                 meta: {
                   title: '多级路由1-1-1',
@@ -625,7 +624,6 @@ export const asyncRoutes = [
       {
         path: 'iframe',
         name: 'Iframe',
-        component: () => import('@/views/other/iframe'),
         redirect: '/other/iframe/search',
         meta: {
           title: 'Iframe',
@@ -670,7 +668,6 @@ export const asyncRoutes = [
       {
         path: 'excel',
         name: 'Excel',
-        component: () => import('@/views/other/excel'),
         redirect: '/other/excel/exportExcel',
         meta: {
           title: 'Excel',
@@ -845,6 +842,12 @@ const router = createRouter({
   routes: constantRoutes,
 })
 
+function fatteningRoutes(routes) {
+  return routes.flatMap((route) => {
+    return route.children ? fatteningRoutes(route.children) : route
+  })
+}
+
 function addRouter(routes) {
   routes.forEach((route) => {
     if (!router.hasRoute(route.name)) router.addRoute(route)
@@ -853,9 +856,14 @@ function addRouter(routes) {
 }
 
 export function resetRouter(routes = constantRoutes) {
-  const names = getNames(routes)
+  routes.map((route) => {
+    if (route.children) {
+      route.children = fatteningRoutes(route.children)
+    }
+  })
   router.getRoutes().forEach((route) => {
-    if (!names.includes(route.name)) router.removeRoute(route.name)
+    const routeName = route.name
+    router.hasRoute(routeName) && router.removeRoute(routeName)
   })
   addRouter(routes)
 }

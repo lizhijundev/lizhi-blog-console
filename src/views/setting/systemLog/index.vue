@@ -92,12 +92,13 @@
 </template>
 
 <script>
+  import { reactive, toRefs } from 'vue'
   import { getList } from '@/api/systemLog'
 
   export default {
     name: 'SystemLog',
-    data() {
-      return {
+    setup() {
+      const state = reactive({
         list: [],
         listLoading: true,
         layout: 'total, sizes, prev, pager, next, jumper',
@@ -108,32 +109,39 @@
           pageNo: 1,
           pageSize: 20,
         },
-      }
-    },
-    created() {
-      this.fetchData()
-    },
-    methods: {
-      handleSizeChange(val) {
-        this.queryForm.pageSize = val
-        this.fetchData()
-      },
-      handleCurrentChange(val) {
-        this.queryForm.pageNo = val
-        this.fetchData()
-      },
-      queryData() {
-        this.queryForm.pageNo = 1
-        this.fetchData()
-      },
-      async fetchData() {
+      })
+
+      const fetchData = async () => {
         this.listLoading = true
-        const { data } = await getList(this.queryForm)
-        const { list, total } = data
+        const {
+          data: { list, total },
+        } = await getList(this.queryForm)
         this.list = list
         this.total = total
         this.listLoading = false
-      },
+      }
+      const handleSizeChange = (val) => {
+        this.queryForm.pageSize = val
+        this.fetchData()
+      }
+      const handleCurrentChange = (val) => {
+        this.queryForm.pageNo = val
+        this.fetchData()
+      }
+      const queryData = () => {
+        this.queryForm.pageNo = 1
+        this.fetchData()
+      }
+
+      fetchData()
+
+      return {
+        ...toRefs(state),
+        fetchData,
+        handleSizeChange,
+        handleCurrentChange,
+        queryData,
+      }
     },
   }
 </script>

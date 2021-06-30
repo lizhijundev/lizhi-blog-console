@@ -48,88 +48,104 @@
 </template>
 
 <script>
+  import { getCurrentInstance } from 'vue'
+
   export default {
     name: 'Notice',
-    data() {
-      return {}
-    },
-    methods: {
-      open1() {
-        this.$baseMessage('这是一条消息提示', 'info')
-      },
-      open2() {
-        this.$baseMessage('恭喜你，这是一条成功消息', 'success')
-      },
-      open3() {
-        this.$baseMessage('警告哦，这是一条警告消息', 'warning')
-      },
-      open4() {
-        this.$baseMessage('错了哦，这是一条错误消息', 'error')
-      },
-      open5() {
-        this.$baseMessage(
+    setup() {
+      const { proxy } = getCurrentInstance()
+
+      function open1() {
+        proxy.$baseMessage('这是一条消息提示', 'info')
+      }
+      function open2() {
+        proxy.$baseMessage('恭喜你，这是一条成功消息', 'success')
+      }
+      function open3() {
+        proxy.$baseMessage('警告哦，这是一条警告消息', 'warning')
+      }
+      function open4() {
+        proxy.$baseMessage('错了哦，这是一条错误消息', 'error')
+      }
+      function open5() {
+        proxy.$baseMessage(
           '这是一条消息提示',
           'info',
           false,
           'vab-hey-message-info'
         )
-      },
-      open6() {
-        this.$baseMessage(
+      }
+      function open6() {
+        proxy.$baseMessage(
           '恭喜你，这是一条成功消息',
           'success',
           false,
           'vab-hey-message-success'
         )
-      },
-      open7() {
-        this.$baseMessage(
+      }
+      function open7() {
+        proxy.$baseMessage(
           '警告哦，这是一条警告消息',
           'warning',
           false,
           'vab-hey-message-warning'
         )
-      },
-      open8() {
-        this.$baseMessage(
+      }
+      function open8() {
+        proxy.$baseMessage(
           '错了哦，这是一条错误消息',
           'error',
           false,
           'vab-hey-message-error'
         )
-      },
-      open9() {
-        this.$baseNotify(
+      }
+      function open9() {
+        proxy.$baseNotify(
           '这是一条消息的提示消息',
           '提示',
           'info',
           'bottom-right'
         )
-      },
-      open10() {
-        this.$baseNotify(
+      }
+      function open10() {
+        proxy.$baseNotify(
           '这是一条成功的提示消息',
           '成功',
           'success',
           'bottom-right'
         )
-      },
-      open11() {
-        this.$baseNotify(
+      }
+      function open11() {
+        proxy.$baseNotify(
           '这是一条警告的提示消息',
           '警告',
           'warning',
           'bottom-right'
         )
-      },
-      open12() {
-        this.$baseNotify(
+      }
+      function open12() {
+        proxy.$baseNotify(
           '这是一条错误的提示消息',
           '错误',
           'error',
           'bottom-right'
         )
-      },
+      }
+
+      return {
+        open1,
+        open2,
+        open3,
+        open4,
+        open5,
+        open6,
+        open7,
+        open8,
+        open9,
+        open10,
+        open11,
+        open12,
+      }
     },
   }
 </script>

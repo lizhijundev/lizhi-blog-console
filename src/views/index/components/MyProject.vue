@@ -30,36 +30,32 @@
 
 <script>
   export default {
-    data() {
-      return {
-        list: [
-          {
-            image: require('@/assets/index_images/image.jpg'),
-            title: 'vue-admin-beautiful(vue2.x)',
-            description:
-              '一款基于vue2.x + element-ui的绝佳的中后台前端开发管理框架',
-            url: 'https://github.com/chuzhixin/vue-admin-beautiful/tree/master',
-          },
-          {
-            image: require('@/assets/index_images/image.jpg'),
-            title: 'vue-admin-beautiful(vue3.x)',
-            description:
-              '一款基于vue3.x + ant-design-vue的绝佳的中后台前端开发管理框架',
-            url: 'https://github.com/chuzhixin/vue-admin-beautiful/tree/vue3.0-antdv',
-          },
-          /* {
-            image: require('@/assets/index_images/image.jpg'),
-            title: 'vue-admin-beautiful-template',
-            description: '基础版',
-            url: 'https://github.com/chuzhixin/vue-admin-beautiful-template',
-          }, */
-        ],
-      }
-    },
-    methods: {
-      handleOpenWindow(url) {
+    setup() {
+      const list = [
+        {
+          image: require('@/assets/index_images/image.jpg'),
+          title: 'vue-admin-beautiful(vue2.x)',
+          description:
+            '一款基于vue2.x + element-ui的绝佳的中后台前端开发管理框架',
+          url: 'https://github.com/chuzhixin/vue-admin-beautiful/tree/master',
+        },
+        {
+          image: require('@/assets/index_images/image.jpg'),
+          title: 'vue-admin-beautiful(vue3.x)',
+          description:
+            '一款基于vue3.x + ant-design-vue的绝佳的中后台前端开发管理框架',
+          url: 'https://github.com/chuzhixin/vue-admin-beautiful/tree/vue3.0-antdv',
+        },
+      ]
+
+      const handleOpenWindow = (url) => {
         window.open(url)
-      },
+      }
+
+      return {
+        list,
+        handleOpenWindow,
+      }
     },
   }
 </script>

@@ -15,6 +15,7 @@
     name: 'VabFullScreen',
     setup() {
       const store = useStore()
+
       const isFullscreen = ref(false)
 
       const change = () => {

@@ -24,20 +24,25 @@
 </template>
 
 <script>
+  import { reactive, toRefs } from 'vue'
   import VabIconSelector from '@/extra/VabIconSelector'
 
   export default {
     name: 'IconSelector',
     components: { VabIconSelector },
-    data() {
-      return {
+    setup() {
+      const state = reactive({
         icon: '24-hours-fill',
+      })
+
+      const handleIcon = (item) => {
+        state.icon = item
       }
-    },
-    methods: {
-      handleIcon(item) {
-        this.icon = item
-      },
+
+      return {
+        ...toRefs(state),
+        handleIcon,
+      }
     },
   }
 </script>

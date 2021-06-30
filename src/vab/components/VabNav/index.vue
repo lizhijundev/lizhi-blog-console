@@ -48,9 +48,9 @@
 <script>
   import { computed, watch } from 'vue'
   import { useStore } from 'vuex'
+  import { useRoute, useRouter } from 'vue-router'
   import { translateTitle } from '@/utils/i18n'
   import { openFirstMenu } from '@/config'
-  import { useRoute, useRouter } from 'vue-router'
 
   export default {
     name: 'VabNav',
@@ -64,17 +64,17 @@
       const store = useStore()
       const route = useRoute()
       const router = useRouter()
+
       const extra = computed(() => store.getters['settings/extra'])
       const routes = computed(() => store.getters['routes/routes'])
 
-      const handleRoutes = computed(() => {
-        return routes.value.filter((route) => {
-          return route.meta && route.meta.hidden !== true
-        })
-      })
-      const handleActiveMenu = () => {
-        return routes.value.find((route) => route.name === extra.value.first)
-      }
+      const handleRoutes = computed(() =>
+        routes.value.filter(
+          (_route) => _route.meta && _route.meta.hidden !== true
+        )
+      )
+      const handleActiveMenu = () =>
+        routes.value.find((_route) => _route.name === extra.value.first)
 
       const handleTabClick = (handler) => {
         if (handler !== true && openFirstMenu) router.push(handleActiveMenu())
@@ -125,10 +125,22 @@
         }
 
         .el-tabs {
+          width: 100%;
           margin-left: $base-margin;
 
           .el-tabs__header {
             margin: 0;
+
+            > .el-tabs__nav-wrap {
+              display: flex;
+              align-items: center;
+
+              .el-icon-arrow-left,
+              .el-icon-arrow-right {
+                font-weight: 600;
+                color: $base-color-grey;
+              }
+            }
           }
 
           .el-tabs__item {

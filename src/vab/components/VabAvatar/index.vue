@@ -39,8 +39,10 @@
       const store = useStore()
       const route = useRoute()
       const router = useRouter()
-      const active = ref(false)
+
       const logout = () => store.dispatch('user/logout')
+
+      const active = ref(false)
 
       const handleVisibleChange = (val) => {
         active.value = val

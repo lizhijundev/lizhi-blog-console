@@ -51,12 +51,12 @@
   import DataDialog from './components/lFComponents/DataDialog'
 
   import {
+    registerDownload,
+    registerEnd,
+    registerPolyline,
+    registerPush,
     registerStart,
     registerUser,
-    registerEnd,
-    registerPush,
-    registerDownload,
-    registerPolyline,
   } from './components/registerNode'
 
   export default {
@@ -282,13 +282,16 @@
       left: $base-margin * 2;
       z-index: 2;
     }
+
     #left-view {
       height: $base-keep-alive-height;
       outline: none;
     }
+
     .time-plus {
       cursor: pointer;
     }
+
     .add-panel {
       position: absolute;
       z-index: 11;

@@ -86,9 +86,11 @@
     border-radius: 6px;
     box-shadow: 0 0 10px 1px rgb(228, 224, 219);
   }
+
   .node-item {
     margin-bottom: 20px;
   }
+
   .node-item-icon {
     display: block;
     width: 30px;
@@ -96,38 +98,47 @@
     margin: auto;
     background-size: cover;
   }
+
   .node-label {
     font-size: 12px;
     line-height: 30px;
     user-select: none;
   }
+
   .node-start {
     background: url('../background/start.png') no-repeat;
     background-size: cover;
   }
+
   .node-rect {
     border: 1px solid black;
   }
+
   .node-user {
     background: url('../background/user.png') no-repeat;
     background-size: cover;
   }
+
   .node-time {
     background: url('../background/time.png') no-repeat;
     background-size: cover;
   }
+
   .node-push {
     background: url('../background/push.png') no-repeat;
     background-size: cover;
   }
+
   .node-download {
     background: url('../background/download.png') no-repeat;
     background-size: cover;
   }
+
   .node-click {
     background: url('../background/click.png') no-repeat;
     background-size: cover;
   }
+
   .node-end {
     background: url('../background/end.png') no-repeat;
     background-size: cover;

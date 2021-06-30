@@ -15,7 +15,7 @@ export function setup(app) {
       closeOnPressEscape: false,
       closeOnHashChange: false,
       dangerouslyUseHTMLString: true,
-    })
+    }).then(() => {})
   }
   if (process.env.NODE_ENV !== 'development') {
     // eslint-disable-next-line no-console
@@ -29,6 +29,5 @@ export function setup(app) {
     const str = '\u0076\u0061\u0062\u002d\u0069\u0063\u006f\u006e\u0073'
     const key = unescape(str.replace(/\\u/g, '%u'))
     if (!dependencies[key]) app.config.globalProperties = null
-    if (!process.env.VUE_APP_SECRET_KEY) app.config.globalProperties = null
   }
 }

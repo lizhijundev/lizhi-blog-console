@@ -62,11 +62,8 @@ html {
           > section {
             background: $base-color-white;
             transition: $base-transition;
-            //多级路由 TODO
-            > [class*='-container'],
-            > div > [class*='-container'],
-            > div > div > [class*='-container'],
-            > div > div > div > [class*='-container'] {
+
+            > [class*='-container']  {
               min-height: $base-keep-alive-height;
               padding: $base-padding;
               background: $base-color-white;

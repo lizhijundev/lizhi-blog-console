@@ -9,7 +9,7 @@
   >
     <el-scrollbar class="theme-scrollbar">
       <div class="el-drawer__body">
-        <el-form ref="form" label-position="left" :model="theme">
+        <el-form label-position="left" :model="theme">
           <el-divider content-position="left">
             <vab-icon icon="settings-3-line" />
             {{ translateTitle('常用设置') }}
@@ -221,7 +221,13 @@
 </template>
 
 <script>
-  import { ref, computed, getCurrentInstance } from 'vue'
+  import {
+    computed,
+    getCurrentInstance,
+    onBeforeMount,
+    onUnmounted,
+    ref,
+  } from 'vue'
   import { useStore } from 'vuex'
   import { translateTitle } from '@/utils/i18n'
   import _ from 'lodash'
@@ -230,11 +236,14 @@
     name: 'VabThemeDrawer',
     setup() {
       const store = useStore()
-      const { proxy } = getCurrentInstance()
+
       const theme = computed(() => store.getters['settings/theme'])
       const device = computed(() => store.getters['settings/device'])
+
       const saveTheme = () => store.dispatch('settings/saveTheme')
       const resetTheme = () => store.dispatch('settings/resetTheme')
+
+      const { proxy } = getCurrentInstance()
 
       const drawerVisible = ref(false)
 
@@ -296,13 +305,19 @@
           'body'
         )[0].className = `vab-theme-${theme.value.themeName}`
       }
-      setTheme()
 
-      proxy.$sub('theme', () => {
-        handleOpenTheme()
+      onBeforeMount(() => {
+        setTheme()
+        proxy.$sub('theme', () => {
+          handleOpenTheme()
+        })
+        proxy.$sub('random-theme', () => {
+          randomTheme()
+        })
       })
-      proxy.$sub('random-theme', () => {
-        randomTheme()
+      onUnmounted(() => {
+        proxy.$unsub('theme')
+        proxy.$unsub('random-theme')
       })
 
       return {

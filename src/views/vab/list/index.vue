@@ -57,47 +57,50 @@
 </template>
 
 <script>
+  import { reactive, toRefs } from 'vue'
   import { getList } from '@/api/table'
 
   export default {
     name: 'List',
-    data() {
-      return {
+    setup() {
+      const state = reactive({
         list: [],
-        listLoading: true,
-        layout: 'total, sizes, prev, pager, next, jumper',
         total: 0,
-        queryForm: {
-          pageNo: 1,
-          pageSize: 10,
-          title: '',
-        },
+        queryForm: { pageNo: 1, pageSize: 10, title: '' },
+        layout: 'total, sizes, prev, pager, next, jumper',
+        listLoading: true,
+      })
+
+      const fetchData = async () => {
+        state.listLoading = true
+        const {
+          data: { list, total },
+        } = await getList(state.queryForm)
+        state.list = list
+        state.total = total
+        state.listLoading = false
       }
-    },
-    created() {
-      this.fetchData()
-    },
-    methods: {
-      handleSizeChange(val) {
-        this.queryForm.pageSize = val
-        this.fetchData()
-      },
-      handleCurrentChange(val) {
-        this.queryForm.pageNo = val
-        this.fetchData()
-      },
-      queryData() {
-        this.queryForm.pageNo = 1
-        this.fetchData()
-      },
-      async fetchData() {
-        this.listLoading = true
-        const { data } = await getList(this.queryForm)
-        const { list, total } = data
-        this.list = list
-        this.total = total
-        this.listLoading = false
-      },
+      const handleSizeChange = (val) => {
+        state.queryForm.pageSize = val
+        fetchData()
+      }
+      const handleCurrentChange = (val) => {
+        state.queryForm.pageNo = val
+        fetchData()
+      }
+      const queryData = () => {
+        state.queryForm.pageNo = 1
+        fetchData()
+      }
+
+      fetchData()
+
+      return {
+        ...toRefs(state),
+        handleSizeChange,
+        handleCurrentChange,
+        queryData,
+      }
     },
   }
 </script>

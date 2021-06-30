@@ -36,24 +36,24 @@ export function convertRouter(asyncRoutes) {
  */
 export function filterRoutes(routes, rolesControl, baseUrl = '/') {
   return routes
-    .filter((route) => {
-      if (rolesControl && route.meta && route.meta.roles)
-        return hasAccess(route.meta.roles)
-      else return true
-    })
+    .filter((route) =>
+      rolesControl && route.meta && route.meta.roles
+        ? hasAccess(route.meta.roles)
+        : true
+    )
     .map((route) => {
-      route.fullPath =
+      route = { ...route }
+      route.path =
         route.path !== '*' && !isExternal(route.path)
           ? resolve(baseUrl, route.path)
           : route.path
       if (route.children) {
-        route.children = filterRoutes(
-          route.children,
-          rolesControl,
-          route.fullPath
+        route.children = filterRoutes(route.children, rolesControl, route.path)
+        route.childrenPathList = route.children.flatMap(
+          (_) => _.childrenPathList
         )
-        if (!route.redirect) route.redirect = route.children[0].fullPath
-      }
+        if (!route.redirect) route.redirect = route.children[0].path
+      } else route.childrenPathList = [route.path]
       return route
     })
 }
@@ -65,10 +65,10 @@ export function filterRoutes(routes, rolesControl, baseUrl = '/') {
  * @returns {string|*}
  */
 export function handleActivePath(route, isTabsBar = false) {
-  const { meta, fullPath } = route
+  const { meta, path, fullPath } = route
   const rawPath = route.matched
     ? route.matched[route.matched.length - 1].path
-    : fullPath
+    : path
   if (isTabsBar) return meta.dynamicNewTab ? fullPath : rawPath
   if (meta.activeMenu) return meta.activeMenu
   return fullPath ? fullPath : rawPath

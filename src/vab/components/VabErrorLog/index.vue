@@ -69,8 +69,10 @@
     name: 'VabErrorLog',
     setup() {
       const store = useStore()
-      const dialogTableVisible = ref(false)
+
       const clearErrorLog = () => store.dispatch('errorLog/clearErrorLog')
+
+      const dialogTableVisible = ref(false)
 
       const searchList = [
         {

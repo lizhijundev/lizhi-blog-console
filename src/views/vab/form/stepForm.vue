@@ -30,6 +30,7 @@
 </template>
 
 <script>
+  import { reactive, toRefs } from 'vue'
   import Step1 from './components/Step1'
   import Step2 from './components/Step2'
   import Step3 from './components/Step3'
@@ -37,17 +38,21 @@
   export default {
     name: 'Pay',
     components: { Step1, Step2, Step3 },
-    data() {
-      return {
+    setup() {
+      const state = reactive({
         active: 1,
         form: {},
+      })
+
+      const handleSetStep = (active, form) => {
+        state.active = active
+        if (form) state.form = Object.assign(state.form, form)
       }
-    },
-    methods: {
-      handleSetStep(active, form) {
-        this.active = active
-        if (form) this.form = Object.assign(this.form, form)
-      },
+
+      return {
+        ...toRefs(state),
+        handleSetStep,
+      }
     },
   }
 </script>

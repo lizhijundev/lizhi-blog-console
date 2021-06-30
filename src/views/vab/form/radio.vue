@@ -46,15 +46,21 @@
 </template>
 
 <script>
+  import { reactive, toRefs } from 'vue'
+
   export default {
     name: 'Radio',
-    data() {
-      return {
+    setup() {
+      const state = reactive({
         radio: '1',
         radio2: '选中且禁用',
         radio3: 3,
         radio4: '上海',
         radio5: '1',
+      })
+
+      return {
+        ...toRefs(state),
       }
     },
   }

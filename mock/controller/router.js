@@ -47,7 +47,6 @@ const List = [
       {
         path: 'icon',
         name: 'Icon',
-        component: '@/views/vab/icon',
         redirect: '/vab/icon/remixIcon',
         meta: {
           title: '图标',
@@ -85,7 +84,6 @@ const List = [
       {
         path: 'table',
         name: 'Table',
-        component: '@/views/vab/table',
         redirect: '/vab/table/comprehensiveTable',
         meta: {
           title: '表格',
@@ -112,7 +110,7 @@ const List = [
               hidden: true,
               title: '详情页',
               activeMenu: '/vab/table/comprehensiveTable',
-              dynamicNewTab: true, //详情页根据id传参不同可打开多个
+              dynamicNewTab: true,
             },
           },
           {
@@ -157,7 +155,6 @@ const List = [
       {
         path: 'form',
         name: 'Form',
-        component: '@/views/vab/form',
         meta: {
           title: '表单',
           roles: ['admin'],
@@ -287,34 +284,14 @@ const List = [
         ],
       },
       {
-        path: 'editor',
-        name: 'Editor',
-        component: '@/views/vab/editor',
+        path: 'richTextEditor',
+        name: 'RichTextEditor',
+        component: '@/views/vab/richTextEditor',
         meta: {
-          title: '编辑器',
+          title: '富文本编辑器',
           roles: ['admin'],
           icon: 'edit-2-line',
         },
-        children: [
-          {
-            path: 'richTextEditor',
-            name: 'RichTextEditor',
-            component: '@/views/vab/editor/richTextEditor',
-            meta: {
-              title: '富文本编辑器',
-              roles: ['admin'],
-            },
-          },
-          {
-            path: 'markdownEditor',
-            name: 'MarkdownEditor',
-            component: '@/views/vab/editor/markdownEditor',
-            meta: {
-              title: 'Markdown编辑器',
-              roles: ['admin'],
-            },
-          },
-        ],
       },
     ],
   },
@@ -337,6 +314,16 @@ const List = [
           title: '工作流',
           roles: ['admin'],
           icon: 'flow-chart',
+        },
+      },
+      {
+        path: 'echarts',
+        name: 'Echarts',
+        component: '@/views/other/echarts',
+        meta: {
+          title: '图表',
+          roles: ['admin'],
+          icon: 'bubble-chart-line',
         },
       },
       {
@@ -413,8 +400,7 @@ const List = [
       {
         path: 'dynamicSegment',
         name: 'DynamicSegment',
-        component: '@/views/other/dynamicSegment',
-        redirect: '/vab/dynamicSegment/test1/1',
+        redirect: '/other/dynamicSegment/test1/1',
         meta: {
           title: '动态路径参数',
           roles: ['admin'],
@@ -456,16 +442,6 @@ const List = [
         ],
       },
       {
-        path: 'contextmenu',
-        name: 'Contextmenu',
-        component: '@/views/other/contextmenu',
-        meta: {
-          title: '右键菜单',
-          roles: ['admin'],
-          icon: 'menu-2-fill',
-        },
-      },
-      {
         path: 'loading',
         name: 'Loading',
         component: '@/views/other/loading',
@@ -499,7 +475,6 @@ const List = [
       {
         path: 'menu1',
         name: 'Menu1',
-        component: '@/views/other/nested/menu1',
         redirect: '/other/menu1/menu1-1/menu1-1-1/menu1-1-1-1',
         meta: {
           title: '多级路由缓存',
@@ -510,7 +485,6 @@ const List = [
           {
             path: 'menu1-1',
             name: 'Menu11',
-            component: '@/views/other/nested/menu1/menu1-1',
             redirect: '/other/menu1/menu1-1/menu1-1-1/menu1-1-1-1',
             meta: {
               title: '多级路由1-1',
@@ -519,7 +493,6 @@ const List = [
               {
                 path: 'menu1-1-1',
                 name: 'Menu111',
-                component: '@/views/other/nested/menu1/menu1-1/menu1-1-1',
                 redirect: '/other/menu1/menu1-1/menu1-1-1/menu1-1-1-1',
                 meta: {
                   title: '多级路由1-1-1',
@@ -586,7 +559,6 @@ const List = [
       {
         path: 'iframe',
         name: 'Iframe',
-        component: '@/views/other/iframe',
         redirect: '/other/iframe/search',
         meta: {
           title: 'Iframe',
@@ -631,7 +603,6 @@ const List = [
       {
         path: 'excel',
         name: 'Excel',
-        component: '@/views/other/excel',
         redirect: '/other/excel/exportExcel',
         meta: {
           title: 'Excel',

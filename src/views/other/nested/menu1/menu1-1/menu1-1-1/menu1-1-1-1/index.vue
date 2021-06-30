@@ -1,5 +1,5 @@
 <template>
-  <div class="menu1-1-1-1-box">
+  <div class="menu1-1-1-1-container">
     <el-alert :closable="false" title="多级路由 1-1-1-1" type="success">
       <el-input v-model="value" />
     </el-alert>
@@ -7,11 +7,15 @@
 </template>
 
 <script>
+  import { ref } from 'vue'
+
   export default {
     name: 'Menu1111',
-    data() {
+    setup() {
+      const value = ref('')
+
       return {
-        value: '',
+        value,
       }
     },
   }

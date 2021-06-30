@@ -44,21 +44,29 @@
 </template>
 
 <script>
+  import { getCurrentInstance } from 'vue'
+
   export default {
     name: 'Loading',
-    methods: {
-      handleLoading(index) {
-        const Loading = this.$baseLoading(index)
+    setup() {
+      const { proxy } = getCurrentInstance()
+
+      function handleLoading(index) {
+        const Loading = proxy.$baseLoading(index)
         setTimeout(() => {
           Loading.close()
         }, 3000)
-      },
-      handleColorfullLoading(index) {
-        const Loading = this.$baseColorfullLoading(index)
+      }
+      function handleColorfullLoading(index) {
+        const Loading = proxy.$baseColorfullLoading(index)
         setTimeout(() => {
           Loading.close()
         }, 3000)
-      },
+      }
+      return {
+        handleLoading,
+        handleColorfullLoading,
+      }
     },
   }
 </script>

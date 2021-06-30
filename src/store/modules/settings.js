@@ -57,7 +57,7 @@ const state = () => ({
   collapse: collapse || false,
   language: language || i18n,
   theme: getLocalStorage('theme') || { ...defaultTheme },
-  extra: { first: '', transferRouteName: '' },
+  extra: { first: '' },
 })
 const getters = {
   logo: (state) => state.logo,

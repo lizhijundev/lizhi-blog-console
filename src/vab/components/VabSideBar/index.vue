@@ -16,12 +16,8 @@
       :text-color="variables['menu-color']"
       :unique-opened="uniqueOpened"
     >
-      <template v-for="route in handleRoutes">
-        <vab-menu
-          v-if="route.meta && !route.meta.hidden"
-          :key="route.fullPath"
-          :item="route"
-        />
+      <template v-for="route in handleRoutes" :key="route.path">
+        <vab-menu v-if="route.meta && !route.meta.hidden" :item="route" />
       </template>
     </el-menu>
   </el-scrollbar>
@@ -46,26 +42,25 @@
     setup(props) {
       const store = useStore()
       const route = useRoute()
+
       const extra = computed(() => store.getters['settings/extra'])
       const routes = computed(() => store.getters['routes/routes'])
       const collapse = computed(() => store.getters['settings/collapse'])
 
-      const activeMenu = computed(() => {
-        return handleActivePath(route)
-      })
-      const handleRoutes = computed(() => {
-        return props.layout === 'comprehensive'
+      const activeMenu = computed(() => handleActivePath(route))
+      const handleRoutes = computed(() =>
+        props.layout === 'comprehensive'
           ? handlePartialRoutes()
-          : routes.value.flatMap((route) =>
-              route.meta && route.meta.levelHidden === true && route.children
-                ? route.children
-                : route
+          : routes.value.flatMap((_route) =>
+              _route.meta && _route.meta.levelHidden === true && _route.children
+                ? _route.children
+                : _route
             )
-      })
+      )
 
       const handlePartialRoutes = () => {
         const activeMenu = routes.value.find(
-          (route) => route.name === extra.value.first
+          (_route) => _route.name === extra.value.first
         )
         return activeMenu ? activeMenu.children : []
       }

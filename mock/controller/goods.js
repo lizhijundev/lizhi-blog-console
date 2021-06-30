@@ -1,13 +1,15 @@
 const List = [
-  /* {
+  {
     uuid: '@uuid',
-    svg: 'https://gitee.com/chu1204505056/image/raw/master/logo/vdb.svg',
-    title: 'vue-datav-beautiful-pro',
-    price: '敬请期待',
-    label: ['vue', 'element-ui', '数据大屏'],
-    company: 'vdb',
-    url: 'https://github.com/vue-datav-beautiful',
-  }, */
+    icon: 'dashboard-2-line',
+    title: 'Dashboard Pro',
+    price: '众筹版 ￥899',
+    label: ['敬请期待', '人工智能', '科技风'],
+    company: 'vdp',
+    url: 'http://vue-admin-beautiful.com/dashboard-pro',
+    description:
+      '为答谢付费版用户支持：凡是购买过Admin Pro、Admin Plus版本老用户新购买Dashboard Pro版本立返现金红包100元',
+  },
   {
     uuid: '@uuid',
     svg: 'https://gitee.com/chu1204505056/image/raw/master/logo/vab.svg',
@@ -16,6 +18,17 @@ const List = [
     label: ['vue', 'element-ui', 'MIT协议'],
     company: 'vab',
     url: 'https://github.com/chuzhixin/vue-admin-beautiful',
+    description: '绝佳的开源、企业级、中后台前端框架',
+  },
+  {
+    uuid: '@uuid',
+    svg: 'https://gitee.com/chu1204505056/image/raw/master/logo/vdb.svg',
+    title: 'vue-datav-beautiful-pro',
+    price: 'Admin Pro + Admin Plus 1299版本赠品',
+    label: ['数据大屏'],
+    company: 'vdb',
+    url: 'https://github.com/vue-datav-beautiful',
+    description: '立志做国内最好的数据大屏应用',
   },
   {
     uuid: '@uuid',
@@ -25,6 +38,8 @@ const List = [
     label: ['uniapp', '跨平台', '组件'],
     company: '言信网络',
     url: 'http://uviewui.com',
+    description:
+      '跨 7 端移动端框架，全面的组件和便捷的工具会让您信手拈来，如鱼得水',
   },
   {
     uuid: '@uuid',
@@ -34,6 +49,7 @@ const List = [
     label: ['element-ui', '表单设计器'],
     company: 'form-generator',
     url: 'https://mrhj.gitee.io/form-generator',
+    description: 'Element UI表单设计及代码生成器',
   },
   {
     uuid: '@uuid',
@@ -43,15 +59,7 @@ const List = [
     label: ['spring-boot', 'vue-admin-beautiful'],
     company: 'OPSLI',
     url: 'http://demo.opsli.arcinbj.com/',
-  },
-  {
-    uuid: '@uuid',
-    title: 'artemis',
-    icon: 'compass-2-line',
-    price: '免费',
-    label: ['spring-boot', 'vue-admin-beautiful'],
-    company: '迈特云',
-    url: 'https://cloud.mate.vip/',
+    description: 'vue-admin-beautiful开源版即可spring boot的最佳实践',
   },
 ]
 

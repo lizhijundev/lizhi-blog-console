@@ -59,8 +59,14 @@
   export default {
     name: '',
     props: {
-      nodeData: { type: Object, default: () => {} },
-      lf: { type: Object || String, default: () => {} },
+      nodeData: {
+        type: Object,
+        default: () => {},
+      },
+      lf: {
+        type: Object || String,
+        default: () => {},
+      },
     },
     emits: ['onClose'],
     data() {

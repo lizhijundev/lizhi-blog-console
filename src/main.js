@@ -12,6 +12,7 @@ const app = createApp(App)
  */
 import { baseURL } from './config'
 import { isExternal } from '@/utils/validate'
+
 if (process.env.NODE_ENV === 'production' && !isExternal(baseURL)) {
   const { mockXHR } = require('@/utils/static')
   mockXHR()

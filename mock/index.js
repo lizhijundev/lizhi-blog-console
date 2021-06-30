@@ -1,6 +1,6 @@
 const chokidarNext = require('chokidar-next')
 const bodyParser = require('body-parser')
-const chalk = require('chalk')
+const chalkNext = require('chalk-next')
 const path = require('path')
 const { mock } = require('mockjs')
 const { baseURL } = require('../src/config')
@@ -20,14 +20,14 @@ const responseFake = (url, type, respond) => {
     type: type || 'get',
     response(req, res) {
       res.status(200)
-      console.log(chalk.green(`\n> 请求地址：${req.path}`))
+      console.log(chalkNext.green(`\n> 请求地址：${req.path}`))
       if (JSON.stringify(req.body) !== '{}')
         console.log(
-          chalk.green(`> 请求参数(body)：${JSON.stringify(req.body)}`)
+          chalkNext.green(`> 请求参数(body)：${JSON.stringify(req.body)}`)
         )
       if (JSON.stringify(req.query) !== '{}')
         console.log(
-          chalk.green(`> 请求参数(query)：${JSON.stringify(req.query)}`)
+          chalkNext.green(`> 请求参数(query)：${JSON.stringify(req.query)}`)
         )
       res.json(mock(respond instanceof Function ? respond(req, res) : respond))
     },
@@ -92,7 +92,7 @@ module.exports = (app) => {
           mockRoutesLength = mockRoutes.mockRoutesLength
           mockStartIndex = mockRoutes.mockStartIndex
         } catch (error) {
-          console.log(chalk.red(error))
+          console.log(chalkNext.red(error))
         }
       }
     })

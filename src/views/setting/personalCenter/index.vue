@@ -157,47 +157,57 @@
         </el-card>
       </el-col>
     </el-row>
-    <vab-cropper ref="vabCropper" />
+    <vab-cropper ref="vabCropperRef" />
   </div>
 </template>
 
 <script>
-  import { mapGetters } from 'vuex'
+  import { computed, getCurrentInstance, reactive, toRefs } from 'vue'
+  import { useStore } from 'vuex'
   import VabCropper from '@/extra/VabCropper'
 
   export default {
     name: 'PersonalCenter',
     components: { VabCropper },
-    data() {
-      return {
+    setup() {
+      const store = useStore()
+
+      const { proxy } = getCurrentInstance()
+
+      const _fullName = unescape('\u695a\u829d\u99a8')
+      const _description = unescape(
+        '\u5bcc\u5728\u672f\u6570\uff0c\u4e0d\u5728\u52b3\u8eab\uff1b\u5229\u5728\u52bf\u5c45\uff0c\u4e0d\u5728\u529b\u8015\u3002'
+      )
+
+      const state = reactive({
+        vabCropperRef: null,
         activeName: 'second',
         form: {
-          fullName: unescape('\u695a\u829d\u99a8'),
+          fullName: _fullName,
           nickname: 'good luck',
           sex: 2,
-          description: unescape(
-            '\u5bcc\u5728\u672f\u6570\uff0c\u4e0d\u5728\u52b3\u8eab\uff1b\u5229\u5728\u52bf\u5c45\uff0c\u4e0d\u5728\u529b\u8015\u3002'
-          ),
+          description: _description,
         },
+      })
+
+      const openDialog = () => {
+        state['vabCropperRef'].dialogVisible = true
       }
-    },
-    computed: {
-      ...mapGetters({
-        avatar: 'user/avatar',
-      }),
-    },
-    methods: {
-      onSubmit() {
-        this.$baseMessage(
+      const onSubmit = () => {
+        proxy.$baseMessage(
           '模拟保存成功',
           'success',
           false,
           'vab-hey-message-success'
         )
-      },
-      openDialog() {
-        this.$refs['vabCropper'].dialogVisible = true
-      },
+      }
+
+      return {
+        ...toRefs(state),
+        avatar: computed(() => store.getters['user/avatar']),
+        openDialog,
+        onSubmit,
+      }
     },
   }
 </script>

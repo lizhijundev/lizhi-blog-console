@@ -146,6 +146,7 @@
           margin-left: -3px;
           background: $base-color-white;
         }
+
         .vab-dot {
           left: -1px;
           width: 12px;
@@ -153,6 +154,7 @@
           margin: auto !important;
         }
       }
+
       .el-card {
         .el-card__header {
           position: relative;
@@ -165,12 +167,14 @@
         }
       }
     }
+
     .vab-info-card {
       position: relative;
       width: 80%;
       padding: $base-padding;
       background: #e2e2e2;
       border-radius: $base-border-radius + 2;
+
       &:after {
         position: absolute;
         top: 8px;
@@ -183,23 +187,29 @@
         border-style: solid dashed dashed;
         border-width: 10px;
       }
+
       &-success {
         color: $base-color-white;
         background: $base-color-green;
+
         &:after {
           border-color: $base-color-green transparent transparent;
         }
       }
+
       &-error {
         color: $base-color-white;
         background: $base-color-red;
+
         &:after {
           border-color: $base-color-red transparent transparent;
         }
       }
+
       &-warning {
         color: $base-color-white;
         background: $base-color-orange;
+
         &:after {
           border-color: $base-color-orange transparent transparent;
         }

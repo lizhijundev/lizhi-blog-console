@@ -19,6 +19,7 @@ export default function registerUser(lf) {
           })
         )
       }
+
       getShape() {
         const attributes = this.getAttributes()
         const {
@@ -54,6 +55,7 @@ export default function registerUser(lf) {
         )
       }
     }
+
     class Model extends PolygonNodeModel {
       constructor(data, graphModel) {
         data.text = {
@@ -96,6 +98,7 @@ export default function registerUser(lf) {
         ]
       }
     }
+
     return {
       view: Node,
       model: Model,

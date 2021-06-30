@@ -50,16 +50,19 @@
     name: 'VabNotice',
     setup() {
       const store = useStore()
-      const { proxy } = getCurrentInstance()
 
-      const notices = ref([])
-      const badge = ref(null)
-      const activeName = ref('notice')
       const theme = computed(() => store.getters['settings/theme'])
 
+      const { proxy } = getCurrentInstance()
+
+      const activeName = ref('notice')
+      const notices = ref([])
+      const badge = ref(null)
+
       const fetchData = async () => {
-        const { data } = await getList()
-        const { list, total } = data
+        const {
+          data: { list, total },
+        } = await getList()
         notices.value = list
         badge.value = total === 0 ? null : total
       }

@@ -66,6 +66,7 @@
     },
     setup() {
       const store = useStore()
+
       return {
         handleFoldSideBar: () => store.dispatch('settings/foldSideBar'),
       }

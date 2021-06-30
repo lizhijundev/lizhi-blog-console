@@ -6,7 +6,7 @@
     @close="close"
   >
     <el-form
-      ref="form"
+      ref="formRef"
       :inline="true"
       label-width="140px"
       :model="form"
@@ -72,6 +72,7 @@
 </template>
 
 <script>
+  import { getCurrentInstance, reactive, toRefs } from 'vue'
   import VabIconSelector from '@/extra/VabIconSelector'
   import { doEdit } from '@/api/menuManagement'
 
@@ -79,8 +80,11 @@
     name: 'MenuManagementEdit',
     components: { VabIconSelector },
     emits: ['fetch-data'],
-    data() {
-      return {
+    setup(props, { emit }) {
+      const { proxy } = getCurrentInstance()
+
+      const state = reactive({
+        formRef: null,
         form: {
           meta: {
             icon: '',
@@ -104,36 +108,47 @@
         },
         title: '',
         dialogFormVisible: false,
+      })
+
+      const handleIcon = (item) => {
+        state.form.meta.icon = item
       }
-    },
-    methods: {
-      handleIcon(item) {
-        this.form.meta.icon = item
-      },
-      showEdit(row) {
+      const showEdit = (row) => {
         if (!row) {
-          this.title = '添加'
+          state.title = '添加'
         } else {
-          this.title = '编辑'
-          this.form = Object.assign({}, row)
+          state.title = '编辑'
+          state.form = Object.assign({}, row)
         }
-        this.dialogFormVisible = true
-      },
-      close() {
-        this.$refs['form'].resetFields()
-        this.form = this.$options.data().form
-        this.dialogFormVisible = false
-      },
-      save() {
-        this.$refs['form'].validate(async (valid) => {
+        state.dialogFormVisible = true
+      }
+      const close = () => {
+        state['formRef'].resetFields()
+        state.form = {
+          meta: {
+            icon: '',
+          },
+        }
+        state.dialogFormVisible = false
+      }
+      const save = () => {
+        state['formRef'].validate(async (valid) => {
           if (valid) {
-            const { msg } = await doEdit(this.form)
-            this.$baseMessage(msg, 'success', false, 'vab-hey-message-success')
-            this.$emit('fetch-data')
-            this.close()
+            const { msg } = await doEdit(state.form)
+            proxy.$baseMessage(msg, 'success', false, 'vab-hey-message-success')
+            emit('fetch-data')
+            close()
           }
         })
-      },
+      }
+
+      return {
+        ...toRefs(state),
+        handleIcon,
+        showEdit,
+        close,
+        save,
+      }
     },
   }
 </script>

@@ -11,41 +11,44 @@
 </template>
 
 <script>
+  import { getCurrentInstance, nextTick, reactive, toRefs } from 'vue'
   import { mapActions } from 'vuex'
 
   export default {
     name: 'Test2',
-    data() {
-      return {
+    setup() {
+      const { proxy } = getCurrentInstance()
+      const state = reactive({
         route: {},
-      }
-    },
-    created() {
-      this.handleQuery()
-    },
-    methods: {
-      ...mapActions({
-        changeTabsMeta: 'tabs/changeTabsMeta',
-      }),
-      handleQuery() {
-        const route = this.$route
-        this.$nextTick(() => {
-          this.changeTabsMeta({
+      })
+
+      function handleQuery() {
+        const route = proxy.$route
+        nextTick(() => {
+          proxy.changeTabsMeta({
             title: 'Query',
             meta: {
-              title: `Query Id=${this.$route.query.id}`,
+              title: `Query Id=${proxy.$route.query.id}`,
             },
           })
-          this.route = {
+          state.route = {
             path: route.path,
-            fullPath: route.fullPath,
             params: route.params,
             query: route.query,
             name: route.name,
             meta: route.meta,
           }
         })
-      },
+      }
+
+      handleQuery()
+
+      return {
+        ...toRefs(state),
+        ...mapActions({
+          changeTabsMeta: 'tabs/changeTabsMeta',
+        }),
+      }
     },
   }
 </script>

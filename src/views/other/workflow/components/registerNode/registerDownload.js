@@ -22,6 +22,7 @@ export default function registerDownload(lf) {
           })
         )
       }
+
       getShape() {
         const attributes = this.getAttributes()
         const {
@@ -57,6 +58,7 @@ export default function registerDownload(lf) {
         )
       }
     }
+
     class Model extends PolygonNodeModel {
       constructor(data, graphModel) {
         data.text = {
@@ -75,6 +77,7 @@ export default function registerDownload(lf) {
         this.stroke = NODE_COLOR
       }
     }
+
     return {
       view: Node,
       model: Model,

@@ -80,7 +80,7 @@
           <vab-chart
             class="order-chart"
             :init-options="initOptions"
-            :options="options"
+            :option="option"
             theme="vab-echarts-theme"
           />
         </el-col>
@@ -96,8 +96,9 @@
 
   export default {
     components: { VabCount, VabChart },
-    data() {
+    setup() {
       const colorList = ['#9E87FF', '#73DDFF', '#fe9a8b', '#F56948', '#9E87FF']
+
       return {
         countConfig: {
           startVal: 0,
@@ -111,7 +112,7 @@
         initOptions: {
           renderer: 'svg',
         },
-        options: {
+        option: {
           tooltip: {
             trigger: 'axis',
             extraCssText: 'z-index:1',

@@ -7,8 +7,8 @@
       </template>
       <vab-chart
         class="target-echart1"
-        :init-options="initOptions"
-        :options="options"
+        :init-option="initOptions"
+        :option="option"
         theme="vab-echarts-theme"
       />
     </el-card>
@@ -22,7 +22,7 @@
       <vab-chart
         class="target-echart2"
         :init-options="initOptions"
-        :options="options2"
+        :option="option2"
         theme="vab-echarts-theme"
       />
     </el-card>
@@ -36,13 +36,14 @@
     components: {
       VabChart,
     },
-    data() {
+    setup() {
       const colorList = ['#9E87FF', '#73DDFF', '#fe9a8b', '#F56948', '#9E87FF']
+
       return {
         initOptions: {
           renderer: 'svg',
         },
-        options: {
+        option: {
           tooltip: {
             trigger: 'axis',
             extraCssText: 'z-index:1',
@@ -116,7 +117,7 @@
             },
           ],
         },
-        options2: {
+        option2: {
           tooltip: {
             trigger: 'axis',
             extraCssText: 'z-index:1',

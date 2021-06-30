@@ -53,51 +53,56 @@
 </template>
 
 <script>
+  import { reactive, toRefs } from 'vue'
   import { getIconList } from '@/api/remixIcon'
   import clip from '@/utils/clipboard'
 
   export default {
     name: 'RemixIcon',
-    data() {
-      return {
-        layout: 'total, sizes, prev, pager, next, jumper',
-        total: 0,
+    setup() {
+      const state = reactive({
         queryIcon: [],
-        queryForm: {
-          pageNo: 1,
-          pageSize: 72,
-          title: '',
-        },
+        total: 0,
+        queryForm: { pageNo: 1, pageSize: 72, title: '' },
+        layout: 'total, sizes, prev, pager, next, jumper',
+      })
+
+      const fetchData = async () => {
+        const {
+          data: { list, total },
+        } = await getIconList(state.queryForm)
+        state.queryIcon = list
+        state.total = total
       }
-    },
-    created() {
-      this.fetchData()
-    },
-    methods: {
-      handleSizeChange(val) {
-        this.queryForm.pageSize = val
-        this.fetchData()
-      },
-      handleCurrentChange(val) {
-        this.queryForm.pageNo = val
-        this.fetchData()
-      },
-      queryData() {
-        this.queryForm.pageNo = 1
-        this.fetchData()
-      },
-      async fetchData() {
-        const { data } = await getIconList(this.queryForm)
-        const { list, total } = data
-        this.queryIcon = list
-        this.total = total
-      },
-      handleCopyText(item, event) {
+      const handleSizeChange = (val) => {
+        state.queryForm.pageSize = val
+        fetchData()
+      }
+      const handleCurrentChange = (val) => {
+        state.queryForm.pageNo = val
+        fetchData()
+      }
+      const queryData = () => {
+        state.queryForm.pageNo = 1
+        fetchData()
+      }
+      const handleCopyText = (item, event) => {
         clip(item, event)
-      },
-      handleCopyIcon(item, event) {
+      }
+      const handleCopyIcon = (item, event) => {
         clip(`<vab-icon icon="${item}" />`, event)
-      },
+      }
+
+      fetchData()
+
+      return {
+        ...toRefs(state),
+        handleSizeChange,
+        handleCurrentChange,
+        queryData,
+        handleCopyText,
+        handleCopyIcon,
+      }
     },
   }
 </script>
@@ -129,7 +134,7 @@
           position: absolute;
           bottom: -30px;
           width: 100%;
-          padding: 4px 0px;
+          padding: 4px 0;
           font-size: $base-font-size-small;
           color: rgb(255, 255, 255);
           text-align: center;

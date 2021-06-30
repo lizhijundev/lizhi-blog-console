@@ -1,6 +1,6 @@
 <template>
   <div class="rich-text-editor-container">
-    <el-form ref="form" label-width="100px" :model="form" :rules="rules">
+    <el-form ref="formRef" label-width="100px" :model="form" :rules="rules">
       <el-form-item label="标题" prop="title">
         <el-input v-model="form.title" maxlength="20" />
       </el-form-item>
@@ -12,7 +12,6 @@
       </el-form-item>
       <el-form-item class="vab-quill-content" label="内容" prop="content">
         <vab-quill
-          ref="vab-quill"
           v-model="form.content"
           :min-height="400"
           :options="options"
@@ -33,7 +32,7 @@
       <div class="news-content" v-html="form.content" />
     </el-dialog>
     <vab-upload
-      ref="vabUpload"
+      ref="vabUploadRef"
       :limit="50"
       name="file"
       :size="2"
@@ -43,14 +42,19 @@
 </template>
 
 <script>
+  import { getCurrentInstance, reactive, toRefs } from 'vue'
   import VabQuill from '@/extra/VabQuill'
   import VabUpload from '@/extra/VabUpload'
 
   export default {
     name: 'RichTextEditor',
     components: { VabQuill, VabUpload },
-    data() {
-      return {
+    setup() {
+      const { proxy } = getCurrentInstance()
+
+      const state = reactive({
+        formRef: null,
+        vabUploadRef: null,
         borderColor: '#dcdfe6',
         dialogTableVisible: false,
         form: {
@@ -104,14 +108,14 @@
               ],
               handlers: {
                 'vab-upload-image': () => {
-                  this.$baseConfirm(
+                  proxy.$baseConfirm(
                     '演示环境未使用真实文件服务器，故图片上传回显不会生效，开发时请修改为正式文件服务器地址',
                     '开发注意事项！！！',
                     () => {
-                      this.$refs['vabUpload'].handleShow()
+                      state['vabUploadRef'].handleShow()
                     },
                     () => {
-                      this.handleAddImg()
+                      handleAddImg()
                     },
                     '模拟打开文件上传',
                     '模拟添加一张文件服务器图片'
@@ -123,32 +127,26 @@
           placeholder: '内容...',
           readOnly: false,
         },
-      }
-    },
-    mounted() {
-      // this.$nextTick(() => {
-      //   console.log(this.$refs['vab-quill'].Quill)
-      // })
-    },
-    methods: {
-      handlePreview() {
-        this.$refs['form'].validate((valid) => {
-          this.$refs.form.validateField('content', () => {})
+      })
+
+      const handlePreview = () => {
+        state['formRef'].validate((valid) => {
+          state['formRef'].validateField('content', () => {})
           if (valid) {
-            this.dialogTableVisible = true
+            state.dialogTableVisible = true
           }
         })
-      },
-      handleSave() {
-        this.$refs['form'].validate((valid) => {
-          this.$refs.form.validateField('content', (errorMsg) => {
-            this.borderColor = '#dcdfe6'
+      }
+      const handleSave = () => {
+        state['formRef'].validate((valid) => {
+          state['formRef'].validateField('content', (errorMsg) => {
+            state.borderColor = '#dcdfe6'
             if (errorMsg) {
-              this.borderColor = '#F56C6C'
+              state.borderColor = '#F56C6C'
             }
           })
           if (valid) {
-            this.$baseMessage(
+            proxy.$baseMessage(
               'submit!',
               'success',
               false,
@@ -156,11 +154,18 @@
             )
           }
         })
-      },
-      handleAddImg() {
-        this.form.content +=
+      }
+      const handleAddImg = () => {
+        state.form.content +=
           '<img src="https://gitee.com/chu1204505056/image/raw/master/ewm.png" />'
-      },
+      }
+
+      return {
+        ...toRefs(state),
+        handlePreview,
+        handleSave,
+        handleAddImg,
+      }
     },
   }
 </script>
@@ -194,6 +199,7 @@
         }
       }
     }
+
     @font-face {
       font-family: 'remixicon';
       src: url('~remixicon/fonts/remixicon.eot?t=1590207869815'); /* IE9*/
@@ -209,9 +215,10 @@
     :deep() {
       .vab-quill {
         .ql-vab-upload-image {
-          font-family: 'remixicon' !important;
+          font-family: 'remixicon', sans-serif !important;
           font-size: 16px;
           font-weight: 580;
+
           &:before {
             content: '\ee46';
           }

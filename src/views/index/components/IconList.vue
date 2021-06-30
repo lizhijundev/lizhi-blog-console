@@ -76,7 +76,7 @@
         {
           icon: 'video-line',
           title: '视频播放器',
-          link: '/vab/player',
+          link: '/other/player',
           color: '#ffc069',
         },
         {
@@ -111,7 +111,7 @@
         proxy.$pub('theme')
       }
       const handleMore = () => {
-        this.$baseAlert('敬请期待！')
+        proxy.$baseAlert('敬请期待！')
       }
       const randomTheme = () => {
         proxy.$pub('random-theme')

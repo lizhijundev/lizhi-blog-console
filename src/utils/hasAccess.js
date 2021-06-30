@@ -23,21 +23,12 @@ export function can(roleOrAbility, value) {
   let hasRole = false
   const { role, mode } = value
   if (role && mode) {
-    if (mode === 'allOf') {
-      hasRole = role.every((item) => {
-        return roleOrAbility.includes(item)
-      })
-    }
-    if (mode === 'oneOf') {
-      hasRole = role.some((item) => {
-        return roleOrAbility.includes(item)
-      })
-    }
-    if (mode === 'except') {
-      hasRole = !role.some((item) => {
-        return roleOrAbility.includes(item)
-      })
-    }
+    if (mode === 'allOf')
+      hasRole = role.every((item) => roleOrAbility.includes(item))
+    if (mode === 'oneOf')
+      hasRole = role.some((item) => roleOrAbility.includes(item))
+    if (mode === 'except')
+      hasRole = !role.some((item) => roleOrAbility.includes(item))
   }
   return hasRole
 }

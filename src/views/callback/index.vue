@@ -3,22 +3,22 @@
 </template>
 
 <script>
+  import { getCurrentInstance, onBeforeUnmount } from 'vue'
   import { callback } from '@/utils/social'
 
   export default {
     name: 'Callback',
-    data() {
-      return {
-        loading: null,
-      }
-    },
-    created() {
-      this.loading = this.$baseLoading()
+    setup() {
+      const { proxy } = getCurrentInstance()
+
+      const loading = proxy.$baseLoading()
       callback()
+      window.open(' ', '_self')
       window.close()
-    },
-    beforeUnmount() {
-      this.loading.close()
+
+      onBeforeUnmount(() => {
+        loading.close()
+      })
     },
   }
 </script>

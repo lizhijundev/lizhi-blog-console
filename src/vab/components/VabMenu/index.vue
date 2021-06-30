@@ -2,7 +2,7 @@
   <component
     :is="menuComponent"
     v-if="item.meta && !item.meta.hidden"
-    :item-or-menu="itemOrMenu"
+    :item-or-menu="item"
   >
     <template v-if="item.children && item.children.length">
       <el-scrollbar
@@ -14,14 +14,14 @@
       >
         <vab-menu
           v-for="route in item.children"
-          :key="route.fullPath"
+          :key="route.path"
           :item="route"
         />
       </el-scrollbar>
       <template v-else>
         <vab-menu
           v-for="route in item.children"
-          :key="route.fullPath"
+          :key="route.path"
           :item="route"
         />
       </template>
@@ -47,33 +47,20 @@
     },
     setup(props) {
       const store = useStore()
+
       const collapse = computed(() => store.getters['settings/collapse'])
 
-      const handleChildren = (children = []) => {
-        if (!children) return []
-        return children.filter((item) => {
-          return item.hidden !== true
+      const menuComponent = computed(() =>
+        props.item.children &&
+        props.item.children.some((_route) => {
+          return _route.meta && _route.meta.hidden !== true
         })
-      }
-
-      const showChildren = handleChildren(props.item.children)
-      const itemOrMenu = computed(() => {
-        return showChildren.length === 1 && props.item.alwaysShow !== true
-          ? props.item.children[0]
-          : props.item
-      })
-      const menuComponent = computed(() => {
-        return this.item.children &&
-          this.item.children.some((route) => {
-            return route.meta && route.meta.hidden !== true
-          })
           ? 'VabSubmenu'
           : 'VabMenuItem'
-      })
+      )
 
       return {
         collapse,
-        itemOrMenu,
         menuComponent,
       }
     },

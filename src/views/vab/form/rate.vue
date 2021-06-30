@@ -28,13 +28,19 @@
 </template>
 
 <script>
+  import { reactive, toRefs } from 'vue'
+
   export default {
     name: 'Rate',
-    data() {
-      return {
+    setup() {
+      const state = reactive({
         value1: null,
         value2: null,
         value3: 3.7,
+      })
+
+      return {
+        ...toRefs(state),
       }
     },
   }

@@ -1,7 +1,7 @@
 <template>
   <div class="upload-container">
     <vab-upload
-      ref="vabUpload"
+      ref="vabUploadRef"
       :limit="50"
       name="file"
       :size="2"
@@ -13,19 +13,24 @@
 
 <script>
   import VabUpload from '@/extra/VabUpload'
+  import { ref } from 'vue'
 
   export default {
     name: 'Upload',
     components: {
       VabUpload,
     },
-    data() {
-      return {}
-    },
-    methods: {
-      handleShow() {
-        this.$refs['vabUpload'].handleShow()
-      },
+    setup() {
+      const vabUploadRef = ref()
+
+      function handleShow() {
+        vabUploadRef.value.handleShow()
+      }
+
+      return {
+        vabUploadRef,
+        handleShow,
+      }
     },
   }
 </script>

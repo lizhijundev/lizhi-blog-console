@@ -81,8 +81,8 @@ export function setup(app) {
   app.config.globalProperties.$baseMessage = (
     message,
     type,
-    dangerouslyUseHTMLString,
-    customClass
+    dangerouslyUseHTMLString = false,
+    customClass = false
   ) => {
     ElMessage({
       showClose: true,
@@ -124,9 +124,9 @@ export function setup(app) {
    */
   app.config.globalProperties.$baseConfirm = (
     content,
-    title,
-    callback1,
-    callback2,
+    title = undefined,
+    callback1 = undefined,
+    callback2 = undefined,
     confirmButtonText = '确定',
     cancelButtonText = '取消'
   ) => {

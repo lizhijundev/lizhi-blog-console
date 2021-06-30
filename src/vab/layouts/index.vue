@@ -22,9 +22,11 @@
     name: 'Layouts',
     setup() {
       const store = useStore()
+
       const device = computed(() => store.getters['settings/device'])
       const collapse = computed(() => store.getters['settings/collapse'])
       const theme = computed(() => store.getters['settings/theme'])
+
       const toggleDevice = (device) =>
         store.dispatch('settings/toggleDevice', device)
       const foldSideBar = () => store.dispatch('settings/foldSideBar')

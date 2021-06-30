@@ -5,7 +5,7 @@
     width="500px"
     @close="close"
   >
-    <el-form ref="form" label-width="80px" :model="form" :rules="rules">
+    <el-form ref="formRef" label-width="80px" :model="form" :rules="rules">
       <el-form-item label="父节点" prop="parentName">
         <el-select
           v-model="form.parentId"
@@ -18,7 +18,7 @@
             :value="form.parentId"
           >
             <el-tree
-              ref="tree"
+              ref="treeRef"
               :data="treeData"
               default-expand-all
               :props="defaultProps"
@@ -42,13 +42,17 @@
 </template>
 
 <script>
+  import { getCurrentInstance, reactive, toRefs } from 'vue'
   import { doEdit, getList } from '@/api/departmentManagement'
 
   export default {
     name: 'DepartmentManagementEdit',
     emits: ['fetch-data'],
-    data() {
-      return {
+    setup(props, { emit }) {
+      const { proxy } = getCurrentInstance()
+
+      const state = reactive({
+        formRef: null,
         treeData: [],
         defaultProps: {
           children: 'children',
@@ -67,45 +71,55 @@
         },
         title: '',
         dialogFormVisible: false,
+      })
+
+      const fetchData = async () => {
+        const {
+          data: { list },
+        } = await getList()
+        state.treeData = list
       }
-    },
-    created() {
-      this.fetchData()
-    },
-    methods: {
-      async fetchData() {
-        const { data } = await getList()
-        const { list } = data
-        this.treeData = list
-      },
-      handleNodeClick(node) {
-        this.form.parentName = node.name
-        this.form.parentId = node.id
-      },
-      showEdit(row) {
+      const handleNodeClick = (node) => {
+        state.form.parentName = node.name
+        state.form.parentId = node.id
+      }
+      const showEdit = (row) => {
         if (!row) {
-          this.title = '添加'
+          state.title = '添加'
         } else {
-          this.title = '编辑'
-          this.form = Object.assign({}, row)
+          state.title = '编辑'
+          state.form = Object.assign({}, row)
         }
-        this.dialogFormVisible = true
-      },
-      close() {
-        this.$refs['form'].resetFields()
-        this.form = this.$options.data().form
-        this.dialogFormVisible = false
-      },
-      save() {
-        this.$refs['form'].validate(async (valid) => {
+        state.dialogFormVisible = true
+      }
+      const close = () => {
+        state['formRef'].resetFields()
+        state.form = {
+          parentName: '',
+          parentId: '',
+        }
+        state.dialogFormVisible = false
+      }
+      const save = () => {
+        state['formRef'].validate(async (valid) => {
           if (valid) {
-            const { msg } = await doEdit(this.form)
-            this.$baseMessage(msg, 'success', false, 'vab-hey-message-success')
-            this.$emit('fetch-data')
-            this.close()
+            const { msg } = await doEdit(state.form)
+            proxy.$baseMessage(msg, 'success', false, 'vab-hey-message-success')
+            emit('fetch-data')
+            close()
           }
         })
-      },
+      }
+
+      fetchData()
+
+      return {
+        ...toRefs(state),
+        handleNodeClick,
+        showEdit,
+        close,
+        save,
+      }
     },
   }
 </script>

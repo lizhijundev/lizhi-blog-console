@@ -6,8 +6,5 @@
 <script>
   export default {
     name: 'ErrorTest',
-    data() {
-      return {}
-    },
   }
 </script>

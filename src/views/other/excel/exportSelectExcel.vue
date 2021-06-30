@@ -72,8 +72,9 @@
     methods: {
       async fetchData() {
         this.listLoading = true
-        const { data } = await getList()
-        const { list } = data
+        const {
+          data: { list },
+        } = await getList()
         this.list = list
         this.listLoading = false
       },

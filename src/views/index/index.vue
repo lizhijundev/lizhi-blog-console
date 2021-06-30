@@ -89,6 +89,7 @@
             width: 100%;
             height: 127px;
           }
+
           .card-footer-tag {
             position: absolute;
             right: $base-margin;

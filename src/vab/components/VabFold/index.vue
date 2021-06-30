@@ -14,6 +14,7 @@
     name: 'VabFold',
     setup() {
       const store = useStore()
+
       return {
         collapse: computed(() => store.getters['settings/collapse']),
         toggleCollapse: () => store.dispatch('settings/toggleCollapse'),

@@ -25,7 +25,16 @@ $--color-primary: $base-color-blue !default;
 $--color-success: $base-color-green !default;
 $--color-warning: $base-color-yellow !default;
 $--color-danger: $base-color-red !default;
-$--color-info: #909399 !default;
+$--color-info: $base-color-grey !default;
+$--color-text-primary: $base-color-text-primary !default;
+$--color-text-regular: $base-color-text-regular !default;
+$--color-text-secondary: $base-color-text-secondary !default;
+$--color-text-placeholder: $base-color-text-placeholder !default;
+$--border-color-base: $base-border-color-base !default;
+$--border-color-light: $base-border-color-light !default;
+$--border-color-lighter: $base-border-color-lighter !default;
+$--border-color-extra-light: $base-border-color-extra-light !default;
+$--background-color-base: $base-color-background !default;
 
 $--font-path: '~element-plus/lib/theme-chalk/fonts';
 @import '../../../../node_modules/element-plus/packages/theme-chalk/src/index';

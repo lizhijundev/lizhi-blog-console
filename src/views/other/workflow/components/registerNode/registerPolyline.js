@@ -5,6 +5,7 @@ export default function registerPolyline(lf) {
         super(data, graphModel)
       }
     }
+
     return {
       view: PolylineEdge,
       model: ConnnectionModel,

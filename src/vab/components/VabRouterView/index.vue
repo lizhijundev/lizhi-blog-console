@@ -1,60 +1,77 @@
 <template>
-  <div>
-    <router-view v-slot="{ Component, route }">
-      <transition mode="out-in" name="fade-transform">
-        <keep-alive :include="cachedRoutes" :max="keepAliveMaxNum">
-          <component :is="Component" :key="handleKey(Component, route)" />
-        </keep-alive>
-      </transition>
-    </router-view>
-  </div>
+  <router-view v-slot="{ Component }">
+    <transition mode="out-in" name="fade-transform">
+      <keep-alive :include="keepAliveNameList" :max="keepAliveMaxNum">
+        <component :is="Component" :key="routerKey" />
+      </keep-alive>
+    </transition>
+  </router-view>
 </template>
 
 <script>
-  import { computed, getCurrentInstance } from 'vue'
+  import {
+    computed,
+    getCurrentInstance,
+    nextTick,
+    onBeforeMount,
+    onUnmounted,
+    ref,
+    watchEffect,
+  } from 'vue'
   import { useStore } from 'vuex'
+  import { useRoute } from 'vue-router'
   import { keepAliveMaxNum } from '@/config'
 
   export default {
     name: 'VabRouterView',
     setup() {
       const store = useStore()
+      const route = useRoute()
+
+      const visitedRoutes = computed(() => store.getters['tabs/visitedRoutes'])
+
       const { proxy } = getCurrentInstance()
 
-      const findParent = (node) => {
-        if (node.type.name === 'VabAppMain') return ['VabAppMain']
-        return [
-          'VabRouterView',
-          'Transition',
-          'BaseTransition',
-          'KeepAlive',
-          'RouterView',
-        ].includes(node.type.name) || node.type.name.startsWith('El')
-          ? findParent(node.parent)
-          : [...findParent(node.parent), node.type.name]
+      const routerKey = ref(null)
+      const keepAliveNameList = ref([])
+
+      const updateKeepAliveNameList = (refreshRouteName = null) => {
+        keepAliveNameList.value = [
+          ...new Set(
+            visitedRoutes.value
+              .filter(
+                (item) =>
+                  !item.meta.noKeepAlive && item.name !== refreshRouteName
+              )
+              .flatMap((item) => item.matched)
+          ),
+        ]
       }
 
-      const dept = findParent(proxy._).length
+      // 更新KeepAlive缓存页面
+      watchEffect(() => {
+        routerKey.value = route.fullPath
+        updateKeepAliveNameList()
+      })
 
-      let keyValue = null
-      const handleKey = (_c, _route) => {
-        const _matchedNames = _route.matched.map((item) => item.name)
-        // 该路由作为中间路由[1级-最后1级前一级]使用的Key
-        const _parentNamesKey = _matchedNames.slice(0, dept + 1).join(',')
-        // 当前路由为一级路由 或 多级路由父组件相同的情况下, 更新key, 其他情况保持不变
-        keyValue =
-          dept === _matchedNames.length - 1
-            ? _c.type.name +
-              JSON.stringify(_route.query) +
-              JSON.stringify(_route.params)
-            : _parentNamesKey
-        return keyValue
-      }
+      onBeforeMount(() => {
+        proxy.$sub('reload-router-view', () => {
+          routerKey.value = null
+          updateKeepAliveNameList(route.name)
+          nextTick(() => {
+            routerKey.value = route.fullPath
+            updateKeepAliveNameList()
+          })
+        })
+      })
+      onUnmounted(() => {
+        proxy.$unsub('reload-router-view')
+      })
 
       return {
-        handleKey,
+        routerKey,
         keepAliveMaxNum,
-        cachedRoutes: computed(() => store.getters['routes/cachedRoutes']),
+        keepAliveNameList,
       }
     },
   }

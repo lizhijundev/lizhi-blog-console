@@ -24,7 +24,7 @@
   export default {
     name: 'Cssfx',
     components: { ...components },
-    data() {
+    setup() {
       return {
         effects,
       }

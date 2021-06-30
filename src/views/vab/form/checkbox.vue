@@ -44,12 +44,14 @@
 </template>
 
 <script>
-  const cityOptions = ['上海', '北京', '广州', '深圳']
+  import { reactive, toRefs } from 'vue'
 
   export default {
     name: 'Checkbox',
-    data() {
-      return {
+    setup() {
+      const cityOptions = ['上海', '北京', '广州', '深圳']
+
+      const state = reactive({
         checked: true,
         checked1: false,
         checked2: true,
@@ -59,6 +61,10 @@
         checkboxGroup1: ['上海'],
         checked3: true,
         checked4: false,
+      })
+
+      return {
+        ...toRefs(state),
       }
     },
   }

@@ -14,12 +14,12 @@
               :default-active="activeMenu"
               menu-trigger="hover"
               mode="horizontal"
+              popper-append-to-body
               :text-color="variables['menu-color']"
             >
-              <template v-for="route in handleRoutes">
+              <template v-for="route in handleRoutes" :key="route.path">
                 <vab-menu
                   v-if="route.meta && !route.meta.hidden"
-                  :key="route.fullPath"
                   :item="route"
                   :layout="layout"
                 />
@@ -58,21 +58,21 @@
     setup() {
       const store = useStore()
       const route = useRoute()
+
       const routes = computed(() => store.getters['routes/routes'])
+      const activeMenu = computed(() => handleActivePath(route))
 
       const menuTrigger = ref('hover')
 
-      const activeMenu = computed(() => {
-        return handleActivePath(route)
-      })
-
-      const handleRoutes = computed(() => {
-        return routes.value.flatMap((route) => {
-          return route.meta && route.meta.levelHidden === true && route.children
-            ? route.children
-            : route
+      const handleRoutes = computed(() =>
+        routes.value.flatMap((_route) => {
+          return _route.meta &&
+            _route.meta.levelHidden === true &&
+            _route.children
+            ? _route.children
+            : _route
         })
-      })
+      )
 
       return {
         variables,

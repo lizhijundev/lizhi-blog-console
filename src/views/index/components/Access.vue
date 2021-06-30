@@ -7,13 +7,12 @@
     </template>
     <vab-chart
       :init-options="initOptions"
-      :options="options"
+      :option="option"
       theme="vab-echarts-theme"
     />
     <div class="bottom">
       <span>
         日均访问量:
-
         <vab-count
           :decimals="countConfig.decimals"
           :duration="countConfig.duration"
@@ -29,6 +28,7 @@
 </template>
 
 <script>
+  import { onBeforeMount, onBeforeUnmount, reactive, toRefs } from 'vue'
   import VabChart from '@/extra/VabChart'
   import VabCount from '@/extra/VabCount'
   import _ from 'lodash'
@@ -38,8 +38,8 @@
       VabChart,
       VabCount,
     },
-    data() {
-      return {
+    setup() {
+      const state = reactive({
         timer: null,
         countConfig: {
           startVal: 0,
@@ -53,7 +53,7 @@
         initOptions: {
           renderer: 'svg',
         },
-        options: {
+        option: {
           tooltip: {
             trigger: 'axis',
             extraCssText: 'z-index:1',
@@ -103,44 +103,49 @@
             },
           ],
         },
-      }
-    },
-    beforeUnmount() {
-      this.timer = null
-      clearInterval(this.timer)
-    },
-    mounted() {
-      const base = +new Date(2020, 1, 1)
-      const oneDay = 24 * 3600 * 1000
-      const date = []
+      })
 
-      const data = [Math.random() * 1500]
-      let now = new Date(base)
+      onBeforeMount(() => {
+        const base = +new Date(2020, 1, 1)
+        const oneDay = 24 * 3600 * 1000
+        const date = []
 
-      const addData = (shift) => {
-        now = [now.getFullYear(), now.getMonth() + 1, now.getDate()].join('/')
-        date.push(now)
-        data.push(_.random(20000, 60000))
+        const data = [Math.random() * 1500]
+        let now = new Date(base)
 
-        if (shift) {
-          date.shift()
-          data.shift()
+        const addData = (shift) => {
+          now = [now.getFullYear(), now.getMonth() + 1, now.getDate()].join('/')
+          date.push(now)
+          data.push(_.random(20000, 60000))
+
+          if (shift) {
+            date.shift()
+            data.shift()
+          }
+          now = new Date(+new Date(now) + oneDay)
         }
 
-        now = new Date(+new Date(now) + oneDay)
-      }
-
-      for (let i = 1; i < 6; i++) {
-        addData()
-      }
-      addData(true)
-      this.options.xAxis[0].data = date
-      this.options.series[0].data = data
-      this.timer = setInterval(() => {
+        for (let i = 1; i < 6; i++) {
+          addData()
+        }
         addData(true)
-        this.options.xAxis[0].data = date
-        this.options.series[0].data = data
-      }, 6000)
+        state.option.xAxis[0].data = date
+        state.option.series[0].data = data
+        state.timer = setInterval(() => {
+          addData(true)
+          state.option.xAxis[0].data = date
+          state.option.series[0].data = data
+        }, 6000)
+      })
+
+      onBeforeUnmount(() => {
+        state.timer = null
+        clearInterval(state.timer)
+      })
+
+      return {
+        ...toRefs(state),
+      }
     },
   }
 </script>

@@ -19,6 +19,7 @@ export default function registerPush(lf, clickPlus, mouseDownPlus) {
           })
         )
       }
+
       getPlusShape() {
         const attributes = this.getAttributes()
         // 判断当前节点是否子节点
@@ -55,6 +56,7 @@ export default function registerPush(lf, clickPlus, mouseDownPlus) {
           })
         )
       }
+
       getShape() {
         const attributes = this.getAttributes()
         const {
@@ -91,6 +93,7 @@ export default function registerPush(lf, clickPlus, mouseDownPlus) {
         )
       }
     }
+
     class Model extends PolygonNodeModel {
       constructor(data, graphModel) {
         data.text = {
@@ -108,6 +111,7 @@ export default function registerPush(lf, clickPlus, mouseDownPlus) {
         ]
       }
     }
+
     return {
       view: Node,
       model: Model,

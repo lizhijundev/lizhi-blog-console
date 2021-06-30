@@ -63,7 +63,7 @@ const handleData = ({ config, data, status, statusText }) => {
         )
       break
     case 402:
-      store.dispatch('user/setToken', data.data.token)
+      store.dispatch('user/setToken', data.data.token).then(() => {})
       return data
     case 403:
       router.push({ path: '/403' }).then(() => {})

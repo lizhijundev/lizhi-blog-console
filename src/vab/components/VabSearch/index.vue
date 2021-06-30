@@ -35,6 +35,7 @@
     },
     setup() {
       const store = useStore()
+
       const theme = computed(() => store.getters['settings/theme'])
 
       let timeout = null
@@ -47,8 +48,9 @@
       })
 
       const loadAll = async () => {
-        const { data } = await getList()
-        const { list } = data
+        const {
+          data: { list },
+        } = await getList()
         state.restaurants = list
       }
 
@@ -72,10 +74,8 @@
         }, 500)
       }
 
-      const createFilter = (queryString) => {
-        return (state) => state.value.includes(queryString.toLowerCase())
-      }
-
+      const createFilter = (queryString) => (state) =>
+        state.value.includes(queryString.toLowerCase())
       const handleSelect = (item) => {
         if (item.url) {
           window.open(item.url)

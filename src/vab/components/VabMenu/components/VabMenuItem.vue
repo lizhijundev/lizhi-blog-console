@@ -1,5 +1,5 @@
 <template>
-  <el-menu-item :index="itemOrMenu.fullPath" @click="handleLink">
+  <el-menu-item :index="itemOrMenu.path" @click="handleLink">
     <vab-icon
       v-if="itemOrMenu.meta && itemOrMenu.meta.icon"
       :icon="itemOrMenu.meta.icon"
@@ -47,7 +47,9 @@
       const store = useStore()
       const route = useRoute()
       const router = useRouter()
+
       const device = computed(() => store.getters['settings/device'])
+
       const foldSideBar = () => store.dispatch('settings/foldSideBar')
 
       const handleLink = () => {
@@ -55,15 +57,15 @@
         const target = props.itemOrMenu.meta.target
         if (target === '_blank') {
           if (isExternal(routePath)) window.open(routePath)
-          else if (route.fullPath !== routePath)
+          else if (route.path !== routePath)
             isHashRouterMode
               ? window.open('/#' + routePath)
               : window.open(routePath)
         } else {
           if (isExternal(routePath)) window.location.href = routePath
-          else if (route.fullPath !== routePath) {
+          else if (route.path !== routePath) {
             if (device.value === 'mobile') foldSideBar()
-            router.push(props.itemOrMenu.fullPath)
+            router.push(props.itemOrMenu.path)
           }
         }
       }

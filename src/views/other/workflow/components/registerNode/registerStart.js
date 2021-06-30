@@ -17,6 +17,7 @@ export default function registerStart(lf) {
           'Start'
         )
       }
+
       getShape() {
         const attributes = this.getAttributes()
         const { x, y, r, fill, stroke, strokeWidth } = attributes
@@ -33,6 +34,7 @@ export default function registerStart(lf) {
         ])
       }
     }
+
     class StartModel extends CircleNodeModel {
       constructor(data, graphModel) {
         data.text = {
@@ -44,6 +46,7 @@ export default function registerStart(lf) {
         }
         super(data, graphModel)
       }
+
       getConnectedTargetRules() {
         const rules = super.getConnectedTargetRules()
         const notAsTarget = {
@@ -54,6 +57,7 @@ export default function registerStart(lf) {
         return rules
       }
     }
+
     return {
       view: StartNode,
       model: StartModel,

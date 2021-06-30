@@ -41,7 +41,7 @@
               </div>
               <template #reference>
                 <a
-                  href="https://chu1204505056.gitee.io/authorization"
+                  href="http://vue-admin-beautiful.com/authorization"
                   target="_blank"
                 >
                   <el-button type="primary">购买源码 ￥799</el-button>
@@ -80,7 +80,7 @@
   import { dependencies, devDependencies } from '~/package.json'
 
   export default {
-    data() {
+    setup() {
       return {
         updateTime: process.env.VUE_APP_UPDATE_TIME,
         dependencies,

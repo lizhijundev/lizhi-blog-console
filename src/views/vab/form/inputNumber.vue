@@ -39,15 +39,21 @@
 </template>
 
 <script>
+  import { reactive, toRefs } from 'vue'
+
   export default {
     name: 'InputNumber',
-    data() {
-      return {
+    setup() {
+      const state = reactive({
         num: 1,
         num2: 1,
         num3: 5,
         num4: 1,
         num5: 1,
+      })
+
+      return {
+        ...toRefs(state),
       }
     },
   }
