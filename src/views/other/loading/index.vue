@@ -2,7 +2,7 @@
   <div class="loading-container">
     <el-row :gutter="20">
       <el-col :lg="14" :md="14" :sm="24" :xl="14" :xs="24">
-        <el-card shadow="hover">
+        <vab-card shadow="hover">
           <template #header>
             <span>默认 Loading</span>
           </template>
@@ -18,10 +18,10 @@
           <el-button type="primary" @click="handleLoading(7)">效果7</el-button>
           <el-button type="primary" @click="handleLoading(8)">效果8</el-button>
           <el-button type="primary" @click="handleLoading(9)">效果9</el-button>
-        </el-card>
+        </vab-card>
       </el-col>
       <el-col :lg="10" :md="10" :sm="24" :xl="10" :xs="24">
-        <el-card shadow="hover">
+        <vab-card shadow="hover">
           <template #header>
             <span>多彩 Loading</span>
           </template>
@@ -37,27 +37,26 @@
           <el-button type="primary" @click="handleColorfullLoading(4)">
             效果4
           </el-button>
-        </el-card>
+        </vab-card>
       </el-col>
     </el-row>
   </div>
 </template>
 
 <script>
-  import { getCurrentInstance } from 'vue'
+  import { defineComponent, getCurrentInstance } from 'vue'
 
-  export default {
+  export default defineComponent({
     name: 'Loading',
     setup() {
       const { proxy } = getCurrentInstance()
-
-      function handleLoading(index) {
+      const handleLoading = (index) => {
         const Loading = proxy.$baseLoading(index)
         setTimeout(() => {
           Loading.close()
         }, 3000)
       }
-      function handleColorfullLoading(index) {
+      const handleColorfullLoading = (index) => {
         const Loading = proxy.$baseColorfullLoading(index)
         setTimeout(() => {
           Loading.close()
@@ -68,7 +67,7 @@
         handleColorfullLoading,
       }
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>

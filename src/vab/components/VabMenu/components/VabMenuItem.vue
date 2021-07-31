@@ -26,14 +26,14 @@
 </template>
 
 <script>
-  import { computed } from 'vue'
-  import { useStore } from 'vuex'
+  import { computed, defineComponent, getCurrentInstance } from 'vue'
+  import { mapActions, useStore } from 'vuex'
   import { useRoute, useRouter } from 'vue-router'
   import { isExternal } from '@/utils/validate'
   import { translateTitle } from '@/utils/i18n'
   import { isHashRouterMode } from '@/config'
 
-  export default {
+  export default defineComponent({
     name: 'VabMenuItem',
     props: {
       itemOrMenu: {
@@ -50,7 +50,7 @@
 
       const device = computed(() => store.getters['settings/device'])
 
-      const foldSideBar = () => store.dispatch('settings/foldSideBar')
+      const { proxy } = getCurrentInstance()
 
       const handleLink = () => {
         const routePath = props.itemOrMenu.path
@@ -64,18 +64,21 @@
         } else {
           if (isExternal(routePath)) window.location.href = routePath
           else if (route.path !== routePath) {
-            if (device.value === 'mobile') foldSideBar()
+            if (device.value === 'mobile') proxy.foldSideBar()
             router.push(props.itemOrMenu.path)
-          }
+          } else proxy.$pub('reload-router-view')
         }
       }
 
       return {
+        ...mapActions({
+          foldSideBar: 'settings/foldSideBar',
+        }),
         handleLink,
         translateTitle,
       }
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>

@@ -80,7 +80,7 @@ const actions = {
       gp.$baseNotify(`欢迎登录${title}`, `${thisTime}！`)
     } else {
       const err = `登录接口异常，未正确返回${tokenName}...`
-      gp.$baseMessage(err, 'error')
+      gp.$baseMessage(err, 'error', 'vab-hey-message-error')
       throw err
     }
   },
@@ -109,7 +109,7 @@ const actions = {
       gp.$baseNotify(`欢迎登录${title}`, `${thisTime}！`)
     } else {
       const err = `login核心接口异常，请检查返回JSON格式是否正确，是否正确返回${tokenName}...`
-      gp.$baseMessage(err, 'error')
+      gp.$baseMessage(err, 'error', 'vab-hey-message-error')
       throw err
     }
   },
@@ -136,7 +136,7 @@ const actions = {
       (ability && !isArray(ability))
     ) {
       const err = 'getUserInfo核心接口异常，请检查返回JSON格式是否正确'
-      gp.$baseMessage(err, 'error')
+      gp.$baseMessage(err, 'error', 'vab-hey-message-error')
       throw err
     } else {
       // 如不使用username用户名,可删除以下代码

@@ -36,38 +36,38 @@
 </template>
 
 <script>
+  import { defineComponent, reactive, toRefs } from 'vue'
   import VabCount from '@/extra/VabCount'
-  import { ref } from 'vue'
 
-  export default {
+  export default defineComponent({
     name: 'Count',
     components: { VabCount },
     setup() {
-      const show = ref(true)
-      const form = ref({
-        startVal: 0,
-        endVal: 999,
-        decimals: 0,
-        prefix: '',
-        suffix: '',
-        separator: ',',
-        duration: 8000,
+      const state = reactive({
+        show: true,
+        form: {
+          startVal: 0,
+          endVal: 999,
+          decimals: 0,
+          prefix: '',
+          suffix: '',
+          separator: ',',
+          duration: 8000,
+        },
       })
-
-      function handleChange() {
-        show.value = false
+      const handleChange = () => {
+        state.value = false
         setTimeout(() => {
-          show.value = true
+          state.value = true
         }, 300)
       }
 
       return {
-        show,
-        form,
+        ...toRefs(state),
         handleChange,
       }
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>

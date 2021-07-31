@@ -92,10 +92,10 @@
 </template>
 
 <script>
-  import { reactive, toRefs } from 'vue'
+  import { defineComponent, onMounted, reactive, toRefs } from 'vue'
   import { getList } from '@/api/systemLog'
 
-  export default {
+  export default defineComponent({
     name: 'SystemLog',
     setup() {
       const state = reactive({
@@ -112,28 +112,29 @@
       })
 
       const fetchData = async () => {
-        this.listLoading = true
+        state.listLoading = true
         const {
           data: { list, total },
-        } = await getList(this.queryForm)
-        this.list = list
-        this.total = total
-        this.listLoading = false
+        } = await getList(state.queryForm)
+        state.list = list
+        state.total = total
+        state.listLoading = false
       }
       const handleSizeChange = (val) => {
-        this.queryForm.pageSize = val
-        this.fetchData()
+        state.queryForm.pageSize = val
+        fetchData()
       }
       const handleCurrentChange = (val) => {
-        this.queryForm.pageNo = val
-        this.fetchData()
+        state.queryForm.pageNo = val
+        fetchData()
       }
       const queryData = () => {
-        this.queryForm.pageNo = 1
-        this.fetchData()
+        state.queryForm.pageNo = 1
+        fetchData()
       }
-
-      fetchData()
+      onMounted(() => {
+        fetchData()
+      })
 
       return {
         ...toRefs(state),
@@ -143,5 +144,5 @@
         queryData,
       }
     },
-  }
+  })
 </script>

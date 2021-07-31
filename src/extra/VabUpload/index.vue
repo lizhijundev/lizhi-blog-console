@@ -70,10 +70,11 @@
 </template>
 
 <script>
-  import _ from 'lodash'
+  import { defineComponent } from 'vue'
   import { mapGetters } from 'vuex'
+  import _ from 'lodash'
 
-  export default {
+  export default defineComponent({
     name: 'VabUpload',
     props: {
       url: {
@@ -152,7 +153,6 @@
             this.$baseMessage(
               `上传完成! 共上传${fileList.length}张图片`,
               'success',
-              false,
               'vab-hey-message-success'
             )
           }, 1000)
@@ -172,7 +172,6 @@
             0
           )}KB`,
           'error',
-          false,
           'vab-hey-message-error'
         )
         setTimeout(() => {
@@ -194,7 +193,6 @@
              ${files.length}
              个文件`,
           'error',
-          false,
           'vab-hey-message-error'
         )
       },
@@ -214,7 +212,7 @@
         this.dialogFormVisible = false
       },
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>

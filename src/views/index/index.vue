@@ -23,6 +23,7 @@
 </template>
 
 <script>
+  import { defineComponent } from 'vue'
   import PageHeader from './components/PageHeader'
   import Access from './components/Access'
   import Authorization from './components/Authorization'
@@ -31,7 +32,7 @@
   import MyProject from './components/MyProject'
   import VersionInformation from './components/VersionInformation'
 
-  export default {
+  export default defineComponent({
     name: 'Index',
     components: {
       PageHeader,
@@ -42,7 +43,7 @@
       IconList,
       MyProject,
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>

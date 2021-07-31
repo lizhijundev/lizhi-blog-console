@@ -29,9 +29,9 @@
 </template>
 
 <script>
-  import { reactive, toRefs } from 'vue'
+  import { defineComponent, reactive, toRefs } from 'vue'
 
-  export default {
+  export default defineComponent({
     emits: ['change-step'],
     setup(props, { emit }) {
       const state = reactive({
@@ -73,7 +73,7 @@
         handleSubmit,
       }
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>

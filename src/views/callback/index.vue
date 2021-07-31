@@ -3,10 +3,10 @@
 </template>
 
 <script>
-  import { getCurrentInstance, onBeforeUnmount } from 'vue'
+  import { defineComponent, getCurrentInstance, onBeforeUnmount } from 'vue'
   import { callback } from '@/utils/social'
 
-  export default {
+  export default defineComponent({
     name: 'Callback',
     setup() {
       const { proxy } = getCurrentInstance()
@@ -20,5 +20,5 @@
         loading.close()
       })
     },
-  }
+  })
 </script>

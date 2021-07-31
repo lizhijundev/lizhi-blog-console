@@ -18,12 +18,12 @@
         <p>{{ translateTitle('购买源码') }}</p>
       </a>
     </li>
-    <!--  <li @click="getCode">
+    <li @click="getCode">
       <a>
         <vab-icon icon="file-copy-line" />
         <p>{{ translateTitle('拷贝源码') }}</p>
       </a>
-    </li> -->
+    </li>
     <li @click="removeLocalStorage">
       <a>
         <vab-icon icon="delete-bin-4-line" />
@@ -36,12 +36,12 @@
 </template>
 
 <script>
-  import { computed, getCurrentInstance } from 'vue'
+  import { computed, defineComponent, getCurrentInstance } from 'vue'
   import { useStore } from 'vuex'
   import { useRoute } from 'vue-router'
   import { translateTitle } from '@/utils/i18n'
 
-  export default {
+  export default defineComponent({
     name: 'VabThemeSetting',
     setup() {
       const store = useStore()
@@ -61,7 +61,7 @@
       const getCode = () => {
         proxy
           .$prompt(
-            '请输入秘钥(秘钥请在源码中查看，跳转后需登录购买时绑定的github账号)',
+            '请输入密码(密码在购买时获得，跳转后需登录购买时绑定的github账号)',
             '温馨提示',
             {
               confirmButtonText: '确定',
@@ -70,11 +70,10 @@
           )
           .then(({ value }) => {
             if (value !== 'vabp') {
-              // 留给没有购买VueAdminBeautifulPro框架的人的赠言：既然你已经找到这里了，那说明你的能力很出众，也应该很喜欢这个框架吧，但是不绑定github账号依旧看不到源码的，所以加我qq买一个吧
+              // 留给没有购买VueAdminBeautifulPlus框架的人的赠言：既然你已经找到这里了，那说明你的能力很出众，也应该很喜欢这个框架吧，但是不绑定github账号依旧看不到源码的，所以加客服QQ 1204505056买一个吧
               proxy.$baseMessage(
                 '秘钥不正确！',
                 'error',
-                false,
                 'vab-hey-message-error'
               )
             }
@@ -83,6 +82,9 @@
             switch (_path) {
               case '/workbench':
                 path = '/index/workbench.vue'
+                break
+              case '/dashboard':
+                path = '/index/dashboard.vue'
                 break
               case '/vab/icon/remixIcon':
                 path = '/vab/icon/remixIcon.vue'
@@ -160,7 +162,7 @@
         theme: computed(() => store.getters['settings/theme']),
       }
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>

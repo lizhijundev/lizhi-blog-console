@@ -30,10 +30,10 @@
 </template>
 
 <script>
+  import { computed, defineComponent } from 'vue'
   import { useStore } from 'vuex'
-  import { computed } from 'vue'
 
-  export default {
+  export default defineComponent({
     name: 'VabLayoutColumn',
     props: {
       collapse: {
@@ -62,7 +62,7 @@
         theme: computed(() => store.getters['settings/theme']),
       }
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>

@@ -84,7 +84,7 @@ const mutations = {
     )
   },
   /**
-   * @description 修改标题
+   * @description 修改 meta
    * @param {*} state
    * @param options
    */

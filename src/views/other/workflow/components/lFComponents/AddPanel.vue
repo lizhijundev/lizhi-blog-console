@@ -26,7 +26,9 @@
 </template>
 
 <script>
-  export default {
+  import { defineComponent } from 'vue'
+
+  export default defineComponent({
     name: 'AddPanel',
     props: {
       nodeData: {
@@ -124,7 +126,7 @@
         this.$emit('addNodeFinish')
       },
     },
-  }
+  })
 </script>
 <style scoped>
   .add-node-btn {

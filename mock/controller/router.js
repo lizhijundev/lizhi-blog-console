@@ -6,7 +6,6 @@ const List = [
     path: '/',
     name: 'Root',
     component: 'Layout',
-    redirect: '/index',
     meta: {
       title: '首页',
       icon: 'home-2-line',
@@ -20,6 +19,15 @@ const List = [
           title: '首页',
           icon: 'home-2-line',
           noClosable: true,
+        },
+      },
+      {
+        path: 'dashboard',
+        name: 'Dashboard',
+        component: '@/views/index/dashboard',
+        meta: {
+          title: '看板',
+          icon: 'dashboard-line',
         },
       },
       {
@@ -38,7 +46,6 @@ const List = [
     path: '/vab',
     name: 'Vab',
     component: 'Layout',
-    redirect: '/vab/icon/remixIcon',
     meta: {
       title: '组件',
       icon: 'code-box-line',
@@ -47,7 +54,6 @@ const List = [
       {
         path: 'icon',
         name: 'Icon',
-        redirect: '/vab/icon/remixIcon',
         meta: {
           title: '图标',
           icon: 'remixicon-line',
@@ -84,7 +90,6 @@ const List = [
       {
         path: 'table',
         name: 'Table',
-        redirect: '/vab/table/comprehensiveTable',
         meta: {
           title: '表格',
           roles: {
@@ -284,22 +289,41 @@ const List = [
         ],
       },
       {
-        path: 'richTextEditor',
-        name: 'RichTextEditor',
-        component: '@/views/vab/richTextEditor',
+        path: 'editor',
+        name: 'Editor',
         meta: {
-          title: '富文本编辑器',
+          title: '编辑器',
           roles: ['admin'],
           icon: 'edit-2-line',
         },
+        children: [
+          {
+            path: 'richTextEditor',
+            name: 'RichTextEditor',
+            component: '@/views/vab/editor/richTextEditor',
+            meta: {
+              title: '富文本编辑器',
+              roles: ['admin'],
+            },
+          },
+          {
+            path: 'markdownEditor',
+            name: 'MarkdownEditor',
+            component: '@/views/vab/editor/markdownEditor',
+            meta: {
+              title: 'Markdown编辑器',
+              roles: ['admin'],
+            },
+          },
+        ],
       },
     ],
   },
+
   {
     path: '/other',
     name: 'Other',
     component: 'Layout',
-    redirect: '/other/workflow',
     meta: {
       title: '其他',
       icon: 'archive-line',
@@ -378,7 +402,7 @@ const List = [
       },
       {
         path: 'tabs',
-        name: 'tabs',
+        name: 'Tabs',
         component: '@/views/other/tabs',
         meta: {
           title: '多标签',
@@ -442,6 +466,25 @@ const List = [
         ],
       },
       {
+        path: 'drag',
+        name: 'Drag',
+        meta: {
+          title: '拖拽',
+          roles: ['admin'],
+          icon: 'drag-drop-line',
+        },
+        children: [
+          {
+            path: 'cardDrag',
+            name: 'CardDrag',
+            component: '@/views/other/drag/cardDrag',
+            meta: {
+              title: '卡片拖拽',
+            },
+          },
+        ],
+      },
+      {
         path: 'loading',
         name: 'Loading',
         component: '@/views/other/loading',
@@ -475,7 +518,6 @@ const List = [
       {
         path: 'menu1',
         name: 'Menu1',
-        redirect: '/other/menu1/menu1-1/menu1-1-1/menu1-1-1-1',
         meta: {
           title: '多级路由缓存',
           roles: ['admin'],
@@ -485,7 +527,6 @@ const List = [
           {
             path: 'menu1-1',
             name: 'Menu11',
-            redirect: '/other/menu1/menu1-1/menu1-1-1/menu1-1-1-1',
             meta: {
               title: '多级路由1-1',
             },
@@ -493,7 +534,6 @@ const List = [
               {
                 path: 'menu1-1-1',
                 name: 'Menu111',
-                redirect: '/other/menu1/menu1-1/menu1-1-1/menu1-1-1-1',
                 meta: {
                   title: '多级路由1-1-1',
                 },
@@ -603,7 +643,6 @@ const List = [
       {
         path: 'excel',
         name: 'Excel',
-        redirect: '/other/excel/exportExcel',
         meta: {
           title: 'Excel',
           roles: ['admin'],
@@ -642,11 +681,11 @@ const List = [
     path: '/mall',
     name: 'Mall',
     component: 'Layout',
-    redirect: '/mall/goods',
     meta: {
       title: '物料源',
       icon: 'apps-line',
       roles: ['admin'],
+      levelHidden: true,
     },
     children: [
       {
@@ -665,7 +704,6 @@ const List = [
     path: '/setting',
     name: 'PersonnelManagement',
     component: 'Layout',
-    redirect: '/setting/personalCenter',
     meta: {
       title: '配置',
       icon: 'user-settings-line',
@@ -732,7 +770,6 @@ const List = [
     path: '/error',
     name: 'Error',
     component: 'Layout',
-    redirect: '/error/403',
     meta: {
       title: '错误页',
       icon: 'error-warning-line',

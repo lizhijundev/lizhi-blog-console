@@ -6,16 +6,15 @@
 </template>
 
 <script>
+  import { defineComponent, ref } from 'vue'
   import VabCropper from '@/extra/VabCropper'
-  import { ref } from 'vue'
 
-  export default {
+  export default defineComponent({
     name: 'Cropper',
     components: { VabCropper },
     setup() {
       const vabCropperRef = ref()
-
-      function openDialog() {
+      const openDialog = () => {
         vabCropperRef.value.dialogVisible = true
       }
 
@@ -24,5 +23,5 @@
         openDialog,
       }
     },
-  }
+  })
 </script>

@@ -56,8 +56,9 @@
 </template>
 
 <script>
-  export default {
-    name: '',
+  import { defineComponent } from 'vue'
+
+  export default defineComponent({
     props: {
       nodeData: {
         type: Object,
@@ -97,6 +98,6 @@
         this.$emit('onClose')
       },
     },
-  }
+  })
 </script>
 <style scoped></style>

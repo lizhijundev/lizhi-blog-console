@@ -1,6 +1,6 @@
 <template>
   <div class="switch-container">
-    <el-card shadow="hover">
+    <vab-card shadow="hover">
       <template #header>
         <span>基础用法</span>
       </template>
@@ -9,8 +9,8 @@
         active-color="#13ce66"
         inactive-color="#ff4949"
       />
-    </el-card>
-    <el-card shadow="hover">
+    </vab-card>
+    <vab-card shadow="hover">
       <template #header>
         <span>文字描述</span>
       </template>
@@ -19,21 +19,21 @@
         active-text="按月付费"
         inactive-text="按年付费"
       />
-    </el-card>
-    <el-card shadow="hover">
+    </vab-card>
+    <vab-card shadow="hover">
       <template #header>
         <span>禁用状态</span>
       </template>
       <el-switch v-model="value2" disabled style="margin-right: 10px" />
       <el-switch v-model="value3" disabled />
-    </el-card>
+    </vab-card>
   </div>
 </template>
 
 <script>
-  import { reactive, toRefs } from 'vue'
+  import { defineComponent, reactive, toRefs } from 'vue'
 
-  export default {
+  export default defineComponent({
     name: 'Switch',
     setup() {
       const state = reactive({
@@ -47,7 +47,7 @@
         ...toRefs(state),
       }
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>

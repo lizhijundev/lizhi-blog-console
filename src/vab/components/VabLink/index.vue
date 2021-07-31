@@ -5,10 +5,10 @@
 </template>
 
 <script>
-  import { computed } from 'vue'
+  import { computed, defineComponent } from 'vue'
   import { isExternal } from '@/utils/validate'
 
-  export default {
+  export default defineComponent({
     name: 'VabLink',
     props: {
       to: {
@@ -38,5 +38,5 @@
         linkProps,
       }
     },
-  }
+  })
 </script>

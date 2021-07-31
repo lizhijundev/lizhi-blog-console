@@ -57,10 +57,10 @@
 </template>
 
 <script>
-  import { reactive, toRefs } from 'vue'
+  import { defineComponent, onMounted, reactive, toRefs } from 'vue'
   import { getList } from '@/api/table'
 
-  export default {
+  export default defineComponent({
     name: 'List',
     setup() {
       const state = reactive({
@@ -92,8 +92,9 @@
         state.queryForm.pageNo = 1
         fetchData()
       }
-
-      fetchData()
+      onMounted(() => {
+        fetchData()
+      })
 
       return {
         ...toRefs(state),
@@ -102,7 +103,7 @@
         queryData,
       }
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>

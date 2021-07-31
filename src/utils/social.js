@@ -30,7 +30,7 @@ export function login(url, options) {
 }
 
 export function callback() {
-  let data = router.currentRoute.query
+  let data = router.currentRoute.value.query
   if (JSON.stringify(data) === '{}')
     data = qs.parse(document.location.search.slice(1))
   localStorage.setItem('socialData', JSON.stringify(data))

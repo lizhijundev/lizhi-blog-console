@@ -30,11 +30,7 @@
         :xl="6"
         :xs="24"
       >
-        <el-card
-          :body-style="{ padding: '0px' }"
-          shadow="hover"
-          @click="handleBuy"
-        >
+        <vab-card :body-style="{ padding: '0px' }" shadow="hover">
           <div class="goods-card-body">
             <div class="goods-tag-group">
               <el-tag hit>{{ item.company }}</el-tag>
@@ -68,7 +64,7 @@
               </a>
             </div>
           </div>
-        </el-card>
+        </vab-card>
       </el-col>
     </el-row>
     <el-pagination
@@ -84,10 +80,10 @@
 </template>
 
 <script>
-  import { reactive, toRefs } from 'vue'
+  import { defineComponent, onMounted, reactive, toRefs } from 'vue'
   import { getList } from '@/api/goods'
 
-  export default {
+  export default defineComponent({
     name: 'Goods',
     setup() {
       const state = reactive({
@@ -119,9 +115,9 @@
         state.queryForm.pageNo = 1
         fetchData()
       }
-
-      fetchData()
-
+      onMounted(() => {
+        fetchData()
+      })
       return {
         ...toRefs(state),
         handleSizeChange,
@@ -129,7 +125,7 @@
         queryData,
       }
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>

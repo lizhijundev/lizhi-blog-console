@@ -13,7 +13,9 @@
 </template>
 
 <script>
-  export default {
+  import { defineComponent } from 'vue'
+
+  export default defineComponent({
     name: 'VabAvatarList',
     props: {
       avatarList: {
@@ -21,7 +23,7 @@
         default: () => [],
       },
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>

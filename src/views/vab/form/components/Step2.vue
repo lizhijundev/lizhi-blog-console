@@ -27,9 +27,9 @@
 </template>
 
 <script>
-  import { reactive, toRefs } from 'vue'
+  import { defineComponent, reactive, toRefs } from 'vue'
 
-  export default {
+  export default defineComponent({
     props: {
       infoData: {
         type: Object,
@@ -76,7 +76,7 @@
         handlePrev,
       }
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>

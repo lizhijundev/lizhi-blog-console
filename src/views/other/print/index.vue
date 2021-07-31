@@ -22,10 +22,11 @@
 </template>
 
 <script>
+  import { defineComponent } from 'vue'
   import { mapActions } from 'vuex'
   import VabPrint from '@/extra/VabPrint'
 
-  export default {
+  export default defineComponent({
     name: 'Print',
     data() {
       return {
@@ -56,9 +57,9 @@
       }),
       async print(val) {
         await this.foldSideBar()
-        await VabPrint(this.$refs[val])
+        await VabPrint(this.$refs[val], { noPrintParent: true })
         await this.openSideBar()
       },
     },
-  }
+  })
 </script>

@@ -17,6 +17,7 @@
 </template>
 
 <script>
+  import { defineComponent } from 'vue'
   import VabChartLine from './components/VabChartLine'
   import VabChartBar from './components/VabChartBar'
   import VabChartPie from './components/VabChartPie'
@@ -29,7 +30,7 @@
   import VabChartGauge from './components/VabChartGauge'
   import VabChartThemeRiver from './components/VabChartThemeRiver'
 
-  export default {
+  export default defineComponent({
     name: 'Echarts',
     components: {
       VabChartLine,
@@ -48,17 +49,22 @@
       return {}
     },
     methods: {},
-  }
+  })
 </script>
 
 <style lang="scss" scoped>
   .echarts-container {
     padding: 0 !important;
     background: $base-color-background !important;
+
     :deep() {
-      .echarts {
-        width: 100%;
-        height: 200px;
+      .vab-card {
+        height: 300px;
+
+        .echarts {
+          width: 100%;
+          height: 200px;
+        }
       }
     }
   }

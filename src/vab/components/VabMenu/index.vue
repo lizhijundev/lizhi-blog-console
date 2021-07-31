@@ -10,7 +10,7 @@
           (layout === 'horizontal' && item.children.length > 18) ||
           (layout !== 'horizontal' && collapse && item.children.length > 18)
         "
-        style="height: 86vh"
+        class="vab-menu-children-height"
       >
         <vab-menu
           v-for="route in item.children"
@@ -30,10 +30,10 @@
 </template>
 
 <script>
-  import { computed } from 'vue'
+  import { computed, defineComponent } from 'vue'
   import { useStore } from 'vuex'
 
-  export default {
+  export default defineComponent({
     name: 'VabMenu',
     props: {
       item: {
@@ -64,5 +64,25 @@
         menuComponent,
       }
     },
-  }
+  })
 </script>
+
+<style lang="scss" scoped>
+  .vab-menu-children-height {
+    height: 60vh !important;
+    overflow-y: auto;
+
+    &::-webkit-scrollbar {
+      width: 0px;
+      height: 0px;
+    }
+  }
+</style>
+
+<!--由于element-plus
+bug使用popper-append-to-body=false会导致多级路由无法显示，故所有菜单必须生成至body下，样式必须放到body下-->
+<style lang="scss">
+  .el-popper.is-light {
+    border: 0 !important;
+  }
+</style>

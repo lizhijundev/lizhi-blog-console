@@ -7,10 +7,10 @@
 </template>
 
 <script>
-  import { computed } from 'vue'
+  import { computed, defineComponent } from 'vue'
   import { useStore } from 'vuex'
 
-  export default {
+  export default defineComponent({
     name: 'VabFold',
     setup() {
       const store = useStore()
@@ -20,7 +20,7 @@
         toggleCollapse: () => store.dispatch('settings/toggleCollapse'),
       }
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>

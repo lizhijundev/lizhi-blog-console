@@ -39,7 +39,9 @@
 </template>
 
 <script>
-  export default {
+  import { defineComponent } from 'vue'
+
+  export default defineComponent({
     name: 'VabLayoutCommon',
     props: {
       collapse: {
@@ -67,7 +69,7 @@
         },
       },
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>

@@ -15,10 +15,15 @@
 </template>
 
 <script>
+  import {
+    computed,
+    defineComponent,
+    onBeforeMount,
+    onBeforeUnmount,
+  } from 'vue'
   import { useStore } from 'vuex'
-  import { computed, onBeforeMount, onBeforeUnmount } from 'vue'
 
-  export default {
+  export default defineComponent({
     name: 'Layouts',
     setup() {
       const store = useStore()
@@ -48,7 +53,7 @@
           if (isMobileTemp) {
             oldLayout = theme.value.layout
             foldSideBar()
-          } else openSideBar()
+          } /*  else openSideBar() */
           theme.value.layout = isMobileTemp ? 'vertical' : oldLayout
           toggleDevice(isMobileTemp ? 'mobile' : 'desktop')
           isMobile = isMobileTemp
@@ -75,7 +80,7 @@
         toggleDevice,
       }
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>

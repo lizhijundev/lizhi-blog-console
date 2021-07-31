@@ -21,7 +21,9 @@
 </template>
 
 <script>
-  export default {
+  import { defineComponent } from 'vue'
+
+  export default defineComponent({
     name: 'Control',
     props: {
       lf: {
@@ -77,6 +79,6 @@
         this.$emit('cat-data')
       },
     },
-  }
+  })
 </script>
 <style scoped></style>

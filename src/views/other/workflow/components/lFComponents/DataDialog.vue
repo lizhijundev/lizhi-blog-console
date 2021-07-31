@@ -1,11 +1,15 @@
 <template>
   <div>
-    {{ data }}
+    <vab-json-viewer copyable :expand-depth="5" sort :value="data" />
   </div>
 </template>
 
 <script>
-  export default {
+  import { defineComponent } from 'vue'
+  import VabJsonViewer from '@/extra/VabJsonViewer'
+
+  export default defineComponent({
+    components: { VabJsonViewer },
     props: {
       graphData: {
         type: Object,
@@ -27,6 +31,6 @@
         ])
       )
     },
-  }
+  })
 </script>
 <style scoped></style>

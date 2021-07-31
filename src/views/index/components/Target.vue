@@ -1,6 +1,12 @@
 <template>
   <div class="target">
-    <el-card class="target-card1" shadow="hover">
+    <vab-card
+      class="target-card1"
+      shadow="hover"
+      skeleton
+      :skeleton-rows="7"
+      style="height: 380px"
+    >
       <template #header>
         <vab-icon icon="body-scan-line" />
         小目标
@@ -11,8 +17,14 @@
         :option="option"
         theme="vab-echarts-theme"
       />
-    </el-card>
-    <el-card class="target-card2" shadow="hover">
+    </vab-card>
+    <vab-card
+      class="target-card2"
+      shadow="hover"
+      skeleton
+      :skeleton-rows="5"
+      style="height: 305px"
+    >
       <template #header>
         <span>
           <vab-icon icon="money-cny-box-line" />
@@ -25,14 +37,15 @@
         :option="option2"
         theme="vab-echarts-theme"
       />
-    </el-card>
+    </vab-card>
   </div>
 </template>
 
 <script>
+  import { defineComponent } from 'vue'
   import VabChart from '@/extra/VabChart'
 
-  export default {
+  export default defineComponent({
     components: {
       VabChart,
     },
@@ -254,7 +267,7 @@
         },
       }
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>

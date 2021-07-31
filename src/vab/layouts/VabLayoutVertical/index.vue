@@ -34,9 +34,10 @@
 </template>
 
 <script>
+  import { defineComponent } from 'vue'
   import { useStore } from 'vuex'
 
-  export default {
+  export default defineComponent({
     name: 'VabLayoutVertical',
     props: {
       collapse: {
@@ -71,7 +72,7 @@
         handleFoldSideBar: () => store.dispatch('settings/foldSideBar'),
       }
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>

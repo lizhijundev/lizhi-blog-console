@@ -104,11 +104,17 @@
 </template>
 
 <script>
-  import { getCurrentInstance, reactive, toRefs } from 'vue'
+  import {
+    defineComponent,
+    getCurrentInstance,
+    onMounted,
+    reactive,
+    toRefs,
+  } from 'vue'
   import { doDelete, getList } from '@/api/userManagement'
   import Edit from './components/UserManagementEdit'
 
-  export default {
+  export default defineComponent({
     name: 'UserManagement',
     components: { Edit },
     setup() {
@@ -142,7 +148,7 @@
         if (row.id) {
           proxy.$baseConfirm('你确定要删除当前项吗', null, async () => {
             const { msg } = await doDelete({ ids: row.id })
-            proxy.$baseMessage(msg, 'success', false, 'vab-hey-message-success')
+            proxy.$baseMessage(msg, 'success', 'vab-hey-message-success')
             await fetchData()
           })
         } else {
@@ -150,21 +156,11 @@
             const ids = state.selectRows.map((item) => item.id).join()
             proxy.$baseConfirm('你确定要删除选中项吗', null, async () => {
               const { msg } = await doDelete({ ids })
-              proxy.$baseMessage(
-                msg,
-                'success',
-                false,
-                'vab-hey-message-success'
-              )
+              proxy.$baseMessage(msg, 'success', 'vab-hey-message-success')
               await fetchData()
             })
           } else {
-            proxy.$baseMessage(
-              '未选中任何行',
-              'error',
-              false,
-              'vab-hey-message-error'
-            )
+            proxy.$baseMessage('未选中任何行', 'error', 'vab-hey-message-error')
           }
         }
       }
@@ -189,8 +185,9 @@
         state.total = total
         state.listLoading = false
       }
-
-      fetchData()
+      onMounted(() => {
+        fetchData()
+      })
 
       return {
         ...toRefs(state),
@@ -203,5 +200,5 @@
         fetchData,
       }
     },
-  }
+  })
 </script>

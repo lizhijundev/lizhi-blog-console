@@ -1,5 +1,5 @@
 <template>
-  <el-card class="version-information" shadow="hover">
+  <vab-card class="version-information" shadow="hover">
     <template #header>
       <vab-icon icon="information-line" />
       信息
@@ -48,7 +48,7 @@
                 </a>
               </template>
             </el-popover>
-            <el-popover trigger="hover" :width="400">
+            <!-- <el-popover trigger="hover" :width="400">
               <div style="text-align: center">
                 <el-image
                   :src="require('@/assets/skm2.jpg')"
@@ -62,7 +62,7 @@
               <template #reference>
                 <el-button type="primary">开源版技术支持</el-button>
               </template>
-            </el-popover>
+            </el-popover> -->
             <a
               href="https://github.com/chuzhixin/vue-admin-beautiful/"
               target="_blank"
@@ -73,13 +73,14 @@
         </tr>
       </table>
     </el-scrollbar>
-  </el-card>
+  </vab-card>
 </template>
 
 <script>
+  import { defineComponent } from 'vue'
   import { dependencies, devDependencies } from '~/package.json'
 
-  export default {
+  export default defineComponent({
     setup() {
       return {
         updateTime: process.env.VUE_APP_UPDATE_TIME,
@@ -87,7 +88,7 @@
         devDependencies,
       }
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>

@@ -27,13 +27,13 @@
 </template>
 
 <script>
-  import { ref, computed } from 'vue'
+  import { computed, defineComponent, ref } from 'vue'
   import { useStore } from 'vuex'
   import { useRoute, useRouter } from 'vue-router'
   import { toLoginRoute } from '@/utils/routes'
   import { translateTitle } from '@/utils/i18n'
 
-  export default {
+  export default defineComponent({
     name: 'VabAvatar',
     setup() {
       const store = useStore()
@@ -51,7 +51,7 @@
         switch (command) {
           case 'logout':
             await logout()
-            await router.push(toLoginRoute(route.path))
+            await router.push(toLoginRoute(route.fullPath))
             break
           case 'personalCenter':
             await router.push('/setting/personalCenter')
@@ -68,7 +68,7 @@
         username: computed(() => store.getters['user/username']),
       }
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>

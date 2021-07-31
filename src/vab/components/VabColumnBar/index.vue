@@ -12,32 +12,33 @@
       tab-position="left"
       @tab-click="handleTabClick"
     >
-      <el-tab-pane
-        v-for="item in handleRoutes"
-        :key="item.name"
-        :name="item.name"
+      <template
+        v-for="(route, index) in handleRoutes"
+        :key="index + route.name"
       >
-        <template #label>
-          <div
-            class="vab-column-grid"
-            :class="{
-              ['vab-column-grid-' + theme.columnStyle]: true,
-            }"
-            :title="translateTitle(item.meta.title)"
-          >
-            <div>
-              <vab-icon
-                v-if="item.meta.icon"
-                :icon="item.meta.icon"
-                :is-custom-svg="item.meta.isCustomSvg"
-              />
-              <span>
-                {{ translateTitle(item.meta.title) }}
-              </span>
+        <el-tab-pane :name="route.name">
+          <template #label>
+            <div
+              class="vab-column-grid"
+              :class="{
+                ['vab-column-grid-' + theme.columnStyle]: true,
+              }"
+              :title="translateTitle(route.meta.title)"
+            >
+              <div>
+                <vab-icon
+                  v-if="route.meta.icon"
+                  :icon="route.meta.icon"
+                  :is-custom-svg="route.meta.isCustomSvg"
+                />
+                <span>
+                  {{ translateTitle(route.meta.title) }}
+                </span>
+              </div>
             </div>
-          </div>
-        </template>
-      </el-tab-pane>
+          </template>
+        </el-tab-pane>
+      </template>
     </el-tabs>
 
     <el-menu
@@ -58,15 +59,22 @@
 </template>
 
 <script>
-  import { computed, watch } from 'vue'
-  import { useStore } from 'vuex'
+  import {
+    computed,
+    defineComponent,
+    getCurrentInstance,
+    ref,
+    watch,
+    watchEffect,
+  } from 'vue'
+  import { mapActions, useStore } from 'vuex'
   import { useRoute, useRouter } from 'vue-router'
   import { translateTitle } from '@/utils/i18n'
-  import { handleActivePath } from '@/utils/routes'
+  import { handleActivePath, handleMatched } from '@/utils/routes'
   import { defaultOpeneds, openFirstMenu, uniqueOpened } from '@/config'
   import variables from '@/vab/styles/variables/variables.scss'
 
-  export default {
+  export default defineComponent({
     name: 'VabColumnBar',
     setup() {
       const store = useStore()
@@ -74,16 +82,21 @@
       const router = useRouter()
 
       const routes = computed(() => store.getters['routes/routes'])
+      const activeName = computed(() => store.getters['routes/activeName'])
       const extra = computed(() => store.getters['settings/extra'])
       const theme = computed(() => store.getters['settings/theme'])
       const collapse = computed(() => store.getters['settings/collapse'])
 
-      const activeMenu = computed(() => handleActivePath(route))
+      const { proxy } = getCurrentInstance()
+
       const handleRoutes = computed(() =>
         routes.value.filter(
           (_route) => _route.meta && _route.meta.hidden !== true
         )
       )
+
+      const activeMenu = ref()
+
       const handlePartialRoutes = computed(() => {
         const activeMenu = handleActiveMenu()
         return activeMenu ? activeMenu.children : []
@@ -98,9 +111,11 @@
       const handleTabClick = (handler) => {
         if (handler !== true && openFirstMenu) {
           router.push(handleActiveMenu())
-          store.dispatch('settings/openSideBar')
+          proxy.openSideBar()
         }
       }
+
+      watchEffect(() => (activeMenu.value = handleActivePath(route)))
 
       watch(
         () => route.matched[0].name,
@@ -113,7 +128,19 @@
         }
       )
 
+      watch(
+        () => activeName.value,
+        (val) => {
+          const matched = handleMatched(routes.value, val)
+          extra.value.first = matched[0].name
+          activeMenu.value = matched[matched.length - 1].path
+        }
+      )
+
       return {
+        ...mapActions({
+          openSideBar: 'settings/openSideBar',
+        }),
         extra,
         theme,
         collapse,
@@ -128,7 +155,7 @@
         handlePartialRoutes,
       }
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>

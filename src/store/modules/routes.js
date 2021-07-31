@@ -10,9 +10,11 @@ import { gp } from '@vab'
 
 const state = () => ({
   routes: [],
+  activeName: '',
 })
 const getters = {
   routes: (state) => state.routes,
+  activeName: (state) => state.activeName,
 }
 const mutations = {
   /**
@@ -37,7 +39,16 @@ const mutations = {
         return route
       })
     }
+
     state.routes = handleRoutes(state.routes)
+  },
+  /**
+   * @description 修改 activeName
+   * @param {*} state
+   * @param activeName 当前激活菜单
+   */
+  changeActiveName(state, activeName) {
+    state.activeName = activeName
   },
 }
 const actions = {
@@ -58,12 +69,7 @@ const actions = {
         data: { list },
       } = await getRouterList()
       if (!isArray(list))
-        gp.$baseMessage(
-          '路由格式返回有误！',
-          'error',
-          false,
-          'vab-hey-message-error'
-        )
+        gp.$baseMessage('路由格式返回有误！', 'error', 'vab-hey-message-error')
       if (list[list.length - 1].path !== '*')
         list.push({
           path: '/:pathMatch(.*)*',
@@ -87,6 +93,14 @@ const actions = {
    */
   changeMenuMeta({ commit }, options = {}) {
     commit('changeMenuMeta', options)
+  },
+  /**
+   * @description 修改 activeName
+   * @param {*} { commit }
+   * @param activeName 当前激活菜单
+   */
+  changeActiveName({ commit }, activeName) {
+    commit('changeActiveName', activeName)
   },
 }
 export default { state, getters, mutations, actions }

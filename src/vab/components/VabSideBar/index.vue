@@ -3,7 +3,13 @@
     class="vab-side-bar"
     :class="{ 'is-collapse': collapse, 'side-bar-common': layout === 'common' }"
   >
-    <vab-logo v-if="layout === 'vertical' || layout === 'comprehensive'" />
+    <vab-logo
+      v-if="
+        layout === 'vertical' ||
+        layout === 'comprehensive' ||
+        layout === 'float'
+      "
+    />
     <el-menu
       :active-text-color="variables['menu-color-active']"
       :background-color="variables['menu-background']"
@@ -16,7 +22,10 @@
       :text-color="variables['menu-color']"
       :unique-opened="uniqueOpened"
     >
-      <template v-for="route in handleRoutes" :key="route.path">
+      <template
+        v-for="(route, index) in handleRoutes"
+        :key="index + route.name"
+      >
         <vab-menu v-if="route.meta && !route.meta.hidden" :item="route" />
       </template>
     </el-menu>
@@ -24,14 +33,14 @@
 </template>
 
 <script>
-  import { computed } from 'vue'
+  import { computed, defineComponent, ref, watch, watchEffect } from 'vue'
   import { useStore } from 'vuex'
   import { useRoute } from 'vue-router'
-  import { handleActivePath } from '@/utils/routes'
+  import { handleActivePath, handleMatched } from '@/utils/routes'
   import { defaultOpeneds, uniqueOpened } from '@/config'
   import variables from '@/vab/styles/variables/variables.scss'
 
-  export default {
+  export default defineComponent({
     name: 'VabSideBar',
     props: {
       layout: {
@@ -45,9 +54,10 @@
 
       const extra = computed(() => store.getters['settings/extra'])
       const routes = computed(() => store.getters['routes/routes'])
+      const activeName = computed(() => store.getters['routes/activeName'])
       const collapse = computed(() => store.getters['settings/collapse'])
 
-      const activeMenu = computed(() => handleActivePath(route))
+      const activeMenu = ref()
       const handleRoutes = computed(() =>
         props.layout === 'comprehensive'
           ? handlePartialRoutes()
@@ -65,6 +75,17 @@
         return activeMenu ? activeMenu.children : []
       }
 
+      watchEffect(() => (activeMenu.value = handleActivePath(route)))
+
+      watch(
+        () => activeName.value,
+        (val) => {
+          const matched = handleMatched(routes.value, val)
+          extra.value.first = matched[0].name
+          activeMenu.value = matched[matched.length - 1].path
+        }
+      )
+
       return {
         routes,
         collapse,
@@ -75,19 +96,19 @@
         defaultOpeneds,
       }
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>
   @mixin active {
     &:hover {
       color: $base-color-white;
-      background-color: $base-menu-background-active !important;
+      background-color: $base-menu-background-active;
     }
 
     &.is-active {
       color: $base-color-white;
-      background-color: $base-menu-background-active !important;
+      background-color: $base-menu-background-active;
     }
   }
 
@@ -146,10 +167,6 @@
         overflow-x: hidden;
       }
 
-      .el-menu {
-        border: 0;
-      }
-
       .el-menu-item,
       .el-submenu__title {
         height: $base-menu-item-height;
@@ -166,6 +183,62 @@
 
       .el-menu-item {
         @include active;
+      }
+    }
+  }
+</style>
+
+<!--由于element-plus
+bug使用popper-append-to-body=false会导致多级路由无法显示，故所有菜单必须生成至body下，样式必须放到body下-->
+<style lang="scss">
+  @mixin menuActiveHover {
+    &:hover,
+    &.is-active {
+      i {
+        color: $base-color-white;
+      }
+
+      color: $base-color-white;
+      background: $base-color-blue;
+
+      .el-submenu__title {
+        i {
+          color: $base-color-white;
+        }
+
+        color: $base-color-white;
+        background: $base-color-blue;
+      }
+    }
+  }
+
+  .el-menu {
+    border-right: 0;
+  }
+
+  .el-popper {
+    .el-menu--vertical {
+      .el-menu-item,
+      .el-submenu {
+        height: $base-menu-item-height;
+        line-height: $base-menu-item-height;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        vertical-align: middle;
+        @include menuActiveHover;
+
+        i {
+          color: inherit;
+        }
+
+        .el-submenu__title {
+          height: $base-menu-item-height;
+          line-height: $base-menu-item-height;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          vertical-align: middle;
+          @include menuActiveHover;
+        }
       }
     }
   }

@@ -5,9 +5,11 @@
 </template>
 
 <script>
-  export default {
+  import { defineComponent } from 'vue'
+
+  export default defineComponent({
     name: 'VabQueryForm',
-  }
+  })
 </script>
 
 <style lang="scss" scoped>

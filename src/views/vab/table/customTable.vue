@@ -166,12 +166,19 @@
 </template>
 
 <script>
-  import { computed, getCurrentInstance, reactive, toRefs } from 'vue'
+  import {
+    computed,
+    defineComponent,
+    getCurrentInstance,
+    onMounted,
+    reactive,
+    toRefs,
+  } from 'vue'
   import { doDelete, getList } from '@/api/table'
   import TableEdit from './components/TableEdit'
   import VabDraggable from 'vuedraggable'
 
-  export default {
+  export default defineComponent({
     name: 'CustomTable',
     components: {
       TableEdit,
@@ -292,34 +299,25 @@
         if (row.id) {
           proxy.$baseConfirm('你确定要删除当前项吗', null, async () => {
             const { msg } = await doDelete({ ids: row.id })
-            proxy.$baseMessage(msg, 'success', false, 'vab-hey-message-success')
+            proxy.$baseMessage(msg, 'success', 'vab-hey-message-success')
             await fetchData()
           })
         } else {
-          if (this.selectRows.length > 0) {
+          if (state.selectRows.length > 0) {
             const ids = state.selectRows.map((item) => item.id).join()
             proxy.$baseConfirm('你确定要删除选中项吗', null, async () => {
               const { msg } = await doDelete({ ids: ids })
-              proxy.$baseMessage(
-                msg,
-                'success',
-                false,
-                'vab-hey-message-success'
-              )
+              proxy.$baseMessage(msg, 'success', 'vab-hey-message-success')
               await fetchData()
             })
           } else {
-            proxy.$baseMessage(
-              '未选中任何行',
-              'error',
-              false,
-              'vab-hey-message-error'
-            )
+            proxy.$baseMessage('未选中任何行', 'error', 'vab-hey-message-error')
           }
         }
       }
-
-      fetchData()
+      onMounted(() => {
+        fetchData()
+      })
 
       return {
         ...toRefs(state),
@@ -336,7 +334,7 @@
         handleDelete,
       }
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>

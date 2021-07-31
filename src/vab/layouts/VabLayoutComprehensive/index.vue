@@ -29,7 +29,9 @@
 </template>
 
 <script>
-  export default {
+  import { defineComponent } from 'vue'
+
+  export default defineComponent({
     name: 'VabLayoutComprehensive',
     props: {
       collapse: {
@@ -57,7 +59,7 @@
         },
       },
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>

@@ -3,6 +3,7 @@
  */
 import { isJson } from '@/utils/validate'
 import {
+  collapse as _collapse,
   columnStyle,
   fixedHeader,
   i18n,
@@ -54,7 +55,7 @@ const state = () => ({
   logo,
   title,
   device: 'desktop',
-  collapse: collapse || false,
+  collapse: collapse || _collapse,
   language: language || i18n,
   theme: getLocalStorage('theme') || { ...defaultTheme },
   extra: { first: '' },

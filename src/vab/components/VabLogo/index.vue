@@ -21,10 +21,10 @@
 </template>
 
 <script>
-  import { computed } from 'vue'
+  import { computed, defineComponent } from 'vue'
   import { useStore } from 'vuex'
 
-  export default {
+  export default defineComponent({
     name: 'VabLogo',
     setup() {
       const store = useStore()
@@ -35,7 +35,7 @@
         theme: computed(() => store.getters['settings/theme']),
       }
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>
@@ -86,7 +86,8 @@
 
     &-vertical,
     &-column,
-    &-comprehensive {
+    &-comprehensive,
+    &-float {
       @include container;
 
       height: $base-logo-height;

@@ -1,5 +1,5 @@
 <template>
-  <el-card class="access" shadow="hover">
+  <vab-card class="access" shadow="hover" skeleton>
     <template #header>
       <vab-icon icon="line-chart-line" />
       访问量
@@ -24,16 +24,22 @@
         />
       </span>
     </div>
-  </el-card>
+  </vab-card>
 </template>
 
 <script>
-  import { onBeforeMount, onBeforeUnmount, reactive, toRefs } from 'vue'
+  import {
+    defineComponent,
+    onBeforeMount,
+    onBeforeUnmount,
+    reactive,
+    toRefs,
+  } from 'vue'
+  import _ from 'lodash'
   import VabChart from '@/extra/VabChart'
   import VabCount from '@/extra/VabCount'
-  import _ from 'lodash'
 
-  export default {
+  export default defineComponent({
     components: {
       VabChart,
       VabCount,
@@ -147,5 +153,5 @@
         ...toRefs(state),
       }
     },
-  }
+  })
 </script>

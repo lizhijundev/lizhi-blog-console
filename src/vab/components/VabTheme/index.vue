@@ -5,11 +5,11 @@
 </template>
 
 <script>
-  import { computed, getCurrentInstance } from 'vue'
+  import { computed, defineComponent, getCurrentInstance } from 'vue'
   import { useStore } from 'vuex'
   import { translateTitle } from '@/utils/i18n'
 
-  export default {
+  export default defineComponent({
     name: 'VabTheme',
     setup() {
       const store = useStore()
@@ -26,5 +26,5 @@
         handleOpenTheme,
       }
     },
-  }
+  })
 </script>

@@ -1,6 +1,6 @@
 <template>
   <div class="select-container">
-    <el-card shadow="hover">
+    <vab-card shadow="hover">
       <template #header>
         <span>基础用法</span>
       </template>
@@ -12,8 +12,8 @@
           :value="item.value"
         />
       </el-select>
-    </el-card>
-    <el-card shadow="hover">
+    </vab-card>
+    <vab-card shadow="hover">
       <template #header>
         <span>有禁用选项</span>
       </template>
@@ -26,8 +26,8 @@
           :value="item.value"
         />
       </el-select>
-    </el-card>
-    <el-card shadow="hover">
+    </vab-card>
+    <vab-card shadow="hover">
       <template #header>
         <span>禁用状态</span>
       </template>
@@ -39,8 +39,8 @@
           :value="item.value"
         />
       </el-select>
-    </el-card>
-    <el-card shadow="hover">
+    </vab-card>
+    <vab-card shadow="hover">
       <template #header>
         <span>可清空单选</span>
       </template>
@@ -52,8 +52,8 @@
           :value="item.value"
         />
       </el-select>
-    </el-card>
-    <el-card shadow="hover">
+    </vab-card>
+    <vab-card shadow="hover">
       <template #header>
         <span>基础多选</span>
       </template>
@@ -65,8 +65,8 @@
           :value="item.value"
         />
       </el-select>
-    </el-card>
-    <el-card shadow="hover">
+    </vab-card>
+    <vab-card shadow="hover">
       <template #header>
         <span>可搜索</span>
       </template>
@@ -78,14 +78,14 @@
           :value="item.value"
         />
       </el-select>
-    </el-card>
+    </vab-card>
   </div>
 </template>
 
 <script>
-  import { reactive, toRefs } from 'vue'
+  import { defineComponent, reactive, toRefs } from 'vue'
 
-  export default {
+  export default defineComponent({
     name: 'Select',
     setup() {
       const state = reactive({
@@ -112,7 +112,7 @@
         ...toRefs(state),
       }
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>

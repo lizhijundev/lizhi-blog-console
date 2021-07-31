@@ -95,10 +95,10 @@
 </template>
 
 <script>
-  import { reactive, toRefs } from 'vue'
+  import { defineComponent, reactive, toRefs } from 'vue'
   import { getList } from '@/api/area'
 
-  export default {
+  export default defineComponent({
     name: 'ComprehensiveForm',
     setup() {
       const generateData = () => {
@@ -204,7 +204,7 @@
         fetchData,
       }
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>

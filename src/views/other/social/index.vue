@@ -8,52 +8,55 @@
 </template>
 
 <script>
+  import { defineComponent, getCurrentInstance, ref } from 'vue'
   import { login } from '@/utils/social'
+  import { useStore } from 'vuex'
 
-  export default {
+  export default defineComponent({
     name: 'Social',
-    data() {
-      return {
-        loading: null,
-        data: null,
-      }
-    },
-    methods: {
-      handleSocialLogin() {
-        this.loading = this.$baseLoading()
+    setup() {
+      const store = useStore()
+
+      const socialLogin = (data) => store.dispatch('user/socialLogin', data)
+
+      const { proxy } = getCurrentInstance()
+
+      const data = ref()
+
+      const handleSocialLogin = () => {
+        const loading = proxy.$baseLoading()
         login(`https://github.com/login/oauth/authorize`, {
           client_id:
-            this.env === 'development'
+            process.env.NODE_ENV === 'development'
               ? 'bb8dfd34f6c6a57367e3'
               : 'e104bdc488d009840c4f',
         })
-          .then((data) => {
-            this.data = data
-            this.$store
-              .dispatch('user/socialLogin', data)
-              .then(() => {
-                // 登录页面使用，取消注释
-                // const routerPath =
-                //  this.redirect === "/404" || this.redirect === "/403"
-                //    ? "/"
-                //    : this.redirect;
-                // this.$router.push(routerPath).catch(() => {});
-                this.loading.close()
-              })
-              .catch(() => {
-                this.loading.close()
-              })
+          .then(async (_data) => {
+            data.value = _data
+            await socialLogin(_data)
+            // 登录页面使用，取消注释
+            // const routerPath =
+            //  this.redirect === "/404" || this.redirect === "/403"
+            //    ? "/"
+            //    : this.redirect;
+            // this.$router.push(routerPath).catch(() => {});
           })
           .catch(() => {
-            this.$baseMessage(
+            proxy.$baseMessage(
               '第三方登录失败，未返回令牌',
               'error',
-              false,
               'vab-hey-message-error'
             )
-            this.loading.close()
           })
-      },
+          .finally(() => {
+            loading.close()
+          })
+      }
+
+      return {
+        data,
+        handleSocialLogin,
+      }
     },
-  }
+  })
 </script>

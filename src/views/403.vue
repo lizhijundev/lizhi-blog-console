@@ -33,50 +33,64 @@
 </template>
 
 <script>
-  import { mapActions, mapGetters } from 'vuex'
+  import { onBeforeRouteLeave, useRoute, useRouter } from 'vue-router'
+  import {
+    computed,
+    defineComponent,
+    onBeforeMount,
+    reactive,
+    toRefs,
+  } from 'vue'
+  import { useStore } from 'vuex'
 
-  export default {
+  export default defineComponent({
     name: 'Page403',
-    beforeRouteLeave(to, from, next) {
-      this.delVisitedRoute(this.$route.path)
-      clearInterval(this.timer)
-      next()
-    },
-    data() {
-      return {
+    setup() {
+      const store = useStore()
+      const route = useRoute()
+      const router = useRouter()
+
+      const state = reactive({
         jumpTime: 5,
         oops: '抱歉!',
         headline: '您没有操作角色...',
         info: '当前帐号没有操作角色,请联系管理员。',
         btn: '返回',
         timer: 0,
+      })
+      const delVisitedRoute = (path) => {
+        store.dispatch('tabs/delVisitedRoute', path)
       }
-    },
-    computed: {
-      ...mapGetters({
-        visitedRoutes: 'tabs/visitedRoutes',
-      }),
-    },
-    mounted() {
-      this.timeChange()
-    },
-    methods: {
-      ...mapActions({
-        delVisitedRoute: 'tabs/delVisitedRoute',
-      }),
-      timeChange() {
-        this.timer = setInterval(() => {
-          if (this.jumpTime) {
-            this.jumpTime--
+      const timeChange = () => {
+        state.timer = setInterval(() => {
+          if (state.jumpTime) {
+            state.jumpTime--
           } else {
-            this.delVisitedRoute(this.$route.path)
-            this.$router.push('/')
-            clearInterval(this.timer)
+            delVisitedRoute(route.path)
+            router.push('/')
+            clearInterval(state.timer)
           }
         }, 1000)
-      },
+      }
+
+      onBeforeRouteLeave((to, from, next) => {
+        delVisitedRoute(route.path)
+        clearInterval(state.timer)
+        next()
+      })
+
+      onBeforeMount(() => {
+        timeChange()
+      })
+
+      return {
+        ...toRefs(state),
+        visitedRoutes: computed(() => store.getters['tabs/visitedRoutes']),
+        delVisitedRoute,
+        timeChange,
+      }
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>

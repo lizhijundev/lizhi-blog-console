@@ -30,12 +30,12 @@
 </template>
 
 <script>
-  import { reactive, toRefs } from 'vue'
+  import { defineComponent, reactive, toRefs } from 'vue'
   import Step1 from './components/Step1'
   import Step2 from './components/Step2'
   import Step3 from './components/Step3'
 
-  export default {
+  export default defineComponent({
     name: 'Pay',
     components: { Step1, Step2, Step3 },
     setup() {
@@ -54,7 +54,7 @@
         handleSetStep,
       }
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>

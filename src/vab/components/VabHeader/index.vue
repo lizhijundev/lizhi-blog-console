@@ -17,7 +17,10 @@
               popper-append-to-body
               :text-color="variables['menu-color']"
             >
-              <template v-for="route in handleRoutes" :key="route.path">
+              <template
+                v-for="(route, index) in handleRoutes"
+                :key="index + route.name"
+              >
                 <vab-menu
                   v-if="route.meta && !route.meta.hidden"
                   :item="route"
@@ -41,13 +44,13 @@
 </template>
 
 <script>
-  import { ref, computed } from 'vue'
+  import { computed, defineComponent, ref, watch, watchEffect } from 'vue'
   import { useStore } from 'vuex'
   import { useRoute } from 'vue-router'
-  import { handleActivePath } from '@/utils/routes'
+  import { handleActivePath, handleMatched } from '@/utils/routes'
   import variables from '@/vab/styles/variables/variables.scss'
 
-  export default {
+  export default defineComponent({
     name: 'VabHeader',
     props: {
       layout: {
@@ -60,8 +63,9 @@
       const route = useRoute()
 
       const routes = computed(() => store.getters['routes/routes'])
-      const activeMenu = computed(() => handleActivePath(route))
+      const activeName = computed(() => store.getters['routes/activeName'])
 
+      const activeMenu = ref()
       const menuTrigger = ref('hover')
 
       const handleRoutes = computed(() =>
@@ -74,6 +78,16 @@
         })
       )
 
+      watchEffect(() => (activeMenu.value = handleActivePath(route)))
+
+      watch(
+        () => activeName.value,
+        (val) => {
+          const matched = handleMatched(routes.value, val)
+          activeMenu.value = matched[matched.length - 1].path
+        }
+      )
+
       return {
         variables,
         activeMenu,
@@ -81,7 +95,7 @@
         handleRoutes,
       }
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>
@@ -112,7 +126,9 @@
 
           > .el-menu--horizontal.el-menu > .el-menu-item {
             .el-tag {
-              margin-top: #{math.div($base-top-bar-height, 2)} - 7.5 !important;
+              margin-top: calc(
+                #{math.div($base-top-bar-height, 2)} - 7.5px
+              ) !important;
               margin-left: 5px;
             }
 
@@ -154,6 +170,8 @@
                 }
 
                 > .el-submenu__title {
+                  display: flex;
+                  align-items: flex-start;
                   height: $base-top-bar-height;
                   line-height: $base-top-bar-height;
                 }
@@ -210,6 +228,65 @@
               fill: rgba($base-color-white, 0.9);
             }
           }
+        }
+      }
+    }
+  }
+</style>
+
+<!--由于element-plus
+bug使用popper-append-to-body=false会导致多级路由无法显示，故所有菜单必须生成至body下，样式必须放到body下-->
+<style lang="scss">
+  @mixin menuActiveHover {
+    &:hover,
+    &.is-active {
+      i {
+        color: $base-color-white !important;
+      }
+
+      color: $base-color-white !important;
+      background: $base-color-blue !important;
+
+      .el-submenu__title {
+        i {
+          color: $base-color-white !important;
+        }
+
+        color: $base-color-white !important;
+        background: $base-color-blue !important;
+      }
+    }
+  }
+
+  .el-popper {
+    .el-menu--horizontal {
+      height: #{math.div($base-top-bar-height, 1.3)};
+      border-bottom: 0 solid transparent !important;
+
+      @media only screen and (max-width: 1199px) {
+        .el-tag {
+          display: none;
+        }
+      }
+
+      .el-menu-item,
+      .el-submenu {
+        height: #{math.div($base-top-bar-height, 1.3)};
+        line-height: #{math.div($base-top-bar-height, 1.3)};
+        @include menuActiveHover;
+
+        i {
+          color: inherit;
+        }
+
+        .el-submenu__icon-arrow {
+          float: right;
+        }
+
+        .el-submenu__title {
+          height: #{math.div($base-top-bar-height, 1.3)};
+          line-height: #{math.div($base-top-bar-height, 1.3)};
+          @include menuActiveHover;
         }
       }
     }

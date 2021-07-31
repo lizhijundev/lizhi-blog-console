@@ -24,10 +24,10 @@
 </template>
 
 <script>
-  import { reactive, toRefs } from 'vue'
+  import { defineComponent, reactive, toRefs } from 'vue'
   import VabIconSelector from '@/extra/VabIconSelector'
 
-  export default {
+  export default defineComponent({
     name: 'IconSelector',
     components: { VabIconSelector },
     setup() {
@@ -44,5 +44,5 @@
         handleIcon,
       }
     },
-  }
+  })
 </script>

@@ -41,12 +41,18 @@
 </template>
 
 <script>
-  import { computed, nextTick, ref, getCurrentInstance } from 'vue'
+  import {
+    computed,
+    defineComponent,
+    getCurrentInstance,
+    nextTick,
+    ref,
+  } from 'vue'
   import { useStore } from 'vuex'
   import { translateTitle } from '@/utils/i18n'
   import { getList } from '@/api/notice'
 
-  export default {
+  export default defineComponent({
     name: 'VabNotice',
     setup() {
       const store = useStore()
@@ -56,8 +62,8 @@
       const { proxy } = getCurrentInstance()
 
       const activeName = ref('notice')
-      const notices = ref([])
-      const badge = ref(null)
+      const notices = ref()
+      const badge = ref()
 
       const fetchData = async () => {
         const {
@@ -78,12 +84,7 @@
       const handleClearNotice = () => {
         badge.value = null
         notices.value = []
-        proxy.$baseMessage(
-          '清空消息成功',
-          'success',
-          false,
-          'vab-hey-message-success'
-        )
+        proxy.$baseMessage('清空消息成功', 'success', 'vab-hey-message-success')
       }
 
       return {
@@ -97,7 +98,7 @@
         handleClearNotice,
       }
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>

@@ -2,7 +2,7 @@
   <div class="menu-management-container">
     <el-row :gutter="20">
       <el-col :lg="4" :md="8" :sm="24" :xl="4" :xs="24">
-        <el-card shadow="hover">
+        <vab-card shadow="hover">
           <el-tree
             :data="data"
             :default-expanded-keys="['root']"
@@ -10,10 +10,10 @@
             :props="defaultProps"
             @node-click="handleNodeClick"
           />
-        </el-card>
+        </vab-card>
       </el-col>
       <el-col :lg="20" :md="16" :sm="24" :xl="20" :xs="24">
-        <el-card shadow="hover">
+        <vab-card shadow="hover">
           <vab-query-form>
             <vab-query-form-top-panel :span="12">
               <el-button icon="el-icon-plus" type="primary" @click="handleEdit">
@@ -103,7 +103,7 @@
               />
             </template>
           </el-table>
-        </el-card>
+        </vab-card>
       </el-col>
     </el-row>
     <edit ref="editRef" @fetch-data="fetchData" />
@@ -111,12 +111,12 @@
 </template>
 
 <script>
-  import { getCurrentInstance, reactive, toRefs } from 'vue'
+  import { defineComponent, getCurrentInstance, reactive, toRefs } from 'vue'
   import { getRouterList as getList } from '@/api/router'
   import { doDelete, getTree } from '@/api/menuManagement'
   import Edit from './components/MenuManagementEdit'
 
-  export default {
+  export default defineComponent({
     name: 'MenuManagement',
     components: { Edit },
     setup() {
@@ -144,7 +144,7 @@
         if (row.path) {
           proxy.$baseConfirm('你确定要删除当前项吗', null, async () => {
             const { msg } = await doDelete({ paths: row.path })
-            proxy.$baseMessage(msg, 'success', false, 'vab-hey-message-success')
+            proxy.$baseMessage(msg, 'success', 'vab-hey-message-success')
             await fetchData()
           })
         }
@@ -175,7 +175,7 @@
         handleNodeClick,
       }
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>

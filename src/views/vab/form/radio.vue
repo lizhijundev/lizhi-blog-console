@@ -1,20 +1,20 @@
 <template>
   <div class="radio-container">
-    <el-card shadow="hover">
+    <vab-card shadow="hover">
       <template #header>
         <span>基础用法</span>
       </template>
       <el-radio v-model="radio" label="1">备选项</el-radio>
       <el-radio v-model="radio" label="2">备选项</el-radio>
-    </el-card>
-    <el-card shadow="hover">
+    </vab-card>
+    <vab-card shadow="hover">
       <template #header>
         <span>禁用状态</span>
       </template>
       <el-radio v-model="radio2" disabled label="禁用">备选项</el-radio>
       <el-radio v-model="radio2" disabled label="选中且禁用">备选项</el-radio>
-    </el-card>
-    <el-card shadow="hover">
+    </vab-card>
+    <vab-card shadow="hover">
       <template #header>
         <span>单选框组</span>
       </template>
@@ -23,8 +23,8 @@
         <el-radio :label="6">备选项</el-radio>
         <el-radio :label="9">备选项</el-radio>
       </el-radio-group>
-    </el-card>
-    <el-card shadow="hover">
+    </vab-card>
+    <vab-card shadow="hover">
       <template #header>
         <span>按钮样式</span>
       </template>
@@ -34,21 +34,21 @@
         <el-radio-button label="广州" />
         <el-radio-button label="深圳" />
       </el-radio-group>
-    </el-card>
-    <el-card shadow="hover">
+    </vab-card>
+    <vab-card shadow="hover">
       <template #header>
         <span>带有边框</span>
       </template>
       <el-radio v-model="radio5" border label="1">备选项1</el-radio>
       <el-radio v-model="radio5" border label="2">备选项2</el-radio>
-    </el-card>
+    </vab-card>
   </div>
 </template>
 
 <script>
-  import { reactive, toRefs } from 'vue'
+  import { defineComponent, reactive, toRefs } from 'vue'
 
-  export default {
+  export default defineComponent({
     name: 'Radio',
     setup() {
       const state = reactive({
@@ -63,7 +63,7 @@
         ...toRefs(state),
       }
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>

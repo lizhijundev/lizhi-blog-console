@@ -16,10 +16,11 @@
 </template>
 
 <script>
+  import { defineComponent } from 'vue'
   import CommonProperty from './CommonProperty'
   import User from './User.vue'
 
-  export default {
+  export default defineComponent({
     name: 'PropertyDialog',
     components: {
       CommonProperty,
@@ -44,7 +45,7 @@
         this.$emit('setPropertiesFinish')
       },
     },
-  }
+  })
 </script>
 <style>
   .property-dialog {

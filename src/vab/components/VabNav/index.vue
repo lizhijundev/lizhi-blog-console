@@ -3,28 +3,29 @@
     <el-row :gutter="15">
       <el-col :lg="12" :md="12" :sm="12" :xl="12" :xs="4">
         <div class="left-panel">
-          <vab-fold />
+          <vab-fold v-if="layout !== 'float'" />
           <el-tabs
             v-if="layout === 'comprehensive'"
             v-model="extra.first"
             tab-position="top"
             @tab-click="handleTabClick"
           >
-            <el-tab-pane
-              v-for="item in handleRoutes"
-              :key="item.name"
-              :name="item.name"
+            <template
+              v-for="(route, index) in handleRoutes"
+              :key="index + route.name"
             >
-              <template #label>
-                <vab-icon
-                  v-if="item.meta.icon"
-                  :icon="item.meta.icon"
-                  :is-custom-svg="item.meta.isCustomSvg"
-                  style="min-width: 16px"
-                />
-                {{ translateTitle(item.meta.title) }}
-              </template>
-            </el-tab-pane>
+              <el-tab-pane :name="route.name">
+                <template #label>
+                  <vab-icon
+                    v-if="route.meta.icon"
+                    :icon="route.meta.icon"
+                    :is-custom-svg="route.meta.isCustomSvg"
+                    style="min-width: 16px"
+                  />
+                  {{ translateTitle(route.meta.title) }}
+                </template>
+              </el-tab-pane>
+            </template>
           </el-tabs>
           <vab-breadcrumb v-else class="hidden-xs-only" />
         </div>
@@ -46,13 +47,13 @@
 </template>
 
 <script>
-  import { computed, watch } from 'vue'
+  import { computed, defineComponent, watch } from 'vue'
   import { useStore } from 'vuex'
   import { useRoute, useRouter } from 'vue-router'
   import { translateTitle } from '@/utils/i18n'
   import { openFirstMenu } from '@/config'
 
-  export default {
+  export default defineComponent({
     name: 'VabNav',
     props: {
       layout: {
@@ -99,7 +100,7 @@
         translateTitle,
       }
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>
@@ -120,8 +121,8 @@
       height: $base-nav-height;
 
       :deep() {
-        .vab-breadcrumb {
-          margin-left: $base-margin;
+        .fold-unfold {
+          margin-right: $base-margin;
         }
 
         .el-tabs {

@@ -1,9 +1,9 @@
 import App from './App.vue'
 import { createApp } from 'vue'
 import { setupVab } from '@/vab'
-import { setupI18n } from '@/i18n'
 import { setupStore } from '@/store'
 import { setupRouter } from '@/router'
+import './registerServiceWorker'
 
 const app = createApp(App)
 
@@ -26,7 +26,6 @@ if (process.env.NODE_ENV === 'development') {
 }
 
 setupVab(app)
-setupI18n(app)
 setupStore(app)
 setupRouter(app)
   .isReady()

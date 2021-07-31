@@ -2,7 +2,7 @@
   <div class="personal-center-container">
     <el-row :gutter="20">
       <el-col :lg="8" :md="12" :sm="24" :xl="8" :xs="24">
-        <el-card shadow="hover">
+        <vab-card shadow="hover">
           <div class="personal-center-user-info">
             <el-avatar :size="100" :src="avatar" @click="openDialog" />
             <div class="personal-center-user-info-full-name">
@@ -55,10 +55,10 @@
               </li>
             </ul>
           </div>
-        </el-card>
+        </vab-card>
       </el-col>
       <el-col :lg="16" :md="12" :sm="24" :xl="16" :xs="24">
-        <el-card shadow="hover">
+        <vab-card shadow="hover">
           <el-tabs v-model="activeName">
             <el-tab-pane label="基本信息" name="first">
               <el-col :lg="12" :md="16" :sm="24" :xl="12" :xs="24">
@@ -154,7 +154,7 @@
               <el-divider />
             </el-tab-pane>
           </el-tabs>
-        </el-card>
+        </vab-card>
       </el-col>
     </el-row>
     <vab-cropper ref="vabCropperRef" />
@@ -162,11 +162,17 @@
 </template>
 
 <script>
-  import { computed, getCurrentInstance, reactive, toRefs } from 'vue'
+  import {
+    computed,
+    defineComponent,
+    getCurrentInstance,
+    reactive,
+    toRefs,
+  } from 'vue'
   import { useStore } from 'vuex'
   import VabCropper from '@/extra/VabCropper'
 
-  export default {
+  export default defineComponent({
     name: 'PersonalCenter',
     components: { VabCropper },
     setup() {
@@ -194,12 +200,7 @@
         state['vabCropperRef'].dialogVisible = true
       }
       const onSubmit = () => {
-        proxy.$baseMessage(
-          '模拟保存成功',
-          'success',
-          false,
-          'vab-hey-message-success'
-        )
+        proxy.$baseMessage('模拟保存成功', 'success', 'vab-hey-message-success')
       }
 
       return {
@@ -209,7 +210,7 @@
         onSubmit,
       }
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>

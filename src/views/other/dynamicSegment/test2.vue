@@ -6,23 +6,31 @@
       title="取值方式：this.query"
       type="success"
     />
-    {{ route }}
+    <vab-json-viewer copyable :expand-depth="5" sort :value="route" />
   </div>
 </template>
 
 <script>
-  import { getCurrentInstance, nextTick, reactive, toRefs } from 'vue'
+  import {
+    defineComponent,
+    getCurrentInstance,
+    nextTick,
+    reactive,
+    toRefs,
+  } from 'vue'
   import { mapActions } from 'vuex'
+  import VabJsonViewer from '@/extra/VabJsonViewer'
 
-  export default {
+  export default defineComponent({
     name: 'Test2',
+    components: { VabJsonViewer },
     setup() {
       const { proxy } = getCurrentInstance()
+
       const state = reactive({
         route: {},
       })
-
-      function handleQuery() {
+      const handleQuery = () => {
         const route = proxy.$route
         nextTick(() => {
           proxy.changeTabsMeta({
@@ -50,5 +58,5 @@
         }),
       }
     },
-  }
+  })
 </script>

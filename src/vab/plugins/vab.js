@@ -14,11 +14,11 @@ export let gp
 export function setup(app) {
   /**
    * @description 全局加载层
-   * @param {*} index
-   * @param {*} text
+   * @param {number} index 自定义加载图标类名ID
+   * @param {string} text 显示在加载图标下方的加载文案
    */
   app.config.globalProperties.$baseLoading = (
-    index = null,
+    index = undefined,
     text = loadingText
   ) => {
     return ElLoading.service({
@@ -31,11 +31,11 @@ export function setup(app) {
 
   /**
    * @description 全局多彩加载层
-   * @param {*} index
-   * @param {*} text
+   * @param {number} index 自定义加载图标类名ID
+   * @param {string} text 显示在加载图标下方的加载文案
    */
   app.config.globalProperties.$baseColorfullLoading = (
-    index,
+    index = undefined,
     text = loadingText
   ) => {
     let loading
@@ -47,24 +47,16 @@ export function setup(app) {
         background: 'hsla(0,0%,100%,.8)',
       })
     } else {
-      switch (index) {
-        case 1:
-          index = 'dots'
-          break
-        case 2:
-          index = 'gauge'
-          break
-        case 3:
-          index = 'inner-circles'
-          break
-        case 4:
-          index = 'plus'
-          break
+      const spinnerDict = {
+        1: 'dots',
+        2: 'gauge',
+        3: 'inner-circles',
+        4: 'plus',
       }
       loading = ElLoading.service({
         lock: true,
-        text: text || loadingText,
-        spinner: index + '-loader',
+        text: text,
+        spinner: spinnerDict[index] + '-loader',
         background: 'hsla(0,0%,100%,.8)',
       })
     }
@@ -73,36 +65,39 @@ export function setup(app) {
 
   /**
    * @description 全局Message
-   * @param {*} message
-   * @param {*} type
-   * @param {*} dangerouslyUseHTMLString
-   * @param {*} customClass
+   * @param {string|VNode} message 消息文字
+   * @param {'success'|'warning'|'info'|'error'} type 主题
+   * @param {string} customClass 自定义类名
+   * @param {boolean} dangerouslyUseHTMLString 是否将message属性作为HTML片段处理
    */
   app.config.globalProperties.$baseMessage = (
     message,
-    type,
-    dangerouslyUseHTMLString = false,
-    customClass = false
+    type = 'info',
+    customClass = undefined,
+    dangerouslyUseHTMLString = false
   ) => {
     ElMessage({
-      showClose: true,
       message,
       type,
-      dangerouslyUseHTMLString,
-      duration: messageDuration,
       customClass,
+      duration: messageDuration,
+      dangerouslyUseHTMLString,
+      showClose: true,
     })
   }
 
   /**
    * @description 全局Alert
-   * @author chuzhixin 1204505056@qq.com
-   * @param {*} content
-   * @param {*} title
-   * @param {function} callback
+   * @param {string|VNode} content 消息正文内容
+   * @param {string} title 标题
+   * @param {function} callback 若不使用Promise,可以使用此参数指定MessageBox关闭后的回调
    */
-  app.config.globalProperties.$baseAlert = (content, title, callback) => {
-    ElMessageBox.alert(content, title || '温馨提示', {
+  app.config.globalProperties.$baseAlert = (
+    content,
+    title = '温馨提示',
+    callback = undefined
+  ) => {
+    ElMessageBox.alert(content, title, {
       confirmButtonText: '确定',
       dangerouslyUseHTMLString: true,
       callback: () => {
@@ -115,12 +110,12 @@ export function setup(app) {
 
   /**
    * @description 全局Confirm
-   * @param {*} content
-   * @param {*} title
-   * @param {*} callback1
-   * @param {*} callback2
-   * @param {*} confirmButtonText
-   * @param {*} cancelButtonText
+   * @param {string|VNode} content 消息正文内容
+   * @param {string} title 标题
+   * @param {function} callback1 确认回调
+   * @param {function} callback2 关闭或取消回调
+   * @param {string} confirmButtonText 确定按钮的文本内容
+   * @param {string} cancelButtonText 取消按钮的自定义类名
    */
   app.config.globalProperties.$baseConfirm = (
     content,
@@ -151,10 +146,10 @@ export function setup(app) {
 
   /**
    * @description 全局Notification
-   * @param {*} message
-   * @param {*} title
-   * @param {*} type
-   * @param {*} position
+   * @param {string} message 说明文字
+   * @param {string|VNode} title 标题
+   * @param {'success'|'warning'|'info'|'error'} type 主题样式,如果不在可选值内将被忽略
+   * @param {'top-right'|'top-left'|'bottom-right'|'bottom-left'} position 自定义弹出位置
    */
   app.config.globalProperties.$baseNotify = (
     message,
@@ -165,9 +160,9 @@ export function setup(app) {
     ElNotification({
       title: title,
       message: message,
-      position: position,
       type: type,
       duration: messageDuration,
+      position: position,
     })
   }
 

@@ -21,10 +21,10 @@
 </template>
 
 <script>
-  import { getCurrentInstance, reactive, toRefs } from 'vue'
+  import { defineComponent, getCurrentInstance, reactive, toRefs } from 'vue'
   import { doEdit } from '@/api/table'
 
-  export default {
+  export default defineComponent({
     name: 'TableEdit',
     emits: ['fetch-data'],
     setup(props, { emit }) {
@@ -65,7 +65,7 @@
         state['formRef'].validate(async (valid) => {
           if (valid) {
             const { msg } = await doEdit(state.form)
-            proxy.$baseMessage(msg, 'success', false, 'vab-hey-message-success')
+            proxy.$baseMessage(msg, 'success', 'vab-hey-message-success')
             emit('fetch-data')
             close()
           }
@@ -79,5 +79,5 @@
         save,
       }
     },
-  }
+  })
 </script>

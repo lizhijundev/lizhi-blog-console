@@ -40,3 +40,5 @@ public/video
 *.7z
 *.rar
 src/vab/styles/themes/red.scss
+/src/vab/styles/themes/red-black.scss
+/src/vab/styles/themes/red-white.scss

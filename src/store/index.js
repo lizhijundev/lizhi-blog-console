@@ -17,4 +17,5 @@ const store = createStore({ modules })
 export function setupStore(app) {
   app.use(store)
 }
+
 export default store

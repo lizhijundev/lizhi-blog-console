@@ -1,18 +1,18 @@
 <template>
   <div class="rate-container">
-    <el-card shadow="hover">
+    <vab-card shadow="hover">
       <template #header>
         <span>基础用法</span>
       </template>
       <el-rate v-model="value1" />
-    </el-card>
-    <el-card shadow="hover">
+    </vab-card>
+    <vab-card shadow="hover">
       <template #header>
         <span>辅助文字</span>
       </template>
       <el-rate v-model="value2" show-text />
-    </el-card>
-    <el-card shadow="hover">
+    </vab-card>
+    <vab-card shadow="hover">
       <template #header>
         <span>只读</span>
       </template>
@@ -23,14 +23,14 @@
         show-score
         text-color="#ff9900"
       />
-    </el-card>
+    </vab-card>
   </div>
 </template>
 
 <script>
-  import { reactive, toRefs } from 'vue'
+  import { defineComponent, reactive, toRefs } from 'vue'
 
-  export default {
+  export default defineComponent({
     name: 'Rate',
     setup() {
       const state = reactive({
@@ -43,7 +43,7 @@
         ...toRefs(state),
       }
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>

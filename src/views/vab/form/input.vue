@@ -1,30 +1,30 @@
 <template>
   <div class="input-container">
-    <el-card shadow="hover">
+    <vab-card shadow="hover">
       <template #header>
         <span>基础用法</span>
       </template>
       <el-input v-model="input1" placeholder="请输入内容" width="“200px”" />
-    </el-card>
-    <el-card shadow="hover">
+    </vab-card>
+    <vab-card shadow="hover">
       <template #header>
         <span>禁用状态</span>
       </template>
       <el-input v-model="input2" :disabled="true" placeholder="请输入内容" />
-    </el-card>
-    <el-card shadow="hover">
+    </vab-card>
+    <vab-card shadow="hover">
       <template #header>
         <span>可清空</span>
       </template>
       <el-input v-model="input3" clearable placeholder="请输入内容" />
-    </el-card>
-    <el-card shadow="hover">
+    </vab-card>
+    <vab-card shadow="hover">
       <template #header>
         <span>密码框</span>
       </template>
       <el-input v-model="input4" placeholder="请输入内容" show-password />
-    </el-card>
-    <el-card shadow="hover">
+    </vab-card>
+    <vab-card shadow="hover">
       <template #header>
         <span>带 icon 的输入框</span>
       </template>
@@ -38,8 +38,8 @@
         placeholder="请输入内容"
         prefix-icon="el-icon-search"
       />
-    </el-card>
-    <el-card shadow="hover">
+    </vab-card>
+    <vab-card shadow="hover">
       <template #header>
         <span>复合型输入框</span>
       </template>
@@ -61,8 +61,8 @@
           <el-button icon="el-icon-search" />
         </template>
       </el-input>
-    </el-card>
-    <el-card shadow="hover">
+    </vab-card>
+    <vab-card shadow="hover">
       <template #header>
         <span>textarea</span>
       </template>
@@ -72,14 +72,14 @@
         :rows="2"
         type="textarea"
       />
-    </el-card>
+    </vab-card>
   </div>
 </template>
 
 <script>
-  import { reactive, toRefs } from 'vue'
+  import { defineComponent, reactive, toRefs } from 'vue'
 
-  export default {
+  export default defineComponent({
     name: 'Input',
     setup() {
       const state = reactive({
@@ -100,7 +100,7 @@
         ...toRefs(state),
       }
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>

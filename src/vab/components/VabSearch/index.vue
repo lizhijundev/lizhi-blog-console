@@ -20,11 +20,11 @@
 </template>
 
 <script>
-  import { computed, onMounted, reactive } from 'vue'
+  import { computed, defineComponent, onMounted, reactive } from 'vue'
   import { useStore } from 'vuex'
   import { getList } from '@/api/search'
 
-  export default {
+  export default defineComponent({
     name: 'VabSearch',
     directives: {
       focus: {
@@ -93,7 +93,7 @@
         querySearchAsync,
       }
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>

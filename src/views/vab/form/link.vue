@@ -1,6 +1,6 @@
 <template>
   <div class="link-container">
-    <el-card shadow="hover">
+    <vab-card shadow="hover">
       <template #header>
         <span>基础用法</span>
       </template>
@@ -12,8 +12,8 @@
       <el-link type="warning">警告链接</el-link>
       <el-link type="danger">危险链接</el-link>
       <el-link type="info">信息链接</el-link>
-    </el-card>
-    <el-card shadow="hover">
+    </vab-card>
+    <vab-card shadow="hover">
       <template #header>
         <span>禁用状态</span>
       </template>
@@ -23,15 +23,15 @@
       <el-link disabled type="warning">警告链接</el-link>
       <el-link disabled type="danger">危险链接</el-link>
       <el-link disabled type="info">信息链接</el-link>
-    </el-card>
-    <el-card shadow="hover">
+    </vab-card>
+    <vab-card shadow="hover">
       <template #header>
         <span>下划线</span>
       </template>
       <el-link :underline="false">无下划线</el-link>
       <el-link>有下划线</el-link>
-    </el-card>
-    <el-card shadow="hover">
+    </vab-card>
+    <vab-card shadow="hover">
       <template #header>
         <span>图标</span>
       </template>
@@ -40,14 +40,16 @@
         查看
         <i class="el-icon-view el-icon--right" />
       </el-link>
-    </el-card>
+    </vab-card>
   </div>
 </template>
 
 <script>
-  export default {
+  import { defineComponent } from 'vue'
+
+  export default defineComponent({
     name: 'Link',
-  }
+  })
 </script>
 
 <style lang="scss" scoped>

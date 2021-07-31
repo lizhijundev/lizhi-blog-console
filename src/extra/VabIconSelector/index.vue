@@ -18,9 +18,9 @@
     </el-col>
 
     <el-col v-for="(item, index) in queryIcon" :key="index" :span="6">
-      <el-card shadow="hover" @click="handleIcon(item)">
+      <vab-card shadow="hover" @click="handleIcon(item)">
         <vab-icon :icon="item" />
-      </el-card>
+      </vab-card>
     </el-col>
     <el-col :span="24">
       <el-pagination
@@ -37,9 +37,10 @@
 </template>
 
 <script>
+  import { defineComponent } from 'vue'
   import { getIconList } from '@/api/remixIcon'
 
-  export default {
+  export default defineComponent({
     name: 'VabIconSelector',
     emits: ['handle-icon'],
     data() {
@@ -86,7 +87,7 @@
         this.$emit('handle-icon', item)
       },
     },
-  }
+  })
 </script>
 
 <style lang="scss">

@@ -1,6 +1,6 @@
 <template>
   <div class="time-picker-container">
-    <el-card shadow="hover">
+    <vab-card shadow="hover">
       <template #header>
         <span>固定时间点</span>
       </template>
@@ -13,8 +13,8 @@
         }"
         placeholder="选择时间"
       />
-    </el-card>
-    <el-card shadow="hover">
+    </vab-card>
+    <vab-card shadow="hover">
       <template #header>
         <span>任意时间点</span>
       </template>
@@ -25,8 +25,8 @@
         }"
         placeholder="任意时间点"
       />
-    </el-card>
-    <el-card shadow="hover">
+    </vab-card>
+    <vab-card shadow="hover">
       <template #header>
         <span>固定时间范围</span>
       </template>
@@ -50,14 +50,14 @@
         }"
         placeholder="结束时间"
       />
-    </el-card>
+    </vab-card>
   </div>
 </template>
 
 <script>
-  import { toRefs, reactive } from 'vue'
+  import { defineComponent, reactive, toRefs } from 'vue'
 
-  export default {
+  export default defineComponent({
     name: 'Timepicker',
     setup() {
       const state = reactive({
@@ -71,7 +71,7 @@
         ...toRefs(state),
       }
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>

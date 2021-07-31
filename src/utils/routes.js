@@ -2,6 +2,7 @@ import { resolve } from 'path'
 import { hasAccess } from '@/utils/hasAccess'
 import { isExternal } from '@/utils/validate'
 import { recordRoute } from '@/config'
+import qs from 'qs'
 
 /**
  * @description all模式渲染后端返回路由,支持包含views路径的所有页面
@@ -49,29 +50,78 @@ export function filterRoutes(routes, rolesControl, baseUrl = '/') {
           : route.path
       if (route.children) {
         route.children = filterRoutes(route.children, rolesControl, route.path)
-        route.childrenPathList = route.children.flatMap(
-          (_) => _.childrenPathList
+        route.childrenNameList = route.children.flatMap(
+          (_) => _.childrenNameList
         )
-        if (!route.redirect) route.redirect = route.children[0].path
-      } else route.childrenPathList = [route.path]
+        if (!route.redirect)
+          route.redirect = route.children[0].redirect
+            ? route.children[0].redirect
+            : route.children[0].path
+      } else route.childrenNameList = [route.name]
       return route
     })
 }
 
 /**
+ * 根据path路径获取matched
+ * @param routes 菜单routes
+ * @param name 路由名
+ * @returns {*} matched
+ */
+export function handleMatched(routes, name) {
+  return routes
+    .filter((route) => route.childrenNameList.indexOf(name) + 1)
+    .flatMap((route) =>
+      route.children ? [route, ...handleMatched(route.children, name)] : [route]
+    )
+}
+
+/**
+ * 生成单个多标签元素，可用于同步/异步添加多标签
+ * @param tag route页信息
+ * @param init 是否是从router获取路由
+ */
+export function handleTabs(tag, init = false) {
+  let parentIcon = null
+  if (tag.matched)
+    for (let i = tag.matched.length - 2; i >= 0; i--)
+      if (!parentIcon && tag.matched[i].meta.icon)
+        parentIcon = tag.matched[i].meta.icon
+  if (!parentIcon) parentIcon = 'menu-line'
+  const path = handleActivePath(tag, true)
+  if (tag.name && tag.meta && tag.meta.tabHidden !== true) {
+    return {
+      path: path,
+      query: tag.query,
+      params: tag.params,
+      name: tag.name,
+      matched: init
+        ? [tag.name]
+        : tag.matched.map((route) => route.components.default.name),
+      parentIcon,
+      meta: { ...tag.meta },
+    }
+  }
+}
+
+/**
  * 根据当前route获取激活菜单
  * @param route 当前路由
- * @param isTabsBar 是否是标签
+ * @param isTab 是否是标签
  * @returns {string|*}
  */
-export function handleActivePath(route, isTabsBar = false) {
-  const { meta, path, fullPath } = route
+export function handleActivePath(route, isTab = false) {
+  const { meta, path } = route
   const rawPath = route.matched
     ? route.matched[route.matched.length - 1].path
     : path
-  if (isTabsBar) return meta.dynamicNewTab ? fullPath : rawPath
+  const fullPath =
+    route.query && Object.keys(route.query).length
+      ? `${route.path}&${qs.stringify(route.query)}`
+      : route.path
+  if (isTab) return meta.dynamicNewTab ? fullPath : rawPath
   if (meta.activeMenu) return meta.activeMenu
-  return fullPath ? fullPath : rawPath
+  return fullPath
 }
 
 /**

@@ -37,9 +37,10 @@
 </template>
 
 <script>
+  import { defineComponent } from 'vue'
   import { isExternal } from '@/utils/validate'
 
-  export default {
+  export default defineComponent({
     name: 'IframeSearch',
     data() {
       const validateExternal = (rule, value, callback) => {
@@ -82,5 +83,5 @@
         })
       },
     },
-  }
+  })
 </script>

@@ -1,6 +1,6 @@
 <template>
   <el-col :span="24">
-    <el-card class="page-header" shadow="never">
+    <vab-card class="page-header" shadow="never">
       <el-avatar class="page-header-avatar" :src="avatar" />
       <div class="page-header-tip">
         <p class="page-header-tip-title">
@@ -12,17 +12,17 @@
         <vab-avatar-list :avatar-list="avatatList" />
         <p>participants</p>
       </div>
-    </el-card>
+    </vab-card>
   </el-col>
 </template>
 
 <script>
-  import { computed, reactive, toRefs } from 'vue'
+  import { computed, defineComponent, reactive, toRefs } from 'vue'
   import { useStore } from 'vuex'
   import { getList } from '@/api/description'
   import VabAvatarList from '@/extra/VabAvatarList'
 
-  export default {
+  export default defineComponent({
     components: { VabAvatarList },
     setup() {
       const store = useStore()
@@ -75,7 +75,7 @@
         handleTips,
       }
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>

@@ -2,7 +2,7 @@
   <div class="timeline-container">
     <el-row :gutter="20">
       <el-col :lg="8" :md="12" :sm="12" :xl="8" :xs="24">
-        <el-card shadow="hover">
+        <vab-card shadow="hover">
           <template #header>
             常规风格
             <el-radio-group v-model="reverse1" class="card-header-radio">
@@ -30,18 +30,18 @@
                   <span></span>
                 </span>
               </template>
-              <el-card v-if="item.card" shadow="hover">
+              <vab-card v-if="item.card" shadow="hover">
                 {{ item.content }}
-              </el-card>
+              </vab-card>
               <template v-else>
                 {{ item.content }}
               </template>
             </el-timeline-item>
           </el-timeline>
-        </el-card>
+        </vab-card>
       </el-col>
       <el-col :lg="8" :md="12" :sm="12" :xl="8" :xs="24">
-        <el-card shadow="hover">
+        <vab-card shadow="hover">
           <template #header>
             卡片风格
             <el-radio-group v-model="reverse2" class="card-header-radio">
@@ -77,14 +77,16 @@
               </div>
             </el-timeline-item>
           </el-timeline>
-        </el-card>
+        </vab-card>
       </el-col>
     </el-row>
   </div>
 </template>
 
 <script>
-  export default {
+  import { defineComponent } from 'vue'
+
+  export default defineComponent({
     name: 'Timeline',
     data() {
       return {
@@ -130,7 +132,7 @@
     created() {},
     mounted() {},
     methods: {},
-  }
+  })
 </script>
 
 <style lang="scss" scoped>

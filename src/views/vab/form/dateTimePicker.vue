@@ -1,6 +1,6 @@
 <template>
   <div class="date-time-picker-container">
-    <el-card shadow="hover">
+    <vab-card shadow="hover">
       <template #header>
         <span>日期和时间点</span>
       </template>
@@ -9,8 +9,8 @@
         placeholder="选择日期时间"
         type="datetime"
       />
-    </el-card>
-    <el-card shadow="hover">
+    </vab-card>
+    <vab-card shadow="hover">
       <template #header>
         <span>日期和时间范围</span>
       </template>
@@ -21,8 +21,8 @@
         start-placeholder="开始日期"
         type="datetimerange"
       />
-    </el-card>
-    <el-card shadow="hover">
+    </vab-card>
+    <vab-card shadow="hover">
       <template #header>
         <span>默认的起始与结束时刻</span>
       </template>
@@ -34,14 +34,14 @@
         start-placeholder="开始日期"
         type="datetimerange"
       />
-    </el-card>
+    </vab-card>
   </div>
 </template>
 
 <script>
-  import { reactive, toRefs } from 'vue'
+  import { defineComponent, reactive, toRefs } from 'vue'
 
-  export default {
+  export default defineComponent({
     name: 'DateTimePicker',
     setup() {
       const state = reactive({
@@ -57,7 +57,7 @@
         ...toRefs(state),
       }
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>

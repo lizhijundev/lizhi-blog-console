@@ -42,11 +42,11 @@
 </template>
 
 <script>
-  import { getCurrentInstance, reactive, toRefs } from 'vue'
+  import { defineComponent, getCurrentInstance, reactive, toRefs } from 'vue'
   import VabQuill from '@/extra/VabQuill'
   import VabUpload from '@/extra/VabUpload'
 
-  export default {
+  export default defineComponent({
     name: 'RichTextEditor',
     components: { VabQuill, VabUpload },
     setup() {
@@ -146,12 +146,7 @@
             }
           })
           if (valid) {
-            proxy.$baseMessage(
-              'submit!',
-              'success',
-              false,
-              'vab-hey-message-success'
-            )
+            proxy.$baseMessage('submit!', 'success', 'vab-hey-message-success')
           }
         })
       }
@@ -167,7 +162,7 @@
         handleAddImg,
       }
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>

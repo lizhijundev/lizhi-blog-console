@@ -69,6 +69,21 @@ module.exports = {
     // },
     after: require('./mock'),
   },
+  pwa: {
+    workboxOptions: {
+      skipWaiting: true,
+      clientsClaim: true,
+    },
+    themeColor: '#ffffff',
+    msTileColor: '#ffffff',
+    appleMobileWebAppCapable: 'yes',
+    appleMobileWebAppStatusBarStyle: 'black',
+    manifestOptions: {
+      name: 'Vue Admin Beautiful - Admin Plus',
+      short_name: 'Admin Plus',
+      background_color: '#ffffff',
+    },
+  },
   configureWebpack() {
     return {
       resolve: {

@@ -1,15 +1,15 @@
 <template>
   <div class="checkbox-container">
-    <el-card shadow="hover">
+    <vab-card shadow="hover">
       <template #header><span>基础用法</span></template>
       <el-checkbox v-model="checked">备选项</el-checkbox>
-    </el-card>
-    <el-card shadow="hover">
+    </vab-card>
+    <vab-card shadow="hover">
       <template #header><span>禁用状态</span></template>
       <el-checkbox v-model="checked1" disabled>备选项1</el-checkbox>
       <el-checkbox v-model="checked2" disabled>备选项</el-checkbox>
-    </el-card>
-    <el-card shadow="hover">
+    </vab-card>
+    <vab-card shadow="hover">
       <template #header><span>多选框组</span></template>
       <el-checkbox-group v-model="checkList">
         <el-checkbox label="复选框 A" />
@@ -18,35 +18,35 @@
         <el-checkbox disabled label="禁用" />
         <el-checkbox disabled label="选中且禁用" />
       </el-checkbox-group>
-    </el-card>
-    <el-card shadow="hover">
+    </vab-card>
+    <vab-card shadow="hover">
       <template #header><span>可选项目数量的限制</span></template>
       <el-checkbox-group v-model="checkedCities" :max="2" :min="1">
         <el-checkbox v-for="city in cities" :key="city" :label="city">
           {{ city }}
         </el-checkbox>
       </el-checkbox-group>
-    </el-card>
-    <el-card shadow="hover">
+    </vab-card>
+    <vab-card shadow="hover">
       <template #header><span>按钮样式</span></template>
       <el-checkbox-group v-model="checkboxGroup1">
         <el-checkbox-button v-for="city in cities" :key="city" :label="city">
           {{ city }}
         </el-checkbox-button>
       </el-checkbox-group>
-    </el-card>
-    <el-card shadow="hover">
+    </vab-card>
+    <vab-card shadow="hover">
       <template #header><span>带有边框</span></template>
       <el-checkbox v-model="checked3" border label="备选项1" />
       <el-checkbox v-model="checked4" border label="备选项2" />
-    </el-card>
+    </vab-card>
   </div>
 </template>
 
 <script>
-  import { reactive, toRefs } from 'vue'
+  import { defineComponent, reactive, toRefs } from 'vue'
 
-  export default {
+  export default defineComponent({
     name: 'Checkbox',
     setup() {
       const cityOptions = ['上海', '北京', '广州', '深圳']
@@ -67,7 +67,7 @@
         ...toRefs(state),
       }
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>

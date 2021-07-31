@@ -1,5 +1,5 @@
 /**
- * @description 海洋之心主题
+ * @description 渐变
  */
 
 body.vab-theme-ocean {
@@ -28,7 +28,8 @@ body.vab-theme-ocean {
   }
 
   .logo-container-vertical,
-  .logo-container-comprehensive {
+  .logo-container-comprehensive,
+  .logo-container-float {
     @include container;
   }
 
@@ -103,7 +104,8 @@ body.vab-theme-ocean {
 
   .vab-layout-vertical,
   .vab-layout-comprehensive,
-  .vab-layout-common {
+  .vab-layout-common,
+  .vab-layout-float {
     .vab-side-bar,
     .comprehensive-bar-container {
       @include container;
@@ -125,6 +127,18 @@ body.vab-theme-ocean {
     }
   }
 
+  .vab-layout-float {
+    .el-scrollbar__view .el-menu--collapse.el-menu li.el-submenu.is-active {
+      .el-submenu__title {
+        background-color: transparent !important;
+      }
+
+      > .el-submenu__title {
+        background-color: $base-color-blue !important;
+      }
+    }
+  }
+
   .vab-header {
     background-color: $base-color-blue !important;
 
@@ -138,18 +152,77 @@ body.vab-theme-ocean {
             background-color: $base-color-blue !important;
 
             &.is-active {
+              color: $base-color-white !important;
               background-color: $base-color-blue-active !important;
             }
           }
 
           > .el-menu-item,
-          .el-submenu__title {
+          .el-submenu__title,
+          > .el-menu-item:hover,
+          > .el-submenu__title:hover {
+            color: $base-color-white !important;
             background-color: $base-color-blue !important;
 
+            i {
+              color: $base-color-white !important;
+            }
+
             &.is-active {
+              color: $base-color-white !important;
               background-color: $base-color-blue-active !important;
             }
           }
+        }
+      }
+    }
+  }
+
+  /*由于element-plus
+bug使用popper-append-to-body=false会导致多级路由无法显示，故所有菜单必须生成至body下，样式必须放到body下*/
+  @mixin menuDefalut {
+    color: $base-color-white !important;
+    background: $base-color-blue !important;
+  }
+
+  @mixin menuActiveHover {
+    &:hover,
+    &.is-active {
+      i {
+        color: $base-color-white !important;
+      }
+
+      color: $base-color-white !important;
+      background: $base-color-blue-active !important;
+
+      .el-submenu__title {
+        i {
+          color: $base-color-white !important;
+        }
+
+        color: $base-color-white !important;
+        background: $base-color-blue-active !important;
+      }
+    }
+  }
+
+  .el-popper {
+    .el-menu--horizontal,
+    .el-menu--vertical {
+      @include menuDefalut;
+
+      .el-menu.el-menu--popup {
+        @include menuDefalut;
+      }
+
+      .el-menu-item,
+      .el-submenu {
+        @include menuDefalut;
+        @include menuActiveHover;
+
+        .el-submenu__title {
+          @include menuDefalut;
+          @include menuActiveHover;
         }
       }
     }

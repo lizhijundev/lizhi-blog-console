@@ -11,10 +11,11 @@
 </template>
 
 <script>
+  import { defineComponent } from 'vue'
   import { mapActions, mapGetters } from 'vuex'
   import { handleActivePath } from '@/utils/routes'
 
-  export default {
+  export default defineComponent({
     name: 'Tabs',
     data() {
       return {
@@ -116,5 +117,5 @@
         return tag.meta && tag.meta.noClosable
       },
     },
-  }
+  })
 </script>

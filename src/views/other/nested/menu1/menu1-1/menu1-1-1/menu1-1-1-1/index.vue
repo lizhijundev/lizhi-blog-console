@@ -7,9 +7,9 @@
 </template>
 
 <script>
-  import { ref } from 'vue'
+  import { defineComponent, ref } from 'vue'
 
-  export default {
+  export default defineComponent({
     name: 'Menu1111',
     setup() {
       const value = ref('')
@@ -18,7 +18,7 @@
         value,
       }
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped></style>

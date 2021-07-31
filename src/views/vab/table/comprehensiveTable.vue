@@ -68,7 +68,7 @@
           </el-form-item>
         </el-form>
       </vab-query-form-top-panel>
-      <vab-query-form-left-panel>
+      <vab-query-form-left-panel :span="24">
         <el-button icon="el-icon-plus" type="primary" @click="handleAdd">
           添加
         </el-button>
@@ -83,7 +83,14 @@
           $baseConfirm
         </el-button>
         <el-button type="primary" @click="handleNotify">$baseNotify</el-button>
-        <el-badge class="item" type="danger" value="New">
+        <el-button
+          icon="el-icon-info"
+          type="primary"
+          @click="handleDetailStayTable"
+        >
+          停留在本页后台打开详情页后（不常用）
+        </el-button>
+        <el-badge class="item" value="New">
           <el-button
             icon="el-icon-info"
             style="margin: 0 0 10px 0 !important"
@@ -226,23 +233,31 @@
 
 <script>
   import {
+    computed,
+    defineComponent,
     getCurrentInstance,
     onBeforeMount,
     onBeforeUnmount,
+    onMounted,
     reactive,
     toRefs,
   } from 'vue'
+  import { mapActions, useStore } from 'vuex'
   import { useRouter } from 'vue-router'
   import { doDelete, getList } from '@/api/table'
+  import { handleMatched, handleTabs } from '@/utils/routes'
   import TableEdit from './components/TableEdit'
 
-  export default {
+  export default defineComponent({
     name: 'ComprehensiveTable',
     components: {
       TableEdit,
     },
     setup() {
+      const store = useStore()
       const router = useRouter()
+
+      const routes = computed(() => store.getters['routes/routes'])
 
       const { proxy } = getCurrentInstance()
 
@@ -330,7 +345,7 @@
         if (row.id) {
           proxy.$baseConfirm('你确定要删除当前项吗', null, async () => {
             const { msg } = await doDelete({ ids: row.id })
-            proxy.$baseMessage(msg, 'success', false, 'vab-hey-message-success')
+            proxy.$baseMessage(msg, 'success', 'vab-hey-message-success')
             await fetchData()
           })
         } else {
@@ -338,21 +353,32 @@
             const ids = state.selectRows.map((item) => item.id).join()
             proxy.$baseConfirm('你确定要删除选中项吗', null, async () => {
               const { msg } = await doDelete({ ids: ids })
-              proxy.$baseMessage(
-                msg,
-                'success',
-                false,
-                'vab-hey-message-success'
-              )
+              proxy.$baseMessage(msg, 'success', 'vab-hey-message-success')
               await fetchData()
             })
           } else {
-            proxy.$baseMessage(
-              '未选中任何行',
-              'error',
-              false,
-              'vab-hey-message-error'
-            )
+            proxy.$baseMessage('未选中任何行', 'error', 'vab-hey-message-error')
+          }
+        }
+      }
+      const handleDetailStayTable = async () => {
+        for (let i = 0; i < state.selectRows.length; i++) {
+          const matched = handleMatched(routes.value, 'Detail')
+          const tab = handleTabs(
+            {
+              ...matched[matched.length - 1],
+              query: state.selectRows[i],
+            },
+            true
+          )
+          if (tab) {
+            await proxy.addVisitedRoute(tab)
+            proxy.changeTabsMeta({
+              title: '详情页',
+              meta: {
+                title: `${tab.query.title} 详情页`,
+              },
+            })
           }
         }
       }
@@ -372,7 +398,6 @@
             proxy.$baseMessage(
               '请选择一行进行详情页跳转',
               'error',
-              false,
               'vab-hey-message-error'
             )
           }
@@ -421,11 +446,16 @@
       onBeforeUnmount(() => {
         window.removeEventListener('resize', handleHeight)
       })
-
-      fetchData()
+      onMounted(() => {
+        fetchData()
+      })
 
       return {
         ...toRefs(state),
+        ...mapActions({
+          addVisitedRoute: 'tabs/addVisitedRoute',
+          changeTabsMeta: 'tabs/changeTabsMeta',
+        }),
         handleSizeChange,
         handleCurrentChange,
         queryData,
@@ -437,6 +467,7 @@
         handleAdd,
         handleEdit,
         handleDelete,
+        handleDetailStayTable,
         handleDetail,
         handleMessage,
         handleAlert,
@@ -445,5 +476,5 @@
         fetchData,
       }
     },
-  }
+  })
 </script>

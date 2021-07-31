@@ -47,7 +47,7 @@
         :xl="6"
         :xs="24"
       >
-        <el-card
+        <vab-card
           :body-style="{ padding: '0px', position: 'static' }"
           shadow="hover"
         >
@@ -60,7 +60,7 @@
           <div class="card-title">{{ item.title }}</div>
           <div class="card-description">{{ item.description }}</div>
           <div class="card-datetime">{{ item.datetime }}</div>
-        </el-card>
+        </vab-card>
       </el-col>
     </el-row>
     <el-pagination
@@ -76,11 +76,11 @@
 </template>
 
 <script>
-  import { reactive, toRefs } from 'vue'
+  import { defineComponent, onMounted, reactive, toRefs } from 'vue'
   import VabMagnifier from '@/extra/VabMagnifier'
   import { getList } from '@/api/table'
 
-  export default {
+  export default defineComponent({
     name: 'Card',
     components: { VabMagnifier },
     setup() {
@@ -110,8 +110,9 @@
         state.queryForm.pageNo = 1
         fetchData()
       }
-
-      fetchData()
+      onMounted(() => {
+        fetchData()
+      })
 
       return {
         ...toRefs(state),
@@ -120,7 +121,7 @@
         queryData,
       }
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>

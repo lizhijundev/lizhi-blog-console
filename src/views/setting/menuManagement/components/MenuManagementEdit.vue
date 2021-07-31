@@ -27,10 +27,10 @@
       <el-form-item label="重定向" prop="redirect">
         <el-input v-model="form.redirect" />
       </el-form-item>
-      <el-form-item label="标题" prop="meta.title">
+      <el-form-item label="标题" prop="title">
         <el-input v-model="form.meta.title" />
       </el-form-item>
-      <el-form-item label="图标" prop="meta.icon">
+      <el-form-item label="图标" prop="icon">
         <el-popover
           popper-class="icon-selector-popper"
           trigger="hover"
@@ -72,11 +72,11 @@
 </template>
 
 <script>
-  import { getCurrentInstance, reactive, toRefs } from 'vue'
+  import { defineComponent, getCurrentInstance, reactive, toRefs } from 'vue'
   import VabIconSelector from '@/extra/VabIconSelector'
   import { doEdit } from '@/api/menuManagement'
 
-  export default {
+  export default defineComponent({
     name: 'MenuManagementEdit',
     components: { VabIconSelector },
     emits: ['fetch-data'],
@@ -99,12 +99,8 @@
           component: [
             { required: true, trigger: 'blur', message: '请输入component' },
           ],
-          'meta.title': [
-            { required: true, trigger: 'blur', message: '请输入标题' },
-          ],
-          'meta.icon': [
-            { required: true, trigger: 'blur', message: '请选择图标' },
-          ],
+          title: [{ required: true, trigger: 'blur', message: '请输入标题' }],
+          icon: [{ required: true, trigger: 'blur', message: '请选择图标' }],
         },
         title: '',
         dialogFormVisible: false,
@@ -135,7 +131,7 @@
         state['formRef'].validate(async (valid) => {
           if (valid) {
             const { msg } = await doEdit(state.form)
-            proxy.$baseMessage(msg, 'success', false, 'vab-hey-message-success')
+            proxy.$baseMessage(msg, 'success', 'vab-hey-message-success')
             emit('fetch-data')
             close()
           }
@@ -150,5 +146,5 @@
         save,
       }
     },
-  }
+  })
 </script>

@@ -9,27 +9,25 @@
   >
     <el-scrollbar class="theme-scrollbar">
       <div class="el-drawer__body">
-        <el-form label-position="left" :model="theme">
+        <el-form ref="form" label-position="left" :model="theme">
           <el-divider content-position="left">
             <vab-icon icon="settings-3-line" />
             {{ translateTitle('常用设置') }}
           </el-divider>
           <el-form-item>
             <template #label>
-              <label class="el-form-item__label">
-                {{ translateTitle('布局') }}
-                <el-tooltip
-                  :content="
-                    translateTitle(
-                      '布局配置仅在电脑视窗下生效，手机视窗时将默认锁定为纵向布局'
-                    )
-                  "
-                  effect="dark"
-                  placement="top"
-                >
-                  <vab-icon icon="question-line" />
-                </el-tooltip>
-              </label>
+              {{ translateTitle('布局') }}
+              <el-tooltip
+                :content="
+                  translateTitle(
+                    '布局配置仅在电脑视窗下生效，手机视窗时将默认锁定为纵向布局'
+                  )
+                "
+                effect="dark"
+                placement="top"
+              >
+                <vab-icon icon="question-line" />
+              </el-tooltip>
             </template>
             <el-select
               v-model="theme.layout"
@@ -61,29 +59,50 @@
                 :label="translateTitle('常规')"
                 value="common"
               />
+              <el-option
+                key="float"
+                :label="translateTitle('浮动')"
+                value="float"
+              />
             </el-select>
           </el-form-item>
           <el-form-item :label="translateTitle('主题')">
             <el-select v-model="theme.themeName" @change="setTheme">
               <el-option
-                key="default"
-                :label="translateTitle('默认')"
-                value="default"
+                key="blue-black"
+                :label="translateTitle('蓝黑')"
+                value="blue-black"
+              />
+              <el-option
+                key="blue-white"
+                :label="translateTitle('蓝白')"
+                value="blue-white"
+              />
+              <el-option
+                key="green-black"
+                :label="translateTitle('绿黑')"
+                value="green-black"
+              />
+              <el-option
+                key="green-white"
+                :label="translateTitle('绿白')"
+                value="green-white"
+              />
+              <!-- 红黑、红白主题完成群文档任务免费获取 -->
+              <el-option
+                key="red-black"
+                :label="translateTitle('红黑')"
+                value="red-black"
+              />
+              <el-option
+                key="red-white"
+                :label="translateTitle('红白')"
+                value="red-white"
               />
               <el-option
                 key="ocean"
-                :label="translateTitle('海洋之心')"
+                :label="translateTitle('渐变')"
                 value="ocean"
-              />
-              <el-option
-                key="green"
-                :label="translateTitle('绿荫草场')"
-                value="green"
-              />
-              <el-option
-                key="white"
-                :label="translateTitle('碰触纯白')"
-                value="white"
               />
             </el-select>
           </el-form-item>
@@ -92,16 +111,14 @@
           </el-form-item>
           <el-form-item>
             <template #label>
-              <label class="el-form-item__label">
-                {{ translateTitle('标签图标') }}
-                <el-tooltip
-                  :content="translateTitle('标签开启时生效')"
-                  effect="dark"
-                  placement="top"
-                >
-                  <vab-icon icon="question-line" />
-                </el-tooltip>
-              </label>
+              {{ translateTitle('标签图标') }}
+              <el-tooltip
+                :content="translateTitle('标签开启时生效')"
+                effect="dark"
+                placement="top"
+              >
+                <vab-icon icon="question-line" />
+              </el-tooltip>
             </template>
             <el-switch
               v-model="theme.showTabsBarIcon"
@@ -110,16 +127,14 @@
           </el-form-item>
           <el-form-item>
             <template #label>
-              <label class="el-form-item__label">
-                {{ translateTitle('标签风格') }}
-                <el-tooltip
-                  :content="translateTitle('标签开启时生效')"
-                  effect="dark"
-                  placement="top"
-                >
-                  <vab-icon icon="question-line" />
-                </el-tooltip>
-              </label>
+              {{ translateTitle('标签风格') }}
+              <el-tooltip
+                :content="translateTitle('标签开启时生效')"
+                effect="dark"
+                placement="top"
+              >
+                <vab-icon icon="question-line" />
+              </el-tooltip>
             </template>
             <el-select v-model="theme.tabsBarStyle" :disabled="!theme.showTabs">
               <el-option
@@ -141,16 +156,14 @@
           </el-form-item>
           <el-form-item>
             <template #label>
-              <label class="el-form-item__label">
-                {{ translateTitle('分栏风格') }}
-                <el-tooltip
-                  :content="translateTitle('分栏布局时生效')"
-                  effect="dark"
-                  placement="top"
-                >
-                  <vab-icon icon="question-line" />
-                </el-tooltip>
-              </label>
+              {{ translateTitle('分栏风格') }}
+              <el-tooltip
+                :content="translateTitle('分栏布局时生效')"
+                effect="dark"
+                placement="top"
+              >
+                <vab-icon icon="question-line" />
+              </el-tooltip>
             </template>
             <el-select
               v-model="theme.columnStyle"
@@ -223,6 +236,7 @@
 <script>
   import {
     computed,
+    defineComponent,
     getCurrentInstance,
     onBeforeMount,
     onUnmounted,
@@ -232,7 +246,7 @@
   import { translateTitle } from '@/utils/i18n'
   import _ from 'lodash'
 
-  export default {
+  export default defineComponent({
     name: 'VabThemeDrawer',
     setup() {
       const store = useStore()
@@ -265,7 +279,15 @@
         const loading = proxy.$baseColorfullLoading(0)
         // 随机换肤重置移除主题，防止代码更新影响样式
         await resetTheme()
-        const themeNameArray = ['default', 'ocean', 'green', 'white']
+        const themeNameArray = [
+          'blue-black',
+          'blue-white',
+          'ocean',
+          'green-black',
+          'green-white',
+          'red-black',
+          'red-white',
+        ]
         theme.value.themeName = _.shuffle(
           _.pull(themeNameArray, [theme.value.themeName])
         )[0]
@@ -288,6 +310,7 @@
             'column',
             'comprehensive',
             'common',
+            'float',
           ]
           theme.value.layout = _.shuffle(
             _.pull(layoutArray, [theme.value.layout])
@@ -332,7 +355,7 @@
         setTheme,
       }
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>

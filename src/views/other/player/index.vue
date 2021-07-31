@@ -2,7 +2,7 @@
   <div v-if="show" class="player-container">
     <el-row :gutter="20">
       <el-col :lg="12" :md="24" :sm="24" :xl="12" :xs="24">
-        <el-card shadow="hover">
+        <vab-card shadow="hover">
           <template #header>常规视频播放(可配置弹幕)</template>
           <vab-player-mp4
             :config="mp4Config"
@@ -16,26 +16,27 @@
               <el-button @click="onSubmit">发射弹幕</el-button>
             </el-form-item>
           </el-form>
-        </el-card>
+        </vab-card>
       </el-col>
       <el-col :lg="12" :md="24" :sm="24" :xl="12" :xs="24">
-        <el-card shadow="hover">
+        <vab-card shadow="hover">
           <template #header>Hls推流、m3u8播放(可配置弹幕)</template>
           <vab-player-hls
             :config="hlsConfig"
             @player="$vabPlayerHls = $event"
           />
-        </el-card>
+        </vab-card>
       </el-col>
     </el-row>
   </div>
 </template>
 
 <script>
+  import { defineComponent } from 'vue'
   import { VabPlayerHls, VabPlayerMp4 } from '@/extra/VabPlayer.js'
   import { uuid } from '@/utils'
 
-  export default {
+  export default defineComponent({
     name: 'Player',
     components: {
       VabPlayerMp4,
@@ -119,7 +120,7 @@
         })
       },
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>

@@ -1,6 +1,6 @@
 <template>
   <div class="slider-container">
-    <el-card shadow="hover">
+    <vab-card shadow="hover">
       <template #header>
         <span>基础用法</span>
       </template>
@@ -14,8 +14,8 @@
       <el-slider v-model="value4" :format-tooltip="formatTooltip" />
       <span class="demonstration">禁用</span>
       <el-slider v-model="value5" disabled />
-    </el-card>
-    <el-card shadow="hover">
+    </vab-card>
+    <vab-card shadow="hover">
       <template #header>
         <span>离散值</span>
       </template>
@@ -23,32 +23,32 @@
       <el-slider v-model="value6" :step="10" />
       <span class="demonstration">显示间断点</span>
       <el-slider v-model="value6" show-stops :step="10" />
-    </el-card>
-    <el-card shadow="hover">
+    </vab-card>
+    <vab-card shadow="hover">
       <template #header>
         <span>带有输入框</span>
       </template>
       <el-slider v-model="value7" show-input />
-    </el-card>
-    <el-card shadow="hover">
+    </vab-card>
+    <vab-card shadow="hover">
       <template #header>
         <span>范围选择</span>
       </template>
       <el-slider v-model="value8" :max="10" range show-stops />
-    </el-card>
-    <el-card shadow="hover">
+    </vab-card>
+    <vab-card shadow="hover">
       <template #header>
         <span>竖向模式</span>
       </template>
       <el-slider v-model="value9" height="200px" vertical />
-    </el-card>
+    </vab-card>
   </div>
 </template>
 
 <script>
-  import { reactive, toRefs } from 'vue'
+  import { defineComponent, reactive, toRefs } from 'vue'
 
-  export default {
+  export default defineComponent({
     name: 'Slider',
     setup() {
       const state = reactive({
@@ -72,7 +72,7 @@
         formatTooltip,
       }
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>

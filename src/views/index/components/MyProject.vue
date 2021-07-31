@@ -1,5 +1,5 @@
 <template>
-  <el-card shadow="hover">
+  <vab-card shadow="hover">
     <template #header>
       <vab-icon icon="github-line" />
       我的开源项目
@@ -25,11 +25,13 @@
         </div>
       </el-col>
     </el-row>
-  </el-card>
+  </vab-card>
 </template>
 
 <script>
-  export default {
+  import { defineComponent } from 'vue'
+
+  export default defineComponent({
     setup() {
       const list = [
         {
@@ -57,7 +59,7 @@
         handleOpenWindow,
       }
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>

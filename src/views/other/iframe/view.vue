@@ -5,9 +5,10 @@
 </template>
 
 <script>
+  import { defineComponent } from 'vue'
   import { mapActions } from 'vuex'
 
-  export default {
+  export default defineComponent({
     name: 'Iframe',
     data() {
       return { url: '' }
@@ -35,7 +36,7 @@
           })
       },
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>

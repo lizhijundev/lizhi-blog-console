@@ -7,14 +7,23 @@
 </template>
 
 <script>
-  import { computed, onBeforeUnmount, onMounted, ref } from 'vue'
+  import {
+    computed,
+    defineComponent,
+    getCurrentInstance,
+    onBeforeUnmount,
+    onMounted,
+    ref,
+  } from 'vue'
   import { useStore } from 'vuex'
   import screenfull from 'screenfull'
 
-  export default {
+  export default defineComponent({
     name: 'VabFullScreen',
     setup() {
       const store = useStore()
+
+      const { proxy } = getCurrentInstance()
 
       const isFullscreen = ref(false)
 
@@ -24,12 +33,7 @@
 
       const click = () => {
         if (!screenfull.isEnabled) {
-          this.$baseMessage(
-            '开启全屏失败',
-            'error',
-            false,
-            'vab-hey-message-error'
-          )
+          proxy.$baseMessage('开启全屏失败', 'error', 'vab-hey-message-error')
         }
         screenfull.toggle()
       }
@@ -49,5 +53,5 @@
         theme: computed(() => store.getters['settings/theme']),
       }
     },
-  }
+  })
 </script>

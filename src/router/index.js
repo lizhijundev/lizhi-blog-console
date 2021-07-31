@@ -7,7 +7,7 @@ import {
   createWebHistory,
 } from 'vue-router'
 import Layout from '@/vab/layouts'
-import { isHashRouterMode, publicPath } from '@/config'
+import { authentication, isHashRouterMode, publicPath } from '@/config'
 
 export const constantRoutes = [
   {
@@ -57,7 +57,6 @@ export const asyncRoutes = [
     path: '/',
     name: 'Root',
     component: Layout,
-    redirect: '/index',
     meta: {
       title: '首页',
       icon: 'home-2-line',
@@ -71,6 +70,15 @@ export const asyncRoutes = [
           title: '首页',
           icon: 'home-2-line',
           noClosable: true,
+        },
+      },
+      {
+        path: 'dashboard',
+        name: 'Dashboard',
+        component: () => import('@/views/index/dashboard'),
+        meta: {
+          title: '看板',
+          icon: 'dashboard-line',
         },
       },
       {
@@ -89,7 +97,6 @@ export const asyncRoutes = [
     path: '/vab',
     name: 'Vab',
     component: Layout,
-    redirect: '/vab/icon/remixIcon',
     meta: {
       title: '组件',
       icon: 'code-box-line',
@@ -98,7 +105,6 @@ export const asyncRoutes = [
       {
         path: 'icon',
         name: 'Icon',
-        redirect: '/vab/icon/remixIcon',
         meta: {
           title: '图标',
           icon: 'remixicon-line',
@@ -135,7 +141,6 @@ export const asyncRoutes = [
       {
         path: 'table',
         name: 'Table',
-        redirect: '/vab/table/comprehensiveTable',
         meta: {
           title: '表格',
           // 非editor角色的用户可见
@@ -347,11 +352,11 @@ export const asyncRoutes = [
       },
     ],
   },
+
   {
     path: '/other',
     name: 'Other',
     component: Layout,
-    redirect: '/other/workflow',
     meta: {
       title: '其他',
       icon: 'archive-line',
@@ -430,7 +435,7 @@ export const asyncRoutes = [
       },
       {
         path: 'tabs',
-        name: 'tabs',
+        name: 'Tabs',
         component: () => import('@/views/other/tabs'),
         meta: {
           title: '多标签',
@@ -494,6 +499,25 @@ export const asyncRoutes = [
         ],
       },
       {
+        path: 'drag',
+        name: 'Drag',
+        meta: {
+          title: '拖拽',
+          roles: ['admin'],
+          icon: 'drag-drop-line',
+        },
+        children: [
+          {
+            path: 'cardDrag',
+            name: 'CardDrag',
+            component: () => import('@/views/other/drag/cardDrag'),
+            meta: {
+              title: '卡片拖拽',
+            },
+          },
+        ],
+      },
+      {
         path: 'loading',
         name: 'Loading',
         component: () => import('@/views/other/loading'),
@@ -527,7 +551,6 @@ export const asyncRoutes = [
       {
         path: 'menu1',
         name: 'Menu1',
-        redirect: '/other/menu1/menu1-1/menu1-1-1/menu1-1-1-1',
         meta: {
           title: '多级路由缓存',
           roles: ['admin'],
@@ -537,7 +560,6 @@ export const asyncRoutes = [
           {
             path: 'menu1-1',
             name: 'Menu11',
-            redirect: '/other/menu1/menu1-1/menu1-1-1/menu1-1-1-1',
             meta: {
               title: '多级路由1-1',
             },
@@ -545,7 +567,6 @@ export const asyncRoutes = [
               {
                 path: 'menu1-1-1',
                 name: 'Menu111',
-                redirect: '/other/menu1/menu1-1/menu1-1-1/menu1-1-1-1',
                 meta: {
                   title: '多级路由1-1-1',
                 },
@@ -668,7 +689,6 @@ export const asyncRoutes = [
       {
         path: 'excel',
         name: 'Excel',
-        redirect: '/other/excel/exportExcel',
         meta: {
           title: 'Excel',
           roles: ['admin'],
@@ -708,10 +728,10 @@ export const asyncRoutes = [
     path: '/mall',
     name: 'Mall',
     component: Layout,
-    redirect: '/mall/goods',
     meta: {
       title: '物料源',
       icon: 'apps-line',
+      levelHidden: true,
       roles: ['admin'],
     },
     children: [
@@ -731,7 +751,6 @@ export const asyncRoutes = [
     path: '/setting',
     name: 'PersonnelManagement',
     component: Layout,
-    redirect: '/setting/personalCenter',
     meta: {
       title: '配置',
       icon: 'user-settings-line',
@@ -798,7 +817,6 @@ export const asyncRoutes = [
     path: '/error',
     name: 'Error',
     component: Layout,
-    redirect: '/error/403',
     meta: {
       title: '错误页',
       icon: 'error-warning-line',
@@ -869,6 +887,7 @@ export function resetRouter(routes = constantRoutes) {
 }
 
 export function setupRouter(app) {
+  if (authentication === 'intelligence') addRouter(asyncRoutes)
   app.use(router)
   return router
 }

@@ -1,5 +1,5 @@
 <template>
-  <el-card shadow="hover">
+  <vab-card shadow="hover" skeleton :skeleton-rows="6" style="height: 383px">
     <template #header>
       <vab-icon icon="road-map-line" />
       中国地图
@@ -13,16 +13,16 @@
       style="height: 283px"
       theme="vab-echarts-theme"
     />
-  </el-card>
+  </vab-card>
 </template>
 
 <script>
-  import { reactive, toRefs } from 'vue'
+  import { defineComponent, reactive, toRefs } from 'vue'
+  import _ from 'lodash'
   import axios from 'axios'
   import VabChart from '@/extra/VabChart'
-  import _ from 'lodash'
 
-  export default {
+  export default defineComponent({
     components: {
       VabChart,
     },
@@ -120,5 +120,5 @@
         ...toRefs(state),
       }
     },
-  }
+  })
 </script>

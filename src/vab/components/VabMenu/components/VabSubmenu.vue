@@ -4,7 +4,7 @@
       <vab-menu :item="route" />
     </template>
   </div>
-  <el-submenu v-else :index="itemOrMenu.path" :popper-append-to-body="false">
+  <el-submenu v-else :index="itemOrMenu.path" popper-append-to-body>
     <template #title>
       <vab-icon
         v-if="itemOrMenu.meta && itemOrMenu.meta.icon"
@@ -21,9 +21,10 @@
 </template>
 
 <script>
+  import { defineComponent } from 'vue'
   import { translateTitle } from '@/utils/i18n'
 
-  export default {
+  export default defineComponent({
     name: 'VabSubmenu',
     props: {
       itemOrMenu: {
@@ -38,5 +39,5 @@
         translateTitle,
       }
     },
-  }
+  })
 </script>

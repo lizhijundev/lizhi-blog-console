@@ -7,7 +7,9 @@
 </template>
 
 <script>
-  export default {
+  import { defineComponent } from 'vue'
+
+  export default defineComponent({
     name: 'VabQueryFormRightPanel',
     props: {
       span: {
@@ -15,5 +17,5 @@
         default: 10,
       },
     },
-  }
+  })
 </script>

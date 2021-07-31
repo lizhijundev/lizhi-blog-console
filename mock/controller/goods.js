@@ -58,7 +58,7 @@ const List = [
     price: '免费',
     label: ['spring-boot', 'vue-admin-beautiful'],
     company: 'OPSLI',
-    url: 'http://demo.opsli.arcinbj.com/',
+    url: 'https://www.opsli.com',
     description: 'vue-admin-beautiful开源版即可spring boot的最佳实践',
   },
 ]

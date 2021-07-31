@@ -114,10 +114,10 @@
 </template>
 
 <script>
-  import { reactive, toRefs } from 'vue'
+  import { defineComponent, onMounted, reactive, toRefs } from 'vue'
   import { getList } from '@/api/table'
 
-  export default {
+  export default defineComponent({
     name: 'InlineEditTable',
     setup() {
       const state = reactive({
@@ -165,8 +165,9 @@
         row.edit = false
         row.originalTitle = row.title
       }
-
-      fetchData()
+      onMounted(() => {
+        fetchData()
+      })
 
       return {
         ...toRefs(state),
@@ -177,5 +178,5 @@
         confirmEdit,
       }
     },
-  }
+  })
 </script>

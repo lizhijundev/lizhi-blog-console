@@ -28,9 +28,9 @@
         :xl="2"
         :xs="6"
       >
-        <el-card shadow="hover" @click="handleCopyIcon(item, $event)">
+        <vab-card shadow="hover" @click="handleCopyIcon(item, $event)">
           <vab-icon :icon="item" />
-        </el-card>
+        </vab-card>
         <div class="icon-text" @click="handleCopyText(item, $event)">
           {{ item }}
         </div>
@@ -53,11 +53,11 @@
 </template>
 
 <script>
-  import { reactive, toRefs } from 'vue'
+  import { defineComponent, onMounted, reactive, toRefs } from 'vue'
   import { getIconList } from '@/api/remixIcon'
   import clip from '@/utils/clipboard'
 
-  export default {
+  export default defineComponent({
     name: 'RemixIcon',
     setup() {
       const state = reactive({
@@ -92,8 +92,9 @@
       const handleCopyIcon = (item, event) => {
         clip(`<vab-icon icon="${item}" />`, event)
       }
-
-      fetchData()
+      onMounted(() => {
+        fetchData()
+      })
 
       return {
         ...toRefs(state),
@@ -104,7 +105,7 @@
         handleCopyIcon,
       }
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>

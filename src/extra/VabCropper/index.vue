@@ -1,7 +1,6 @@
 <template>
   <el-dialog
     v-model="dialogVisible"
-    v-model:visible="dialogVisible"
     :close-on-click-modal="false"
     title="头像裁剪"
     width="470px"
@@ -42,11 +41,12 @@
 </template>
 
 <script>
-  import 'vab-cropper/lib/vab-cropper.css'
-  import VabCropperBeta from 'vab-cropper'
+  import { defineComponent } from 'vue'
   import { mapActions } from 'vuex'
+  import VabCropperBeta from 'vab-cropper'
+  import 'vab-cropper/lib/vab-cropper.css'
 
-  export default {
+  export default defineComponent({
     name: 'VabCropper',
     components: { VabCropperBeta },
     data() {
@@ -86,16 +86,11 @@
       },
       upload() {
         this.setAvatar(this.value)
-        this.$baseMessage(
-          '模拟保存成功',
-          'success',
-          false,
-          'vab-hey-message-success'
-        )
+        this.$baseMessage('模拟保存成功', 'success', 'vab-hey-message-success')
         this.dialogVisible = false
       },
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>

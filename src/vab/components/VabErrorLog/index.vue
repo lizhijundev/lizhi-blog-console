@@ -61,11 +61,11 @@
 </template>
 
 <script>
-  import { ref, computed } from 'vue'
+  import { computed, defineComponent, ref } from 'vue'
   import { useStore } from 'vuex'
   import { abbreviation, title } from '@/config'
 
-  export default {
+  export default defineComponent({
     name: 'VabErrorLog',
     setup() {
       const store = useStore()
@@ -103,7 +103,7 @@
         errorLogs: computed(() => store.getters['errorLog/errorLogs']),
       }
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>

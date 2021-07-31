@@ -1,6 +1,6 @@
 <template>
   <div class="order">
-    <el-card class="order-card1" shadow="hover">
+    <vab-card class="order-card1" shadow="hover">
       <template #header>
         <vab-icon icon="shopping-bag-2-line" />
         商品
@@ -39,8 +39,8 @@
           <h1>99%</h1>
         </el-col>
       </el-row>
-    </el-card>
-    <el-card class="order-card2" shadow="hover">
+    </vab-card>
+    <vab-card class="order-card2" shadow="hover" skeleton :skeleton-rows="10">
       <template #header>
         <span>
           <vab-icon icon="list-unordered" />
@@ -85,16 +85,17 @@
           />
         </el-col>
       </el-row>
-    </el-card>
+    </vab-card>
   </div>
 </template>
 
 <script>
+  import { defineComponent } from 'vue'
+  import _ from 'lodash'
   import VabChart from '@/extra/VabChart'
   import VabCount from '@/extra/VabCount'
-  import _ from 'lodash'
 
-  export default {
+  export default defineComponent({
     components: { VabCount, VabChart },
     setup() {
       const colorList = ['#9E87FF', '#73DDFF', '#fe9a8b', '#F56948', '#9E87FF']
@@ -260,7 +261,7 @@
         },
       }
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>

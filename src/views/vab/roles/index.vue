@@ -22,9 +22,9 @@
           <el-radio-button label="test">test</el-radio-button>
         </el-radio-group>
       </el-form-item>
-      <el-form-item label="token无痛刷新">
+      <el-form-item label="过期Token模拟访问(令牌失效5s)">
         <el-button type="primary" @click="handleRefreshToken">
-          点击模拟token无痛刷新
+          点击模拟token过期访问接口，无痛刷新
         </el-button>
       </el-form-item>
       <el-form-item label="描述">
@@ -234,7 +234,13 @@
 </template>
 
 <script>
-  import { computed, getCurrentInstance, reactive, toRefs } from 'vue'
+  import {
+    computed,
+    defineComponent,
+    getCurrentInstance,
+    reactive,
+    toRefs,
+  } from 'vue'
   import { useStore } from 'vuex'
   import {
     authentication,
@@ -244,14 +250,15 @@
   } from '@/config'
   import { getRouterList } from '@/api/router'
   import { filterRoutes } from '@/utils/routes'
-  import { refreshToken } from '@/api/refreshToken'
+  import { expireToken } from '@/api/refreshToken'
 
-  export default {
+  export default defineComponent({
     name: 'Roles',
     setup() {
       const store = useStore()
 
       const username = computed(() => store.getters['user/username'])
+      const token = computed(() => store.getters['user/token'])
 
       const { proxy } = getCurrentInstance()
 
@@ -281,9 +288,12 @@
         await location.reload()
       }
       const handleRefreshToken = async () => {
-        const { msg, data } = await refreshToken()
-        const { token } = data
-        proxy.$baseMessage(' [' + token + '] ' + msg, 'success')
+        const { msg } = await expireToken()
+        proxy.$baseMessage(
+          `${msg}: [${token.value}] `,
+          'success',
+          'vab-hey-message-success'
+        )
       }
 
       fetchData()
@@ -292,13 +302,13 @@
         ...toRefs(state),
         role: computed(() => store.getters['acl/role']),
         ability: computed(() => store.getters['acl/ability']),
-        token: computed(() => store.getters['user/token']),
+        token,
         fetchData,
         handleChangeRole,
         handleRefreshToken,
       }
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>

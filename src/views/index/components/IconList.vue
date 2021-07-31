@@ -8,7 +8,7 @@
     :xl="3"
     :xs="12"
   >
-    <el-card
+    <vab-card
       v-if="item.click && item.click === 'changeTheme'"
       class="icon-panel"
       shadow="hover"
@@ -16,17 +16,19 @@
     >
       <vab-icon :icon="item.icon" :style="{ color: item.color }" />
       <p>{{ item.title }}</p>
-    </el-card>
-    <el-card
+    </vab-card>
+    <vab-card
       v-else-if="item.click && item.click === 'randomTheme'"
       class="icon-panel"
       shadow="hover"
       @click="randomTheme"
     >
-      <vab-icon :icon="item.icon" :style="{ color: item.color }" />
+      <el-badge value="点我">
+        <vab-icon :icon="item.icon" :style="{ color: item.color }" />
+      </el-badge>
       <p>{{ item.title }}</p>
-    </el-card>
-    <el-card
+    </vab-card>
+    <vab-card
       v-else-if="item.click && item.click === 'handleMore'"
       class="icon-panel"
       shadow="hover"
@@ -34,20 +36,20 @@
     >
       <vab-icon :icon="item.icon" :style="{ color: item.color }" />
       <p>{{ item.title }}</p>
-    </el-card>
+    </vab-card>
     <vab-link v-else target="_blank" :to="item.link">
-      <el-card class="icon-panel" shadow="hover">
+      <vab-card class="icon-panel" shadow="hover">
         <vab-icon :icon="item.icon" :style="{ color: item.color }" />
         <p>{{ item.title }}</p>
-      </el-card>
+      </vab-card>
     </vab-link>
   </el-col>
 </template>
 
 <script>
-  import { getCurrentInstance } from 'vue'
+  import { defineComponent, getCurrentInstance } from 'vue'
 
-  export default {
+  export default defineComponent({
     setup() {
       const { proxy } = getCurrentInstance()
 
@@ -124,7 +126,7 @@
         randomTheme,
       }
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>

@@ -1,4 +1,5 @@
-import { title, titleReverse, titleSeparator } from '@/config'
+import { titleReverse, titleSeparator } from '@/config'
+import store from '@/store'
 import i18n from '@/i18n'
 
 /**
@@ -7,6 +8,7 @@ import i18n from '@/i18n'
  * @returns {string}
  */
 export default function getPageTitle(pageTitle) {
+  const title = store.getters['settings/title']
   const { t, te } = i18n.global
   if (te(`vabI18n.${pageTitle}`)) pageTitle = t(`vabI18n.${pageTitle}`)
   let newTitles = []

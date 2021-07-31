@@ -53,9 +53,10 @@
 </template>
 
 <script>
+  import { defineComponent } from 'vue'
   import { getList } from '@/api/table'
 
-  export default {
+  export default defineComponent({
     name: 'ExportSelectExcel',
     data() {
       return {
@@ -98,17 +99,12 @@
             this.downloadLoading = false
           })
         } else {
-          this.$baseMessage(
-            '请至少选择一行',
-            'error',
-            false,
-            'vab-hey-message-error'
-          )
+          this.$baseMessage('请至少选择一行', 'error', 'vab-hey-message-error')
         }
       },
       formatJson(filterVal, jsonData) {
         return jsonData.map((v) => filterVal.map((j) => v[j]))
       },
     },
-  }
+  })
 </script>

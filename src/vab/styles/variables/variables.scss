@@ -82,7 +82,7 @@ $base-left-menu-width: 266px;
 //纵向左侧导航未折叠右侧内容的宽度
 $base-right-content-width: calc(100% - #{$base-left-menu-width});
 //纵向左侧导航已折叠的宽度
-$base-left-menu-width-min: 65px;
+$base-left-menu-width-min: 64px;
 //纵向左侧导航已折叠右侧内容的宽度
 $base-right-content-width-min: calc(100% - #{$base-left-menu-width-min});
 //默认动画

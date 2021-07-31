@@ -1,6 +1,6 @@
 <template>
   <div class="button-container">
-    <el-card shadow="hover">
+    <vab-card shadow="hover">
       <template #header><span>基础用法</span></template>
       <el-button>默认按钮</el-button>
       <el-button type="primary">主要按钮</el-button>
@@ -26,9 +26,9 @@
       <el-button circle icon="el-icon-message" type="info" />
       <el-button circle icon="el-icon-star-off" type="warning" />
       <el-button circle icon="el-icon-delete" type="danger" />
-    </el-card>
+    </vab-card>
 
-    <el-card shadow="hover">
+    <vab-card shadow="hover">
       <template #header>
         <span>禁用状态</span>
       </template>
@@ -44,19 +44,19 @@
       <el-button disabled plain type="info">信息按钮</el-button>
       <el-button disabled plain type="warning">警告按钮</el-button>
       <el-button disabled plain type="danger">危险按钮</el-button>
-    </el-card>
+    </vab-card>
 
-    <el-card shadow="hover">
+    <vab-card shadow="hover">
       <template #header>
         <span>文字按钮</span>
       </template>
       <el-button type="text">文字按钮</el-button>
       <el-button disabled type="text">文字按钮</el-button>
-    </el-card>
+    </vab-card>
 
-    <el-card shadow="hover">
+    <vab-card shadow="hover">
       <template #header>
-        <span>图标按钮</span>
+        <span>elemenr内置图标按钮</span>
       </template>
       <el-button icon="el-icon-edit" type="primary" />
       <el-button icon="el-icon-share" type="primary" />
@@ -66,9 +66,28 @@
         上传
         <i class="el-icon-upload el-icon--right" />
       </el-button>
-    </el-card>
+    </vab-card>
 
-    <el-card shadow="hover">
+    <vab-card shadow="hover">
+      <template #header>
+        <span>自定义图标按钮</span>
+      </template>
+      <el-button type="primary">
+        <vab-icon icon="24-hours-line" />
+      </el-button>
+      <el-button type="primary">
+        <vab-icon icon="4k-line" />
+      </el-button>
+      <el-button type="primary">
+        <vab-icon icon="a-b" />
+      </el-button>
+      <el-button type="primary">
+        <vab-icon icon="account-box-line" />
+        用户名
+      </el-button>
+    </vab-card>
+
+    <vab-card shadow="hover">
       <template #header>
         <span>按钮组</span>
       </template>
@@ -84,14 +103,14 @@
         <el-button icon="el-icon-share" type="primary" />
         <el-button icon="el-icon-delete" type="primary" />
       </el-button-group>
-    </el-card>
-    <el-card shadow="hover">
+    </vab-card>
+    <vab-card shadow="hover">
       <template #header>
         <span>加载中</span>
       </template>
       <el-button :loading="true" type="primary">加载中</el-button>
-    </el-card>
-    <el-card shadow="hover">
+    </vab-card>
+    <vab-card shadow="hover">
       <template #header>
         <span>不同尺寸</span>
       </template>
@@ -103,14 +122,16 @@
       <el-button round size="medium">中等按钮</el-button>
       <el-button round size="small">小型按钮</el-button>
       <el-button round size="mini">超小按钮</el-button>
-    </el-card>
+    </vab-card>
   </div>
 </template>
 
 <script>
-  export default {
+  import { defineComponent } from 'vue'
+
+  export default defineComponent({
     name: 'Button',
-  }
+  })
 </script>
 
 <style lang="scss" scoped>

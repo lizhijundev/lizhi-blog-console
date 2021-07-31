@@ -63,7 +63,7 @@ html {
             background: $base-color-white;
             transition: $base-transition;
 
-            > [class*='-container']  {
+            > [class*='-container'] {
               min-height: $base-keep-alive-height;
               padding: $base-padding;
               background: $base-color-white;
@@ -217,14 +217,14 @@ html {
       z-index: $base-z-index;
       background-color: rgba(0, 0, 0, 0.5);
       opacity: 0.6;
-      backdrop-filter: blur(10px);
+      //backdrop-filter: blur(10px);
     }
 
     /* el-image-viewer遮罩 */
     .el-image-viewer__mask {
       background-color: rgba(0, 0, 0, 0.5);
       opacity: 0.6;
-      backdrop-filter: blur(10px);
+      //backdrop-filter: blur(10px);
     }
 
     /* el-loading-mask遮罩 */

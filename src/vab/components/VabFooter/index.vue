@@ -7,9 +7,10 @@
 </template>
 
 <script>
+  import { defineComponent } from 'vue'
   import { title } from '@/config'
 
-  export default {
+  export default defineComponent({
     name: 'VabFooter',
     setup() {
       return {
@@ -17,7 +18,7 @@
         fullYear: new Date().getFullYear(),
       }
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>

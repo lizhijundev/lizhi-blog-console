@@ -94,12 +94,20 @@
 </template>
 
 <script>
-  import { getCurrentInstance, onBeforeUnmount, reactive, toRefs } from 'vue'
+  import {
+    defineComponent,
+    getCurrentInstance,
+    onBeforeUnmount,
+    reactive,
+    toRefs,
+  } from 'vue'
+  import { useRouter } from 'vue-router'
   import { translateTitle } from '@/utils/i18n'
   import { isPassword, isPhone } from '@/utils/validate'
   import { register } from '@/api/user'
+  import { mapActions } from 'vuex'
 
-  export default {
+  export default defineComponent({
     name: 'Register',
     directives: {
       focus: {
@@ -109,6 +117,8 @@
       },
     },
     setup() {
+      const router = useRouter()
+
       const { proxy } = getCurrentInstance()
 
       const validateUsername = (rule, value, callback) => {
@@ -199,8 +209,19 @@
       const handleRegister = () => {
         state['registerFormRef'].validate(async (valid) => {
           if (valid) {
-            const { msg } = await register(state.form)
-            proxy.$baseMessage(msg, 'success', false, 'vab-hey-message-success')
+            const {
+              msg,
+              data: { token },
+            } = await register(state.form).catch(() => {})
+            //proxy.$baseMessage(msg, 'success', 'vab-hey-message-success')
+            proxy.$baseConfirm(
+              `${msg}，点击确定模拟进入拥有【editor】角色的首页`,
+              null,
+              async () => {
+                await proxy.setToken(token)
+                await router.push('/index')
+              }
+            )
           }
         })
       }
@@ -213,11 +234,14 @@
       return {
         translateTitle,
         ...toRefs(state),
+        ...mapActions({
+          setToken: 'user/setToken',
+        }),
         getPhoneCode,
         handleRegister,
       }
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>

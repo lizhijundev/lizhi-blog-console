@@ -12,16 +12,17 @@
 </template>
 
 <script>
+  import { defineComponent } from 'vue'
   import Order from './components/Order'
   import Target from './components/Target'
 
-  export default {
+  export default defineComponent({
     name: 'Workbench',
     components: {
       Order,
       Target,
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>

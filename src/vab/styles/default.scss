@@ -198,7 +198,7 @@ $--background-color-base: $base-color-background;
 
 .el-dropdown-menu {
   background-color: $base-color-white;
-  border: 1px solid$--border-color-lighter;
+  border: 1px solid $--border-color-lighter;
 }
 
 .el-dropdown-menu__item {
@@ -212,7 +212,7 @@ $--background-color-base: $base-color-background;
 }
 
 .el-dropdown-menu__item--divided {
-  border-top: 1px solid$--border-color-lighter;
+  border-top: 1px solid $--border-color-lighter;
 }
 
 .el-dropdown-menu__item--divided:before {
@@ -284,7 +284,7 @@ $--background-color-base: $base-color-background;
 }
 
 .el-menu--collapse .el-submenu .el-menu {
-  border: 1px solid $--border-color-light;
+  border: 0;
 }
 
 .el-menu--popup {
@@ -558,7 +558,7 @@ $--background-color-base: $base-color-background;
 
 .el-table td,
 .el-table th.is-leaf {
-  border-bottom: 1px solid$--border-color-lighter;
+  border-bottom: 1px solid $--border-color-lighter;
 }
 
 .el-table th > .cell.highlight {
@@ -571,7 +571,7 @@ $--background-color-base: $base-color-background;
 
 .el-table--border,
 .el-table--group {
-  border: 1px solid$--border-color-lighter;
+  border: 1px solid $--border-color-lighter;
 }
 
 .el-table--border::after,
@@ -592,16 +592,16 @@ $--background-color-base: $base-color-background;
 .el-table--border td,
 .el-table--border th,
 .el-table__body-wrapper .el-table--border.is-scrolling-left ~ .el-table__fixed {
-  border-right: 1px solid$--border-color-lighter;
+  border-right: 1px solid $--border-color-lighter;
 }
 
 .el-table--border th.gutter:last-of-type {
-  border-bottom: 1px solid$--border-color-lighter;
+  border-bottom: 1px solid $--border-color-lighter;
 }
 
 .el-table--border th,
 .el-table__fixed-right-patch {
-  border-bottom: 1px solid$--border-color-lighter;
+  border-bottom: 1px solid $--border-color-lighter;
 }
 
 .el-table__fixed-right::before,
@@ -616,11 +616,11 @@ $--background-color-base: $base-color-background;
 .el-table__fixed-footer-wrapper tbody td {
   color: $--color-text-regular;
   background-color: $--background-color-base;
-  border-top: 1px solid$--border-color-lighter;
+  border-top: 1px solid $--border-color-lighter;
 }
 
 .el-table__footer-wrapper td {
-  border-top: 1px solid$--border-color-lighter;
+  border-top: 1px solid $--border-color-lighter;
 }
 
 .el-table__body,
@@ -638,7 +638,7 @@ $--background-color-base: $base-color-background;
 .el-table__body-wrapper
   .el-table--border.is-scrolling-right
   ~ .el-table__fixed-right {
-  border-left: 1px solid$--border-color-lighter;
+  border-left: 1px solid $--border-color-lighter;
 }
 
 .el-table .sort-caret {
@@ -681,7 +681,7 @@ $--background-color-base: $base-color-background;
 }
 
 .el-table__column-resize-proxy {
-  border-left: 1px solid$--border-color-lighter;
+  border-left: 1px solid $--border-color-lighter;
 }
 
 .el-table__column-filter-trigger i {
@@ -694,7 +694,7 @@ $--background-color-base: $base-color-background;
 
 .el-table-filter {
   background-color: $base-color-white;
-  border: 1px solid$--border-color-lighter;
+  border: 1px solid $--border-color-lighter;
 }
 
 .el-table-filter__list-item:hover {
@@ -708,7 +708,7 @@ $--background-color-base: $base-color-background;
 }
 
 .el-table-filter__bottom {
-  border-top: 1px solid$--border-color-lighter;
+  border-top: 1px solid $--border-color-lighter;
 }
 
 .el-table-filter__bottom button {
@@ -798,7 +798,7 @@ $--background-color-base: $base-color-background;
 
 .el-date-table th {
   color: $--color-text-regular;
-  border-bottom: solid 1px$--border-color-lighter;
+  border-bottom: solid 1px $--border-color-lighter;
 }
 
 .el-month-table td.today .cell {
@@ -894,7 +894,7 @@ $--background-color-base: $base-color-background;
 }
 
 .el-date-picker__header--bordered {
-  border-bottom: solid 1px$--border-color-lighter;
+  border-bottom: solid 1px $--border-color-lighter;
 }
 
 .el-date-picker__header-label {
@@ -1101,7 +1101,7 @@ $--background-color-base: $base-color-background;
 .el-popover {
   color: $--color-text-regular;
   background: $base-color-white;
-  border: 1px solid$--border-color-lighter;
+  border: 1px solid $--border-color-lighter;
 }
 
 .el-popover__title {
@@ -1114,7 +1114,7 @@ $--background-color-base: $base-color-background;
 
 .el-message-box {
   background-color: $base-color-white;
-  border: 1px solid$--border-color-lighter;
+  border: 1px solid $--border-color-lighter;
 }
 
 .el-message-box__title {
@@ -1261,25 +1261,25 @@ $--background-color-base: $base-color-background;
 }
 
 .el-tabs--card > .el-tabs__header {
-  border-bottom: 1px solid $--border-color-light;
+  // border-bottom: 1px solid $--border-color-light;
 }
 
 .el-tabs--card > .el-tabs__header .el-tabs__nav {
-  border: 1px solid $--border-color-light;
+  // border: 1px solid $--border-color-light;
   border-bottom: none;
 }
 
 .el-tabs--card > .el-tabs__header .el-tabs__item {
-  border-bottom: 1px solid transparent;
-  border-left: 1px solid $--border-color-light;
+  // border-bottom: 1px solid transparent;
+  // border-left: 1px solid $--border-color-light;
 }
 
 .el-tabs--card > .el-tabs__header .el-tabs__item:first-child {
-  border-left: none;
+  //border-left: none;
 }
 
 .el-tabs--card > .el-tabs__header .el-tabs__item.is-active {
-  border-bottom-color: $base-color-white;
+  //border-bottom-color: $base-color-white;
 }
 
 .el-tabs--border-card {
@@ -1522,7 +1522,7 @@ $--background-color-base: $base-color-background;
 
 .el-notification {
   background-color: $base-color-white;
-  border: 1px solid$--border-color-lighter;
+  border: 1px solid $--border-color-lighter;
 }
 
 .el-notification__title {
@@ -2071,11 +2071,11 @@ $--background-color-base: $base-color-background;
 .el-card {
   color: $base-color-black-light-1;
   background-color: $base-color-white;
-  border: 1px solid$--border-color-lighter;
+  border: 1px solid $--border-color-lighter;
 }
 
 .el-card__header {
-  border-bottom: 1px solid$--border-color-lighter;
+  border-bottom: 1px solid $--border-color-lighter;
 }
 
 .el-rate__icon {
@@ -2207,8 +2207,8 @@ $--background-color-base: $base-color-background;
 }
 
 .el-collapse {
-  border-top: 1px solid$--border-color-lighter;
-  border-bottom: 1px solid$--border-color-lighter;
+  border-top: 1px solid $--border-color-lighter;
+  border-bottom: 1px solid $--border-color-lighter;
 }
 
 .el-collapse-item.is-disabled .el-collapse-item__header {
@@ -2218,7 +2218,7 @@ $--background-color-base: $base-color-background;
 .el-collapse-item__header {
   color: $base-color-black-light-1;
   background-color: $base-color-white;
-  border-bottom: 1px solid$--border-color-lighter;
+  border-bottom: 1px solid $--border-color-lighter;
 }
 
 .el-collapse-item__header.focusing:focus:not(:hover) {
@@ -2231,7 +2231,7 @@ $--background-color-base: $base-color-background;
 
 .el-collapse-item__wrap {
   background-color: $base-color-white;
-  border-bottom: 1px solid$--border-color-lighter;
+  border-bottom: 1px solid $--border-color-lighter;
 }
 
 .el-collapse-item__content {
@@ -2821,7 +2821,7 @@ $--background-color-base: $base-color-background;
 
 .el-color-picker__panel {
   background-color: $base-color-white;
-  border: 1px solid$--border-color-lighter;
+  border: 1px solid $--border-color-lighter;
 }
 
 .el-textarea__inner {
@@ -3022,7 +3022,7 @@ $--background-color-base: $base-color-background;
 
 .el-transfer-panel {
   background: $base-color-white;
-  border: 1px solid$--border-color-lighter;
+  border: 1px solid $--border-color-lighter;
 }
 
 .el-transfer-panel__item.el-checkbox {
@@ -3036,7 +3036,7 @@ $--background-color-base: $base-color-background;
 .el-transfer-panel .el-transfer-panel__header {
   color: $base-color-black;
   background: $--background-color-base;
-  border-bottom: 1px solid$--border-color-lighter;
+  border-bottom: 1px solid $--border-color-lighter;
 }
 
 .el-transfer-panel .el-transfer-panel__header .el-checkbox .el-checkbox__label {
@@ -3053,7 +3053,7 @@ $--background-color-base: $base-color-background;
 
 .el-transfer-panel .el-transfer-panel__footer {
   background: $base-color-white;
-  border-top: 1px solid$--border-color-lighter;
+  border-top: 1px solid $--border-color-lighter;
 }
 
 .el-transfer-panel .el-transfer-panel__footer .el-checkbox {
@@ -3696,7 +3696,7 @@ $--background-color-base: $base-color-background;
 }
 
 .el-calendar__header {
-  border-bottom: 1px solid$--border-color-lighter;
+  border-bottom: 1px solid $--border-color-lighter;
 }
 
 .el-calendar__title {
@@ -3718,8 +3718,8 @@ $--background-color-base: $base-color-background;
 }
 
 .el-calendar-table td {
-  border-right: 1px solid$--border-color-lighter;
-  border-bottom: 1px solid$--border-color-lighter;
+  border-right: 1px solid $--border-color-lighter;
+  border-bottom: 1px solid $--border-color-lighter;
 }
 
 .el-calendar-table td.is-selected {
@@ -3727,11 +3727,11 @@ $--background-color-base: $base-color-background;
 }
 
 .el-calendar-table tr:first-child td {
-  border-top: 1px solid$--border-color-lighter;
+  border-top: 1px solid $--border-color-lighter;
 }
 
 .el-calendar-table tr td:first-child {
-  border-left: 1px solid$--border-color-lighter;
+  border-left: 1px solid $--border-color-lighter;
 }
 
 .el-calendar-table tr.el-calendar-table__row--hide-border td {

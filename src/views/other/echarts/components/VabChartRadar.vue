@@ -1,6 +1,6 @@
 <template>
   <el-col :lg="8" :md="12" :sm="24" :xl="6" :xs="24">
-    <el-card shadow="hover">
+    <vab-card shadow="hover" skeleton>
       <template #header>
         <span>{{ title }}</span>
       </template>
@@ -9,14 +9,15 @@
         :option="option"
         theme="vab-echarts-theme"
       />
-    </el-card>
+    </vab-card>
   </el-col>
 </template>
 
 <script>
+  import { defineComponent } from 'vue'
   import VabChart from '@/extra/VabChart'
 
-  export default {
+  export default defineComponent({
     name: 'VabChartRadar',
     components: {
       VabChart,
@@ -67,5 +68,5 @@
         },
       }
     },
-  }
+  })
 </script>

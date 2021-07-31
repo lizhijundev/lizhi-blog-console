@@ -1,5 +1,5 @@
 <template>
-  <el-card class="authorization" shadow="hover">
+  <vab-card class="authorization" shadow="hover" skeleton>
     <template #header>
       <vab-icon icon="bar-chart-2-line" />
       授权数
@@ -25,16 +25,22 @@
         <el-tag class="card-footer-tag" type="success">倒计时 {{ n }}s</el-tag>
       </span>
     </div>
-  </el-card>
+  </vab-card>
 </template>
 
 <script>
+  import {
+    defineComponent,
+    onBeforeMount,
+    onBeforeUnmount,
+    reactive,
+    toRefs,
+  } from 'vue'
+  import _ from 'lodash'
   import VabChart from '@/extra/VabChart'
   import VabCount from '@/extra/VabCount'
-  import _ from 'lodash'
-  import { onBeforeMount, onBeforeUnmount, reactive, toRefs } from 'vue'
 
-  export default {
+  export default defineComponent({
     components: {
       VabChart,
       VabCount,
@@ -127,5 +133,5 @@
         ...toRefs(state),
       }
     },
-  }
+  })
 </script>

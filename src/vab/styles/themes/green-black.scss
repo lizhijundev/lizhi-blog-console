@@ -1,9 +1,9 @@
 /**
- * @description 绿荫草场主题
+ * @description 绿-黑
  */
 
-.vab-theme-green {
-  $base-menu-background: #20222a;
+.vab-theme-green-black {
+  $base-menu-background: #282c34;
 
   $base-color-blue: #41b584;
   $base-color-green: #67c23a;
@@ -33,7 +33,8 @@
 
   .logo-container-vertical,
   .logo-container-horizontal,
-  .logo-container-comprehensive {
+  .logo-container-comprehensive,
+  .logo-container-float {
     @include container;
   }
 
@@ -99,7 +100,8 @@
 
   .vab-layout-vertical,
   .vab-layout-horizontal,
-  .vab-layout-comprehensive {
+  .vab-layout-comprehensive,
+  .vab-layout-float {
     .el-menu {
       @include container;
 
@@ -118,6 +120,18 @@
 
       .el-menu-item {
         @include active;
+      }
+    }
+  }
+
+  .vab-layout-float {
+    .el-scrollbar__view .el-menu--collapse.el-menu li.el-submenu.is-active {
+      .el-submenu__title {
+        background-color: transparent !important;
+      }
+
+      > .el-submenu__title {
+        background-color: $base-color-blue !important;
       }
     }
   }
@@ -313,5 +327,62 @@
 
   .remix-icon-container .el-card__body::after {
     background-color: $base-color-blue !important;
+  }
+
+  /*由于element-plus
+bug使用popper-append-to-body=false会导致多级路由无法显示，故所有菜单必须生成至body下，样式必须放到body下*/
+  @mixin menuDefalut {
+    color: $base-color-white !important;
+  }
+
+  @mixin menuActiveHover {
+    &:hover,
+    &.is-active {
+      i {
+        color: $base-color-white !important;
+      }
+
+      color: $base-color-white !important;
+      background: $base-color-blue !important;
+
+      .el-submenu__title {
+        i {
+          color: $base-color-white !important;
+        }
+
+        color: $base-color-white !important;
+        background: $base-color-blue !important;
+      }
+    }
+  }
+
+  .el-menu {
+    border-right: 0 !important;
+  }
+
+  .el-menu--collapse.el-menu li.el-submenu.is-active > .el-submenu__title {
+    background-color: $base-color-blue !important;
+  }
+
+  .el-popper {
+    .el-menu--horizontal,
+    .el-menu--vertical {
+      @include menuDefalut;
+
+      .el-menu.el-menu--popup {
+        @include menuDefalut;
+      }
+
+      .el-menu-item,
+      .el-submenu {
+        @include menuDefalut;
+        @include menuActiveHover;
+
+        .el-submenu__title {
+          @include menuDefalut;
+          @include menuActiveHover;
+        }
+      }
+    }
   }
 }

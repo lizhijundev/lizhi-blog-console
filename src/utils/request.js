@@ -7,16 +7,20 @@ import {
   requestTimeout,
   statusName,
   successCode,
-  /* tokenName, */
 } from '@/config'
 import store from '@/store'
 import qs from 'qs'
 import router from '@/router'
 import { isArray } from '@/utils/validate'
-import { checkNeed } from '@/vab/plugins/errorLog'
+import { addErrorLog, needErrorLog } from '@/vab/plugins/errorLog'
+import { refreshToken } from '@/api/refreshToken'
 import { gp } from '@vab'
 
 let loadingInstance
+
+let refreshToking = false
+
+let requests = []
 
 // 操作正常Code数组
 const codeVerificationArray = isArray(successCode)
@@ -30,7 +34,7 @@ const CODE_MESSAGE = {
   204: '删除数据成功',
   400: '发出信息有误',
   401: '用户没有权限(令牌失效、用户名、密码错误、登录过期)',
-  402: '前端无痛刷新token',
+  402: '令牌过期',
   403: '用户得到授权，但是访问是被禁止的',
   404: '访问资源不存在',
   406: '请求格式不可得',
@@ -41,7 +45,75 @@ const CODE_MESSAGE = {
   504: '网关超时',
 }
 
-const handleData = ({ config, data, status, statusText }) => {
+/**
+ * axios请求拦截器配置
+ * @param config
+ * @returns {any}
+ */
+const requestConf = (config) => {
+  const token = store.getters['user/token']
+
+  // 不规范写法 可根据setting.config.js tokenName配置随意自定义headers
+  // if (token) config.headers[tokenName] = token
+
+  // 规范写法 不可随意自定义
+  if (token) config.headers['Authorization'] = `Bearer ${token}`
+
+  if (
+    config.data &&
+    config.headers['Content-Type'] ===
+      'application/x-www-form-urlencoded;charset=UTF-8'
+  )
+    config.data = qs.stringify(config.data)
+  if (debounce.some((item) => config.url.includes(item)))
+    loadingInstance = gp.$baseLoading()
+  return config
+}
+
+/**
+ * 刷新刷新令牌
+ * @param config 过期请求配置
+ * @returns {any} 返回结果
+ */
+const tryRefreshToken = async (config) => {
+  if (!refreshToking) {
+    refreshToking = true
+    try {
+      const {
+        data: { token },
+      } = await refreshToken()
+      if (token) {
+        store.dispatch('user/setToken', token).then(() => {})
+        // 已经刷新了token，将所有队列中的请求进行重试
+        requests.forEach((cb) => cb(token))
+        requests = []
+        return instance(requestConf(config))
+      }
+    } catch (error) {
+      console.error('refreshToken error =>', error)
+      router.push({ path: '/login', replace: true }).then(() => {})
+    } finally {
+      refreshToking = false
+    }
+  } else {
+    return new Promise((resolve) => {
+      // 将resolve放进队列，用一个函数形式来保存，等token刷新后直接执行
+      requests.push(() => {
+        resolve(instance(requestConf(config)))
+      })
+    })
+  }
+}
+
+/**
+ * axios响应拦截器
+ * @param config 请求配置
+ * @param data response数据
+ * @param status HTTP status
+ * @param statusText HTTP status text
+ * @returns {Promise<*|*>}
+ */
+const handleData = async ({ config, data, status, statusText }) => {
   if (loadingInstance) loadingInstance.close()
   // 若data.code存在，覆盖默认code
   let code = data && data[statusName] ? data[statusName] : status
@@ -63,31 +135,25 @@ const handleData = ({ config, data, status, statusText }) => {
         )
       break
     case 402:
-      store.dispatch('user/setToken', data.data.token).then(() => {})
-      return data
+      return await tryRefreshToken(config)
     case 403:
       router.push({ path: '/403' }).then(() => {})
       break
   }
   // 异常处理
   // 若data.msg存在，覆盖默认提醒消息
-  const errMsg = `${config.url} 后端接口 ${code} 异常：${
+  const errMsg = `${
     data && data[messageName]
       ? data[messageName]
       : CODE_MESSAGE[code]
       ? CODE_MESSAGE[code]
       : statusText
   }`
-  gp.$baseMessage(errMsg, 'error', false, 'vab-hey-message-error')
-  const err = new Error(errMsg)
-  if (checkNeed())
-    store
-      .dispatch('errorLog/addErrorLog', {
-        err,
-        url: config.url,
-      })
-      .then(() => {})
-  return Promise.reject(err)
+  // 是否显示高亮错误(与errorHandler钩子触发逻辑一致)
+  gp.$baseMessage(errMsg, 'error', 'vab-hey-message-error')
+  if (needErrorLog())
+    addErrorLog({ message: errMsg, stack: data, isRequest: true })
+  return Promise.reject(data)
 }
 
 /**
@@ -104,30 +170,9 @@ const instance = axios.create({
 /**
  * @description axios请求拦截器
  */
-instance.interceptors.request.use(
-  (config) => {
-    const token = store.getters['user/token']
-
-    // 不规范写法 可根据setting.config.js tokenName配置随意自定义headers
-    // if (token) config.headers[tokenName] = token
-
-    // 规范写法 不可随意自定义
-    if (token) config.headers['Authorization'] = `Bearer ${token}`
-
-    if (
-      config.data &&
-      config.headers['Content-Type'] ===
-        'application/x-www-form-urlencoded;charset=UTF-8'
-    )
-      config.data = qs.stringify(config.data)
-    if (debounce.some((item) => config.url.includes(item)))
-      loadingInstance = gp.$baseLoading()
-    return config
-  },
-  (error) => {
-    return Promise.reject(error)
-  }
-)
+instance.interceptors.request.use(requestConf, (error) => {
+  return Promise.reject(error)
+})
 
 /**
  * @description axios响应拦截器
@@ -135,11 +180,13 @@ instance.interceptors.request.use(
 instance.interceptors.response.use(
   (response) => handleData(response),
   (error) => {
+    if (loadingInstance) loadingInstance.close()
     const { response } = error
     if (response === undefined) {
       gp.$baseMessage(
-        '未可知错误，大部分是由于后端不支持跨域CORS或无效配置引起',
-        'error'
+        '未可知错误，可能是因为后端不支持跨域CORS、接口地址不存在等问题引起',
+        'error',
+        'vab-hey-message-error'
       )
       return {}
     } else return handleData(response)

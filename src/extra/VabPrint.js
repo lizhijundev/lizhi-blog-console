@@ -44,7 +44,7 @@ const getStyle = (options) => {
     '{display:none;}</style>'
   return str
 }
-const getHtml = (dom) => {
+const getHtml = (dom, options) => {
   const inputs = document.querySelectorAll('input')
   const textAreas = document.querySelectorAll('textarea')
   const selects = document.querySelectorAll('select')
@@ -83,7 +83,7 @@ const getHtml = (dom) => {
       }
     }
   }
-  return wrapperRefDom(dom).outerHTML
+  return options.noPrintParent ? dom.outerHTML : wrapperRefDom(dom).outerHTML
 }
 const toPrint = (frameWindow) => {
   try {
@@ -132,7 +132,7 @@ const Print = (dom, options) => {
     targetDom = isDOM(dom) ? dom : dom.$el
   }
 
-  const content = getStyle(options) + getHtml(targetDom)
+  const content = getStyle(options) + getHtml(targetDom, options)
   writeIframe(content)
 }
 

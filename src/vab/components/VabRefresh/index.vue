@@ -7,11 +7,10 @@
 </template>
 
 <script>
-  import { computed, getCurrentInstance } from 'vue'
+  import { computed, defineComponent, getCurrentInstance } from 'vue'
   import { useStore } from 'vuex'
-  import VabProgress from 'nprogress'
 
-  export default {
+  export default defineComponent({
     name: 'VabRefresh',
     setup() {
       const store = useStore()
@@ -21,11 +20,7 @@
       const { proxy } = getCurrentInstance()
 
       const refreshRoute = () => {
-        if (theme.value.showProgressBar) VabProgress.start()
         proxy.$pub('reload-router-view')
-        setTimeout(() => {
-          if (theme.value.showProgressBar) VabProgress.done()
-        }, 200)
       }
 
       return {
@@ -33,5 +28,5 @@
         refreshRoute,
       }
     },
-  }
+  })
 </script>

@@ -11,13 +11,13 @@
 </template>
 
 <script>
-  import { computed } from 'vue'
+  import { computed, defineComponent } from 'vue'
   import { useStore } from 'vuex'
   import { useRoute } from 'vue-router'
   import getPageTitle from '@/utils/pageTitle'
   import i18n from '@/i18n'
 
-  export default {
+  export default defineComponent({
     name: 'VabLanguage',
     setup() {
       const store = useStore()
@@ -36,5 +36,5 @@
         theme: computed(() => store.getters['settings/theme']),
       }
     },
-  }
+  })
 </script>

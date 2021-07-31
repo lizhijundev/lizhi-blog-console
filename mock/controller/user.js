@@ -1,8 +1,8 @@
 const { Random } = require('mockjs')
 const tokens = {
-  admin: `admin-token-${Random.guid()}`,
-  editor: `editor-token-${Random.guid()}`,
-  test: `test-token-${Random.guid()}`,
+  admin: `admin-token-${Random.guid()}-${new Date().getTime()}`,
+  editor: `editor-token-${Random.guid()}-${new Date().getTime()}`,
+  test: `test-token-${Random.guid()}-${new Date().getTime()}`,
 }
 
 module.exports = [
@@ -64,6 +64,7 @@ module.exports = [
       return {
         code: 200,
         msg: '模拟注册成功',
+        data: { token: tokens['editor'] },
       }
     },
   },

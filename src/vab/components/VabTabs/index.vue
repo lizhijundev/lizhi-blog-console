@@ -116,13 +116,20 @@
 </template>
 
 <script>
-  import { computed, getCurrentInstance, ref, watch, watchEffect } from 'vue'
+  import {
+    computed,
+    defineComponent,
+    getCurrentInstance,
+    ref,
+    watch,
+    watchEffect,
+  } from 'vue'
   import { useStore } from 'vuex'
   import { useRoute, useRouter } from 'vue-router'
   import { translateTitle } from '@/utils/i18n'
-  import { handleActivePath } from '@/utils/routes'
+  import { handleActivePath, handleTabs } from '@/utils/routes'
 
-  export default {
+  export default defineComponent({
     name: 'VabTabs',
     props: {
       layout: {
@@ -157,7 +164,7 @@
       const tabActive = ref('')
       const active = ref(false)
 
-      const hoverRoute = ref(null)
+      const hoverRoute = ref()
       const visible = ref(false)
       const top = ref(0)
       const left = ref(0)
@@ -183,26 +190,10 @@
        * @returns {Promise<void>}
        */
       const addTabs = async (tag, init = false) => {
-        let parentIcon = null
-        if (tag.matched)
-          for (let i = tag.matched.length - 2; i >= 0; i--)
-            if (!parentIcon && tag.matched[i].meta.icon)
-              parentIcon = tag.matched[i].meta.icon
-        if (!parentIcon) parentIcon = 'menu-line'
-        if (tag.name && tag.meta.title && tag.meta.tabHidden !== true) {
-          const path = handleActivePath(tag, true)
-          await addVisitedRoute({
-            path: path,
-            query: tag.query,
-            params: tag.params,
-            name: tag.name,
-            matched: init
-              ? [tag.name]
-              : tag.matched.map((_route) => _route.components.default.name),
-            parentIcon,
-            meta: { ...tag.meta },
-          })
-          tabActive.value = path
+        const tab = handleTabs(tag, init)
+        if (tab) {
+          await addVisitedRoute(tab)
+          tabActive.value = tab.path
         }
       }
       /**
@@ -338,7 +329,7 @@
         handleVisibleChange,
       }
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>
@@ -490,7 +481,7 @@
               height: $base-tag-item-height + 4;
               padding: 0 30px 0 30px;
               margin-top: #{math.div(
-                  $base-tabs-height - $base-tag-item-height - 4,
+                  $base-tabs-height - $base-tag-item-height - 4.1,
                   2
                 )};
               margin-right: -18px;

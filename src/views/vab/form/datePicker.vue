@@ -1,6 +1,6 @@
 <template>
   <div class="date-picker-container">
-    <el-card shadow="hover">
+    <vab-card shadow="hover">
       <template #header>
         <span>选择日</span>
       </template>
@@ -12,8 +12,8 @@
         placeholder="选择日期"
         type="date"
       />
-    </el-card>
-    <el-card shadow="hover">
+    </vab-card>
+    <vab-card shadow="hover">
       <template #header>
         <span>其他日期单位</span>
       </template>
@@ -30,8 +30,8 @@
         placeholder="选择一个或多个日期"
         type="dates"
       />
-    </el-card>
-    <el-card shadow="hover">
+    </vab-card>
+    <vab-card shadow="hover">
       <template #header>
         <span>选择日期范围</span>
       </template>
@@ -42,8 +42,8 @@
         start-placeholder="开始日期"
         type="daterange"
       />
-    </el-card>
-    <el-card shadow="hover">
+    </vab-card>
+    <vab-card shadow="hover">
       <template #header>
         <span>选择月份范围</span>
       </template>
@@ -54,14 +54,14 @@
         start-placeholder="开始月份"
         type="monthrange"
       />
-    </el-card>
+    </vab-card>
   </div>
 </template>
 
 <script>
-  import { reactive, toRefs } from 'vue'
+  import { defineComponent, reactive, toRefs } from 'vue'
 
-  export default {
+  export default defineComponent({
     name: 'DatePicker',
     setup() {
       const state = reactive({
@@ -108,7 +108,7 @@
         ...toRefs(state),
       }
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>

@@ -95,6 +95,7 @@
 <script>
   import {
     computed,
+    defineComponent,
     nextTick,
     onBeforeMount,
     reactive,
@@ -106,7 +107,7 @@
   import { translateTitle } from '@/utils/i18n'
   import { isPassword } from '@/utils/validate'
 
-  export default {
+  export default defineComponent({
     name: 'Login',
     directives: {
       focus: {
@@ -155,12 +156,12 @@
             },
           ],
           /* verificationCode: [
-            {
-              required: true,
-              trigger: 'blur',
-              message: '验证码不能空',
-            },
-          ], */
+          {
+            required: true,
+            trigger: 'blur',
+            message: '验证码不能空',
+          },
+        ], */
         },
         loading: false,
         passwordType: 'password',
@@ -188,7 +189,7 @@
           if (valid)
             try {
               state.loading = true
-              await login(state.form)
+              await login(state.form).catch(() => {})
               await router.push(handleRoute())
             } finally {
               state.loading = false
@@ -232,7 +233,7 @@
         changeCode,
       }
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>

@@ -3,7 +3,7 @@
 </template>
 
 <script>
-  import { watchEffect } from 'vue'
+  import { defineComponent, watchEffect } from 'vue'
   import * as echarts from 'echarts'
   import theme from './theme/vab-echarts-theme.json'
   import debounce from 'lodash/debounce'
@@ -12,7 +12,7 @@
   const INIT_TRIGGERS = ['theme', 'initOptions', 'autoResize']
   const REWATCH_TRIGGERS = ['manualUpdate', 'watchShallow']
 
-  export default {
+  export default defineComponent({
     props: {
       option: {
         type: Object,
@@ -50,10 +50,10 @@
       }
     },
     /* watch: {
-    group(group) {
-      this.chart.group = group
-    },
-  }, */
+  group(group) {
+    this.chart.group = group
+  },
+}, */
     created() {
       this.initOptionsWatcher()
       INIT_TRIGGERS.forEach((prop) => {
@@ -161,15 +161,15 @@
         chart.setOption(option || this.manualOptions || this.option || {}, true)
         /* 没看懂暂时注释 */
         /* // eslint-disable-next-line vue/no-deprecated-dollar-listeners-api
-      Object.keys(this.$listeners).forEach((event) => {
-        // eslint-disable-next-line vue/no-deprecated-dollar-listeners-api
-        const handler = this.$listeners[event]
-        if (event.indexOf('zr:') === 0) {
-          chart.getZr().on(event.slice(3), handler)
-        } else {
-          chart.on(event, handler)
-        }
-      }) */
+    Object.keys(this.$listeners).forEach((event) => {
+      // eslint-disable-next-line vue/no-deprecated-dollar-listeners-api
+      const handler = this.$listeners[event]
+      if (event.indexOf('zr:') === 0) {
+        chart.getZr().on(event.slice(3), handler)
+      } else {
+        chart.on(event, handler)
+      }
+    }) */
         if (this.autoResize) {
           this.lastArea = this.getArea()
           this.__resizeHandler = debounce(
@@ -265,7 +265,7 @@
       echarts.registerMap(mapName, geoJSON, specialAreas)
     },
     graphic: echarts.graphic,
-  }
+  })
 </script>
 <style>
   .echarts {

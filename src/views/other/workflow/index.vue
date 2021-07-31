@@ -38,8 +38,8 @@
 </template>
 
 <script>
+  import { defineComponent } from 'vue'
   import { getList } from '@/api/workflow'
-
   import LogicFlow from '@logicflow/core'
   import { Menu, Snapshot } from '@logicflow/extension'
   import '@logicflow/core/dist/style/index.css'
@@ -59,7 +59,7 @@
     registerUser,
   } from './components/registerNode'
 
-  export default {
+  export default defineComponent({
     name: 'Workflow',
     components: { NodePanel, AddPanel, Control, PropertyDialog, DataDialog },
     data() {
@@ -269,7 +269,7 @@
         this.dataVisible = true
       },
     },
-  }
+  })
 </script>
 
 <style lang="scss" scoped>

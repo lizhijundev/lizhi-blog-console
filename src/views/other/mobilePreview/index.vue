@@ -61,7 +61,9 @@
 </template>
 
 <script>
-  export default {
+  import { defineComponent } from 'vue'
+
+  export default defineComponent({
     name: 'MobilePreview',
     data() {
       return {}
@@ -69,7 +71,7 @@
     created() {},
     mounted() {},
     methods: {},
-  }
+  })
 </script>
 
 <style lang="scss" scoped>

@@ -13,17 +13,16 @@
 
 <script>
   import VabUpload from '@/extra/VabUpload'
-  import { ref } from 'vue'
+  import { defineComponent, ref } from 'vue'
 
-  export default {
+  export default defineComponent({
     name: 'Upload',
     components: {
       VabUpload,
     },
     setup() {
       const vabUploadRef = ref()
-
-      function handleShow() {
+      const handleShow = () => {
         vabUploadRef.value.handleShow()
       }
 
@@ -32,5 +31,5 @@
         handleShow,
       }
     },
-  }
+  })
 </script>
