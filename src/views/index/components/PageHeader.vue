@@ -80,12 +80,12 @@
 
 <style lang="scss" scoped>
   .page-header {
-    min-height: 105px;
-    transition: $base-transition;
+    min-height: 125px;
+    transition: none;
 
     :deep() {
       * {
-        transition: $base-transition;
+        transition: none;
       }
 
       .el-card__body {
@@ -115,6 +115,7 @@
       }
 
       &-description {
+        min-height: 20px;
         font-size: $base-font-size-default;
         color: #808695;
       }

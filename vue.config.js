@@ -29,6 +29,7 @@ const CompressionWebpackPlugin = require('compression-webpack-plugin')
 const productionGzipExtensions = ['html', 'js', 'css', 'svg']
 process.env.VUE_APP_TITLE = title
 process.env.VUE_APP_AUTHOR = author
+process.env.VUE_APP_RANDOM = `${dayjs()}-${process.env.VUE_GITHUB_USER_NAME}`
 process.env.VUE_APP_UPDATE_TIME = dateTime
 process.env.VUE_APP_VERSION = version
 process.env.VUE_APP_RELY = rely

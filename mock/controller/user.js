@@ -4,6 +4,16 @@ const tokens = {
   editor: `editor-token-${Random.guid()}-${new Date().getTime()}`,
   test: `test-token-${Random.guid()}-${new Date().getTime()}`,
 }
+const username2role = {
+  admin: ['Admin'],
+  editor: ['Editor'],
+  test: ['Admin', 'Editor'],
+}
+const role2permission = {
+  Admin: ['read:system', 'write:system', 'delete:system'],
+  Editor: ['read:system', 'write:system'],
+  Test: ['read:system'],
+}
 
 module.exports = [
   {
@@ -74,31 +84,25 @@ module.exports = [
     response(config) {
       const authorization =
         config.headers.authorization || config.headers.Authorization
-      let roles = ['admin']
-      let ability = ['READ']
-      let username = 'admin'
-      if (authorization.includes('admin-token')) {
-        roles = ['admin']
-        ability = ['READ', 'WRITE', 'DELETE']
-        username = 'admin'
-      }
-      if (authorization.includes('editor-token')) {
-        roles = ['editor']
-        ability = ['READ', 'WRITE']
-        username = 'editor'
-      }
-      if (authorization.includes('test-token')) {
-        roles = ['admin', 'editor']
-        ability = ['READ']
-        username = 'test'
-      }
+      if (!authorization.startsWith('Bearer '))
+        return {
+          code: 401,
+          msg: '令牌无效',
+        }
+
+      const username = authorization.replace('Bearer ', '').split('-token-')[0]
+      const roles = username2role[username] || []
+      const permissions = [
+        ...new Set(roles.flatMap((role) => role2permission[role])),
+      ]
+
       return {
         code: 200,
         msg: 'success',
         data: {
-          roles,
-          ability,
           username,
+          roles,
+          permissions,
           avatar: 'https://i.gtimg.cn/club/item/face/img/2/16022_100.gif',
         },
       }

@@ -1,4 +1,4 @@
-import { hasAccess } from '@/utils/hasAccess'
+import { hasPermission } from '@/utils/permission'
 
 export function setup(app) {
   /**
@@ -7,11 +7,9 @@ export function setup(app) {
   app.directive('permissions', {
     mounted(el, binding) {
       const { value } = binding
-      if (value) {
-        if (!hasAccess(value)) {
+      if (value)
+        if (!hasPermission(value))
           el.parentNode && el.parentNode.removeChild(el)
-        }
-      }
     },
   })
   !(() => {

@@ -23,7 +23,7 @@ export function setup(app) {
   ) => {
     return ElLoading.service({
       lock: true,
-      text: text,
+      text,
       spinner: index ? 'vab-loading-type' + index : index,
       background: 'hsla(0,0%,100%,.8)',
     })
@@ -42,7 +42,7 @@ export function setup(app) {
     if (!index) {
       loading = ElLoading.service({
         lock: true,
-        text: text,
+        text,
         spinner: 'dots-loader',
         background: 'hsla(0,0%,100%,.8)',
       })
@@ -55,7 +55,7 @@ export function setup(app) {
       }
       loading = ElLoading.service({
         lock: true,
-        text: text,
+        text,
         spinner: spinnerDict[index] + '-loader',
         background: 'hsla(0,0%,100%,.8)',
       })
@@ -126,8 +126,8 @@ export function setup(app) {
     cancelButtonText = '取消'
   ) => {
     ElMessageBox.confirm(content, title || '温馨提示', {
-      confirmButtonText: confirmButtonText,
-      cancelButtonText: cancelButtonText,
+      confirmButtonText,
+      cancelButtonText,
       closeOnClickModal: false,
       type: 'warning',
       lockScroll: false,
@@ -150,19 +150,21 @@ export function setup(app) {
    * @param {string|VNode} title 标题
    * @param {'success'|'warning'|'info'|'error'} type 主题样式,如果不在可选值内将被忽略
    * @param {'top-right'|'top-left'|'bottom-right'|'bottom-left'} position 自定义弹出位置
+   * @param duration 显示时间,毫秒
    */
   app.config.globalProperties.$baseNotify = (
     message,
     title,
     type = 'success',
-    position = 'top-right'
+    position = 'top-right',
+    duration = messageDuration
   ) => {
     ElNotification({
-      title: title,
-      message: message,
-      type: type,
-      duration: messageDuration,
-      position: position,
+      title,
+      message,
+      type,
+      duration,
+      position,
     })
   }
 

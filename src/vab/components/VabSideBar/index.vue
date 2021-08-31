@@ -102,13 +102,13 @@
 <style lang="scss" scoped>
   @mixin active {
     &:hover {
-      color: $base-color-white;
-      background-color: $base-menu-background-active;
+      color: var(--el-color-white);
+      background-color: var(--vab-menu-active);
     }
 
     &.is-active {
-      color: $base-color-white;
-      background-color: $base-menu-background-active;
+      color: var(--el-color-white);
+      background-color: var(--vab-menu-active);
     }
   }
 
@@ -121,7 +121,7 @@
     width: $base-left-menu-width;
     height: 100vh;
     overflow: hidden;
-    background: $base-menu-background;
+    background: var(--vab-menu-background);
     box-shadow: $base-box-shadow;
     transition: $base-transition;
 
@@ -137,7 +137,7 @@
       :deep() {
         .el-menu--collapse.el-menu {
           > .el-menu-item,
-          > .el-submenu {
+          > .el-sub-menu {
             text-align: center;
 
             .el-tag {
@@ -147,14 +147,14 @@
         }
 
         .el-menu-item,
-        .el-submenu {
+        .el-sub-menu {
           text-align: left;
         }
 
         .el-menu--collapse {
           border-right: 0;
 
-          .el-submenu__icon-arrow {
+          .el-sub-menu__icon-arrow {
             right: 10px;
             margin-top: -3px;
           }
@@ -168,7 +168,7 @@
       }
 
       .el-menu-item,
-      .el-submenu__title {
+      .el-sub-menu__title {
         height: $base-menu-item-height;
         overflow: hidden;
         line-height: $base-menu-item-height;
@@ -195,19 +195,19 @@ bug使用popper-append-to-body=false会导致多级路由无法显示，故所�
     &:hover,
     &.is-active {
       i {
-        color: $base-color-white;
+        color: var(--el-color-white);
       }
 
-      color: $base-color-white;
-      background: $base-color-blue;
+      color: var(--el-color-white);
+      background: var(--el-color-primary);
 
-      .el-submenu__title {
+      .el-sub-menu__title {
         i {
-          color: $base-color-white;
+          color: var(--el-color-white);
         }
 
-        color: $base-color-white;
-        background: $base-color-blue;
+        color: var(--el-color-white);
+        background: var(--el-color-primary);
       }
     }
   }
@@ -219,7 +219,7 @@ bug使用popper-append-to-body=false会导致多级路由无法显示，故所�
   .el-popper {
     .el-menu--vertical {
       .el-menu-item,
-      .el-submenu {
+      .el-sub-menu {
         height: $base-menu-item-height;
         line-height: $base-menu-item-height;
         text-overflow: ellipsis;
@@ -231,7 +231,7 @@ bug使用popper-append-to-body=false会导致多级路由无法显示，故所�
           color: inherit;
         }
 
-        .el-submenu__title {
+        .el-sub-menu__title {
           height: $base-menu-item-height;
           line-height: $base-menu-item-height;
           text-overflow: ellipsis;

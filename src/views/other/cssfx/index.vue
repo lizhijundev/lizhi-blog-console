@@ -43,7 +43,7 @@
       justify-content: center;
       min-height: 100px;
       margin-bottom: $base-margin;
-      color: $base-color-white;
+      color: var(--el-color-white);
       background: #090821;
       border-radius: $base-border-radius;
     }

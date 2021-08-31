@@ -103,7 +103,7 @@
 
       i {
         font-size: 28px;
-        color: $base-color-grey;
+        color: var(--el-color-grey);
         text-align: center;
         vertical-align: middle;
         pointer-events: none;

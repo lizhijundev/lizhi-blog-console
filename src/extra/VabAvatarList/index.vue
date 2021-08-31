@@ -33,7 +33,7 @@
         display: inline-block;
         margin-left: -15px;
         cursor: pointer;
-        border: 3px solid $base-color-white;
+        border: 3px solid var(--el-color-white);
       }
     }
   }

@@ -38,16 +38,16 @@
             <el-table-column label="路径" prop="path" show-overflow-tooltip />
             <el-table-column label="是否隐藏" show-overflow-tooltip>
               <template #default="{ row }">
-                <span>
-                  {{ row.meta.hidden ? '是' : '否' }}
-                </span>
+                {{ row.meta.hidden ? '是' : '否' }}
               </template>
             </el-table-column>
-            <el-table-column label="是否隐藏当前节点" show-overflow-tooltip>
+            <el-table-column
+              label="是否隐藏当前节点"
+              show-overflow-tooltip
+              width="100"
+            >
               <template #default="{ row }">
-                <span>
-                  {{ row.meta.levelHidden ? '是' : '否' }}
-                </span>
+                {{ row.meta.levelHidden ? '是' : '否' }}
               </template>
             </el-table-column>
             <el-table-column
@@ -55,52 +55,67 @@
               prop="component"
               show-overflow-tooltip
             />
-            <el-table-column
-              label="重定向"
-              prop="redirect"
-              show-overflow-tooltip
-            />
+            <el-table-column label="重定向" show-overflow-tooltip>
+              <template #default="{ row }">
+                {{ row.redirect ? row.redirect : '无' }}
+              </template>
+            </el-table-column>
             <el-table-column label="图标" show-overflow-tooltip>
               <template #default="{ row }">
-                <span v-if="row.meta">
-                  <vab-icon v-if="row.meta.icon" :icon="row.meta.icon" />
-                </span>
+                <vab-icon
+                  v-if="row.meta && row.meta.icon"
+                  :icon="row.meta.icon"
+                />
               </template>
             </el-table-column>
             <el-table-column label="是否固定" show-overflow-tooltip>
               <template #default="{ row }">
-                <span v-if="row.meta">
-                  {{ row.meta.noClosable ? '是' : '否' }}
-                </span>
+                {{ row.meta && row.meta.noClosable ? '是' : '否' }}
               </template>
             </el-table-column>
-            <el-table-column label="是否无缓存" show-overflow-tooltip>
+            <el-table-column
+              label="是否无缓存"
+              show-overflow-tooltip
+              width="120"
+            >
               <template #default="{ row }">
-                <span v-if="row.meta">
-                  {{ row.meta.noKeepAlive ? '是' : '否' }}
-                </span>
+                {{ row.meta && row.meta.noKeepAlive ? '是' : '否' }}
               </template>
             </el-table-column>
             <el-table-column label="badge" show-overflow-tooltip>
               <template #default="{ row }">
-                <span v-if="row.meta">
+                <el-tag
+                  v-if="row.meta && row.meta.badge"
+                  effect="dark"
+                  type="danger"
+                >
                   {{ row.meta.badge }}
-                </span>
+                </el-tag>
               </template>
             </el-table-column>
-            <el-table-column label="操作" show-overflow-tooltip width="85">
+            <el-table-column label="dot" show-overflow-tooltip>
               <template #default="{ row }">
-                <el-button type="text" @click="handleEdit(row)">编辑</el-button>
-                <el-button type="text" @click="handleDelete(row)">
+                {{ row.meta && row.meta.dot ? '是' : '否' }}
+              </template>
+            </el-table-column>
+            <el-table-column label="操作" show-overflow-tooltip width="185">
+              <template #default="{ row }">
+                <el-button type="primary" @click="handleEdit(row)">
+                  <vab-icon icon="edit-2-line" />
+                  编辑
+                </el-button>
+                <el-button type="danger" @click="handleDelete(row)">
+                  <vab-icon icon="delete-bin-6-line" />
                   删除
                 </el-button>
               </template>
             </el-table-column>
             <template #empty>
-              <el-image
+              <!-- <el-image
                 class="vab-data-empty"
                 :src="require('@/assets/empty_images/data_empty.png')"
-              />
+              /> -->
+              <el-empty class="vab-data-empty" description="暂无数据" />
             </template>
           </el-table>
         </vab-card>
@@ -111,8 +126,14 @@
 </template>
 
 <script>
-  import { defineComponent, getCurrentInstance, reactive, toRefs } from 'vue'
-  import { getRouterList as getList } from '@/api/router'
+  import {
+    defineComponent,
+    getCurrentInstance,
+    onMounted,
+    reactive,
+    toRefs,
+  } from 'vue'
+  import { getList } from '@/api/router'
   import { doDelete, getTree } from '@/api/menuManagement'
   import Edit from './components/MenuManagementEdit'
 
@@ -165,7 +186,9 @@
         const { list } = data
         state.data = list
       })
-      fetchData()
+      onMounted(() => {
+        fetchData()
+      })
 
       return {
         ...toRefs(state),

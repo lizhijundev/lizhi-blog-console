@@ -1,0 +1,93 @@
+:root {
+  --vab-transition: #{$base-transition};
+  --vab-padding: #{$base-padding};
+  --vab-margin: #{$base-margin};
+  --vab-keep-alive-height: #{$base-keep-alive-height};
+  --vab-menu-active: #{$base-menu-active};
+  --vab-menu-background: #{$base-menu-background};
+  --vab-column-first-menu-background: #{$base-column-first-menu-background};
+  --vab-column-second-menu-active: #{$base-column-second-menu-active};
+  --vab-column-second-menu-background: #{$base-column-second-menu-background};
+
+  --el-color-black: #{$base-color-black};
+  --el-color-white: #{$base-color-white};
+  --el-color-grey: #{$base-color-grey};
+  --el-color-primary: #{$base-color-blue};
+  --el-color-primary-light-1: mix(
+    #{$base-color-white},
+    #{$base-color-blue},
+    10%
+  );
+  --el-color-primary-light-2: mix(
+    #{$base-color-white},
+    #{$base-color-blue},
+    20%
+  );
+  --el-color-primary-light-3: mix(
+    #{$base-color-white},
+    #{$base-color-blue},
+    30%
+  );
+  --el-color-primary-light-4: mix(
+    #{$base-color-white},
+    #{$base-color-blue},
+    40%
+  );
+  --el-color-primary-light-5: mix(
+    #{$base-color-white},
+    #{$base-color-blue},
+    50%
+  );
+  --el-color-primary-light-6: mix(
+    #{$base-color-white},
+    #{$base-color-blue},
+    60%
+  );
+  --el-color-primary-light-7: mix(
+    #{$base-color-white},
+    #{$base-color-blue},
+    70%
+  );
+  --el-color-primary-light-8: mix(
+    #{$base-color-white},
+    #{$base-color-blue},
+    80%
+  );
+  --el-color-primary-light-9: mix(
+    #{$base-color-white},
+    #{$base-color-blue},
+    90%
+  );
+  --el-color-success: #{$base-color-green};
+  --el-color-success-light: mix(
+    #{$base-color-white},
+    #{$base-color-green},
+    80%
+  );
+  --el-color-success-lighter: mix(
+    #{$base-color-white},
+    #{$base-color-green},
+    90%
+  );
+  --el-color-warning: #{$base-color-yellow};
+  --el-color-warning-light: mix(
+    #{$base-color-white},
+    #{$base-color-yellow},
+    80%
+  );
+  --el-color-warning-lighter: mix(
+    #{$base-color-white},
+    #{$base-color-yellow},
+    90%
+  );
+  --el-color-danger: #{$base-color-red};
+  --el-color-danger-light: mix(#{$base-color-white}, #{$base-color-red}, 80%);
+  --el-color-danger-lighter: mix(#{$base-color-white}, #{$base-color-red}, 90%);
+  --el-color-error: #{$base-color-red};
+  --el-color-error-light: mix(#{$base-color-white}, #{$base-color-red}, 80%);
+  --el-color-error-lighter: mix(#{$base-color-white}, #{$base-color-red}, 90%);
+  --el-color-info: #909399;
+  --el-color-info-light: mix(#{$base-color-white}, #{#a5b2ce}, 80%);
+  --el-color-info-lighter: mix(#{$base-color-white}, #{#909399}, 90%);
+  --vab-border-radius-base: 2.5px;
+}

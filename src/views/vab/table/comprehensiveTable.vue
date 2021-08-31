@@ -212,10 +212,7 @@
         </template>
       </el-table-column>
       <template #empty>
-        <el-image
-          class="vab-data-empty"
-          :src="require('@/assets/empty_images/data_empty.png')"
-        />
+        <el-empty class="vab-data-empty" description="暂无数据" />
       </template>
     </el-table>
     <el-pagination
@@ -241,9 +238,10 @@
     onMounted,
     reactive,
     toRefs,
+    watch,
   } from 'vue'
-  import { mapActions, useStore } from 'vuex'
-  import { useRouter } from 'vue-router'
+  import { useStore } from 'vuex'
+  import { useRouter, useRoute } from 'vue-router'
   import { doDelete, getList } from '@/api/table'
   import { handleMatched, handleTabs } from '@/utils/routes'
   import TableEdit from './components/TableEdit'
@@ -256,9 +254,12 @@
     setup() {
       const store = useStore()
       const router = useRouter()
-
+      const route = useRoute()
       const routes = computed(() => store.getters['routes/routes'])
-
+      const changeTabsMeta = (options) =>
+        store.dispatch('tabs/changeTabsMeta', options)
+      const addVisitedRoute = (options) =>
+        store.dispatch('tabs/addVisitedRoute', options)
       const { proxy } = getCurrentInstance()
 
       const state = reactive({
@@ -278,6 +279,13 @@
           pageSize: 10,
         },
       })
+
+      watch(
+        () => route.path,
+        (value) => {
+          if (value === '/vab/table/comprehensiveTable') fetchData()
+        }
+      )
 
       const fetchData = async () => {
         state.listLoading = true
@@ -372,8 +380,8 @@
             true
           )
           if (tab) {
-            await proxy.addVisitedRoute(tab)
-            proxy.changeTabsMeta({
+            await addVisitedRoute(tab)
+            changeTabsMeta({
               title: '详情页',
               meta: {
                 title: `${tab.query.title} 详情页`,
@@ -408,12 +416,12 @@
       }
       const handleAlert = () => {
         proxy.$baseAlert('11')
-        proxy.$baseAlert('11', '自定义标题', () => {
-          /* 可以写回调; */
-        })
-        proxy.$baseAlert('11', null, () => {
-          /* 可以写回调; */
-        })
+        // proxy.$baseAlert('11', '自定义标题', () => {
+        //   /* 可以写回调; */
+        // })
+        // proxy.$baseAlert('11', null, () => {
+        //   /* 可以写回调; */
+        // })
       }
       const handleConfirm = () => {
         proxy.$baseConfirm(
@@ -452,10 +460,6 @@
 
       return {
         ...toRefs(state),
-        ...mapActions({
-          addVisitedRoute: 'tabs/addVisitedRoute',
-          changeTabsMeta: 'tabs/changeTabsMeta',
-        }),
         handleSizeChange,
         handleCurrentChange,
         queryData,

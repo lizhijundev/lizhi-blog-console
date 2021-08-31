@@ -78,9 +78,9 @@ body.vab-theme-blue-white {
 
     .el-menu {
       .el-menu-item.is-active,
-      .el-submenu__title.is-active,
+      .el-sub-menu__title.is-active,
       .el-menu-item:hover,
-      .el-submenu__title:hover {
+      .el-sub-menu__title:hover {
         i {
           color: $base-color-blue !important;
         }
@@ -124,7 +124,7 @@ body.vab-theme-blue-white {
     .el-menu {
       @include container;
 
-      .el-submenu__title {
+      .el-sub-menu__title {
         @include container;
       }
 
@@ -145,12 +145,12 @@ body.vab-theme-blue-white {
   }
 
   .vab-layout-float {
-    .el-scrollbar__view .el-menu--collapse.el-menu li.el-submenu.is-active {
-      .el-submenu__title {
+    .el-scrollbar__view .el-menu--collapse.el-menu li.el-sub-menu.is-active {
+      .el-sub-menu__title {
         background-color: transparent !important;
       }
 
-      > .el-submenu__title {
+      > .el-sub-menu__title {
         color: $base-color-blue !important;
         background-color: $base-color-blue-light !important;
       }
@@ -190,7 +190,7 @@ body.vab-theme-blue-white {
             }
           }
 
-          .el-submenu,
+          .el-sub-menu,
           .el-menu-item {
             @include active;
           }
@@ -217,7 +217,11 @@ body.vab-theme-blue-white {
         .el-tabs__item {
           &.is-active {
             color: $base-color-blue !important;
-            background: $base-color-blue-light-9 !important;
+            background: mix(
+              $base-color-white,
+              $base-color-blue,
+              90%
+            ) !important;
             border: 1px solid $base-color-blue !important;
           }
 
@@ -232,7 +236,11 @@ body.vab-theme-blue-white {
       .el-tabs__header {
         .el-tabs__item {
           &.is-active {
-            background: $base-color-blue-light-9 !important;
+            background: mix(
+              $base-color-white,
+              $base-color-blue,
+              90%
+            ) !important;
           }
 
           &:after {
@@ -240,7 +248,11 @@ body.vab-theme-blue-white {
           }
 
           &:hover {
-            background: $base-color-blue-light-9 !important;
+            background: mix(
+              $base-color-white,
+              $base-color-blue,
+              90%
+            ) !important;
           }
         }
       }
@@ -251,11 +263,19 @@ body.vab-theme-blue-white {
         .el-tabs__item {
           &.is-active {
             color: $base-color-blue !important;
-            background: $base-color-blue-light-9 !important;
+            background: mix(
+              $base-color-white,
+              $base-color-blue,
+              90%
+            ) !important;
 
             &:hover {
               color: $base-color-blue !important;
-              background: $base-color-blue-light-9 !important;
+              background: mix(
+                $base-color-white,
+                $base-color-blue,
+                90%
+              ) !important;
             }
           }
 
@@ -270,67 +290,11 @@ body.vab-theme-blue-white {
   /*由于element-plus
  bug使用popper-append-to-body=false会导致多级路由无法显示，故所有菜单必须生成至body下，样式必须放到body下*/
 
-  .el-menu--collapse.el-menu li.el-submenu.is-active > .el-submenu__title {
-    color: $base-color-blue !important;
-    background-color: $base-color-blue-light !important;
-  }
-
-  @mixin menuDefalut {
-    color: $base-color-black !important;
-    background: $base-color-white !important;
-  }
-
-  @mixin menuActiveHover {
-    &:hover,
-    &.is-active {
-      i {
-        color: $base-color-blue !important;
-      }
-
-      color: $base-color-blue !important;
-      background-color: $base-color-blue-light !important;
-
-      .el-submenu__title {
-        i {
-          color: $base-color-blue !important;
-        }
-
-        color: $base-color-blue !important;
-        background-color: $base-color-blue-light !important;
-      }
-    }
-  }
-
-  .el-popper {
-    .el-menu--horizontal,
-    .el-menu--vertical {
-      @include menuDefalut;
-
-      .el-menu.el-menu--popup {
-        @include menuDefalut;
-      }
-
-      .el-menu-item,
-      .el-submenu {
-        @include menuDefalut;
-        @include menuActiveHover;
-
-        .el-submenu__title {
-          @include menuDefalut;
-          @include menuActiveHover;
-        }
-      }
-    }
-  }
-
-  /*由于element-plus
- bug使用popper-append-to-body=false会导致多级路由无法显示，故所有菜单必须生成至body下，样式必须放到body下*/
-
   .el-menu {
     border-right: 0;
   }
-  .el-popper .el-menu--vertical .el-submenu.is-active .el-submenu__title,
-  .el-menu--collapse.el-menu li.el-submenu.is-active > .el-submenu__title {
+  .el-popper .el-menu--vertical .el-sub-menu.is-active .el-sub-menu__title,
+  .el-menu--collapse.el-menu li.el-sub-menu.is-active > .el-sub-menu__title {
     color: $base-color-blue !important;
     background-color: $base-color-blue-light !important;
     i {
@@ -347,11 +311,11 @@ body.vab-theme-blue-white {
       }
 
       .el-menu-item,
-      .el-submenu {
+      .el-sub-menu {
         color: $base-color-black !important;
         background: $base-color-white !important;
 
-        .el-submenu__title {
+        .el-sub-menu__title {
           color: $base-color-black !important;
           background: $base-color-white !important;
         }
@@ -365,7 +329,7 @@ body.vab-theme-blue-white {
       }
 
       .el-menu-item,
-      .el-submenu__title {
+      .el-sub-menu__title {
         color: $base-color-black !important;
         background: $base-color-white !important;
 
@@ -396,9 +360,9 @@ body.vab-theme-blue-white {
 
   .el-menu {
     .el-menu-item.is-active,
-    .el-submenu__title.is-active,
+    .el-sub-menu__title.is-active,
     .el-menu-item:hover,
-    .el-submenu__title:hover {
+    .el-sub-menu__title:hover {
       i {
         color: $base-color-blue !important;
       }

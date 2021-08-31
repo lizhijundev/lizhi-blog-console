@@ -110,6 +110,7 @@ export default {
     综合: 'Comprehensive',
     常规: 'Common',
     浮动: 'Float',
+    菜单背景: 'Background',
     分栏风格: 'Column style',
     箭头: 'Arrow',
     头部固定: 'Header',

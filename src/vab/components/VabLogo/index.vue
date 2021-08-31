@@ -108,7 +108,7 @@
     }
 
     &-column {
-      background: $base-column-second-menu-background !important;
+      background: var(--vab-column-second-menu-background) !important;
 
       .logo {
         position: fixed;
@@ -117,15 +117,15 @@
         width: $base-left-menu-width-min;
         height: $base-logo-height;
         margin: 0;
-        background: $base-column-first-menu-background;
+        background: var(--vab-column-first-menu-background);
       }
 
       .title {
         padding-right: 15px;
         padding-left: 15px;
         margin-left: $base-left-menu-width-min !important;
-        color: $base-color-black !important;
-        background: $base-column-second-menu-background !important;
+        color: var(--el-color-black) !important;
+        background: var(--vab-column-second-menu-background) !important;
         @include title;
       }
     }

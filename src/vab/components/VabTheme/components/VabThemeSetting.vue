@@ -175,7 +175,7 @@
     margin: 0;
     text-align: center;
     cursor: pointer;
-    background: $base-color-white;
+    background: var(--el-color-white);
     border: 1px solid $base-border-color;
     border-top-left-radius: $base-border-radius + 3;
     border-bottom-left-radius: $base-border-radius + 3;
@@ -214,7 +214,7 @@
               -webkit-box-shadow 0.15s ease;
 
             &:hover {
-              color: $base-color-white;
+              color: var(--el-color-white);
               background: $color;
             }
           }

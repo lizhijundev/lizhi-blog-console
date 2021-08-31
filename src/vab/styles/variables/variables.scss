@@ -26,11 +26,11 @@ $base-background-color-base: #f5f7fa;
 //默认层级
 $base-z-index: 1999;
 //分栏最左侧菜单背景色
-$base-column-first-menu-background: linear-gradient(to right, #282c34, #000);
+$base-column-first-menu-background: #282c34;
 //分栏菜单背景色
 $base-column-second-menu-background: #fff;
 //分栏菜单选中背景色
-$base-column-second-menu-background-active: rgba(#1890ff, 0.1);
+$base-column-second-menu-active: mix($base-color-white, $base-color-blue, 10%);
 //横向、纵向菜单背景色
 $base-menu-background: #282c34;
 //菜单文字颜色
@@ -38,7 +38,7 @@ $base-menu-color: hsla(0, 0%, 100%, 0.95);
 //菜单选中文字颜色
 $base-menu-color-active: hsla(0, 0%, 100%, 0.95);
 //菜单选中背景色
-$base-menu-background-active: $base-color-blue;
+$base-menu-active: $base-color-blue;
 //标题颜色
 $base-title-color: #fff;
 //字体大小配置
@@ -100,4 +100,6 @@ $base-transition-time: 0.3s;
   menu-background: $base-menu-background;
   // 分栏菜单背景色变量导出
   column-second-menu-background: $base-column-second-menu-background;
+  // 导出圆角
+  vab-border-radius: $base-border-radius;
 }

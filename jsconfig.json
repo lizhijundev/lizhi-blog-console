@@ -1,11 +1,12 @@
 {
   "compilerOptions": {
-    "target": "ES6",
-    "module": "commonjs",
+    "target": "es6",
+    "module": "es6",
     "allowSyntheticDefaultImports": true,
     "baseUrl": "./",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["src/*"],
+      "@vab": ["src/vab/plugins/vab"]
     }
   },
   "exclude": ["node_modules"]

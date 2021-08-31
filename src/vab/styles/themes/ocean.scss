@@ -52,9 +52,9 @@ body.vab-theme-ocean {
 
     .el-menu {
       .el-menu-item.is-active,
-      .el-submenu__title.is-active,
+      .el-sub-menu__title.is-active,
       .el-menu-item:hover,
-      .el-submenu__title:hover {
+      .el-sub-menu__title:hover {
         i {
           color: $base-color-blue !important;
         }
@@ -83,7 +83,7 @@ body.vab-theme-ocean {
     .el-menu {
       background: $base-color-blue !important;
 
-      .el-submenu__title {
+      .el-sub-menu__title {
         background: $base-color-blue !important;
       }
 
@@ -114,7 +114,7 @@ body.vab-theme-ocean {
         @include container;
         @include active;
 
-        .el-submenu__title,
+        .el-sub-menu__title,
         .el-menu-item {
           background-color: transparent !important;
           @include active;
@@ -128,12 +128,12 @@ body.vab-theme-ocean {
   }
 
   .vab-layout-float {
-    .el-scrollbar__view .el-menu--collapse.el-menu li.el-submenu.is-active {
-      .el-submenu__title {
+    .el-scrollbar__view .el-menu--collapse.el-menu li.el-sub-menu.is-active {
+      .el-sub-menu__title {
         background-color: transparent !important;
       }
 
-      > .el-submenu__title {
+      > .el-sub-menu__title {
         background-color: $base-color-blue !important;
       }
     }
@@ -147,7 +147,7 @@ body.vab-theme-ocean {
         background-color: $base-color-blue !important;
 
         &--horizontal {
-          .el-submenu,
+          .el-sub-menu,
           .el-menu-item {
             background-color: $base-color-blue !important;
 
@@ -158,9 +158,9 @@ body.vab-theme-ocean {
           }
 
           > .el-menu-item,
-          .el-submenu__title,
+          .el-sub-menu__title,
           > .el-menu-item:hover,
-          > .el-submenu__title:hover {
+          > .el-sub-menu__title:hover {
             color: $base-color-white !important;
             background-color: $base-color-blue !important;
 
@@ -195,7 +195,7 @@ bug使用popper-append-to-body=false会导致多级路由无法显示，故所�
       color: $base-color-white !important;
       background: $base-color-blue-active !important;
 
-      .el-submenu__title {
+      .el-sub-menu__title {
         i {
           color: $base-color-white !important;
         }
@@ -216,11 +216,11 @@ bug使用popper-append-to-body=false会导致多级路由无法显示，故所�
       }
 
       .el-menu-item,
-      .el-submenu {
+      .el-sub-menu {
         @include menuDefalut;
         @include menuActiveHover;
 
-        .el-submenu__title {
+        .el-sub-menu__title {
           @include menuDefalut;
           @include menuActiveHover;
         }

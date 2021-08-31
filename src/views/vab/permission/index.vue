@@ -31,90 +31,104 @@
         当前账号拥有的角色
         <el-tag>{{ JSON.stringify(role) }}</el-tag>
         ，权限点
-        <el-tag>{{ JSON.stringify(ability) }}</el-tag>
+        <el-tag>{{ JSON.stringify(permission) }}</el-tag>
         ，当前token
         <el-tag>{{ token }}</el-tag>
       </el-form-item>
       <el-form-item label="按钮级角色">
-        <el-button v-permissions="['admin']" type="primary">
-          拥有["admin"]角色的按钮
+        <el-button v-permissions="['Admin']" type="primary">
+          拥有["Admin"]角色的按钮
         </el-button>
         <el-button
-          v-permissions="{ role: ['admin'], mode: 'except' }"
+          v-permissions="{ role: ['Admin'], mode: 'except' }"
           type="danger"
         >
-          未拥有["admin"]角色的按钮
+          未拥有["Admin"]角色的按钮
         </el-button>
-        <el-button v-permissions="['editor']" type="primary">
-          拥有["editor"]角色的按钮
+        <el-button v-permissions="['Editor']" type="primary">
+          拥有["Editor"]角色的按钮
         </el-button>
         <el-button
-          v-permissions="{ role: ['editor'], mode: 'except' }"
+          v-permissions="{ role: ['Editor'], mode: 'except' }"
           type="danger"
         >
-          未拥有["editor"]角色的按钮
+          未拥有["Editor"]角色的按钮
         </el-button>
         <el-button
-          v-permissions="{ role: ['admin', 'editor'], mode: 'allOf' }"
+          v-permissions="{ role: ['Admin', 'Editor'], mode: 'allOf' }"
           type="primary"
         >
-          同时拥有["admin","editor"]角色的按钮
+          同时拥有["Admin","Editor"]角色的按钮
         </el-button>
-        <el-button v-permissions="['test']" type="primary">
-          拥有["test"]角色的按钮
+        <el-button v-permissions="['Test']" type="primary">
+          拥有["Test"]角色的按钮
         </el-button>
       </el-form-item>
+      <!--  注意其中roles-代表组件name，这样可以区分到具体页面 -->
       <el-form-item label="按钮级权限点">
-        <el-button v-permissions="{ ability: ['READ'] }" type="primary">
-          拥有["READ"]权限点的按钮
+        <el-button
+          v-permissions="{ permission: ['read:system'] }"
+          type="primary"
+        >
+          拥有["read:system"]权限点的按钮
         </el-button>
         <el-button
-          v-permissions="{ ability: ['READ'], mode: 'except' }"
+          v-permissions="{ permission: ['read:system'], mode: 'except' }"
           type="danger"
         >
-          未拥有["READ"]权限点的按钮
-        </el-button>
-        <el-button v-permissions="{ ability: ['WRITE'] }" type="primary">
-          拥有["WRITE"]权限点的按钮
+          未拥有["'read:system'"]权限点的按钮
         </el-button>
         <el-button
-          v-permissions="{ ability: ['WRITE'], mode: 'except' }"
-          type="danger"
+          v-permissions="{ permission: ['write:system'] }"
+          type="primary"
         >
-          未拥有["WRITE"]权限点的按钮
-        </el-button>
-        <el-button v-permissions="{ ability: ['DELETE'] }" type="primary">
-          拥有["DELETE"]权限点的按钮
+          拥有["write:system"]权限点的按钮
         </el-button>
         <el-button
-          v-permissions="{ ability: ['DELETE'], mode: 'except' }"
+          v-permissions="{ permission: ['write:system'], mode: 'except' }"
           type="danger"
         >
-          未拥有["DELETE"]权限点的按钮
+          未拥有["write:system"]权限点的按钮
+        </el-button>
+        <el-button
+          v-permissions="{ permission: ['delete:system'] }"
+          type="primary"
+        >
+          拥有["delete:system"]权限点的按钮
+        </el-button>
+        <el-button
+          v-permissions="{ permission: ['delete:system'], mode: 'except' }"
+          type="danger"
+        >
+          未拥有["delete:system"]权限点的按钮
         </el-button>
       </el-form-item>
       <el-form-item label="按钮级角色&权限点">
         <el-button
-          v-permissions="{ role: ['admin'], ability: ['DELETE'] }"
+          v-permissions="{ role: ['Admin'], permission: ['delete:system'] }"
           type="primary"
         >
-          拥有["admin"]角色或者["DELETE"]权限点的按钮
-        </el-button>
-        <el-button
-          v-permissions="{ role: ['editor'], ability: ['READ'], mode: 'allOf' }"
-          type="primary"
-        >
-          同时拥有editor和["READ"]权限点的按钮
+          拥有["Admin"]角色或者["delete:system"]权限点的按钮
         </el-button>
         <el-button
           v-permissions="{
-            role: ['admin'],
-            ability: ['DELETE'],
+            role: ['Editor'],
+            permission: ['read:system'],
+            mode: 'allOf',
+          }"
+          type="primary"
+        >
+          拥有["Editor"]角色和["read:system"]权限点的按钮
+        </el-button>
+        <el-button
+          v-permissions="{
+            role: ['Admin'],
+            permission: ['delete:system'],
             mode: 'except',
           }"
           type="danger"
         >
-          没有admin和["DELETE"]权限点的按钮
+          没有["Admin"]和["delete:system"]权限点的按钮
         </el-button>
       </el-form-item>
     </el-form>
@@ -248,12 +262,13 @@
     rolesControl,
     tokenTableName,
   } from '@/config'
-  import { getRouterList } from '@/api/router'
+  import { getList } from '@/api/router'
   import { filterRoutes } from '@/utils/routes'
   import { expireToken } from '@/api/refreshToken'
+  import { Random } from 'mockjs'
 
   export default defineComponent({
-    name: 'Roles',
+    name: 'Permission',
     setup() {
       const store = useStore()
 
@@ -276,14 +291,14 @@
       const fetchData = async () => {
         const {
           data: { list },
-        } = await getRouterList()
+        } = await getList()
         state.tableData = filterRoutes([...list])
       }
       const handleChangeRole = async () => {
         proxy.$baseLoading(0, '正在切换账号请稍后...')
         await localStorage.setItem(
           tokenTableName,
-          `${state.form.account}-token`
+          `${state.form.account}-token-${Random.guid()}-${new Date().getTime()}`
         )
         await location.reload()
       }
@@ -301,7 +316,8 @@
       return {
         ...toRefs(state),
         role: computed(() => store.getters['acl/role']),
-        ability: computed(() => store.getters['acl/ability']),
+        permission: computed(() => store.getters['acl/permission']),
+        username,
         token,
         fetchData,
         handleChangeRole,

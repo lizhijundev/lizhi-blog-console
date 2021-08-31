@@ -265,7 +265,7 @@
         margin-top: 29px;
         font-size: 26px;
         font-weight: 400;
-        color: $base-color-white;
+        color: var(--el-color-white);
         text-overflow: ellipsis;
         white-space: nowrap;
       }
@@ -299,7 +299,7 @@
     .tips {
       margin-bottom: 10px;
       font-size: $base-font-size-default;
-      color: $base-color-white;
+      color: var(--el-color-white);
 
       span {
         &:first-of-type {
@@ -339,7 +339,7 @@
           left: 18px;
           font-size: $base-font-size-small;
           line-height: 18px;
-          color: $base-color-red;
+          color: var(--el-color-error);
         }
       }
 

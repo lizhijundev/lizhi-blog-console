@@ -25,7 +25,7 @@
 
 <style lang="scss" scoped>
   .fold-unfold {
-    color: $base-color-grey;
+    color: var(--el-color-grey);
     cursor: pointer;
   }
 </style>

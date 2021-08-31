@@ -1,11 +1,8 @@
-import i18n from '@/i18n'
 import ElementPlus from 'element-plus'
-import '@/vab/styles/variables/element-variables.scss'
-import 'element-plus/lib/theme-chalk/display.css'
+import 'element-plus/packages/theme-chalk/src/index.scss'
 
 export function setup(app) {
   app.use(ElementPlus, {
     size: 'small',
-    i18n: i18n.global.t,
   })
 }

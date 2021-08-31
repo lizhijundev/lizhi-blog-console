@@ -9,7 +9,19 @@
       <table class="table">
         <tr>
           <td>vue</td>
-          <td>{{ dependencies['vue'] }}</td>
+          <td>
+            {{ dependencies['vue'] }}
+            <el-popover
+              content="已升级至最新版本"
+              placement="top-start"
+              trigger="hover"
+              :width="200"
+            >
+              <template #reference>
+                <vab-icon icon="arrow-up-line" />
+              </template>
+            </el-popover>
+          </td>
           <td>@vue/cli</td>
           <td>{{ devDependencies['@vue/cli-service'] }}</td>
         </tr>
@@ -23,12 +35,24 @@
           <td>vue-i18n</td>
           <td>{{ dependencies['vue-i18n'] }}</td>
           <td>element-plus</td>
-          <td>{{ dependencies['element-plus'] }}</td>
+          <td>
+            {{ dependencies['element-plus'] }}
+            <el-popover
+              content="已升级至最新版本"
+              placement="top-start"
+              trigger="hover"
+              :width="200"
+            >
+              <template #reference>
+                <vab-icon icon="arrow-up-line" />
+              </template>
+            </el-popover>
+          </td>
         </tr>
         <tr>
           <td>授权渠道</td>
           <td colspan="3">
-            <el-popover trigger="hover" :width="400">
+            <!-- <el-popover trigger="hover" :width="400">
               <div style="text-align: center">
                 <el-image
                   :src="require('@/assets/skm1.jpg')"
@@ -39,15 +63,15 @@
                   element-plus，拥有完整的登录鉴权和前后端多种配置的动态路由流程，仅限自己及团队使用，源码不得二次出售转卖，恶意分享取消使用资格
                 </p>
               </div>
-              <template #reference>
-                <a
-                  href="http://vue-admin-beautiful.com/authorization"
-                  target="_blank"
-                >
-                  <el-button type="primary">购买源码 ￥799</el-button>
-                </a>
-              </template>
-            </el-popover>
+              <template #reference> -->
+            <a
+              href="http://vue-admin-beautiful.com/authorization"
+              target="_blank"
+            >
+              <el-button type="primary">购买源码 ￥799</el-button>
+            </a>
+            <!--  </template>
+            </el-popover> -->
             <!-- <el-popover trigger="hover" :width="400">
               <div style="text-align: center">
                 <el-image
@@ -108,6 +132,12 @@
         text-overflow: ellipsis;
         white-space: nowrap;
         border: 1px solid #e6e6e6;
+
+        i {
+          color: var(--el-color-success);
+          vertical-align: -3px;
+          cursor: pointer;
+        }
 
         &:nth-child(odd) {
           width: 20%;

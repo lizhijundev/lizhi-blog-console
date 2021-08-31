@@ -124,7 +124,7 @@
 
         i {
           font-size: 28px;
-          color: $base-color-grey;
+          color: var(--el-color-grey);
           text-align: center;
           pointer-events: none;
           cursor: pointer;
@@ -140,7 +140,7 @@
           color: rgb(255, 255, 255);
           text-align: center;
           content: '点击复制';
-          background-color: $base-color-blue;
+          background-color: var(--el-color-primary);
           transition: $base-transition;
         }
 

@@ -1,7 +1,7 @@
 /**
  * @description 全局样式
  */
-
+@import './root.scss';
 @import './loading.scss';
 @import './normalize.scss';
 @import './transition.scss';
@@ -12,21 +12,21 @@
     height: 8px;
   }
   &::-webkit-scrollbar-thumb {
-    background-color: rgba($base-menu-background, 0.1);
+    background-color: mix($base-color-white, $base-menu-background, 90%);
     border: 3px solid transparent;
     border-radius: 7px;
   }
   &::-webkit-scrollbar-thumb:hover {
-    background-color: rgba($base-menu-background, 0.2);
+    background-color: mix($base-color-white, $base-menu-background, 80%);
   }
 }
 
 .vab-layout-header,
 [class*='-bar-container'] {
-  transition: $base-transition;
+  transition: var(--vab-transition);
 
   * {
-    transition: $base-transition;
+    transition: var(--vab-transition);
   }
 }
 
@@ -40,7 +40,7 @@ html {
     overflow: hidden;
     font-family: 'PingFang SC', Arial, 'Microsoft YaHei', sans-serif;
     font-size: $base-font-size-default;
-    color: $base-color-black;
+    color: var(--el-color-black);
     background: $base-color-background;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -51,23 +51,23 @@ html {
       @include base-scrollbar;
 
       .vab-main {
-        transition: $base-transition;
+        transition: var(--vab-transition);
 
         .vab-app-main {
           width: 100%;
-          padding: $base-padding;
+          padding: var(--vab-padding);
           overflow: hidden;
-          transition: $base-transition;
+          transition: var(--vab-transition);
 
           > section {
-            background: $base-color-white;
-            transition: $base-transition;
+            background: var(--el-color-white);
+            transition: var(--vab-transition);
 
             > [class*='-container'] {
-              min-height: $base-keep-alive-height;
-              padding: $base-padding;
-              background: $base-color-white;
-              transition: $base-transition;
+              min-height: var(--vab-keep-alive-height);
+              padding: var(--vab-padding);
+              background: var(--el-color-white);
+              transition: var(--vab-transition);
             }
           }
         }
@@ -82,7 +82,7 @@ html {
 
     /*a标签 */
     a {
-      color: $base-color-blue;
+      color: var(--el-color-primary);
       text-decoration: none;
     }
 
@@ -116,7 +116,7 @@ html {
 
     /* vab-dropdown下拉动画 */
     .vab-dropdown {
-      transition: $base-transition;
+      transition: var(--vab-transition);
 
       &-active {
         transform: rotateZ(180deg);
@@ -156,18 +156,18 @@ html {
       }
 
       &-success {
-        background: $base-color-green;
+        background: var(--el-color-success);
 
         span {
-          background: $base-color-green;
+          background: var(--el-color-success);
         }
       }
 
       &-error {
-        background: $base-color-red;
+        background: var(--el-color-error);
 
         span {
-          background: $base-color-red;
+          background: var(--el-color-error);
         }
       }
     }
@@ -177,15 +177,20 @@ html {
       display: flex;
       align-items: center;
       justify-content: center;
-      min-height: calc(#{$base-keep-alive-height} - 250px);
+    }
 
-      .el-image__inner {
-        width: 22.5%;
+    /* el-descriptions */
+    .el-descriptions {
+      &__title {
+        padding-left: 10px;
+        border-left: 5px solid var(--el-color-primary);
       }
     }
 
     /* el-button按钮 */
     .el-button {
+      border-radius: var(--el-border-radius-base) !important;
+
       [class*='ri-'] {
         margin-right: 3px;
         font-size: 12px;
@@ -245,10 +250,10 @@ html {
       }
 
       &__thumb {
-        background-color: rgba($base-menu-background, 0.1);
+        background-color: mix($base-color-white, $base-menu-background, 90%);
 
         &:hover {
-          background-color: rgba($base-menu-background, 0.2);
+          background-color: mix($base-color-white, $base-menu-background, 80%);
         }
       }
     }
@@ -277,56 +282,60 @@ html {
     }
 
     /* el-tag */
-    .el-tag + .el-tag {
-      margin-left: 10px;
+    .el-tag {
+      border-radius: var(--el-border-radius-base);
+
+      & + .el-tag {
+        margin-left: 10px;
+      }
     }
 
     /*  .el-page-header */
     .el-page-header {
-      margin: 0 0 $base-margin 0;
+      margin: 0 0 var(--vab-margin) 0;
     }
 
     /* el-alert */
     .el-alert {
-      margin: 0 0 $base-margin 0;
+      margin: 0 0 var(--vab-margin) 0;
 
       &--success.is-light {
-        color: $base-color-green;
-        background-color: mix($base-color-white, $base-color-green, 90%);
-        border: 1px solid $base-color-green;
+        color: var(--el-color-success);
+        background-color: var(--el-color-success-lighter);
+        border: 1px solid var(--el-color-success);
 
         i {
-          color: $base-color-green;
+          color: var(--el-color-success);
         }
       }
 
       &--info.is-light {
-        color: $base-color-blue;
-        background-color: mix($base-color-white, $base-color-blue, 90%);
-        border: 1px solid $base-color-blue;
+        color: var(--el-color-primary);
+        background-color: var(--el-color-primary-light-9);
+        border: 1px solid var(--el-color-primary);
 
         i {
-          color: $base-color-blue;
+          color: var(--el-color-primary);
         }
       }
 
       &--warning.is-light {
-        color: $base-color-yellow;
-        background-color: mix($base-color-white, $base-color-yellow, 90%);
-        border: 1px solid $base-color-yellow;
+        color: var(--el-color-warning);
+        background-color: var(--el-color-warning-lighter);
+        border: 1px solid var(--el-color-warning);
 
         i {
-          color: $base-color-yellow;
+          color: var(--el-color-warning);
         }
       }
 
       &--error.is-light {
-        color: $base-color-red;
-        background-color: mix($base-color-white, $base-color-red, 90%);
-        border: 1px solid $base-color-red;
+        color: var(--el-color-error);
+        background-color: var(--el-color-error-lighter);
+        border: 1px solid var(--el-color-error);
 
         i {
-          color: $base-color-red;
+          color: var(--el-color-error);
         }
       }
     }
@@ -365,11 +374,12 @@ html {
       z-index: $base-z-index + 3;
 
       .bar {
-        background: $base-color-blue;
+        background: var(--el-color-primary);
       }
 
       .peg {
-        box-shadow: 0 0 10px $base-color-blue, 0 0 5px $base-color-blue;
+        box-shadow: 0 0 10px var(--el-color-primary),
+          0 0 5px var(--el-color-primary);
       }
     }
 
@@ -404,10 +414,14 @@ html {
 
     /* el-pagination分页 */
     .el-pagination {
-      margin: $base-margin 0 0 0;
+      margin: var(--vab-margin) 0 0 0;
       font-weight: normal;
-      color: $base-color-black;
+      color: var(--el-color-black);
       text-align: center;
+
+      i {
+        margin: auto !important;
+      }
     }
 
     /* el-menu菜单开始 */
@@ -426,10 +440,11 @@ html {
     }
     /* el-card卡片 */
     .el-card {
-      margin-bottom: $base-margin;
+      margin-bottom: var(--vab-margin);
+      border-radius: var(--el-border-radius-base);
 
       &__body {
-        padding: $base-padding;
+        padding: var(--vab-padding);
       }
     }
 
@@ -438,12 +453,12 @@ html {
       @mixin vab-hey-message {
         min-width: 246px;
         padding: 15px;
-        background-color: $base-color-white;
-        border-color: $base-color-white;
+        background-color: var(--el-color-white);
+        border-color: var(--el-color-white);
         box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
 
         .el-message__content {
-          padding-right: $base-padding;
+          padding-right: var(--vab-padding);
           color: #34495e;
         }
 
@@ -468,7 +483,7 @@ html {
         @include vab-hey-message;
 
         i {
-          color: $base-color-green;
+          color: var(--el-color-success);
         }
       }
 
@@ -476,7 +491,7 @@ html {
         @include vab-hey-message;
 
         i {
-          color: $base-color-yellow;
+          color: var(--el-color-warning);
         }
       }
 
@@ -484,7 +499,7 @@ html {
         @include vab-hey-message;
 
         i {
-          color: $base-color-red;
+          color: var(--el-color-error);
         }
       }
     }

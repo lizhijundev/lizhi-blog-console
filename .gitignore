@@ -27,12 +27,15 @@ yarn.lock
 pnpm-lock.yaml
 package-lock.json
 
-# Yarn v2
+# Yarn v2 not using using Zero-Installs
+.yarn/*
+#!.yarn/cache
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
 .pnp.*
-.yarn/cache
-.yarn/unplugged
-.yarn/build-state.yml
-.yarn/install-state.gz
 
 # Vab
 public/video

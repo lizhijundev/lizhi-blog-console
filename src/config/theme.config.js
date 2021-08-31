@@ -6,6 +6,8 @@ module.exports = {
   layout: 'column',
   // 主题名称：默认blue-black、blue-white、green-black、green-white、渐变ocean、red-white、red-black
   themeName: 'blue-black',
+  // 菜单背景 none、vab-background
+  background: 'none',
   // 分栏风格(仅针对分栏布局column时生效)：横向风格horizontal、纵向风格vertical、卡片风格card、箭头风格arrow
   columnStyle: 'card',
   // 是否固定头部固定
@@ -17,7 +19,7 @@ module.exports = {
   // 显示标签页时标签页样式：卡片风格card、灵动风格smart、圆滑风格smooth
   tabsBarStyle: 'smooth',
   // 是否标签页图标
-  showTabsBarIcon: true,
+  showTabsIcon: true,
   // 是否开启语言选择组件
   showLanguage: true,
   // 是否开启刷新组件

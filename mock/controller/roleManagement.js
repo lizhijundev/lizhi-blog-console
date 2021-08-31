@@ -2,10 +2,12 @@ const List = [
   {
     id: '@id',
     role: 'admin',
+    btnRolesCheckedList: ['read:system', 'write:system', 'delete:system'],
   },
   {
     id: '@id',
     role: 'editor',
+    btnRolesCheckedList: ['read:system', 'write:system'],
   },
 ]
 

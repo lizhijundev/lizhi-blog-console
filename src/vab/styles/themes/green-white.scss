@@ -78,9 +78,9 @@ body.vab-theme-green-white {
 
     .el-menu {
       .el-menu-item.is-active,
-      .el-submenu__title.is-active,
+      .el-sub-menu__title.is-active,
       .el-menu-item:hover,
-      .el-submenu__title:hover {
+      .el-sub-menu__title:hover {
         i {
           color: $base-color-blue !important;
         }
@@ -128,7 +128,7 @@ body.vab-theme-green-white {
     .el-menu {
       @include container;
 
-      .el-submenu__title {
+      .el-sub-menu__title {
         @include container;
       }
 
@@ -149,12 +149,12 @@ body.vab-theme-green-white {
   }
 
   .vab-layout-float {
-    .el-scrollbar__view .el-menu--collapse.el-menu li.el-submenu.is-active {
-      .el-submenu__title {
+    .el-scrollbar__view .el-menu--collapse.el-menu li.el-sub-menu.is-active {
+      .el-sub-menu__title {
         background-color: transparent !important;
       }
 
-      > .el-submenu__title {
+      > .el-sub-menu__title {
         color: $base-color-blue !important;
         background-color: $base-color-blue-light !important;
       }
@@ -194,7 +194,7 @@ body.vab-theme-green-white {
             }
           }
 
-          .el-submenu,
+          .el-sub-menu,
           .el-menu-item {
             @include active;
           }
@@ -221,7 +221,11 @@ body.vab-theme-green-white {
         .el-tabs__item {
           &.is-active {
             color: $base-color-blue !important;
-            background: $base-color-blue-light-9 !important;
+            background: mix(
+              $base-color-white,
+              $base-color-blue,
+              90%
+            ) !important;
             border: 1px solid $base-color-blue !important;
           }
 
@@ -236,7 +240,11 @@ body.vab-theme-green-white {
       .el-tabs__header {
         .el-tabs__item {
           &.is-active {
-            background: $base-color-blue-light-9 !important;
+            background: mix(
+              $base-color-white,
+              $base-color-blue,
+              90%
+            ) !important;
           }
 
           &:after {
@@ -244,7 +252,11 @@ body.vab-theme-green-white {
           }
 
           &:hover {
-            background: $base-color-blue-light-9 !important;
+            background: mix(
+              $base-color-white,
+              $base-color-blue,
+              90%
+            ) !important;
           }
         }
       }
@@ -255,11 +267,19 @@ body.vab-theme-green-white {
         .el-tabs__item {
           &.is-active {
             color: $base-color-blue !important;
-            background: $base-color-blue-light-9 !important;
+            background: mix(
+              $base-color-white,
+              $base-color-blue,
+              90%
+            ) !important;
 
             &:hover {
               color: $base-color-blue !important;
-              background: $base-color-blue-light-9 !important;
+              background: mix(
+                $base-color-white,
+                $base-color-blue,
+                90%
+              ) !important;
             }
           }
 
@@ -277,8 +297,8 @@ body.vab-theme-green-white {
   .el-menu {
     border-right: 0;
   }
-  .el-popper .el-menu--vertical .el-submenu.is-active .el-submenu__title,
-  .el-menu--collapse.el-menu li.el-submenu.is-active > .el-submenu__title {
+  .el-popper .el-menu--vertical .el-sub-menu.is-active .el-sub-menu__title,
+  .el-menu--collapse.el-menu li.el-sub-menu.is-active > .el-sub-menu__title {
     color: $base-color-blue !important;
     background-color: $base-color-blue-light !important;
     i {
@@ -295,11 +315,11 @@ body.vab-theme-green-white {
       }
 
       .el-menu-item,
-      .el-submenu {
+      .el-sub-menu {
         color: $base-color-black !important;
         background: $base-color-white !important;
 
-        .el-submenu__title {
+        .el-sub-menu__title {
           color: $base-color-black !important;
           background: $base-color-white !important;
         }
@@ -313,7 +333,7 @@ body.vab-theme-green-white {
       }
 
       .el-menu-item,
-      .el-submenu__title {
+      .el-sub-menu__title {
         color: $base-color-black !important;
         background: $base-color-white !important;
 
@@ -344,9 +364,9 @@ body.vab-theme-green-white {
 
   .el-menu {
     .el-menu-item.is-active,
-    .el-submenu__title.is-active,
+    .el-sub-menu__title.is-active,
     .el-menu-item:hover,
-    .el-submenu__title:hover {
+    .el-sub-menu__title:hover {
       i {
         color: $base-color-blue !important;
       }

@@ -22,7 +22,7 @@
             style="display: inline-block"
             @contextmenu.prevent="openMenu($event, item)"
           >
-            <template v-if="theme.showTabsBarIcon">
+            <template v-if="theme.showTabsIcon">
               <vab-icon
                 v-if="item.meta && item.meta.icon"
                 :icon="item.meta.icon"
@@ -344,7 +344,7 @@
     padding-right: $base-padding;
     padding-left: $base-padding;
     user-select: none;
-    background: $base-color-white;
+    background: var(--el-color-white);
     border-top: 1px solid #f6f6f6;
 
     :deep() {
@@ -387,14 +387,14 @@
               transition: padding 0.3s cubic-bezier(0.645, 0.045, 0.355, 1) !important;
 
               &.is-active {
-                color: $base-color-blue;
-                background: mix($base-color-white, $base-color-blue, 90%);
-                border: 1px solid $base-color-blue;
+                color: var(--el-color-primary);
+                background: var(--el-color-primary-light-9);
+                border: 1px solid var(--el-color-primary);
                 outline: none;
               }
 
               &:hover {
-                border: 1px solid $base-color-blue;
+                border: 1px solid var(--el-color-primary);
               }
             }
           }
@@ -427,7 +427,7 @@
               transition: padding 0.3s cubic-bezier(0.645, 0.045, 0.355, 1) !important;
 
               &.is-active {
-                background: mix($base-color-white, $base-color-blue, 90%);
+                background: var(--el-color-primary-light-9);
                 outline: none;
 
                 &:after {
@@ -443,12 +443,12 @@
                 width: 0;
                 height: 2px;
                 content: '';
-                background-color: $base-color-blue;
+                background-color: var(--el-color-primary);
                 transition: $base-transition;
               }
 
               &:hover {
-                background: mix($base-color-white, $base-color-blue, 90%);
+                background: var(--el-color-primary-light-9);
 
                 &:after {
                   width: 100%;
@@ -493,16 +493,16 @@
 
               &.is-active {
                 padding: 0 30px 0 30px;
-                color: $base-color-blue;
-                background: mix($base-color-white, $base-color-blue, 90%);
+                color: var(--el-color-primary);
+                background: var(--el-color-primary-light-9);
                 outline: none;
                 mask: url('~@/assets/tabs_images/vab-tab.png');
                 mask-size: 100% 100%;
 
                 &:hover {
                   padding: 0 30px 0 30px;
-                  color: $base-color-blue;
-                  background: mix($base-color-white, $base-color-blue, 90%);
+                  color: var(--el-color-primary);
+                  background: var(--el-color-primary-light-9);
                   mask: url('~@/assets/tabs_images/vab-tab.png');
                   mask-size: 100% 100%;
                 }
@@ -510,7 +510,7 @@
 
               &:hover {
                 padding: 0 30px 0 30px;
-                color: $base-color-black;
+                color: var(--el-color-black);
                 background: #dee1e6;
                 mask: url('~@/assets/tabs_images/vab-tab.png');
                 mask-size: 100% 100%;
@@ -553,7 +553,7 @@
 
           .box:before,
           .box:after {
-            background: $base-color-blue;
+            background: var(--el-color-primary);
           }
         }
       }

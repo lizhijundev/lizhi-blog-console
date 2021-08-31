@@ -275,7 +275,7 @@
         .el-card {
           &__header,
           &__body {
-            color: $base-color-white !important;
+            color: var(--el-color-white) !important;
             background: linear-gradient(to right, #60b2fb, #6485f6);
           }
         }

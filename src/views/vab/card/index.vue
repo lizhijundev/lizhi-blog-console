@@ -134,7 +134,7 @@
       align-items: center;
       padding: $base-padding $base-padding 0 $base-padding;
       margin-bottom: $base-margin;
-      background: $base-color-white;
+      background: var(--el-color-white);
       border: 1px solid #ebeef5;
 
       :deep() {
@@ -182,15 +182,15 @@
       .el-pagination.is-background {
         .btn-next,
         .btn-prev {
-          background-color: $base-color-white;
+          background-color: var(--el-color-white);
         }
 
         .el-pager {
           li {
-            background-color: $base-color-white;
+            background-color: var(--el-color-white);
 
             &.active {
-              background-color: $base-color-blue;
+              background-color: var(--el-color-primary);
             }
           }
         }

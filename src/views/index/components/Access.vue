@@ -30,8 +30,8 @@
 <script>
   import {
     defineComponent,
-    onBeforeMount,
-    onBeforeUnmount,
+    onUnmounted,
+    onMounted,
     reactive,
     toRefs,
   } from 'vue'
@@ -111,7 +111,7 @@
         },
       })
 
-      onBeforeMount(() => {
+      onMounted(() => {
         const base = +new Date(2020, 1, 1)
         const oneDay = 24 * 3600 * 1000
         const date = []
@@ -144,7 +144,7 @@
         }, 6000)
       })
 
-      onBeforeUnmount(() => {
+      onUnmounted(() => {
         state.timer = null
         clearInterval(state.timer)
       })

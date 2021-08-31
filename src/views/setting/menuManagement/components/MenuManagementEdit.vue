@@ -27,10 +27,10 @@
       <el-form-item label="重定向" prop="redirect">
         <el-input v-model="form.redirect" />
       </el-form-item>
-      <el-form-item label="标题" prop="title">
+      <el-form-item label="标题" prop="meta.title">
         <el-input v-model="form.meta.title" />
       </el-form-item>
-      <el-form-item label="图标" prop="icon">
+      <el-form-item label="图标">
         <el-popover
           popper-class="icon-selector-popper"
           trigger="hover"
@@ -45,11 +45,14 @@
       <el-form-item label="badge">
         <el-input v-model="form.meta.badge" />
       </el-form-item>
+      <el-form-item label="dot">
+        <el-switch v-model="form.meta.dot" />
+      </el-form-item>
       <el-form-item label="隐藏">
-        <el-switch v-model="form.hidden" />
+        <el-switch v-model="form.meta.hidden" />
       </el-form-item>
       <el-form-item label="始终显示当前节点">
-        <el-switch v-model="form.alwaysShow" />
+        <el-switch v-model="form.meta.levelHidden" />
       </el-form-item>
       <el-form-item label="自定义svg图标">
         <el-switch v-model="form.meta.isCustomSvg" />
@@ -87,7 +90,16 @@
         formRef: null,
         form: {
           meta: {
+            title: '',
             icon: '',
+            badge: '',
+            dot: '',
+            hidden: '',
+            levelHidden: '',
+            isCustomSvg: '',
+            noClosable: '',
+            noKeepAlive: '',
+            tabHidden: '',
           },
         },
         rules: {
@@ -99,8 +111,9 @@
           component: [
             { required: true, trigger: 'blur', message: '请输入component' },
           ],
-          title: [{ required: true, trigger: 'blur', message: '请输入标题' }],
-          icon: [{ required: true, trigger: 'blur', message: '请选择图标' }],
+          'meta.title': [
+            { required: true, trigger: 'blur', message: '请输入标题' },
+          ],
         },
         title: '',
         dialogFormVisible: false,

@@ -1,63 +1,60 @@
 <template>
   <div class="test1-container">
-    <el-alert
-      :closable="false"
-      show-icon
-      title="取值方式：this.params"
-      type="success"
-    />
+    <el-alert :closable="false" show-icon title="params" type="success" />
     <vab-json-viewer copyable :expand-depth="5" sort :value="route" />
   </div>
 </template>
 
 <script>
-  import {
-    defineComponent,
-    getCurrentInstance,
-    nextTick,
-    reactive,
-    toRefs,
-  } from 'vue'
-  import { mapActions } from 'vuex'
+  import { defineComponent, nextTick, onMounted, reactive, toRefs } from 'vue'
+  import { useStore } from 'vuex'
+  import { useRoute } from 'vue-router'
   import VabJsonViewer from '@/extra/VabJsonViewer'
 
   export default defineComponent({
     name: 'Test1',
     components: { VabJsonViewer },
     setup() {
-      const { proxy } = getCurrentInstance()
-
+      const store = useStore()
+      const route = useRoute()
       const state = reactive({
         route: {},
       })
-
+      const changeTabsMeta = (options) =>
+        store.dispatch('tabs/changeTabsMeta', options)
       const handleParams = () => {
-        const route = proxy.$route
         nextTick(() => {
-          proxy.changeTabsMeta({
-            title: 'Params',
+          changeTabsMeta({
+            title: 'Query',
             meta: {
-              title: `Params Id=${route.params.id}`,
+              title: `Query Id=${route.query.id}`,
             },
           })
+
+          const _route = route.matched[0].children.filter(
+            (item) => item.name === 'Test1'
+          )[0]
+          const id = route.path.substring(
+            route.path.lastIndexOf('/') + 1,
+            route.path.length
+          )
+
           state.route = {
-            path: route.matched[route.matched.length - 1].path,
-            params: route.params,
-            query: route.query,
-            name: route.name,
-            meta: route.meta,
+            path: _route.path,
+            params: {
+              id,
+            },
+            name: _route.name,
+            meta: _route.meta,
           }
         })
       }
-
-      handleParams()
+      onMounted(() => {
+        handleParams()
+      })
 
       return {
         ...toRefs(state),
-        ...mapActions({
-          changeTabsMeta: 'tabs/changeTabsMeta',
-        }),
-        handleParams,
       }
     },
   })

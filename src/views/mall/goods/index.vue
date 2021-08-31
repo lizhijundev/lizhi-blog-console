@@ -161,7 +161,7 @@
 
           i {
             font-size: 100px;
-            color: $base-color-white;
+            color: var(--el-color-white);
           }
 
           transition: all ease-in-out 0.3s;

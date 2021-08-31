@@ -16,15 +16,15 @@
 </template>
 
 <script>
-  import { defineComponent } from 'vue'
+  import { defineComponent, reactive, toRefs } from 'vue'
   import VabChart from '@/extra/VabChart'
 
   export default defineComponent({
     components: {
       VabChart,
     },
-    data() {
-      return {
+    setup() {
+      const state = reactive({
         initOptions: {
           renderer: 'svg',
         },
@@ -100,6 +100,10 @@
             },
           ],
         },
+      })
+
+      return {
+        ...toRefs(state),
       }
     },
   })

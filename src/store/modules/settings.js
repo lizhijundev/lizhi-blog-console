@@ -3,6 +3,7 @@
  */
 import { isJson } from '@/utils/validate'
 import {
+  background,
   collapse as _collapse,
   columnStyle,
   fixedHeader,
@@ -16,7 +17,7 @@ import {
   showRefresh,
   showSearch,
   showTabs,
-  showTabsBarIcon,
+  showTabsIcon,
   showTheme,
   showThemeSetting,
   tabsBarStyle,
@@ -25,14 +26,14 @@ import {
 } from '@/config'
 
 const defaultTheme = {
-  layout,
-  themeName,
+  background,
   columnStyle,
   fixedHeader,
+  layout,
   showProgressBar,
   showTabs,
   tabsBarStyle,
-  showTabsBarIcon,
+  showTabsIcon,
   showLanguage,
   showRefresh,
   showSearch,
@@ -40,6 +41,7 @@ const defaultTheme = {
   showNotice,
   showFullScreen,
   showThemeSetting,
+  themeName,
 }
 const getLocalStorage = (key) => {
   const value = localStorage.getItem(key)
@@ -96,6 +98,7 @@ const mutations = {
     document.getElementsByTagName(
       'body'
     )[0].className = `vab-theme-${state.theme.themeName}`
+    document.getElementsByTagName('html')[0].className = ''
   },
 }
 const actions = {

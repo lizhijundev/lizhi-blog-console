@@ -31,8 +31,8 @@
 <script>
   import {
     defineComponent,
-    onBeforeMount,
-    onBeforeUnmount,
+    onUnmounted,
+    onMounted,
     reactive,
     toRefs,
   } from 'vue'
@@ -112,11 +112,11 @@
         },
       })
 
-      onBeforeMount(() => {
+      onUnmounted(() => {
         state.timer = null
         clearInterval(state.timer)
       })
-      onBeforeUnmount(() => {
+      onMounted(() => {
         state.timer = setInterval(() => {
           if (state.n > 0) {
             state.n--

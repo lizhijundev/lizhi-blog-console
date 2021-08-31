@@ -6,6 +6,7 @@
   $base-menu-background: #282c34;
 
   $base-color-blue: #41b584;
+  $base-color-blue-light: mix($base-color-white, $base-color-blue, 90%);
   $base-color-green: #67c23a;
   $base-color-yellow: #e6a23c;
   $base-color-red: #f56c6c;
@@ -61,15 +62,19 @@
 
     .el-menu {
       .el-menu-item.is-active,
-      .el-submenu__title.is-active,
+      .el-sub-menu__title.is-active,
       .el-menu-item:hover,
-      .el-submenu__title:hover {
+      .el-sub-menu__title:hover {
         i {
           color: $base-color-blue !important;
         }
 
         color: $base-color-blue !important;
-        background-color: $base-color-blue-light-9 !important;
+        background-color: mix(
+          $base-color-white,
+          $base-color-blue,
+          90%
+        ) !important;
       }
     }
   }
@@ -105,7 +110,7 @@
     .el-menu {
       @include container;
 
-      .el-submenu__title {
+      .el-sub-menu__title {
         @include container;
       }
 
@@ -125,12 +130,12 @@
   }
 
   .vab-layout-float {
-    .el-scrollbar__view .el-menu--collapse.el-menu li.el-submenu.is-active {
-      .el-submenu__title {
+    .el-scrollbar__view .el-menu--collapse.el-menu li.el-sub-menu.is-active {
+      .el-sub-menu__title {
         background-color: transparent !important;
       }
 
-      > .el-submenu__title {
+      > .el-sub-menu__title {
         background-color: $base-color-blue !important;
       }
     }
@@ -140,7 +145,7 @@
     .el-menu {
       @include container-common;
 
-      .el-submenu__title {
+      .el-sub-menu__title {
         @include container-common;
       }
 
@@ -167,7 +172,7 @@
       .right-panel {
         .el-menu.el-menu {
           &--horizontal {
-            .el-submenu,
+            .el-sub-menu,
             .el-menu-item {
               @include active;
 
@@ -199,7 +204,11 @@
         .el-tabs__item {
           &.is-active {
             color: $base-color-blue !important;
-            background: $base-color-blue-light-9 !important;
+            background: mix(
+              $base-color-white,
+              $base-color-blue,
+              90%
+            ) !important;
             border: 1px solid $base-color-blue !important;
           }
 
@@ -214,7 +223,11 @@
       .el-tabs__header {
         .el-tabs__item {
           &.is-active {
-            background: $base-color-blue-light-9 !important;
+            background: mix(
+              $base-color-white,
+              $base-color-blue,
+              90%
+            ) !important;
           }
 
           &:after {
@@ -222,7 +235,11 @@
           }
 
           &:hover {
-            background: $base-color-blue-light-9 !important;
+            background: mix(
+              $base-color-white,
+              $base-color-blue,
+              90%
+            ) !important;
           }
         }
       }
@@ -233,11 +250,19 @@
         .el-tabs__item {
           &.is-active {
             color: $base-color-blue !important;
-            background: $base-color-blue-light-9 !important;
+            background: mix(
+              $base-color-white,
+              $base-color-blue,
+              90%
+            ) !important;
 
             &:hover {
               color: $base-color-blue !important;
-              background: $base-color-blue-light-9 !important;
+              background: mix(
+                $base-color-white,
+                $base-color-blue,
+                90%
+              ) !important;
             }
           }
 
@@ -270,65 +295,6 @@
     }
   }
 
-  .step-form-container {
-    .el-steps {
-      .el-step__head.is-finish {
-        .el-step__icon.is-text {
-          color: $base-color-white !important;
-          background: $base-color-blue !important;
-        }
-
-        .el-step__line {
-          background: $base-color-blue !important;
-        }
-      }
-
-      .el-step__head.is-process {
-        color: $base-color-blue !important;
-        border-color: $base-color-blue !important;
-
-        .el-step__icon.is-text {
-          color: $base-color-blue !important;
-          background: mix($base-color-white, $base-color-blue, 90%) !important;
-        }
-      }
-
-      .el-step__title.is-process {
-        color: $base-color-blue !important;
-      }
-
-      .el-step__description.is-process {
-        color: $base-color-blue !important;
-      }
-
-      .el-step__head.is-wait {
-        .el-step__line {
-          background: $base-color-blue !important;
-        }
-      }
-    }
-  }
-
-  .el-alert {
-    &--info.is-light {
-      color: $base-color-blue !important;
-      background-color: mix(
-        $base-color-white,
-        $base-color-blue,
-        90%
-      ) !important;
-      border: 1px solid $base-color-blue !important;
-
-      i {
-        color: $base-color-blue !important;
-      }
-    }
-  }
-
-  .remix-icon-container .el-card__body::after {
-    background-color: $base-color-blue !important;
-  }
-
   /*由于element-plus
 bug使用popper-append-to-body=false会导致多级路由无法显示，故所有菜单必须生成至body下，样式必须放到body下*/
   @mixin menuDefalut {
@@ -345,7 +311,7 @@ bug使用popper-append-to-body=false会导致多级路由无法显示，故所�
       color: $base-color-white !important;
       background: $base-color-blue !important;
 
-      .el-submenu__title {
+      .el-sub-menu__title {
         i {
           color: $base-color-white !important;
         }
@@ -360,7 +326,7 @@ bug使用popper-append-to-body=false会导致多级路由无法显示，故所�
     border-right: 0 !important;
   }
 
-  .el-menu--collapse.el-menu li.el-submenu.is-active > .el-submenu__title {
+  .el-menu--collapse.el-menu li.el-sub-menu.is-active > .el-sub-menu__title {
     background-color: $base-color-blue !important;
   }
 
@@ -374,11 +340,11 @@ bug使用popper-append-to-body=false会导致多级路由无法显示，故所�
       }
 
       .el-menu-item,
-      .el-submenu {
+      .el-sub-menu {
         @include menuDefalut;
         @include menuActiveHover;
 
-        .el-submenu__title {
+        .el-sub-menu__title {
           @include menuDefalut;
           @include menuActiveHover;
         }

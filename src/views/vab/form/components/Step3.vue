@@ -91,7 +91,7 @@
       display: block;
       margin: $base-margin auto 5px auto;
       font-size: 40px;
-      color: $base-color-green;
+      color: var(--el-color-success);
     }
   }
 

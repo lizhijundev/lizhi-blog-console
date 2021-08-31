@@ -73,13 +73,13 @@ bug使用popper-append-to-body=false会导致多级路由无法显示，故所�
     }
 
     :deep() {
-      .el-menu--collapse.el-menu li.el-submenu.is-active {
-        .el-submenu__title {
+      .el-menu--collapse.el-menu li.el-sub-menu.is-active {
+        .el-sub-menu__title {
           background-color: transparent !important;
         }
 
-        > .el-submenu__title {
-          background-color: $base-color-blue !important;
+        > .el-sub-menu__title {
+          background-color: var(--el-color-primary) !important;
         }
       }
 
@@ -92,7 +92,7 @@ bug使用popper-append-to-body=false会导致多级路由无法显示，故所�
           .el-menu--popup-right-start {
             width: 335px !important;
 
-            .el-submenu__title,
+            .el-sub-menu__title,
             .el-menu-item {
               float: left;
               width: 160px;

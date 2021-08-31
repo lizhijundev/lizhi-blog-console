@@ -65,23 +65,23 @@
 
         .el-step__head.is-finish {
           .el-step__icon.is-text {
-            color: $base-color-white;
-            background: $base-color-blue;
+            color: var(--el-color-white);
+            background: var(--el-color-primary);
           }
 
           .el-step__line {
             height: 1px;
-            background: $base-color-blue;
+            background: var(--el-color-primary);
           }
         }
 
         .el-step__head.is-process {
-          color: $base-color-blue;
-          border-color: $base-color-blue;
+          color: var(--el-color-primary);
+          border-color: var(--el-color-primary);
 
           .el-step__icon.is-text {
-            color: $base-color-blue;
-            background: mix($base-color-white, $base-color-blue, 90%);
+            color: var(--el-color-primary);
+            background: var(--el-color-primary-light-9);
             border: 1px solid;
           }
 
@@ -91,11 +91,11 @@
         }
 
         .el-step__title.is-process {
-          color: $base-color-blue;
+          color: var(--el-color-primary);
         }
 
         .el-step__description.is-process {
-          color: $base-color-blue;
+          color: var(--el-color-primary);
         }
 
         .el-step__head.is-wait {
@@ -105,7 +105,7 @@
 
           .el-step__line {
             height: 1px;
-            background: $base-color-blue;
+            background: var(--el-color-primary);
           }
         }
       }

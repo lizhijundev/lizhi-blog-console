@@ -111,7 +111,7 @@
     padding-left: $base-padding;
     overflow: hidden;
     user-select: none;
-    background: $base-color-white;
+    background: var(--el-color-white);
     box-shadow: $base-box-shadow;
 
     .left-panel {
@@ -139,7 +139,7 @@
               .el-icon-arrow-left,
               .el-icon-arrow-right {
                 font-weight: 600;
-                color: $base-color-grey;
+                color: var(--el-color-grey);
               }
             }
           }
@@ -172,14 +172,14 @@
       :deep() {
         [class*='ri-'] {
           margin-left: $base-margin;
-          color: $base-color-grey;
+          color: var(--el-color-grey);
           cursor: pointer;
         }
 
         button {
           [class*='ri-'] {
             margin-left: 0;
-            color: $base-color-white;
+            color: var(--el-color-white);
             cursor: pointer;
           }
         }

@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 
-export function getRouterList(params) {
+export function getList(params) {
   return request({
     url: '/router/getList',
     method: 'get',

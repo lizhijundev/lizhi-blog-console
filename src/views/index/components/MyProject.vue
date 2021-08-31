@@ -2,7 +2,7 @@
   <vab-card shadow="hover">
     <template #header>
       <vab-icon icon="github-line" />
-      我的开源项目
+      开源项目
       <el-tag class="card-header-tag">爱我别走</el-tag>
     </template>
     <el-row :gutter="20">
@@ -15,14 +15,16 @@
         :xl="12"
         :xs="24"
       >
-        <div
-          class="project-card"
-          :style="'background-image:url(' + item.image + ')'"
+        <vab-colorful-card
+          :color-from="item.colorFrom"
+          :color-to="item.colorTo"
+          :icon="item.icon"
+          shadow="hover"
+          :title="item.title"
           @click="handleOpenWindow(item.url)"
         >
-          <div class="project-card-title">{{ item.title }}</div>
           <div class="project-card-description">{{ item.description }}</div>
-        </div>
+        </vab-colorful-card>
       </el-col>
     </el-row>
   </vab-card>
@@ -35,17 +37,21 @@
     setup() {
       const list = [
         {
-          image: require('@/assets/index_images/image.jpg'),
-          title: 'vue-admin-beautiful(vue2.x)',
+          title: 'vue-admin-beautiful-pro(vue2.x)',
           description:
             '一款基于vue2.x + element-ui的绝佳的中后台前端开发管理框架',
+          colorFrom: '#1f94ff',
+          colorTo: '#77e19d',
+          icon: 'vuejs-line',
           url: 'https://github.com/chuzhixin/vue-admin-beautiful/tree/master',
         },
         {
-          image: require('@/assets/index_images/image.jpg'),
-          title: 'vue-admin-beautiful(vue3.x)',
+          title: 'vue-admin-beautiful-antdv(vue3.x)',
           description:
             '一款基于vue3.x + ant-design-vue的绝佳的中后台前端开发管理框架',
+          colorFrom: '#77e19d',
+          colorTo: '#1f94ff',
+          icon: 'dashboard-line',
           url: 'https://github.com/chuzhixin/vue-admin-beautiful/tree/vue3.0-antdv',
         },
       ]
@@ -70,27 +76,14 @@
   }
 
   .project-card {
-    position: relative;
-    width: 100%;
-    height: 115px;
-    padding: 15px;
-    margin-bottom: $base-margin;
-    cursor: pointer;
-    background-size: 100% 100%;
-    border-radius: $base-border-radius + 2px;
-
-    &-title,
     &-description {
+      width: calc(100% - 100px);
       margin-right: 45px;
-      font-size: 20px;
-      font-weight: bold;
-      color: #fff;
-    }
-
-    &-description {
       font-size: 12px;
+      font-weight: bold;
       font-weight: normal;
       line-height: 20px;
+      color: #fff;
     }
   }
 </style>

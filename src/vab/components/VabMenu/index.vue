@@ -55,7 +55,7 @@
         props.item.children.some((_route) => {
           return _route.meta && _route.meta.hidden !== true
         })
-          ? 'VabSubmenu'
+          ? 'VabSubMenu'
           : 'VabMenuItem'
       )
 

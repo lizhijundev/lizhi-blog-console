@@ -146,7 +146,7 @@
           width: 12px;
           height: 12px;
           margin-left: -3px;
-          background: $base-color-white;
+          background: var(--el-color-white);
         }
 
         .vab-dot {
@@ -191,29 +191,29 @@
       }
 
       &-success {
-        color: $base-color-white;
-        background: $base-color-green;
+        color: var(--el-color-white);
+        background: var(--el-color-success);
 
         &:after {
-          border-color: $base-color-green transparent transparent;
+          border-color: var(--el-color-success) transparent transparent;
         }
       }
 
       &-error {
-        color: $base-color-white;
-        background: $base-color-red;
+        color: var(--el-color-white);
+        background: var(--el-color-error);
 
         &:after {
-          border-color: $base-color-red transparent transparent;
+          border-color: var(--el-color-error) transparent transparent;
         }
       }
 
       &-warning {
-        color: $base-color-white;
-        background: $base-color-orange;
+        color: var(--el-color-white);
+        background: var(--el-color-warning);
 
         &:after {
-          border-color: $base-color-orange transparent transparent;
+          border-color: var(--el-color-warning) transparent transparent;
         }
       }
     }

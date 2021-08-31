@@ -104,7 +104,7 @@
     align-items: center;
     justify-items: flex-end;
     height: $base-top-bar-height;
-    background: $base-menu-background;
+    background: var(--vab-menu-background);
 
     .vab-main {
       padding: 0 $base-padding 0 $base-padding;
@@ -117,9 +117,9 @@
 
         :deep() {
           > .el-menu--horizontal.el-menu
-            > .el-submenu
-            > .el-submenu__title
-            > .el-submenu__icon-arrow {
+            > .el-sub-menu
+            > .el-sub-menu__title
+            > .el-sub-menu__icon-arrow {
             float: right;
             margin-top: #{math.div($base-top-bar-height - 11, 2)} !important;
           }
@@ -153,23 +153,23 @@
               border-bottom: 0 solid transparent !important;
 
               .el-menu-item,
-              .el-submenu__title {
+              .el-sub-menu__title {
                 height: #{math.div($base-top-bar-height, 1.3)};
                 padding: 0 $base-padding;
                 line-height: #{math.div($base-top-bar-height, 1.3)};
               }
 
               > .el-menu-item,
-              > .el-submenu {
+              > .el-sub-menu {
                 height: $base-top-bar-height;
                 line-height: $base-top-bar-height;
 
-                .el-submenu__icon-arrow {
+                .el-sub-menu__icon-arrow {
                   float: right;
                   margin-top: #{math.div($base-menu-item-height - 16, 2)};
                 }
 
-                > .el-submenu__title {
+                > .el-sub-menu__title {
                   display: flex;
                   align-items: flex-start;
                   height: $base-top-bar-height;
@@ -180,11 +180,11 @@
 
             [class*='ri-'] {
               margin-left: 0;
-              color: rgba($base-color-white, 0.9);
+              color: var(--el-color-white);
               cursor: pointer;
             }
 
-            .el-submenu,
+            .el-sub-menu,
             .el-menu-item {
               i {
                 color: inherit;
@@ -193,7 +193,7 @@
               &.is-active {
                 border-bottom: 0 solid transparent;
 
-                .el-submenu__title {
+                .el-sub-menu__title {
                   border-bottom: 0 solid transparent;
                 }
               }
@@ -201,31 +201,31 @@
 
             .el-menu-item {
               &.is-active {
-                background: $base-color-blue !important;
+                background: var(--el-color-primary) !important;
               }
             }
           }
 
           .user-name {
-            color: rgba($base-color-white, 0.9);
+            color: var(--el-color-white);
           }
 
           .user-name + i {
-            color: rgba($base-color-white, 0.9);
+            color: var(--el-color-white);
           }
 
           [class*='ri-'] {
             margin-left: $base-margin;
-            color: rgba($base-color-white, 0.9);
+            color: var(--el-color-white);
             cursor: pointer;
           }
 
           button {
             svg {
               margin-right: 0;
-              color: rgba($base-color-white, 0.9);
+              color: var(--el-color-white);
               cursor: pointer;
-              fill: rgba($base-color-white, 0.9);
+              fill: var(--el-color-white);
             }
           }
         }
@@ -241,19 +241,19 @@ bug使用popper-append-to-body=false会导致多级路由无法显示，故所�
     &:hover,
     &.is-active {
       i {
-        color: $base-color-white !important;
+        color: var(--el-color-white) !important;
       }
 
-      color: $base-color-white !important;
-      background: $base-color-blue !important;
+      color: var(--el-color-white) !important;
+      background: var(--el-color-primary) !important;
 
-      .el-submenu__title {
+      .el-sub-menu__title {
         i {
-          color: $base-color-white !important;
+          color: var(--el-color-white) !important;
         }
 
-        color: $base-color-white !important;
-        background: $base-color-blue !important;
+        color: var(--el-color-white) !important;
+        background: var(--el-color-primary) !important;
       }
     }
   }
@@ -270,7 +270,7 @@ bug使用popper-append-to-body=false会导致多级路由无法显示，故所�
       }
 
       .el-menu-item,
-      .el-submenu {
+      .el-sub-menu {
         height: #{math.div($base-top-bar-height, 1.3)};
         line-height: #{math.div($base-top-bar-height, 1.3)};
         @include menuActiveHover;
@@ -279,11 +279,11 @@ bug使用popper-append-to-body=false会导致多级路由无法显示，故所�
           color: inherit;
         }
 
-        .el-submenu__icon-arrow {
+        .el-sub-menu__icon-arrow {
           float: right;
         }
 
-        .el-submenu__title {
+        .el-sub-menu__title {
           height: #{math.div($base-top-bar-height, 1.3)};
           line-height: #{math.div($base-top-bar-height, 1.3)};
           @include menuActiveHover;

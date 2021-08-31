@@ -95,7 +95,7 @@
         width: 325.5px;
         height: 682px;
         padding: 10px;
-        background: $base-color-white;
+        background: var(--el-color-white);
         border: 0;
         border-radius: 42.5px;
       }

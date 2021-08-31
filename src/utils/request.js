@@ -180,9 +180,9 @@ instance.interceptors.request.use(requestConf, (error) => {
 instance.interceptors.response.use(
   (response) => handleData(response),
   (error) => {
-    if (loadingInstance) loadingInstance.close()
     const { response } = error
     if (response === undefined) {
+      if (loadingInstance) loadingInstance.close()
       gp.$baseMessage(
         '未可知错误，可能是因为后端不支持跨域CORS、接口地址不存在等问题引起',
         'error',

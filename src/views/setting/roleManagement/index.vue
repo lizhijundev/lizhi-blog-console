@@ -51,6 +51,21 @@
         prop="role"
         show-overflow-tooltip
       />
+      <el-table-column align="center" label="按钮权限" show-overflow-tooltip>
+        <template #default="{ row }">
+          <el-tag v-for="(item, index) in row.btnRolesCheckedList" :key="index">
+            {{
+              item === 'read:system'
+                ? '读'
+                : 'wirte:system'
+                ? '写'
+                : 'delete:system'
+                ? '删'
+                : '无'
+            }}
+          </el-tag>
+        </template>
+      </el-table-column>
       <el-table-column
         align="center"
         label="操作"
@@ -63,10 +78,11 @@
         </template>
       </el-table-column>
       <template #empty>
-        <el-image
+        <!--  <el-image
           class="vab-data-empty"
           :src="require('@/assets/empty_images/data_empty.png')"
-        />
+        /> -->
+        <el-empty class="vab-data-empty" description="暂无数据" />
       </template>
     </el-table>
     <el-pagination
@@ -144,7 +160,7 @@
         }
       }
       const handleSizeChange = (val) => {
-        this.queryForm.pageSize = val
+        state.queryForm.pageSize = val
         fetchData()
       }
       const handleCurrentChange = (val) => {

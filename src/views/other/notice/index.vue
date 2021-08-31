@@ -1,6 +1,71 @@
 <template>
   <div class="notice-container">
     <el-row :gutter="20">
+      <el-col :lg="6" :md="12" :sm="24" :xl="6" :xs="24">
+        <vab-card shadow="hover">
+          <template #header>
+            <span>成功提示</span>
+          </template>
+          <el-result
+            icon="success"
+            sub-title="请根据提示进行操作"
+            title="成功提示"
+          >
+            <template #extra>
+              <el-button type="primary">确认</el-button>
+            </template>
+          </el-result>
+        </vab-card>
+      </el-col>
+      <el-col :lg="6" :md="12" :sm="24" :xl="6" :xs="24">
+        <vab-card shadow="hover">
+          <template #header>
+            <span>警告提示</span>
+          </template>
+          <el-result
+            icon="warning"
+            sub-title="请根据提示进行操作"
+            title="警告提示"
+          >
+            <template #extra>
+              <el-button type="primary">确认</el-button>
+            </template>
+          </el-result>
+        </vab-card>
+      </el-col>
+      <el-col :lg="6" :md="12" :sm="24" :xl="6" :xs="24">
+        <vab-card shadow="hover">
+          <template #header>
+            <span>错误提示</span>
+          </template>
+          <el-result
+            icon="error"
+            sub-title="请根据提示进行操作"
+            title="错误提示"
+          >
+            <template #extra>
+              <el-button type="primary">确认</el-button>
+            </template>
+          </el-result>
+        </vab-card>
+      </el-col>
+      <el-col :lg="6" :md="12" :sm="24" :xl="6" :xs="24">
+        <vab-card shadow="hover">
+          <template #header>
+            <span>信息提示</span>
+          </template>
+          <el-result
+            icon="info"
+            sub-title="请根据提示进行操作"
+            title="信息提示"
+          >
+            <template #extra>
+              <el-button type="primary">确认</el-button>
+            </template>
+          </el-result>
+        </vab-card>
+      </el-col>
+
       <el-col :lg="8" :md="12" :sm="24" :xl="8" :xs="24">
         <vab-card shadow="hover">
           <template #header>

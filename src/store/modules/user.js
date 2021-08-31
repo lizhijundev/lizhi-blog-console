@@ -120,10 +120,10 @@ const actions = {
    */
   async getUserInfo({ commit, dispatch }) {
     const {
-      data: { username, avatar, roles, ability },
+      data: { username, avatar, roles, permissions },
     } = await getUserInfo()
     /**
-     * 检验返回数据是否正常，无对应参数，将使用默认用户名,头像,Roles和Ability
+     * 检验返回数据是否正常，无对应参数，将使用默认用户名,头像,Roles和Permissions
      * username {String}
      * avatar {String}
      * roles {List}
@@ -133,7 +133,7 @@ const actions = {
       (username && !isString(username)) ||
       (avatar && !isString(avatar)) ||
       (roles && !isArray(roles)) ||
-      (ability && !isArray(ability))
+      (permissions && !isArray(permissions))
     ) {
       const err = 'getUserInfo核心接口异常，请检查返回JSON格式是否正确'
       gp.$baseMessage(err, 'error', 'vab-hey-message-error')
@@ -145,8 +145,9 @@ const actions = {
       if (avatar) commit('setAvatar', avatar)
       // 如不使用roles权限控制,可删除以下代码
       if (roles) dispatch('acl/setRole', roles, { root: true })
-      // 如不使用ability权限控制,可删除以下代码
-      if (ability) dispatch('acl/setAbility', ability, { root: true })
+      // 如不使用permissions权限控制,可删除以下代码
+      if (permissions)
+        dispatch('acl/setPermission', permissions, { root: true })
     }
   },
   /**
@@ -158,7 +159,7 @@ const actions = {
     await dispatch('resetAll')
   },
   /**
-   * @description 重置token、roles、ability、router、tabsBar等
+   * @description 重置token、roles、permission、router、tabsBar等
    * @param {*} { commit, dispatch }
    */
   async resetAll({ commit, dispatch }) {
@@ -168,7 +169,7 @@ const actions = {
     await dispatch('setToken', '')
     await dispatch('acl/setFull', false, { root: true })
     await dispatch('acl/setRole', [], { root: true })
-    await dispatch('acl/setAbility', [], { root: true })
+    await dispatch('acl/setPermission', [], { root: true })
     await dispatch('tabs/delAllVisitedRoutes', null, { root: true })
     await resetRouter()
     removeToken()

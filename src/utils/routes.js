@@ -1,5 +1,5 @@
 import { resolve } from 'path'
-import { hasAccess } from '@/utils/hasAccess'
+import { hasPermission } from '@/utils/permission'
 import { isExternal } from '@/utils/validate'
 import { recordRoute } from '@/config'
 import qs from 'qs'
@@ -38,8 +38,8 @@ export function convertRouter(asyncRoutes) {
 export function filterRoutes(routes, rolesControl, baseUrl = '/') {
   return routes
     .filter((route) =>
-      rolesControl && route.meta && route.meta.roles
-        ? hasAccess(route.meta.roles)
+      rolesControl && route.meta && route.meta.permission
+        ? hasPermission(route.meta.permission)
         : true
     )
     .map((route) => {

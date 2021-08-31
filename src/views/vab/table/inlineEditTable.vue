@@ -95,10 +95,7 @@
         </template>
       </el-table-column>
       <template #empty>
-        <el-image
-          class="vab-data-empty"
-          :src="require('@/assets/empty_images/data_empty.png')"
-        />
+        <el-empty class="vab-data-empty" description="暂无数据" />
       </template>
     </el-table>
     <el-pagination

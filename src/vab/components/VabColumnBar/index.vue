@@ -161,18 +161,18 @@
 <style lang="scss" scoped>
   @mixin active {
     &:hover {
-      color: $base-color-blue;
-      background-color: $base-column-second-menu-background-active !important;
+      color: var(--el-color-primary);
+      background-color: var(--vab-column-second-menu-active) !important;
 
       i,
       svg {
-        color: $base-color-blue;
+        color: var(--el-color-primary);
       }
     }
 
     &.is-active {
-      color: $base-color-blue;
-      background-color: $base-column-second-menu-background-active !important;
+      color: var(--el-color-primary);
+      background-color: var(--vab-column-second-menu-active) !important;
     }
   }
 
@@ -184,7 +184,7 @@
     width: $base-left-menu-width;
     height: 100vh;
     overflow: hidden;
-    background: $base-column-second-menu-background;
+    background: var(--vab-column-second-menu-background);
     box-shadow: $base-box-shadow;
 
     :deep() {
@@ -241,7 +241,7 @@
               background: transparent !important;
 
               .vab-column-grid {
-                background: $base-color-blue;
+                background: var(--el-color-primary);
               }
             }
           }
@@ -252,7 +252,7 @@
           width: $base-left-menu-width - $base-left-menu-width-min - 20;
         }
 
-        .el-submenu .el-submenu__title,
+        .el-sub-menu .el-sub-menu__title,
         .el-menu-item {
           min-width: 180px;
           border-radius: 5px;
@@ -277,7 +277,8 @@
                   height: 0;
                   overflow: hidden;
                   content: '';
-                  border-color: transparent #{$base-color-white} transparent transparent;
+                  border-color: transparent #{var(--el-color-white)} transparent
+                    transparent;
                   border-style: solid dashed dashed;
                   border-width: 8px;
                 }
@@ -291,7 +292,7 @@
           width: $base-left-menu-width - $base-left-menu-width-min - 20;
         }
 
-        .el-submenu .el-submenu__title,
+        .el-sub-menu .el-sub-menu__title,
         .el-menu-item {
           min-width: 180px;
           border-radius: 5px;
@@ -351,7 +352,7 @@
 
           .el-tabs__nav-wrap.is-left {
             margin-right: 0 !important;
-            background: $base-column-first-menu-background;
+            background: var(--vab-column-first-menu-background);
 
             .el-tabs__nav-scroll {
               height: 100%;
@@ -367,16 +368,16 @@
 
         .el-tabs__nav {
           height: calc(100vh - #{$base-logo-height});
-          background: $base-column-first-menu-background;
+          background: var(--vab-column-first-menu-background);
         }
 
         .el-tabs__item {
           height: auto;
           padding: 0;
-          color: $base-color-white;
+          color: var(--el-color-white);
 
           &.is-active {
-            background: $base-color-blue;
+            background: var(--el-color-primary);
           }
         }
       }
@@ -394,12 +395,12 @@
           background-color: #f6f6f6;
 
           &__text {
-            color: $base-color-black;
+            color: var(--el-color-black);
           }
         }
 
         .el-menu-item,
-        .el-submenu__title {
+        .el-sub-menu__title {
           height: $base-menu-item-height;
           overflow: hidden;
           line-height: $base-menu-item-height;

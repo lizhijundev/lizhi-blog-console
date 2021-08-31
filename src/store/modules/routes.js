@@ -2,7 +2,7 @@
  * @description 路由拦截状态管理，目前两种模式：all模式与intelligence模式，其中partialRoutes是菜单暂未使用
  */
 import { asyncRoutes, constantRoutes, resetRouter } from '@/router'
-import { getRouterList } from '@/api/router'
+import { getList } from '@/api/router'
 import { convertRouter, filterRoutes } from '@/utils/routes'
 import { authentication, rolesControl } from '@/config'
 import { isArray } from '@/utils/validate'
@@ -67,7 +67,7 @@ const actions = {
     if (authentication === 'all') {
       const {
         data: { list },
-      } = await getRouterList()
+      } = await getList()
       if (!isArray(list))
         gp.$baseMessage('路由格式返回有误！', 'error', 'vab-hey-message-error')
       if (list[list.length - 1].path !== '*')
