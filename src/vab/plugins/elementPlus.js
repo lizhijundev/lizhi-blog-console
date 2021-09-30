@@ -1,5 +1,6 @@
 import ElementPlus from 'element-plus'
-import 'element-plus/packages/theme-chalk/src/index.scss'
+import 'element-plus/dist/index.css'
+import 'element-plus/theme-chalk/display.css'
 
 export function setup(app) {
   app.use(ElementPlus, {

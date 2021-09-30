@@ -41,9 +41,9 @@
 <style lang="scss" scoped>
   @mixin container {
     position: relative;
-    height: $base-top-bar-height;
+    height: $base-header-height;
     overflow: hidden;
-    line-height: $base-top-bar-height;
+    line-height: $base-header-height;
     background: transparent;
   }
 

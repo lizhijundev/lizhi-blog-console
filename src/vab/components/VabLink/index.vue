@@ -1,11 +1,11 @@
 <template>
-  <component :is="type" v-bind="linkProps(to)">
+  <component :is="type" v-bind="linkProps()">
     <slot />
   </component>
 </template>
 
 <script>
-  import { computed, defineComponent } from 'vue'
+  import { computed, defineComponent, toRefs } from 'vue'
   import { isExternal } from '@/utils/validate'
 
   export default defineComponent({
@@ -17,21 +17,19 @@
       },
     },
     setup(props) {
-      const type = computed(() => {
-        if (props.isExternal) return 'a'
-        return 'router-link'
-      })
+      const { to } = toRefs(props)
+      const path = to.value
 
-      const linkProps = (to) =>
-        isExternal(props.icon)
+      const type = computed(() => (isExternal(path) ? 'a' : 'router-link'))
+
+      const linkProps = () =>
+        isExternal(path)
           ? {
-              href: to,
+              href: path,
               target: '_blank',
               rel: 'noopener',
             }
-          : {
-              to: to,
-            }
+          : { to: path }
 
       return {
         type,

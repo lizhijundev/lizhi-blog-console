@@ -9,6 +9,7 @@ const List = [
     meta: {
       title: '首页',
       icon: 'home-2-line',
+      breadcrumbHidden: true,
     },
     children: [
       {
@@ -92,7 +93,7 @@ const List = [
         name: 'Table',
         meta: {
           title: '表格',
-          permission: {
+          guard: {
             role: ['Editor'],
             mode: 'except',
           },
@@ -143,7 +144,7 @@ const List = [
         component: '@/views/vab/card',
         meta: {
           title: '卡片',
-          permission: ['Admin'],
+          guard: ['Admin'],
           icon: 'inbox-line',
         },
       },
@@ -153,7 +154,7 @@ const List = [
         component: '@/views/vab/list',
         meta: {
           title: '列表',
-          permission: ['Admin'],
+          guard: ['Admin'],
           icon: 'list-check-2',
         },
       },
@@ -162,7 +163,7 @@ const List = [
         name: 'Form',
         meta: {
           title: '表单',
-          permission: ['Admin'],
+          guard: ['Admin'],
           icon: 'file-list-2-line',
         },
         children: [
@@ -293,7 +294,7 @@ const List = [
         name: 'Editor',
         meta: {
           title: '编辑器',
-          permission: ['Admin'],
+          guard: ['Admin'],
           icon: 'edit-2-line',
         },
         children: [
@@ -303,7 +304,7 @@ const List = [
             component: '@/views/vab/editor/richTextEditor',
             meta: {
               title: '富文本编辑器',
-              permission: ['Admin'],
+              guard: ['Admin'],
             },
           },
           {
@@ -312,7 +313,7 @@ const List = [
             component: '@/views/vab/editor/markdownEditor',
             meta: {
               title: 'Markdown编辑器',
-              permission: ['Admin'],
+              guard: ['Admin'],
             },
           },
         ],
@@ -326,7 +327,7 @@ const List = [
     meta: {
       title: '其他',
       icon: 'archive-line',
-      permission: ['Admin'],
+      guard: ['Admin'],
     },
     children: [
       {
@@ -335,7 +336,7 @@ const List = [
         component: '@/views/other/workflow',
         meta: {
           title: '工作流',
-          permission: ['Admin'],
+          guard: ['Admin'],
           icon: 'flow-chart',
         },
       },
@@ -345,7 +346,7 @@ const List = [
         component: '@/views/other/echarts',
         meta: {
           title: '图表',
-          permission: ['Admin'],
+          guard: ['Admin'],
           icon: 'bubble-chart-line',
         },
       },
@@ -355,7 +356,7 @@ const List = [
         component: '@/views/other/print',
         meta: {
           title: '打印',
-          permission: ['Admin'],
+          guard: ['Admin'],
           icon: 'printer-line',
         },
       },
@@ -365,7 +366,7 @@ const List = [
         component: '@/views/other/cropper',
         meta: {
           title: '头像裁剪',
-          permission: ['Admin'],
+          guard: ['Admin'],
           icon: 'crop-line',
         },
       },
@@ -375,7 +376,7 @@ const List = [
         component: '@/views/other/notice',
         meta: {
           title: '通知',
-          permission: ['Admin'],
+          guard: ['Admin'],
           icon: 'message-2-line',
         },
       },
@@ -385,7 +386,7 @@ const List = [
         component: '@/views/other/timeline',
         meta: {
           title: '时间线',
-          permission: ['Admin'],
+          guard: ['Admin'],
           icon: 'time-line',
         },
       },
@@ -395,7 +396,7 @@ const List = [
         component: '@/views/other/count',
         meta: {
           title: '数字自增长',
-          permission: ['Admin'],
+          guard: ['Admin'],
           icon: 'number-9',
         },
       },
@@ -405,7 +406,7 @@ const List = [
         component: '@/views/other/tabs',
         meta: {
           title: '多标签',
-          permission: ['Admin'],
+          guard: ['Admin'],
           icon: 'bank-card-line',
         },
       },
@@ -415,7 +416,7 @@ const List = [
         component: '@/views/other/dynamicMeta',
         meta: {
           title: '动态Meta',
-          permission: ['Admin'],
+          guard: ['Admin'],
           icon: 'notification-badge-line',
           badge: '0',
         },
@@ -426,7 +427,7 @@ const List = [
         redirect: '/other/dynamicSegment/test1/1',
         meta: {
           title: '动态路径参数',
-          permission: ['Admin'],
+          guard: ['Admin'],
           icon: 'arrow-left-right-line',
         },
         children: [
@@ -469,7 +470,7 @@ const List = [
         name: 'Drag',
         meta: {
           title: '拖拽',
-          permission: ['Admin'],
+          guard: ['Admin'],
           icon: 'drag-drop-line',
         },
         children: [
@@ -489,7 +490,7 @@ const List = [
         component: '@/views/other/loading',
         meta: {
           title: '加载',
-          permission: ['Admin'],
+          guard: ['Admin'],
           icon: 'loader-line',
         },
       },
@@ -499,7 +500,7 @@ const List = [
         component: '@/views/other/player',
         meta: {
           title: '视频播放器',
-          permission: ['Admin'],
+          guard: ['Admin'],
           icon: 'video-line',
           noKeepAlive: true,
         },
@@ -510,7 +511,7 @@ const List = [
         component: '@/views/other/upload',
         meta: {
           title: '上传',
-          permission: ['Admin'],
+          guard: ['Admin'],
           icon: 'chat-upload-line',
         },
       },
@@ -519,7 +520,7 @@ const List = [
         name: 'Menu1',
         meta: {
           title: '多级路由缓存',
-          permission: ['Admin'],
+          guard: ['Admin'],
           icon: 'route-line',
         },
         children: [
@@ -558,7 +559,7 @@ const List = [
         component: '@/views/other/errorLog',
         meta: {
           title: '错误日志模拟',
-          permission: ['Admin'],
+          guard: ['Admin'],
           icon: 'error-warning-line',
         },
       },
@@ -568,7 +569,7 @@ const List = [
         component: '@/views/other/cssfx',
         meta: {
           title: 'Css动画',
-          permission: ['Admin'],
+          guard: ['Admin'],
           icon: 'css3-line',
         },
       },
@@ -578,7 +579,7 @@ const List = [
         component: '@/views/other/social',
         meta: {
           title: '第三方登录',
-          permission: ['Admin'],
+          guard: ['Admin'],
           icon: 'github-fill',
         },
       },
@@ -588,7 +589,7 @@ const List = [
         meta: {
           title: '外链',
           target: '_blank',
-          permission: {
+          guard: {
             role: ['Admin', 'Editor'],
             mode: 'oneOf',
           },
@@ -601,7 +602,7 @@ const List = [
         redirect: '/other/iframe/search',
         meta: {
           title: 'Iframe',
-          permission: ['Admin'],
+          guard: ['Admin'],
           icon: 'window-line',
         },
         children: [
@@ -644,7 +645,7 @@ const List = [
         name: 'Excel',
         meta: {
           title: 'Excel',
-          permission: ['Admin'],
+          guard: ['Admin'],
           icon: 'file-excel-2-line',
         },
         children: [
@@ -684,7 +685,7 @@ const List = [
       title: '物料源',
       icon: 'apps-line',
       levelHidden: true,
-      permission: ['Admin'],
+      guard: ['Admin'],
     },
     children: [
       {
@@ -706,7 +707,7 @@ const List = [
     meta: {
       title: '配置',
       icon: 'user-settings-line',
-      permission: ['Admin'],
+      guard: ['Admin'],
     },
     children: [
       {

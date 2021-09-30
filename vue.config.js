@@ -204,7 +204,8 @@ module.exports = {
     requireModuleExtension: true,
     sourceMap: true,
     loaderOptions: {
-      scss: {
+      sass: {
+        sassOptions: { outputStyle: 'expanded' },
         additionalData(content, loaderContext) {
           const { resourcePath, rootContext } = loaderContext
           const relativePath = path.relative(rootContext, resourcePath)

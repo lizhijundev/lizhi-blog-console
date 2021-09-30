@@ -189,7 +189,10 @@ html {
 
     /* el-button按钮 */
     .el-button {
-      border-radius: var(--el-border-radius-base) !important;
+      border-radius: var(--el-border-radius-base);
+      &.is-round {
+        border-radius: var(--el-border-radius-round);
+      }
 
       [class*='ri-'] {
         margin-right: 3px;

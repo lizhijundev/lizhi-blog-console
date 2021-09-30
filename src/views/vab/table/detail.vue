@@ -12,6 +12,13 @@
         <el-input v-model="form.text" />
       </el-form-item>
     </el-form>
+    <el-button
+      icon="el-icon-refresh"
+      type="primary"
+      @click="handleRefreshMainPage"
+    >
+      刷新综合表格页面
+    </el-button>
     <el-descriptions border :column="3" title="详情">
       <template #extra>
         <el-button size="small" type="primary">操作</el-button>
@@ -51,7 +58,13 @@
 </template>
 
 <script>
-  import { defineComponent, nextTick, reactive, toRefs } from 'vue'
+  import {
+    defineComponent,
+    getCurrentInstance,
+    nextTick,
+    reactive,
+    toRefs,
+  } from 'vue'
   import { useStore } from 'vuex'
   import { useRoute, useRouter } from 'vue-router'
   import { handleActivePath } from '@/utils/routes'
@@ -64,6 +77,8 @@
       const store = useStore()
       const route = useRoute()
       const router = useRouter()
+
+      const { proxy } = getCurrentInstance()
 
       const changeTabsMeta = (options) =>
         store.dispatch('tabs/changeTabsMeta', options)
@@ -82,6 +97,10 @@
         const detailPath = await handleActivePath(route, true)
         await router.push('/vab/table/comprehensiveTable')
         await delVisitedRoute(detailPath)
+      }
+
+      const handleRefreshMainPage = () => {
+        proxy.$pub('reload-router-view', 'ComprehensiveTable')
       }
 
       nextTick(() => {
@@ -114,6 +133,7 @@
         ...toRefs(state),
         goBack,
         jsonData,
+        handleRefreshMainPage,
       }
     },
   })

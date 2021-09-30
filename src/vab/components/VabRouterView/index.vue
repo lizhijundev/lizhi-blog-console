@@ -23,6 +23,7 @@
   import { useRoute } from 'vue-router'
   import { keepAliveMaxNum } from '@/config'
   import VabProgress from 'nprogress'
+  import { handleActivePath } from '@/utils/routes'
 
   export default defineComponent({
     name: 'VabRouterView',
@@ -53,17 +54,18 @@
 
       // 更新KeepAlive缓存页面
       watchEffect(() => {
-        routerKey.value = route.fullPath
+        routerKey.value = handleActivePath(route, true)
         updateKeepAliveNameList()
       })
 
       onBeforeMount(() => {
         proxy.$sub('reload-router-view', () => {
           if (theme.value.showProgressBar) VabProgress.start()
+          const cacheActivePath = routerKey.value
           routerKey.value = null
           updateKeepAliveNameList(route.name)
           nextTick(() => {
-            routerKey.value = route.fullPath
+            routerKey.value = cacheActivePath
             updateKeepAliveNameList()
           })
           setTimeout(() => {

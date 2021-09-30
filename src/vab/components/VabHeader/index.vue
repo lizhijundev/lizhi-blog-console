@@ -103,7 +103,7 @@
     display: flex;
     align-items: center;
     justify-items: flex-end;
-    height: $base-top-bar-height;
+    height: $base-header-height;
     background: var(--vab-menu-background);
 
     .vab-main {
@@ -113,28 +113,31 @@
         display: flex;
         align-items: center;
         justify-content: flex-end;
-        height: $base-top-bar-height;
+        height: $base-header-height;
 
         :deep() {
+          .el-icon-more {
+            margin-top: #{math.div($base-header-height - 20, 2)} !important;
+          }
+
           > .el-menu--horizontal.el-menu
             > .el-sub-menu
             > .el-sub-menu__title
             > .el-sub-menu__icon-arrow {
             float: right;
-            margin-top: #{math.div($base-top-bar-height - 11, 2)} !important;
+            margin-top: #{math.div($base-header-height - 11, 2)} !important;
           }
 
           > .el-menu--horizontal.el-menu > .el-menu-item {
             .el-tag {
-              margin-top: calc(
-                #{math.div($base-top-bar-height, 2)} - 7.5px
-              ) !important;
+              position: relative !important;
+              margin-top: 0 !important;
               margin-left: 5px;
             }
 
             .vab-dot {
               float: right;
-              margin-top: #{math.div($base-top-bar-height - 6, 2)} + 1;
+              margin-top: #{math.div($base-header-height - 6, 2)} + 1;
             }
 
             @media only screen and (max-width: 1199px) {
@@ -149,20 +152,20 @@
               display: flex;
               align-items: center;
               justify-content: flex-end;
-              height: $base-top-bar-height;
+              height: $base-header-height;
               border-bottom: 0 solid transparent !important;
 
               .el-menu-item,
               .el-sub-menu__title {
-                height: #{math.div($base-top-bar-height, 1.3)};
+                height: #{math.div($base-header-height, 1.3)};
                 padding: 0 $base-padding;
-                line-height: #{math.div($base-top-bar-height, 1.3)};
+                line-height: #{math.div($base-header-height, 1.3)};
               }
 
               > .el-menu-item,
               > .el-sub-menu {
-                height: $base-top-bar-height;
-                line-height: $base-top-bar-height;
+                height: $base-header-height;
+                line-height: $base-header-height;
 
                 .el-sub-menu__icon-arrow {
                   float: right;
@@ -172,8 +175,8 @@
                 > .el-sub-menu__title {
                   display: flex;
                   align-items: flex-start;
-                  height: $base-top-bar-height;
-                  line-height: $base-top-bar-height;
+                  height: $base-header-height;
+                  line-height: $base-header-height;
                 }
               }
             }
@@ -260,7 +263,7 @@ bug使用popper-append-to-body=false会导致多级路由无法显示，故所�
 
   .el-popper {
     .el-menu--horizontal {
-      height: #{math.div($base-top-bar-height, 1.3)};
+      height: #{math.div($base-header-height, 1.3)};
       border-bottom: 0 solid transparent !important;
 
       @media only screen and (max-width: 1199px) {
@@ -268,11 +271,21 @@ bug使用popper-append-to-body=false会导致多级路由无法显示，故所�
           display: none;
         }
       }
+      .el-tag {
+        position: absolute;
+        right: 20px;
+        margin-top: 0 !important;
+      }
+      .vab-dot {
+        position: absolute;
+        right: 20px;
+        margin-top: 0 !important;
+      }
 
       .el-menu-item,
       .el-sub-menu {
-        height: #{math.div($base-top-bar-height, 1.3)};
-        line-height: #{math.div($base-top-bar-height, 1.3)};
+        height: #{math.div($base-header-height, 1.3)};
+        line-height: #{math.div($base-header-height, 1.3)};
         @include menuActiveHover;
 
         i {
@@ -284,8 +297,8 @@ bug使用popper-append-to-body=false会导致多级路由无法显示，故所�
         }
 
         .el-sub-menu__title {
-          height: #{math.div($base-top-bar-height, 1.3)};
-          line-height: #{math.div($base-top-bar-height, 1.3)};
+          height: #{math.div($base-header-height, 1.3)};
+          line-height: #{math.div($base-header-height, 1.3)};
           @include menuActiveHover;
         }
       }

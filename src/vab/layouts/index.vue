@@ -36,6 +36,7 @@
         store.dispatch('settings/toggleDevice', device)
       const foldSideBar = () => store.dispatch('settings/foldSideBar')
       const openSideBar = () => store.dispatch('settings/openSideBar')
+      const updateTheme = () => store.dispatch('settings/updateTheme')
 
       let isMobile = false
       let oldLayout = ''
@@ -64,6 +65,7 @@
         oldLayout = theme.value.layout
         window.addEventListener('resize', handleLayouts)
         handleLayouts()
+        updateTheme()
       })
       onBeforeUnmount(() => {
         if (isMobile) theme.value.layout = oldLayout

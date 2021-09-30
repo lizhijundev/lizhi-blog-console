@@ -5,7 +5,8 @@ const state = () => ({
   visitedRoutes: [],
 })
 const getters = {
-  visitedRoutes: (state) => state.visitedRoutes,
+  visitedRoutes: (state) =>
+    state.visitedRoutes.filter((route) => route.name !== 'Login'),
 }
 const mutations = {
   /**

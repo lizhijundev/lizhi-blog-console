@@ -60,6 +60,7 @@ export const asyncRoutes = [
     meta: {
       title: '首页',
       icon: 'home-2-line',
+      breadcrumbHidden: true,
     },
     children: [
       {
@@ -144,7 +145,7 @@ export const asyncRoutes = [
         meta: {
           title: '表格',
           // 非editor角色的用户可见
-          permission: {
+          guard: {
             role: ['Editor'],
             mode: 'except',
           },
@@ -195,7 +196,7 @@ export const asyncRoutes = [
         component: () => import('@/views/vab/card'),
         meta: {
           title: '卡片',
-          permission: ['Admin'],
+          guard: ['Admin'],
           icon: 'inbox-line',
         },
       },
@@ -205,7 +206,7 @@ export const asyncRoutes = [
         component: () => import('@/views/vab/list'),
         meta: {
           title: '列表',
-          permission: ['Admin'],
+          guard: ['Admin'],
           icon: 'list-check-2',
         },
       },
@@ -214,7 +215,7 @@ export const asyncRoutes = [
         name: 'Form',
         meta: {
           title: '表单',
-          permission: ['Admin'],
+          guard: ['Admin'],
           icon: 'file-list-2-line',
         },
         children: [
@@ -346,7 +347,7 @@ export const asyncRoutes = [
         component: () => import('@/views/vab/richTextEditor'),
         meta: {
           title: '富文本编辑器',
-          permission: ['Admin'],
+          guard: ['Admin'],
           icon: 'edit-2-line',
         },
       },
@@ -359,7 +360,7 @@ export const asyncRoutes = [
     meta: {
       title: '其他',
       icon: 'archive-line',
-      permission: ['Admin'],
+      guard: ['Admin'],
     },
     children: [
       {
@@ -368,7 +369,7 @@ export const asyncRoutes = [
         component: () => import('@/views/other/workflow'),
         meta: {
           title: '工作流',
-          permission: ['Admin'],
+          guard: ['Admin'],
           icon: 'flow-chart',
         },
       },
@@ -378,7 +379,7 @@ export const asyncRoutes = [
         component: () => import('@/views/other/echarts'),
         meta: {
           title: '图表',
-          permission: ['Admin'],
+          guard: ['Admin'],
           icon: 'bubble-chart-line',
         },
       },
@@ -388,7 +389,7 @@ export const asyncRoutes = [
         component: () => import('@/views/other/print'),
         meta: {
           title: '打印',
-          permission: ['Admin'],
+          guard: ['Admin'],
           icon: 'printer-line',
         },
       },
@@ -398,7 +399,7 @@ export const asyncRoutes = [
         component: () => import('@/views/other/cropper'),
         meta: {
           title: '头像裁剪',
-          permission: ['Admin'],
+          guard: ['Admin'],
           icon: 'crop-line',
         },
       },
@@ -408,7 +409,7 @@ export const asyncRoutes = [
         component: () => import('@/views/other/notice'),
         meta: {
           title: '通知',
-          permission: ['Admin'],
+          guard: ['Admin'],
           icon: 'message-2-line',
         },
       },
@@ -418,7 +419,7 @@ export const asyncRoutes = [
         component: () => import('@/views/other/timeline'),
         meta: {
           title: '时间线',
-          permission: ['Admin'],
+          guard: ['Admin'],
           icon: 'time-line',
         },
       },
@@ -428,7 +429,7 @@ export const asyncRoutes = [
         component: () => import('@/views/other/count'),
         meta: {
           title: '数字自增长',
-          permission: ['Admin'],
+          guard: ['Admin'],
           icon: 'number-9',
         },
       },
@@ -438,7 +439,7 @@ export const asyncRoutes = [
         component: () => import('@/views/other/tabs'),
         meta: {
           title: '多标签',
-          permission: ['Admin'],
+          guard: ['Admin'],
           icon: 'bank-card-line',
         },
       },
@@ -448,7 +449,7 @@ export const asyncRoutes = [
         component: () => import('@/views/other/dynamicMeta'),
         meta: {
           title: '动态Meta',
-          permission: ['Admin'],
+          guard: ['Admin'],
           icon: 'notification-badge-line',
           badge: '0',
         },
@@ -459,7 +460,7 @@ export const asyncRoutes = [
         redirect: '/other/dynamicSegment/test1/1',
         meta: {
           title: '动态路径参数',
-          permission: ['Admin'],
+          guard: ['Admin'],
           icon: 'arrow-left-right-line',
         },
         children: [
@@ -502,7 +503,7 @@ export const asyncRoutes = [
         name: 'Drag',
         meta: {
           title: '拖拽',
-          permission: ['Admin'],
+          guard: ['Admin'],
           icon: 'drag-drop-line',
         },
         children: [
@@ -522,7 +523,7 @@ export const asyncRoutes = [
         component: () => import('@/views/other/loading'),
         meta: {
           title: '加载',
-          permission: ['Admin'],
+          guard: ['Admin'],
           icon: 'loader-line',
         },
       },
@@ -532,7 +533,7 @@ export const asyncRoutes = [
         component: () => import('@/views/other/player'),
         meta: {
           title: '视频播放器',
-          permission: ['Admin'],
+          guard: ['Admin'],
           icon: 'video-line',
           noKeepAlive: true,
         },
@@ -543,7 +544,7 @@ export const asyncRoutes = [
         component: () => import('@/views/other/upload'),
         meta: {
           title: '上传',
-          permission: ['Admin'],
+          guard: ['Admin'],
           icon: 'chat-upload-line',
         },
       },
@@ -552,7 +553,7 @@ export const asyncRoutes = [
         name: 'Menu1',
         meta: {
           title: '多级路由缓存',
-          permission: ['Admin'],
+          guard: ['Admin'],
           icon: 'route-line',
         },
         children: [
@@ -593,7 +594,7 @@ export const asyncRoutes = [
         component: () => import('@/views/other/errorLog'),
         meta: {
           title: '错误日志模拟',
-          permission: ['Admin'],
+          guard: ['Admin'],
           icon: 'error-warning-line',
         },
       },
@@ -603,7 +604,7 @@ export const asyncRoutes = [
         component: () => import('@/views/other/cssfx'),
         meta: {
           title: 'Css动画',
-          permission: ['Admin'],
+          guard: ['Admin'],
           icon: 'css3-line',
         },
       },
@@ -613,7 +614,7 @@ export const asyncRoutes = [
         component: () => import('@/views/other/social'),
         meta: {
           title: '第三方登录',
-          permission: ['Admin'],
+          guard: ['Admin'],
           icon: 'github-fill',
         },
       },
@@ -623,7 +624,7 @@ export const asyncRoutes = [
       //   component: () => import('@/views/vab/mobilePreview'),
       //   meta: {
       //     title: '手机预览',
-      //     permission: ['Admin'],
+      //     guard: ['Admin'],
       //     icon: 'smartphone-line',
       //   },
       // },
@@ -633,8 +634,8 @@ export const asyncRoutes = [
         meta: {
           title: '外链',
           target: '_blank',
-          // 等价permission: ['Admin', 'Editor'],
-          permission: {
+          // 等价guard: ['Admin', 'Editor'],
+          guard: {
             role: ['Admin', 'Editor'],
             mode: 'oneOf',
           },
@@ -647,7 +648,7 @@ export const asyncRoutes = [
         redirect: '/other/iframe/search',
         meta: {
           title: 'Iframe',
-          permission: ['Admin'],
+          guard: ['Admin'],
           icon: 'window-line',
         },
         children: [
@@ -690,7 +691,7 @@ export const asyncRoutes = [
         name: 'Excel',
         meta: {
           title: 'Excel',
-          permission: ['Admin'],
+          guard: ['Admin'],
           icon: 'file-excel-2-line',
         },
         children: [
@@ -731,7 +732,7 @@ export const asyncRoutes = [
       title: '物料源',
       icon: 'apps-line',
       levelHidden: true,
-      permission: ['Admin'],
+      guard: ['Admin'],
     },
     children: [
       {
@@ -753,7 +754,7 @@ export const asyncRoutes = [
     meta: {
       title: '配置',
       icon: 'user-settings-line',
-      permission: ['Admin'],
+      guard: ['Admin'],
     },
     children: [
       {

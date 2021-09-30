@@ -62,7 +62,7 @@
           </el-select>
         </el-form-item>
         <el-form-item :label="translateTitle('主题')">
-          <el-select v-model="theme.themeName" @change="setTheme">
+          <el-select v-model="theme.themeName" @change="updateTheme">
             <el-option
               key="blue-black"
               :label="translateTitle('蓝黑')"
@@ -121,7 +121,7 @@
             :disabled="
               theme.layout === 'float' || theme.layout === 'horizontal'
             "
-            @change="setTheme"
+            @change="updateTheme"
           >
             <el-radio-button class="none" label="none" />
             <el-radio-button class="vab-background" label="vab-background" />
@@ -269,6 +269,7 @@
 
       const saveTheme = () => store.dispatch('settings/saveTheme')
       const resetTheme = () => store.dispatch('settings/resetTheme')
+      const updateTheme = () => store.dispatch('settings/updateTheme')
 
       const { proxy } = getCurrentInstance()
 
@@ -280,7 +281,7 @@
 
       const setDefaultTheme = async () => {
         await resetTheme()
-        await setTheme()
+        await updateTheme()
         drawerVisible.value = false
       }
 
@@ -334,66 +335,14 @@
             _.pull(layoutArray, [theme.value.layout])
           )[0]
         } else theme.value.layout = 'vertical'
-        await setTheme()
+        await updateTheme()
         await saveTheme()
         setTimeout(() => {
           loading.close()
         }, 1000)
       }
 
-      const setTheme = () => {
-        document.getElementsByTagName(
-          'body'
-        )[0].className = `vab-theme-${theme.value.themeName}`
-        let variables = require('@/vab/styles/variables/vab-blue-variables.scss')
-        if (theme.value.themeName.includes('blue-'))
-          variables = require('@/vab/styles/variables/vab-blue-variables.scss')
-        if (theme.value.themeName.includes('green-'))
-          variables = require('@/vab/styles/variables/vab-green-variables.scss')
-        if (theme.value.themeName.includes('red-'))
-          variables = require('@/vab/styles/variables/vab-red-variables.scss')
-        const style = `
-            --el-color-primary: ${variables['vab-color-primary']};
-            --el-color-primary-light-1: ${variables['vab-color-primary-light-1']};
-            --el-color-primary-light-2: ${variables['vab-color-primary-light-2']};
-            --el-color-primary-light-3: ${variables['vab-color-primary-light-3']};
-            --el-color-primary-light-4: ${variables['vab-color-primary-light-4']};
-            --el-color-primary-light-5: ${variables['vab-color-primary-light-5']};
-            --el-color-primary-light-6: ${variables['vab-color-primary-light-6']};
-            --el-color-primary-light-7: ${variables['vab-color-primary-light-7']};
-            --el-color-primary-light-8: ${variables['vab-color-primary-light-8']};
-            --el-color-primary-light-9: ${variables['vab-color-primary-light-9']};
-            --el-color-success: ${variables['vab-color-success']};
-            --el-color-success-light: ${variables['vab-color-success-light']};
-            --el-color-success-lighter: ${variables['vab-color-success-lighter']};
-            --el-color-warning: ${variables['vab-color-warning']};
-            --el-color-warning-light: ${variables['vab-color-warning-light']};
-            --el-color-warning-lighter: ${variables['vab-color-warning-lighter']};
-            --el-color-danger: ${variables['vab-color-danger']};
-            --el-color-danger-light: ${variables['vab-color-danger-light']};
-            --el-color-danger-lighter: ${variables['vab-color-danger-lighter']};
-            --el-color-error: ${variables['vab-color-error']};
-            --el-color-error-light: ${variables['vab-color-error-light']};
-            --el-color-error-lighter: ${variables['vab-color-error-lighter']};
-            --el-color-info: ${variables['vab-color-info']};
-            --el-color-info-light: ${variables['vab-color-info-light']};
-            --el-color-info-lighter: ${variables['vab-color-info-lighter']};
-            --el-border-radius-base: ${variables['vab-border-radius-base']};
-            `
-        document.getElementsByTagName('body')[0].setAttribute('style', style)
-
-        //修改背景图
-        if (theme.value.background && theme.value.background !== 'none') {
-          document.getElementsByTagName(
-            'html'
-          )[0].className = `${theme.value.background}`
-        } else {
-          document.getElementsByTagName('html')[0].className = ``
-        }
-      }
-
       onBeforeMount(() => {
-        setTheme()
         proxy.$sub('theme', () => {
           handleOpenTheme()
         })
@@ -415,7 +364,7 @@
         setDefaultTheme,
         handleSaveTheme,
         randomTheme,
-        setTheme,
+        updateTheme,
       }
     },
   })
@@ -467,6 +416,7 @@
 
           &.vab-item-custom {
             display: block !important;
+            height: 130px;
           }
 
           .el-radio-button {

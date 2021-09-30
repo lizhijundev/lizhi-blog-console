@@ -38,8 +38,8 @@ export function convertRouter(asyncRoutes) {
 export function filterRoutes(routes, rolesControl, baseUrl = '/') {
   return routes
     .filter((route) =>
-      rolesControl && route.meta && route.meta.permission
-        ? hasPermission(route.meta.permission)
+      rolesControl && route.meta && route.meta.guard
+        ? hasPermission(route.meta.guard)
         : true
     )
     .map((route) => {
@@ -48,15 +48,17 @@ export function filterRoutes(routes, rolesControl, baseUrl = '/') {
         route.path !== '*' && !isExternal(route.path)
           ? resolve(baseUrl, route.path)
           : route.path
-      if (route.children) {
+      if (route.children && route.children.length > 0) {
         route.children = filterRoutes(route.children, rolesControl, route.path)
-        route.childrenNameList = route.children.flatMap(
-          (_) => _.childrenNameList
-        )
-        if (!route.redirect)
-          route.redirect = route.children[0].redirect
-            ? route.children[0].redirect
-            : route.children[0].path
+        if (route.children.length > 0) {
+          route.childrenNameList = route.children.flatMap(
+            (_) => _.childrenNameList
+          )
+          if (!route.redirect)
+            route.redirect = route.children[0].redirect
+              ? route.children[0].redirect
+              : route.children[0].path
+        }
       } else route.childrenNameList = [route.name]
       return route
     })

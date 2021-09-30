@@ -2,7 +2,7 @@
  * @description 菜单背景
  */
 
-html.vab-background > body > #app {
+.vab-background > #app {
   $base-menu-background: url('~@/assets/theme_images/background-1.png')
     no-repeat;
 

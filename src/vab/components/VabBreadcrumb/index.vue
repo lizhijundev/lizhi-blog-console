@@ -26,7 +26,9 @@
 
       const routes = computed(() => store.getters['routes/routes'])
       const breadcrumbList = computed(() =>
-        handleMatched(routes.value, route.name)
+        handleMatched(routes.value, route.name).filter(
+          (item) => item.meta.breadcrumbHidden !== true
+        )
       )
 
       return {

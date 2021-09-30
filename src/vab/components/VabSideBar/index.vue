@@ -126,8 +126,8 @@
     transition: $base-transition;
 
     &.side-bar-common {
-      top: $base-top-bar-height;
-      height: calc(100vh - #{$base-top-bar-height});
+      top: $base-header-height;
+      height: calc(100vh - #{$base-header-height});
     }
 
     &.is-collapse {

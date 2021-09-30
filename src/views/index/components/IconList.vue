@@ -37,7 +37,7 @@
       <vab-icon :icon="item.icon" :style="{ color: item.color }" />
       <p>{{ item.title }}</p>
     </vab-card>
-    <vab-link v-else target="_blank" :to="item.link">
+    <vab-link v-else :to="item.link">
       <vab-card class="icon-panel" shadow="hover">
         <vab-icon :icon="item.icon" :style="{ color: item.color }" />
         <p>{{ item.title }}</p>

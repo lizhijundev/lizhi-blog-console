@@ -7,9 +7,9 @@
       <el-date-picker v-model="value1" placeholder="选择日期" type="date" />
       <el-date-picker
         v-model="value2"
-        align="right"
-        :picker-options="pickerOptions"
+        :disabled-date="disabledDate"
         placeholder="选择日期"
+        :shortcuts="shortcuts"
         type="date"
       />
     </vab-card>
@@ -65,35 +65,31 @@
     name: 'DatePicker',
     setup() {
       const state = reactive({
-        pickerOptions: {
-          disabledDate(time) {
-            return time.getTime() > Date.now()
-          },
-          shortcuts: [
-            {
-              text: '今天',
-              onClick(picker) {
-                picker.$emit('pick', new Date())
-              },
-            },
-            {
-              text: '昨天',
-              onClick(picker) {
-                const date = new Date()
-                date.setTime(date.getTime() - 3600 * 1000 * 24)
-                picker.$emit('pick', date)
-              },
-            },
-            {
-              text: '一周前',
-              onClick(picker) {
-                const date = new Date()
-                date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
-                picker.$emit('pick', date)
-              },
-            },
-          ],
+        disabledDate(time) {
+          return time.getTime() > Date.now()
         },
+        shortcuts: [
+          {
+            text: '今天',
+            value: new Date(),
+          },
+          {
+            text: '昨天',
+            value: () => {
+              const date = new Date()
+              date.setTime(date.getTime() - 3600 * 1000 * 24)
+              return date
+            },
+          },
+          {
+            text: '一周前',
+            value: () => {
+              const date = new Date()
+              date.setTime(date.getTime() - 3600 * 1000 * 24 * 7)
+              return date
+            },
+          },
+        ],
         value1: '',
         value2: '',
         value3: '',
