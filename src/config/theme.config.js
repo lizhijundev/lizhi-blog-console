@@ -36,4 +36,6 @@ module.exports = {
   showThemeSetting: true,
   //纵向布局、常规布局、综合布局时是否默认收起左侧菜单（不支持分栏布局、横向布局）
   collapse: false,
+  // 是否开启页面动画
+  showPageTransition: true,
 }

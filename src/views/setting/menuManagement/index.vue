@@ -16,7 +16,11 @@
         <vab-card shadow="hover">
           <vab-query-form>
             <vab-query-form-top-panel :span="12">
-              <el-button icon="el-icon-plus" type="primary" @click="handleEdit">
+              <el-button
+                icon="el-icon-plus"
+                type="primary"
+                @click="handleEdit($event)"
+              >
                 添加
               </el-button>
             </vab-query-form-top-panel>

@@ -5,6 +5,7 @@ $base-color-orange: #ff6700;
 $base-color-red: #ff4d4f;
 
 :export {
+  vab-color-black: $base-color-black;
   vab-color-primary: $base-color-blue;
   vab-color-primary-light-1: mix($base-color-white, $base-color-blue, 10%);
   vab-color-primary-light-2: mix($base-color-white, $base-color-blue, 20%);

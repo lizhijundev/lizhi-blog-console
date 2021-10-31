@@ -54,7 +54,7 @@
           if (isMobileTemp) {
             oldLayout = theme.value.layout
             foldSideBar()
-          } /*  else openSideBar() */
+          } else openSideBar()
           theme.value.layout = isMobileTemp ? 'vertical' : oldLayout
           toggleDevice(isMobileTemp ? 'mobile' : 'desktop')
           isMobile = isMobileTemp

@@ -1,6 +1,9 @@
 <template>
   <router-view v-slot="{ Component }">
-    <transition mode="out-in" name="fade-transform">
+    <transition
+      :mode="theme.showPageTransition ? 'out-in' : ''"
+      :name="theme.showPageTransition ? 'fade-transform' : ''"
+    >
       <keep-alive :include="keepAliveNameList" :max="keepAliveMaxNum">
         <component :is="Component" :key="routerKey" />
       </keep-alive>
@@ -79,6 +82,7 @@
       })
 
       return {
+        theme,
         routerKey,
         keepAliveMaxNum,
         keepAliveNameList,

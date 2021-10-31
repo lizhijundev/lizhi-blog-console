@@ -27,12 +27,6 @@
   export default defineComponent({
     name: 'Dashboard',
     components: { Trend, Branch, Rank, Tabs },
-    data() {
-      return {}
-    },
-    created() {},
-    mounted() {},
-    methods: {},
   })
 </script>
 

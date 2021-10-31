@@ -127,6 +127,7 @@ export default {
     刷新: 'Refresh',
     通知: 'Notice',
     全屏: 'Full screen',
+    页面动画: 'Page transition',
     搜索: 'Search',
     开启: 'Open',
     关闭: 'Close',

@@ -4,7 +4,7 @@
     append-to-body
     custom-class="vab-drawer"
     direction="rtl"
-    size="280px"
+    size="285px"
     :title="translateTitle('主题配置')"
   >
     <el-scrollbar>
@@ -232,6 +232,9 @@
         </el-form-item>
         <el-form-item :label="translateTitle('全屏')">
           <el-switch v-model="theme.showFullScreen" />
+        </el-form-item>
+        <el-form-item :label="translateTitle('页面动画')">
+          <el-switch v-model="theme.showPageTransition" />
         </el-form-item>
       </el-form>
     </el-scrollbar>

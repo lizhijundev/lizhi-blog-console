@@ -2,10 +2,18 @@
   <div class="department-management-container">
     <vab-query-form>
       <vab-query-form-left-panel :span="12">
-        <el-button icon="el-icon-plus" type="primary" @click="handleEdit">
+        <el-button
+          icon="el-icon-plus"
+          type="primary"
+          @click="handleEdit($event)"
+        >
           添加
         </el-button>
-        <el-button icon="el-icon-delete" type="danger" @click="handleDelete">
+        <el-button
+          icon="el-icon-delete"
+          type="danger"
+          @click="handleDelete($event)"
+        >
           批量删除
         </el-button>
       </vab-query-form-left-panel>

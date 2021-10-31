@@ -748,6 +748,29 @@ export const asyncRoutes = [
     ],
   },
   {
+    path: '/noColumn',
+    name: 'NoColumn',
+    component: Layout,
+    meta: {
+      title: '无分栏',
+      icon: 'delete-column',
+      guard: ['Admin'],
+      breadcrumbHidden: true,
+    },
+    children: [
+      {
+        path: 'deleteColumn',
+        name: 'DeleteColumn',
+        component: () => import('@/views/noColumn/deleteColumn'),
+        meta: {
+          title: '无分栏',
+          icon: 'delete-column',
+          noColumn: true,
+        },
+      },
+    ],
+  },
+  {
     path: '/setting',
     name: 'PersonnelManagement',
     component: Layout,

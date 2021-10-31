@@ -42,6 +42,7 @@
     </el-tabs>
 
     <el-menu
+      v-if="menushow"
       :background-color="variables['column-second-menu-background']"
       :default-active="activeMenu"
       :default-openeds="defaultOpeneds"
@@ -62,12 +63,13 @@
   import {
     computed,
     defineComponent,
-    getCurrentInstance,
-    ref,
+    nextTick,
+    reactive,
+    toRefs,
     watch,
     watchEffect,
   } from 'vue'
-  import { mapActions, useStore } from 'vuex'
+  import { useStore } from 'vuex'
   import { useRoute, useRouter } from 'vue-router'
   import { translateTitle } from '@/utils/i18n'
   import { handleActivePath, handleMatched } from '@/utils/routes'
@@ -86,17 +88,11 @@
       const extra = computed(() => store.getters['settings/extra'])
       const theme = computed(() => store.getters['settings/theme'])
       const collapse = computed(() => store.getters['settings/collapse'])
-
-      const { proxy } = getCurrentInstance()
-
       const handleRoutes = computed(() =>
         routes.value.filter(
           (_route) => _route.meta && _route.meta.hidden !== true
         )
       )
-
-      const activeMenu = ref()
-
       const handlePartialRoutes = computed(() => {
         const activeMenu = handleActiveMenu()
         return activeMenu ? activeMenu.children : []
@@ -106,22 +102,45 @@
         return activeMenu ? activeMenu.meta.title : ''
       })
 
+      const state = reactive({
+        activeMenu: '',
+        menushow: true,
+      })
+
+      const foldSideBar = () => store.dispatch('settings/foldSideBar')
+      const openSideBar = () => store.dispatch('settings/openSideBar')
       const handleActiveMenu = () =>
         routes.value.find((_route) => _route.name === extra.value.first)
       const handleTabClick = (handler) => {
-        if (handler !== true && openFirstMenu) {
-          router.push(handleActiveMenu())
-          proxy.openSideBar()
+        if (handler !== true && openFirstMenu) router.push(handleActiveMenu())
+        state.menushow = false
+        nextTick(() => (state.menushow = true))
+        handleNoColumn()
+      }
+      const handleNoColumn = () => {
+        if (theme.value.layout === 'column' && route.meta.noColumn) {
+          foldSideBar()
+          if (document.querySelector('.fold-unfold'))
+            document.querySelector('.fold-unfold').style = 'display:none'
+        } else {
+          openSideBar()
+          if (document.querySelector('.fold-unfold'))
+            document.querySelector('.fold-unfold').style = ''
         }
       }
 
-      watchEffect(() => (activeMenu.value = handleActivePath(route)))
+      watchEffect(() => (state.activeMenu = handleActivePath(route)))
 
       watch(
         () => route.matched[0].name,
         (name) => {
-          extra.value.first = name
-          handleTabClick(true)
+          state.activeMenu = handleActivePath(route)
+          const firstMenu = name
+          if (extra.value.first !== firstMenu) {
+            extra.value.first = firstMenu
+            handleTabClick(true)
+          }
+          handleNoColumn()
         },
         {
           immediate: true,
@@ -133,23 +152,23 @@
         (val) => {
           const matched = handleMatched(routes.value, val)
           extra.value.first = matched[0].name
-          activeMenu.value = matched[matched.length - 1].path
+          state.activeMenu = matched[matched.length - 1].path
         }
       )
 
       return {
-        ...mapActions({
-          openSideBar: 'settings/openSideBar',
-        }),
+        ...toRefs(state),
+        openSideBar,
+        foldSideBar,
         extra,
         theme,
         collapse,
         variables,
-        activeMenu,
         handleRoutes,
         uniqueOpened,
         defaultOpeneds,
         handleTabClick,
+        handleNoColumn,
         translateTitle,
         handleGroupTitle,
         handlePartialRoutes,

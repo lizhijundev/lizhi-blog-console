@@ -15,6 +15,7 @@
               menu-trigger="hover"
               mode="horizontal"
               popper-append-to-body
+              style="width: 100%"
               :text-color="variables['menu-color']"
             >
               <template
@@ -120,35 +121,34 @@
             margin-top: #{math.div($base-header-height - 20, 2)} !important;
           }
 
-          > .el-menu--horizontal.el-menu
-            > .el-sub-menu
-            > .el-sub-menu__title
-            > .el-sub-menu__icon-arrow {
-            float: right;
-            margin-top: #{math.div($base-header-height - 11, 2)} !important;
-          }
-
-          > .el-menu--horizontal.el-menu > .el-menu-item {
-            .el-tag {
-              position: relative !important;
-              margin-top: 0 !important;
-              margin-left: 5px;
-            }
-
-            .vab-dot {
+          > .el-menu--horizontal.el-menu {
+            > .el-sub-menu > .el-sub-menu__title > .el-sub-menu__icon-arrow {
               float: right;
-              margin-top: #{math.div($base-header-height - 6, 2)} + 1;
+              margin-top: #{math.div($base-header-height - 11, 2)} !important;
             }
-
-            @media only screen and (max-width: 1199px) {
+            > .el-menu-item {
               .el-tag {
-                display: none;
+                position: relative !important;
+                margin-top: 0 !important;
+                margin-left: 5px;
+              }
+
+              .vab-dot {
+                float: right;
+                margin-top: #{math.div($base-header-height - 6, 2)} + 1;
+              }
+
+              @media only screen and (max-width: 1199px) {
+                .el-tag {
+                  display: none;
+                }
               }
             }
           }
 
           .el-menu {
             &.el-menu--horizontal {
+              width: 100%;
               display: flex;
               align-items: center;
               justify-content: flex-end;

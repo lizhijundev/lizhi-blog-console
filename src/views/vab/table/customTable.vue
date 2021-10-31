@@ -29,7 +29,7 @@
             <el-button
               icon="el-icon-delete"
               type="danger"
-              @click="handleDelete"
+              @click="handleDelete($event)"
             >
               删除
             </el-button>

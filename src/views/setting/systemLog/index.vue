@@ -35,21 +35,47 @@
     </vab-query-form>
 
     <el-table v-loading="listLoading" :data="list">
+      <el-table-column type="expand">
+        <template #default="{ row }">
+          <div class="vab-table-expand">
+            <p>
+              <span class="vab-table-expand-title">日志类型:</span>
+              {{ row.type }}
+            </p>
+            <p>
+              <span class="vab-table-expand-title">账号:</span>
+              {{ row.account }}
+            </p>
+            <p>
+              <span class="vab-table-expand-title">执行结果:</span>
+              <span v-if="row.executeResult === '登录成功'">
+                <span class="vab-dot vab-dot-success"><span></span></span>
+                {{ row.executeResult }}
+              </span>
+              <span v-else>
+                <span class="vab-dot vab-dot-error"><span></span></span>
+                {{ row.executeResult }}
+              </span>
+            </p>
+            <p>
+              <span class="vab-table-expand-title">登录IP:</span>
+              {{ row.ip }}
+            </p>
+            <p>
+              <span class="vab-table-expand-title">访问时间:</span>
+              {{ row.datetime }}
+            </p>
+          </div>
+        </template>
+      </el-table-column>
       <el-table-column
-        align="center"
         label="日志类型"
         prop="type"
         show-overflow-tooltip
         width="230px"
       />
+      <el-table-column label="账号" prop="account" show-overflow-tooltip />
       <el-table-column
-        align="center"
-        label="账号"
-        prop="account"
-        show-overflow-tooltip
-      />
-      <el-table-column
-        align="center"
         label="执行结果"
         prop="executeResult"
         show-overflow-tooltip
@@ -65,13 +91,8 @@
           </span>
         </template>
       </el-table-column>
-      <el-table-column align="center" label="登录IP" prop="ip" />
-      <el-table-column
-        align="center"
-        label="访问时间"
-        prop="datetime"
-        show-overflow-tooltip
-      />
+      <el-table-column label="登录IP" prop="ip" />
+      <el-table-column label="访问时间" prop="datetime" show-overflow-tooltip />
       <template #empty>
         <el-empty class="vab-data-empty" description="暂无数据" />
       </template>

@@ -72,7 +72,11 @@
         <el-button icon="el-icon-plus" type="primary" @click="handleAdd">
           添加
         </el-button>
-        <el-button icon="el-icon-delete" type="danger" @click="handleDelete">
+        <el-button
+          icon="el-icon-delete"
+          type="danger"
+          @click="handleDelete($event)"
+        >
           删除
         </el-button>
         <el-button type="primary" @click="handleMessage">

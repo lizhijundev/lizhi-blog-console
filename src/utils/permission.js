@@ -17,16 +17,15 @@ export function hasPermission(target) {
       }
     )
   const { role, permission, mode = 'oneOf' } = target
-  let result = true
-  if (role)
-    result =
-      result && can(store.getters['acl/role'], { permission: role, mode })
-  if (result && permission)
-    result = can(store.getters['acl/permission'], {
-      permission,
-      mode,
-    })
-  return result
+  return can([mode !== 'except'], {
+    permission: [
+      role ? can(store.getters['acl/role'], { permission: role, mode }) : false,
+      permission
+        ? can(store.getters['acl/permission'], { permission, mode })
+        : false,
+    ],
+    mode,
+  })
 }
 
 /**
@@ -43,6 +42,6 @@ function can(roleOrPermission, target) {
   if (mode === 'oneOf')
     hasRole = permission.some((item) => roleOrPermission.includes(item))
   if (mode === 'except')
-    hasRole = !permission.some((item) => roleOrPermission.includes(item))
+    hasRole = !permission.every((item) => roleOrPermission.includes(item))
   return hasRole
 }

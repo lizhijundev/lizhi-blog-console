@@ -506,5 +506,16 @@ html {
         }
       }
     }
+
+    /* vab-table-expand */
+    .vab-table-expand {
+      padding: var(--vab-padding);
+      line-height: 30px;
+      &-title {
+        display: inline-block;
+        width: 80px;
+        font-weight: bold;
+      }
+    }
   }
 }

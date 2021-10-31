@@ -20,6 +20,7 @@ import {
   showTabsIcon,
   showTheme,
   showThemeSetting,
+  showPageTransition,
   tabsBarStyle,
   themeName,
   title,
@@ -41,6 +42,7 @@ const defaultTheme = {
   showNotice,
   showFullScreen,
   showThemeSetting,
+  showPageTransition,
   themeName,
 }
 const getLocalStorage = (key) => {
@@ -108,6 +110,7 @@ const mutations = {
     if (state.theme.themeName.includes('red-'))
       variables = require('@/vab/styles/variables/vab-red-variables.scss')
     const style = `
+            --el-color-black:${variables['vab-color-black']};
             --el-color-primary: ${variables['vab-color-primary']};
             --el-color-primary-light-1: ${variables['vab-color-primary-light-1']};
             --el-color-primary-light-2: ${variables['vab-color-primary-light-2']};
