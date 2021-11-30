@@ -49,7 +49,7 @@
           </el-form-item>
           <el-form-item>
             <el-button
-              icon="el-icon-search"
+              :icon="Search"
               native-type="submit"
               type="primary"
               @click="queryData"
@@ -69,14 +69,10 @@
         </el-form>
       </vab-query-form-top-panel>
       <vab-query-form-left-panel :span="24">
-        <el-button icon="el-icon-plus" type="primary" @click="handleAdd">
+        <el-button :icon="Plus" type="primary" @click="handleAdd">
           添加
         </el-button>
-        <el-button
-          icon="el-icon-delete"
-          type="danger"
-          @click="handleDelete($event)"
-        >
+        <el-button :icon="Delete" type="danger" @click="handleDelete($event)">
           删除
         </el-button>
         <el-button type="primary" @click="handleMessage">
@@ -87,16 +83,11 @@
           $baseConfirm
         </el-button>
         <el-button type="primary" @click="handleNotify">$baseNotify</el-button>
-        <el-button
-          icon="el-icon-info"
-          type="primary"
-          @click="handleDetailStayTable"
-        >
+        <el-button type="primary" @click="handleDetailStayTable">
           停留在本页后台打开详情页后（不常用）
         </el-button>
         <el-badge class="item" value="New">
           <el-button
-            icon="el-icon-info"
             style="margin: 0 0 10px 0 !important"
             type="primary"
             @click="handleDetail"
@@ -207,7 +198,7 @@
         align="center"
         label="操作"
         show-overflow-tooltip
-        width="130"
+        width="170"
       >
         <template #default="{ row }">
           <el-button type="text" @click="handleDetail(row)">详情</el-button>
@@ -249,6 +240,7 @@
   import { doDelete, getList } from '@/api/table'
   import { handleMatched, handleTabs } from '@/utils/routes'
   import TableEdit from './components/TableEdit'
+  import { Delete, Plus, Search } from '@element-plus/icons'
 
   export default defineComponent({
     name: 'ComprehensiveTable',
@@ -324,7 +316,7 @@
       const statusFilter = (status) => {
         const statusMap = {
           published: 'success',
-          draft: 'gray',
+          draft: '',
           deleted: 'danger',
         }
         return statusMap[status]
@@ -482,6 +474,9 @@
         handleConfirm,
         handleNotify,
         fetchData,
+        Delete,
+        Plus,
+        Search,
       }
     },
   })

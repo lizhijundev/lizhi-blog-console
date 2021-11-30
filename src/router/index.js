@@ -188,6 +188,15 @@ export const asyncRoutes = [
               title: '自定义表格',
             },
           },
+          {
+            path: 'dynamicTable',
+            name: 'DynamicTable',
+            component: () => import('@/views/vab/table/dynamicTable'),
+            meta: {
+              title: '动态表格',
+              badge: 'New',
+            },
+          },
         ],
       },
       {
@@ -208,6 +217,17 @@ export const asyncRoutes = [
           title: '列表',
           guard: ['Admin'],
           icon: 'list-check-2',
+        },
+      },
+      {
+        path: 'description',
+        name: 'Description',
+        component: () => import('@/views/vab/description'),
+        meta: {
+          title: '描述',
+          guard: ['Admin'],
+          icon: 'slideshow-line',
+          badge: 'New',
         },
       },
       {
@@ -444,6 +464,17 @@ export const asyncRoutes = [
         },
       },
       {
+        path: 'dynamicAnchor',
+        name: 'DynamicAnchor',
+        component: () => import('@/views/other/dynamicAnchor'),
+        meta: {
+          title: '动态锚点',
+          guard: ['Admin'],
+          icon: 'anchor-line',
+          badge: 'New',
+        },
+      },
+      {
         path: 'dynamicMeta',
         name: 'DynamicMeta',
         component: () => import('@/views/other/dynamicMeta'),
@@ -517,16 +548,16 @@ export const asyncRoutes = [
           },
         ],
       },
-      {
-        path: 'loading',
-        name: 'Loading',
-        component: () => import('@/views/other/loading'),
-        meta: {
-          title: '加载',
-          guard: ['Admin'],
-          icon: 'loader-line',
-        },
-      },
+      // {
+      //   path: 'loading',
+      //   name: 'Loading',
+      //   component: () => import('@/views/other/loading'),
+      //   meta: {
+      //     title: '加载',
+      //     guard: ['Admin'],
+      //     icon: 'loader-line',
+      //   },
+      // },
       {
         path: 'player',
         name: 'Player',
@@ -664,17 +695,17 @@ export const asyncRoutes = [
             },
           },
           {
-            path: 'view?url=https%3A%2Fwww.baidu.com&title=%E7%99%BE%E5%BA%A6',
+            path: 'view?url=https://www.so.com',
             name: 'baiduIframe',
             component: () => import('@/views/other/iframe/view'),
-            meta: { title: '百度', icon: 'baidu-fill' },
+            meta: { title: '360搜索', icon: 'search-line' },
           },
-          {
-            path: 'view?url=https%3A%2Fgitee.com%2Fchu1204505056%2Fvue-admin-beautiful&title=Gitee',
-            name: 'githubIframe',
-            component: () => import('@/views/other/iframe/view'),
-            meta: { title: 'Gitee', icon: 'github-fill' },
-          },
+          // {
+          //   path: 'view?url=https%3A%2Fgitee.com%2Fchu1204505056%2Fvue-admin-beautiful&title=Gitee',
+          //   name: 'githubIframe',
+          //   component: () => import('@/views/other/iframe/view'),
+          //   meta: { title: 'Gitee', icon: 'github-fill' },
+          // },
           {
             path: 'search',
             name: 'IframeSearch',
@@ -826,12 +857,48 @@ export const asyncRoutes = [
         },
       },
       {
+        path: 'taskManagement',
+        name: 'TaskManagement',
+        component: () => import('@/views/setting/taskManagement'),
+        meta: {
+          title: '任务管理',
+          icon: 'task-line',
+          badge: 'New',
+        },
+      },
+      {
         path: 'systemLog',
         name: 'SystemLog',
         component: () => import('@/views/setting/systemLog'),
         meta: {
           title: '系统日志',
           icon: 'file-shield-2-line',
+        },
+      },
+    ],
+  },
+  {
+    path: '//github.com/chuzhixin/vue-admin-beautiful?utm_source=gold_browser_extension',
+    name: 'Github',
+    component: Layout,
+    meta: {
+      title: '外链',
+      icon: 'external-link-line',
+      guard: ['Admin'],
+      target: '_blank',
+      breadcrumbHidden: true,
+      noColumn: true,
+    },
+    children: [
+      {
+        path: '//github.com/chuzhixin/vue-admin-beautiful?utm_source=gold_browser_extension',
+        name: 'GithubExternalLink',
+        component: () => import('@/views/Github/GithubExternalLink/index'),
+        meta: {
+          title: '外链',
+          icon: 'external-link-line',
+          noColumn: true,
+          target: '_blank',
         },
       },
     ],

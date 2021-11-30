@@ -193,11 +193,17 @@ html {
       &.is-round {
         border-radius: var(--el-border-radius-round);
       }
+      &.is-circle {
+        border-radius: var(--el-border-radius-circle);
+      }
 
       [class*='ri-'] {
         margin-right: 3px;
         font-size: 12px;
         vertical-align: -1.8px;
+      }
+      .el-icon {
+        font-size: 12px;
       }
 
       [class*='el-icon-'] + span {

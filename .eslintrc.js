@@ -33,6 +33,8 @@ module.exports = {
         math: 'always',
       },
     ],
+    // 多字组件名称
+    'vue/multi-word-component-names': 'off',
     // Vue.js风格指南(https://cn.vuejs.org/v2/style-guide/)
     // Vue组件排序
     'vue/order-in-components': [

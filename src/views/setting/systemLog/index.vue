@@ -19,14 +19,12 @@
             <el-date-picker
               v-model="queryForm.searchDate"
               end-placeholder="结束日期"
-              format="yyyy-MM-dd"
               start-placeholder="开始日期"
               type="daterange"
-              value-format="yyyy-MM-dd"
             />
           </el-form-item>
           <el-form-item>
-            <el-button icon="el-icon-search" type="primary" @click="queryData">
+            <el-button :icon="Search" type="primary" @click="queryData">
               查询
             </el-button>
           </el-form-item>
@@ -112,6 +110,7 @@
 <script>
   import { defineComponent, onMounted, reactive, toRefs } from 'vue'
   import { getList } from '@/api/systemLog'
+  import { Search } from '@element-plus/icons'
 
   export default defineComponent({
     name: 'SystemLog',
@@ -160,6 +159,7 @@
         handleSizeChange,
         handleCurrentChange,
         queryData,
+        Search,
       }
     },
   })

@@ -6,24 +6,10 @@
       </template>
       <el-time-select
         v-model="value"
-        :picker-options="{
-          start: '08:30',
-          step: '00:15',
-          end: '18:30',
-        }"
+        end="18:30"
         placeholder="选择时间"
-      />
-    </vab-card>
-    <vab-card shadow="hover">
-      <template #header>
-        <span>任意时间点</span>
-      </template>
-      <el-time-picker
-        v-model="value1"
-        :picker-options="{
-          selectableRange: '18:30:00 - 20:30:00',
-        }"
-        placeholder="任意时间点"
+        start="08:30"
+        step="00:15"
       />
     </vab-card>
     <vab-card shadow="hover">
@@ -32,23 +18,32 @@
       </template>
       <el-time-select
         v-model="startTime"
-        :picker-options="{
-          start: '08:30',
-          step: '00:15',
-          end: '18:30',
-        }"
-        placeholder="起始时间"
+        end="18:30"
+        placeholder="开始时间"
+        start="08:30"
+        step="00:15"
         style="margin-right: 10px"
       />
       <el-time-select
         v-model="endTime"
-        :picker-options="{
-          start: '08:30',
-          step: '00:15',
-          end: '18:30',
-          minTime: startTime,
-        }"
+        end="18:30"
+        :min-time="startTime"
         placeholder="结束时间"
+        start="08:30"
+        step="00:15"
+      />
+    </vab-card>
+
+    <vab-card shadow="hover">
+      <template #header>
+        <span>任意时间点</span>
+      </template>
+      <el-time-picker
+        v-model="value1"
+        :disabled-hours="disabledHours"
+        :disabled-minutes="disabledMinutes"
+        :disabled-seconds="disabledSeconds"
+        placeholder="任意时间点"
       />
     </vab-card>
   </div>
@@ -66,9 +61,36 @@
         startTime: '',
         endTime: '',
       })
+      const makeRange = (start, end) => {
+        const result = []
+        for (let i = start; i <= end; i++) {
+          result.push(i)
+        }
+        return result
+      }
+
+      const disabledHours = () => {
+        return makeRange(0, 16).concat(makeRange(19, 23))
+      }
+      const disabledMinutes = (hour) => {
+        if (hour === 17) {
+          return makeRange(0, 29)
+        }
+        if (hour === 18) {
+          return makeRange(31, 59)
+        }
+      }
+      const disabledSeconds = (hour, minute) => {
+        if (hour === 18 && minute === 30) {
+          return makeRange(1, 59)
+        }
+      }
 
       return {
         ...toRefs(state),
+        disabledHours,
+        disabledMinutes,
+        disabledSeconds,
       }
     },
   })

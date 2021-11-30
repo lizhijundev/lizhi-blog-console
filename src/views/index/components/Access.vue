@@ -112,7 +112,7 @@
       })
 
       onMounted(() => {
-        const base = +new Date(2020, 1, 1)
+        const base = +new Date(2021, 1, 1)
         const oneDay = 24 * 3600 * 1000
         const date = []
 
@@ -129,19 +129,19 @@
             data.shift()
           }
           now = new Date(+new Date(now) + oneDay)
+          state.option.xAxis[0].data = []
+          state.option.series[0].data = []
+          state.option.xAxis[0].data = date
+          state.option.series[0].data = data
         }
 
         for (let i = 1; i < 6; i++) {
           addData()
         }
-        addData(true)
-        state.option.xAxis[0].data = date
-        state.option.series[0].data = data
+
         state.timer = setInterval(() => {
           addData(true)
-          state.option.xAxis[0].data = date
-          state.option.series[0].data = data
-        }, 6000)
+        }, 5000)
       })
 
       onUnmounted(() => {

@@ -17,6 +17,7 @@ for (let i = 0; i < count; i++) {
       switch: '@boolean',
       percent: '@integer(80,99)',
       'rate|1': [1, 2, 3, 4, 5],
+      'type|1': [0, 1],
       percentage: '@integer(0,100)',
     })
   )

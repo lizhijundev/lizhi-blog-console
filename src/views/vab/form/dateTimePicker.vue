@@ -28,7 +28,6 @@
       </template>
       <el-date-picker
         v-model="value3"
-        align="right"
         :default-time="value2"
         end-placeholder="结束日期"
         start-placeholder="开始日期"

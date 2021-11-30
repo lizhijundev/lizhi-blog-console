@@ -16,18 +16,18 @@
           </el-form-item>
           <el-form-item>
             <el-button
-              icon="el-icon-search"
+              :icon="Search"
               native-type="submit"
               type="primary"
-              @click="handleQuery"
+              @click="queryData"
             >
               查询
             </el-button>
-            <el-button icon="el-icon-plus" type="primary" @click="handleAdd">
+            <el-button :icon="Plus" type="primary" @click="handleAdd">
               添加
             </el-button>
             <el-button
-              icon="el-icon-delete"
+              :icon="Delete"
               type="danger"
               @click="handleDelete($event)"
             >
@@ -53,7 +53,7 @@
           />
           表格全屏
         </el-button>
-        <el-popover popper-class="custom-table-checkbox" trigger="hover">
+        <el-popover popper-class="custom-table-radio" trigger="hover">
           <el-radio-group v-model="lineHeight">
             <el-radio label="medium">大</el-radio>
             <el-radio label="small">中</el-radio>
@@ -68,7 +68,11 @@
         </el-popover>
         <el-popover popper-class="custom-table-checkbox" trigger="hover">
           <el-checkbox-group v-model="checkList">
-            <vab-draggable v-bind="dragOptions" :list="columns">
+            <vab-draggable
+              v-bind="dragOptions"
+              item-key="{ element }"
+              :list="columns"
+            >
               <template #item="{ element }">
                 <div>
                   <vab-icon icon="drag-drop-line" />
@@ -84,7 +88,7 @@
           </el-checkbox-group>
           <template #reference>
             <el-button
-              icon="el-icon-setting"
+              :icon="Setting"
               style="margin: 0 0 10px 0 !important"
               type="primary"
             >
@@ -138,7 +142,7 @@
         align="center"
         label="操作"
         show-overflow-tooltip
-        width="85"
+        width="95"
       >
         <template #default="{ row }">
           <el-button type="text" @click="handleEdit(row)">编辑</el-button>
@@ -179,6 +183,7 @@
   import { doDelete, getList } from '@/api/table'
   import TableEdit from './components/TableEdit'
   import VabDraggable from 'vuedraggable'
+  import { Delete, Plus, Search, Setting } from '@element-plus/icons'
 
   export default defineComponent({
     name: 'CustomTable',
@@ -280,6 +285,7 @@
         state.queryForm.pageNo = 1
         fetchData()
       }
+
       const clickFullScreen = () => {
         state.isFullscreen = !state.isFullscreen
         handleHeight()
@@ -334,6 +340,11 @@
         handleAdd,
         handleEdit,
         handleDelete,
+        fetchData,
+        Delete,
+        Plus,
+        Search,
+        Setting,
       }
     },
   })
@@ -363,5 +374,8 @@
     .el-checkbox {
       margin: 5px 0 5px 8px;
     }
+  }
+  .custom-table-radio {
+    width: 240px !important;
   }
 </style>

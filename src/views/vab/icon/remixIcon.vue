@@ -8,7 +8,7 @@
           </el-form-item>
           <el-form-item label-width="0">
             <el-button
-              icon="el-icon-search"
+              :icon="Search"
               native-type="submit"
               type="primary"
               @click="queryData"
@@ -56,6 +56,7 @@
   import { defineComponent, onMounted, reactive, toRefs } from 'vue'
   import { getIconList } from '@/api/remixIcon'
   import clip from '@/utils/clipboard'
+  import { Search } from '@element-plus/icons'
 
   export default defineComponent({
     name: 'RemixIcon',
@@ -103,6 +104,7 @@
         queryData,
         handleCopyText,
         handleCopyIcon,
+        Search,
       }
     },
   })

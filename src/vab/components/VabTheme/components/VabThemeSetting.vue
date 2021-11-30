@@ -56,7 +56,7 @@
         proxy.$pub('random-theme')
       }
       const buy = () => {
-        window.open('http://vue-admin-beautiful.com/authorization')
+        window.open('https://vue-admin-beautiful.com/authorization')
       }
       const getCode = () => {
         proxy
@@ -107,6 +107,46 @@
               case '/vab/form/stepForm':
                 path = '/vab/form/stepForm.vue'
                 break
+              case '/vab/form/button':
+                path = '/vab/form/button.vue'
+                break
+              case '/vab/form/link':
+                path = '/vab/form/link.vue'
+                break
+              case '/vab/form/radio':
+                path = '/vab/form/radio.vue'
+                break
+              case '/vab/form/checkbox':
+                path = '/vab/form/checkbox.vue'
+                break
+              case '/vab/form/input':
+                path = '/vab/form/input.vue'
+                break
+              case '/vab/form/inputNumber':
+                path = '/vab/form/inputNumber.vue'
+                break
+              case '/vab/form/select':
+                path = '/vab/form/select.vue'
+                break
+              case '/vab/form/switch':
+                path = '/vab/form/switch.vue'
+                break
+              case '/vab/form/slider':
+                path = '/vab/form/slider.vue'
+                break
+              case '/vab/form/timePicker':
+                path = '/vab/form/timePicker.vue'
+                break
+              case '/vab/form/datePicker':
+                path = '/vab/form/datePicker.vue'
+                break
+              case '/vab/form/dateTimePicker':
+                path = '/vab/form/dateTimePicker.vue'
+                break
+              case '/vab/form/rate':
+                path = '/vab/form/rate.vue'
+                break
+
               case '/other/dynamicSegment/test1/1':
                 path = '/other/dynamicSegment/test1.vue'
                 break
@@ -170,7 +210,7 @@
     position: fixed;
     top: 50%;
     right: 0;
-    z-index: $base-z-index + 1;
+    z-index: $base-z-index - 2;
     padding: 10px 0 0 0;
     margin: 0;
     text-align: center;

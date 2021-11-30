@@ -10,8 +10,8 @@
     </el-button>
     <img
       ref="vab-print-image"
-      src="https://gitee.com/chu1204505056/image/raw/master/fapiao.png"
-      style="display: block; width: 520px"
+      src="https://gitee.com/chu1204505056/image/raw/master/table/vab-image-1.jpg"
+      style="display: block; width: 520px; margin-top: 15px"
     />
     <br />
     <el-table ref="vab-print-table" :data="tableData" style="width: 520px">
@@ -23,7 +23,6 @@
 
 <script>
   import { defineComponent } from 'vue'
-  import { mapActions } from 'vuex'
   import VabPrint from '@/extra/VabPrint'
 
   export default defineComponent({
@@ -51,14 +50,8 @@
       }
     },
     methods: {
-      ...mapActions({
-        openSideBar: 'settings/openSideBar',
-        foldSideBar: 'settings/foldSideBar',
-      }),
       async print(val) {
-        await this.foldSideBar()
-        await VabPrint(this.$refs[val], { noPrintParent: true })
-        await this.openSideBar()
+        await VabPrint(this.$refs[val])
       },
     },
   })

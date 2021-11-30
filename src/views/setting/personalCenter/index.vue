@@ -62,7 +62,7 @@
           <el-tabs v-model="activeName">
             <el-tab-pane label="基本信息" name="first">
               <el-col :lg="12" :md="16" :sm="24" :xl="12" :xs="24">
-                <el-form ref="form" label-width="80px" :model="form">
+                <el-form label-width="80px" :model="form">
                   <el-form-item label="姓名">
                     <el-input v-model="form.fullName" />
                   </el-form-item>

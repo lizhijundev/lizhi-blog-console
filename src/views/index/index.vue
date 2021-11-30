@@ -14,10 +14,9 @@
       <icon-list />
       <el-col :lg="12" :md="12" :sm="24" :xl="12" :xs="24">
         <china-map />
-        <my-project />
       </el-col>
       <el-col :lg="12" :md="12" :sm="24" :xl="12" :xs="24">
-        <plan />
+        <my-project />
       </el-col>
     </el-row>
   </div>
@@ -26,7 +25,7 @@
 <script>
   import { defineComponent } from 'vue'
   import PageHeader from './components/PageHeader'
-  import Plan from './components/Plan'
+  /* import Plan from './components/Plan' */
   import Access from './components/Access'
   import Authorization from './components/Authorization'
   import ChinaMap from './components/ChinaMap'
@@ -38,7 +37,7 @@
     name: 'Index',
     components: {
       PageHeader,
-      Plan,
+      /*  Plan, */
       Access,
       Authorization,
       ChinaMap,

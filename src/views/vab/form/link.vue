@@ -35,20 +35,22 @@
       <template #header>
         <span>图标</span>
       </template>
-      <el-link icon="el-icon-edit">编辑</el-link>
-      <el-link>
-        查看
-        <i class="el-icon-view el-icon--right" />
-      </el-link>
+      <el-link :icon="Edit">编辑</el-link>
     </vab-card>
   </div>
 </template>
 
 <script>
   import { defineComponent } from 'vue'
+  import { Edit } from '@element-plus/icons'
 
   export default defineComponent({
     name: 'Link',
+    setup() {
+      return {
+        Edit,
+      }
+    },
   })
 </script>
 

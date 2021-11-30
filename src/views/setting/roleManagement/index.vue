@@ -2,18 +2,10 @@
   <div class="role-management-container">
     <vab-query-form>
       <vab-query-form-left-panel :span="12">
-        <el-button
-          icon="el-icon-plus"
-          type="primary"
-          @click="handleEdit($event)"
-        >
+        <el-button :icon="Plus" type="primary" @click="handleEdit($event)">
           添加
         </el-button>
-        <el-button
-          icon="el-icon-delete"
-          type="danger"
-          @click="handleDelete($event)"
-        >
+        <el-button :icon="Delete" type="danger" @click="handleDelete($event)">
           批量删除
         </el-button>
       </vab-query-form-left-panel>
@@ -27,7 +19,7 @@
             />
           </el-form-item>
           <el-form-item>
-            <el-button icon="el-icon-search" type="primary" @click="queryData">
+            <el-button :icon="Search" type="primary" @click="queryData">
               查询
             </el-button>
           </el-form-item>
@@ -78,7 +70,7 @@
         align="center"
         label="操作"
         show-overflow-tooltip
-        width="85"
+        width="95"
       >
         <template #default="{ row }">
           <el-button type="text" @click="handleEdit(row)">编辑</el-button>
@@ -116,6 +108,7 @@
   } from 'vue'
   import { doDelete, getList } from '@/api/roleManagement'
   import Edit from './components/RoleManagementEdit'
+  import { Delete, Plus, Search } from '@element-plus/icons'
 
   export default defineComponent({
     name: 'RoleManagement',
@@ -156,7 +149,7 @@
           })
         } else {
           if (state.selectRows.length > 0) {
-            const ids = this.selectRows.map((item) => item.id).join()
+            const ids = state.selectRows.map((item) => item.id).join()
             proxy.$baseConfirm('你确定要删除选中项吗', null, async () => {
               const { msg } = await doDelete({ ids })
               proxy.$baseMessage(msg, 'success', 'vab-hey-message-success')
@@ -201,6 +194,9 @@
         handleCurrentChange,
         queryData,
         fetchData,
+        Delete,
+        Plus,
+        Search,
       }
     },
   })

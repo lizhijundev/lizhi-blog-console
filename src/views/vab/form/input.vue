@@ -30,13 +30,13 @@
       </template>
       <el-input
         v-model="input5"
-        placeholder="请选择日期"
-        suffix-icon="el-icon-date"
+        placeholder="请输入内容"
+        :suffix-icon="Search"
       />
       <el-input
         v-model="input6"
         placeholder="请输入内容"
-        prefix-icon="el-icon-search"
+        :prefix-icon="Search"
       />
     </vab-card>
     <vab-card shadow="hover">
@@ -58,7 +58,7 @@
           </el-select>
         </template>
         <template #append>
-          <el-button icon="el-icon-search" />
+          <el-button :icon="Search" />
         </template>
       </el-input>
     </vab-card>
@@ -78,6 +78,7 @@
 
 <script>
   import { defineComponent, reactive, toRefs } from 'vue'
+  import { Search } from '@element-plus/icons'
 
   export default defineComponent({
     name: 'Input',
@@ -98,6 +99,7 @@
 
       return {
         ...toRefs(state),
+        Search,
       }
     },
   })

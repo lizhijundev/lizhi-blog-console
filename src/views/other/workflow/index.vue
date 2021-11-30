@@ -13,7 +13,7 @@
       :lf="lf"
       :node-data="addClickNode"
       :style="addPanelStyle"
-      @addNodeFinish="hideAddPanel"
+      @add-node-finish="hideAddPanel"
     />
     <!-- 属性面板 -->
     <el-drawer
@@ -27,7 +27,7 @@
         v-if="dialogVisible"
         :lf="lf"
         :node-data="clickNode"
-        @setPropertiesFinish="closeDialog"
+        @set-properties-finish="closeDialog"
       />
     </el-drawer>
     <!-- 数据查看面板 -->

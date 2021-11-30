@@ -92,6 +92,7 @@ module.exports = {
           '~': resolve('.'),
           '@': resolve('src'),
           '@vab': resolve('src/vab/plugins/vab'),
+          'vue-i18n': 'vue-i18n/dist/vue-i18n.cjs.js',
         },
       },
       plugins: [
@@ -100,10 +101,12 @@ module.exports = {
           name: webpackBarName,
         }),
       ],
+      performance: {
+        hints: false,
+      },
     }
   },
   chainWebpack(config) {
-    //config.resolve.alias.set('vue-i18n', 'vue-i18n/dist/vue-i18n.cjs.js')
     config.resolve.symlinks(true)
     config.module.rule('svg').exclude.add(resolve('src/icon'))
     config.module

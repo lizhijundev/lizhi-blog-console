@@ -55,12 +55,14 @@ const getLocalStorage = (key) => {
 }
 const { collapse } = getLocalStorage('collapse')
 const { language } = getLocalStorage('language')
+const { lock } = getLocalStorage('lock')
 const state = () => ({
   logo,
   title,
   device: 'desktop',
   collapse: collapse || _collapse,
   language: language || i18n,
+  lock: lock,
   theme: getLocalStorage('theme') || { ...defaultTheme },
   extra: { first: '' },
 })
@@ -70,10 +72,19 @@ const getters = {
   device: (state) => state.device,
   collapse: (state) => state.collapse,
   language: (state) => state.language,
+  lock: (state) => state.lock,
   theme: (state) => state.theme,
   extra: (state) => state.extra,
 }
 const mutations = {
+  lock(state) {
+    state.lock = true
+    localStorage.setItem('lock', `{"lock":true}`)
+  },
+  unLock(state) {
+    state.lock = false
+    localStorage.setItem('lock', `{"lock":false}`)
+  },
   openSideBar(state) {
     state.collapse = false
   },
@@ -103,12 +114,12 @@ const mutations = {
       'body'
     )[0].className = `vab-theme-${state.theme.themeName}`
     let variables = require('@/vab/styles/variables/vab-blue-variables.scss')
-    if (state.theme.themeName.includes('blue-'))
-      variables = require('@/vab/styles/variables/vab-blue-variables.scss')
-    if (state.theme.themeName.includes('green-'))
-      variables = require('@/vab/styles/variables/vab-green-variables.scss')
-    if (state.theme.themeName.includes('red-'))
-      variables = require('@/vab/styles/variables/vab-red-variables.scss')
+
+    const index = state.theme.themeName.indexOf('-')
+    const themeName = state.theme.themeName.substring(0, index)
+    if (themeName) {
+      variables = require(`@/vab/styles/variables/vab-${themeName}-variables.scss`)
+    }
     const style = `
             --el-color-black:${variables['vab-color-black']};
             --el-color-primary: ${variables['vab-color-primary']};
@@ -147,6 +158,12 @@ const mutations = {
   },
 }
 const actions = {
+  lock({ commit }) {
+    commit('lock')
+  },
+  unLock({ commit }) {
+    commit('unLock')
+  },
   openSideBar({ commit }) {
     commit('openSideBar')
   },

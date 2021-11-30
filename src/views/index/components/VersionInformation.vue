@@ -65,7 +65,7 @@
               </div>
               <template #reference> -->
             <a
-              href="http://vue-admin-beautiful.com/authorization"
+              href="https://vue-admin-beautiful.com/authorization"
               target="_blank"
             >
               <el-button type="primary">购买源码 ￥799</el-button>

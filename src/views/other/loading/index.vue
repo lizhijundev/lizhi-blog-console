@@ -1,6 +1,9 @@
 <template>
   <div class="loading-container">
     <el-row :gutter="20">
+      <el-col :span="24">
+        element-plus已知bug，无法通过css自定义loading动画，待官方修复后放开此功能！
+      </el-col>
       <el-col :lg="14" :md="14" :sm="24" :xl="14" :xs="24">
         <vab-card shadow="hover">
           <template #header>

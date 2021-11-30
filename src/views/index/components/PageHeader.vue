@@ -17,7 +17,7 @@
 </template>
 
 <script>
-  import { computed, defineComponent, reactive, toRefs } from 'vue'
+  import { computed, defineComponent, onMounted, reactive, toRefs } from 'vue'
   import { useStore } from 'vuex'
   import { getList } from '@/api/description'
   import VabAvatarList from '@/extra/VabAvatarList'
@@ -67,7 +67,9 @@
         state.description = description
       }
 
-      fetchData()
+      onMounted(() => {
+        fetchData()
+      })
 
       return {
         ...toRefs(state),

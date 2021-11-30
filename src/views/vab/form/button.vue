@@ -20,12 +20,12 @@
       <el-button round type="info">信息按钮</el-button>
       <el-button round type="warning">警告按钮</el-button>
       <el-button round type="danger">危险按钮</el-button>
-      <el-button circle icon="el-icon-search" />
-      <el-button circle icon="el-icon-edit" type="primary" />
-      <el-button circle icon="el-icon-check" type="success" />
-      <el-button circle icon="el-icon-message" type="info" />
-      <el-button circle icon="el-icon-star-off" type="warning" />
-      <el-button circle icon="el-icon-delete" type="danger" />
+      <el-button circle :icon="Search" />
+      <el-button circle :icon="Edit" type="primary" />
+      <el-button circle :icon="Check" type="success" />
+      <el-button circle :icon="Message" type="info" />
+      <el-button circle :icon="Star" type="warning" />
+      <el-button circle :icon="Delete" type="danger" />
     </vab-card>
 
     <vab-card shadow="hover">
@@ -56,12 +56,12 @@
 
     <vab-card shadow="hover">
       <template #header>
-        <span>elemenr内置图标按钮</span>
+        <span>element内置图标按钮</span>
       </template>
-      <el-button icon="el-icon-edit" type="primary" />
-      <el-button icon="el-icon-share" type="primary" />
-      <el-button icon="el-icon-delete" type="primary" />
-      <el-button icon="el-icon-search" type="primary">搜索</el-button>
+      <el-button :icon="Edit" type="primary" />
+      <el-button :icon="Share" type="primary" />
+      <el-button :icon="Delete" type="primary" />
+      <el-button :icon="Search" type="primary">搜索</el-button>
       <el-button type="primary">
         上传
         <i class="el-icon-upload el-icon--right" />
@@ -92,16 +92,16 @@
         <span>按钮组</span>
       </template>
       <el-button-group style="margin-right: 10px">
-        <el-button icon="el-icon-arrow-left" type="primary">上一页</el-button>
+        <el-button :icon="ArrowLeft" type="primary">上一页</el-button>
         <el-button type="primary">
           下一页
           <i class="el-icon-arrow-right el-icon--right" />
         </el-button>
       </el-button-group>
       <el-button-group>
-        <el-button icon="el-icon-edit" type="primary" />
-        <el-button icon="el-icon-share" type="primary" />
-        <el-button icon="el-icon-delete" type="primary" />
+        <el-button :icon="Edit" type="primary" />
+        <el-button :icon="Share" type="primary" />
+        <el-button :icon="Delete" type="primary" />
       </el-button-group>
     </vab-card>
     <vab-card shadow="hover">
@@ -128,9 +128,33 @@
 
 <script>
   import { defineComponent } from 'vue'
+  import {
+    Search,
+    Edit,
+    Check,
+    Message,
+    Star,
+    Delete,
+    ArrowLeft,
+    Share,
+    ArrowRight,
+  } from '@element-plus/icons'
 
   export default defineComponent({
     name: 'Button',
+    setup() {
+      return {
+        Search,
+        Edit,
+        Check,
+        Message,
+        Star,
+        Delete,
+        ArrowLeft,
+        Share,
+        ArrowRight,
+      }
+    },
   })
 </script>
 

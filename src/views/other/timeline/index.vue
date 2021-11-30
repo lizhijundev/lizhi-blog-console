@@ -3,13 +3,7 @@
     <el-row :gutter="20">
       <el-col :lg="8" :md="12" :sm="12" :xl="8" :xs="24">
         <vab-card shadow="hover">
-          <template #header>
-            常规风格
-            <el-radio-group v-model="reverse1" class="card-header-radio">
-              <el-radio :label="true">倒序</el-radio>
-              <el-radio :label="false">正序</el-radio>
-            </el-radio-group>
-          </template>
+          <template #header>常规风格</template>
 
           <el-timeline :reverse="reverse1">
             <el-timeline-item
@@ -42,13 +36,7 @@
       </el-col>
       <el-col :lg="8" :md="12" :sm="12" :xl="8" :xs="24">
         <vab-card shadow="hover">
-          <template #header>
-            卡片风格
-            <el-radio-group v-model="reverse2" class="card-header-radio">
-              <el-radio :label="true">倒序</el-radio>
-              <el-radio :label="false">正序</el-radio>
-            </el-radio-group>
-          </template>
+          <template #header>卡片风格</template>
 
           <el-timeline :reverse="reverse2">
             <el-timeline-item
@@ -84,14 +72,12 @@
 </template>
 
 <script>
-  import { defineComponent } from 'vue'
+  import { defineComponent, reactive, toRefs } from 'vue'
 
   export default defineComponent({
     name: 'Timeline',
-    data() {
-      return {
-        reverse1: true,
-        reverse2: true,
+    setup() {
+      const state = reactive({
         activities: [
           {
             content: '支持使用小清新图标',
@@ -127,11 +113,11 @@
             waver: 'error',
           },
         ],
+      })
+      return {
+        ...toRefs(state),
       }
     },
-    created() {},
-    mounted() {},
-    methods: {},
   })
 </script>
 

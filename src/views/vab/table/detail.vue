@@ -12,11 +12,7 @@
         <el-input v-model="form.text" />
       </el-form-item>
     </el-form>
-    <el-button
-      icon="el-icon-refresh"
-      type="primary"
-      @click="handleRefreshMainPage"
-    >
+    <el-button :icon="Refresh" type="primary" @click="handleRefreshMainPage">
       刷新综合表格页面
     </el-button>
     <el-descriptions border :column="3" title="详情">
@@ -69,6 +65,7 @@
   import { useRoute, useRouter } from 'vue-router'
   import { handleActivePath } from '@/utils/routes'
   import VabJsonViewer from '@/extra/VabJsonViewer'
+  import { Refresh } from '@element-plus/icons'
 
   export default defineComponent({
     name: 'Detail',
@@ -134,6 +131,7 @@
         goBack,
         jsonData,
         handleRefreshMainPage,
+        Refresh,
       }
     },
   })

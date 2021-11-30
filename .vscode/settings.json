@@ -28,6 +28,7 @@
     "source.fixAll.stylelint": true,
     "source.fixAll.eslint": true
   },
+  "stylelint.validate": ["html", "vue", "js", "scss"],
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
@@ -50,6 +51,5 @@
   "path-intellisense.mappings": {
     "@": "${workspaceRoot}/src"
   },
-  "files.eol": "\n",
-  "liveServer.settings.port": 5501
+  "files.eol": "\n"
 }

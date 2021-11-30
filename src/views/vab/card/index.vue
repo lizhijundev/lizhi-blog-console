@@ -26,7 +26,7 @@
           </el-form-item>
           <el-form-item>
             <el-button
-              icon="el-icon-search"
+              :icon="Search"
               native-type="submit"
               type="primary"
               @click="queryData"
@@ -79,6 +79,7 @@
   import { defineComponent, onMounted, reactive, toRefs } from 'vue'
   import VabMagnifier from '@/extra/VabMagnifier'
   import { getList } from '@/api/table'
+  import { Search } from '@element-plus/icons'
 
   export default defineComponent({
     name: 'Card',
@@ -119,6 +120,7 @@
         handleSizeChange,
         handleCurrentChange,
         queryData,
+        Search,
       }
     },
   })

@@ -17,7 +17,7 @@
           <vab-query-form>
             <vab-query-form-top-panel :span="12">
               <el-button
-                icon="el-icon-plus"
+                :icon="Plus"
                 type="primary"
                 @click="handleEdit($event)"
               >
@@ -140,6 +140,7 @@
   import { getList } from '@/api/router'
   import { doDelete, getTree } from '@/api/menuManagement'
   import Edit from './components/MenuManagementEdit'
+  import { Plus } from '@element-plus/icons'
 
   export default defineComponent({
     name: 'MenuManagement',
@@ -200,6 +201,7 @@
         handleDelete,
         fetchData,
         handleNodeClick,
+        Plus,
       }
     },
   })

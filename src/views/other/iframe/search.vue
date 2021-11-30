@@ -9,7 +9,7 @@
         :xs="24"
       >
         <el-form
-          ref="form"
+          ref="formRef"
           label-position="top"
           label-width="100px"
           :model="form"
@@ -23,7 +23,7 @@
             <el-input v-model="form.title" />
           </el-form-item>
           <el-button
-            icon="el-icon-search"
+            :icon="Search"
             native-type="submit"
             type="primary"
             @click="handleClick"
@@ -37,17 +37,21 @@
 </template>
 
 <script>
-  import { defineComponent } from 'vue'
+  import { defineComponent, reactive, toRefs } from 'vue'
+  import { useRouter } from 'vue-router'
   import { isExternal } from '@/utils/validate'
+  import { Search } from '@element-plus/icons'
 
   export default defineComponent({
     name: 'IframeSearch',
-    data() {
+    setup() {
+      const router = useRouter()
       const validateExternal = (rule, value, callback) => {
         if (!isExternal(value)) callback(new Error('url输入错误'))
         else callback()
       }
-      return {
+      const state = reactive({
+        formRef: null,
         rules: {
           url: [
             {
@@ -69,19 +73,24 @@
           url: 'https://www.so.com/s?ie=utf-8&fr=none&src=home_suggst_revise&q=vue-admin-beautiful&eci=&nlpv=test_zc_rank1',
           title: '360搜索',
         },
-      }
-    },
-    methods: {
-      handleClick() {
-        this.$refs['form'].validate((valid) => {
+      })
+
+      const handleClick = () => {
+        state['formRef'].validate((valid) => {
           if (valid) {
-            this.$router.push({
-              path: '/vab/iframe/view',
-              query: this.form,
+            router.push({
+              path: '/other/iframe/view',
+              query: state.form,
             })
           }
         })
-      },
+      }
+
+      return {
+        ...toRefs(state),
+        handleClick,
+        Search,
+      }
     },
   })
 </script>

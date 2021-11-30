@@ -30,6 +30,7 @@
               </template>
             </el-menu>
             <vab-error-log />
+            <vab-lock />
             <vab-search />
             <vab-notice />
             <vab-full-screen />
@@ -117,20 +118,27 @@
         height: $base-header-height;
 
         :deep() {
-          .el-icon-more {
+          .el-sub-menu__icon-more {
             margin-top: #{math.div($base-header-height - 20, 2)} !important;
           }
 
           > .el-menu--horizontal.el-menu {
-            > .el-sub-menu > .el-sub-menu__title > .el-sub-menu__icon-arrow {
-              float: right;
-              margin-top: #{math.div($base-header-height - 11, 2)} !important;
+            > .el-sub-menu > .el-sub-menu__title {
+              padding-right: 0;
+              > .el-sub-menu__icon-arrow {
+                position: relative !important;
+                //margin-top: #{math.div($base-header-height - 11, 2)} !important;
+                margin-top: -5px !important;
+                margin-right: 0;
+                margin-left: 30px;
+              }
             }
             > .el-menu-item {
               .el-tag {
                 position: relative !important;
                 margin-top: 0 !important;
-                margin-left: 5px;
+                margin-right: -20px;
+                margin-left: 25px;
               }
 
               .vab-dot {
@@ -148,10 +156,10 @@
 
           .el-menu {
             &.el-menu--horizontal {
-              width: 100%;
               display: flex;
               align-items: center;
               justify-content: flex-end;
+              width: 100%;
               height: $base-header-height;
               border-bottom: 0 solid transparent !important;
 

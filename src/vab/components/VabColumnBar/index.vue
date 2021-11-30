@@ -75,6 +75,7 @@
   import { handleActivePath, handleMatched } from '@/utils/routes'
   import { defaultOpeneds, openFirstMenu, uniqueOpened } from '@/config'
   import variables from '@/vab/styles/variables/variables.scss'
+  import { isExternal } from '@/utils/validate'
 
   export default defineComponent({
     name: 'VabColumnBar',
@@ -113,6 +114,12 @@
         routes.value.find((_route) => _route.name === extra.value.first)
       const handleTabClick = (handler) => {
         if (handler !== true && openFirstMenu) router.push(handleActiveMenu())
+        if (isExternal(handleActiveMenu().path)) {
+          window.open(handleActiveMenu().path)
+          setTimeout(() => {
+            router.push('/')
+          }, 1000)
+        }
         state.menushow = false
         nextTick(() => (state.menushow = true))
         handleNoColumn()

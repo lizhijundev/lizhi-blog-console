@@ -1,5 +1,5 @@
 <template>
-  <div v-if="show" class="player-container">
+  <div class="player-container">
     <el-row :gutter="20">
       <el-col :lg="12" :md="24" :sm="24" :xl="12" :xs="24">
         <vab-card shadow="hover">
@@ -32,7 +32,7 @@
 </template>
 
 <script>
-  import { defineComponent } from 'vue'
+  import { defineComponent, reactive, toRefs } from 'vue'
   import { VabPlayerHls, VabPlayerMp4 } from '@/extra/VabPlayer.js'
   import { uuid } from '@/utils'
 
@@ -42,9 +42,8 @@
       VabPlayerMp4,
       VabPlayerHls,
     },
-    data() {
-      return {
-        show: false,
+    setup() {
+      const state = reactive({
         form: {
           danmu: 'admin-plus',
         },
@@ -91,21 +90,14 @@
           screenShot: false,
         },
         $vabPlayerHls: null,
-      }
-    },
-    created() {
-      this.show = false
-      this.$nextTick(() => {
-        this.show = true
       })
-    },
-    methods: {
-      onSubmit() {
-        this.$vabPlayerMp4.danmu.sendComment({
+
+      const onSubmit = () => {
+        state.$vabPlayerMp4.danmu.sendComment({
           duration: 15000,
           id: uuid(),
-          start: this.$vabPlayerMp4.cumulateTime * 1100,
-          txt: this.form.danmu,
+          start: state.$vabPlayerMp4.cumulateTime * 1100,
+          txt: state.form.danmu,
           mode: 'scroll',
           style: {
             marginTop: '20px',
@@ -118,7 +110,12 @@
             zIndex: '9999',
           },
         })
-      },
+      }
+
+      return {
+        ...toRefs(state),
+        onSubmit,
+      }
     },
   })
 </script>

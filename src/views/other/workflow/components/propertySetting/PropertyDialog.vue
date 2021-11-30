@@ -4,13 +4,13 @@
       v-if="nodeData.type === 'user'"
       :lf="lf"
       :node-data="nodeData"
-      @onClose="handleClose"
+      @on-close="handleClose"
     />
     <CommonProperty
       v-else
       :lf="lf"
       :node-data="nodeData"
-      @onClose="handleClose"
+      @on-close="handleClose"
     />
   </div>
 </template>

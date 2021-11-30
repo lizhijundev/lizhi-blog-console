@@ -111,7 +111,7 @@
     name: 'Login',
     directives: {
       focus: {
-        inserted(el) {
+        mounted(el) {
           el.querySelector('input').focus()
         },
       },

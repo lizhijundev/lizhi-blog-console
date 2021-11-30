@@ -21,6 +21,11 @@
     justify-content: flex-start;
     min-height: $base-input-height;
     margin: 0 0 #{math.div($base-margin, 2)} 0;
+    .el-form-item__content {
+      display: flex;
+      align-items: center;
+    }
+
     > .el-button {
       margin: 0 10px #{math.div($base-margin, 2)} 0 !important;
     }

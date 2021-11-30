@@ -6,10 +6,14 @@ import './styles/vab.scss'
 // 加载VabIcon
 import VabIcon from 'vab-icons'
 import 'vab-icons/lib/vab-icons.css'
+import * as ElIconModules from '@element-plus/icons'
 
 export function setupVab(app) {
   app.component('VabIcon', VabIcon)
 
+  for (let iconName in ElIconModules) {
+    app.component(iconName, ElIconModules[iconName])
+  }
   // 加载主题
   const Themes = require.context('./styles/themes', false, /\.scss$/)
   Themes.keys().map(Themes)

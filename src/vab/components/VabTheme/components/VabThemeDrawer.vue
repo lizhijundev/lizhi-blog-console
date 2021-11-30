@@ -83,6 +83,16 @@
               :label="translateTitle('绿白')"
               value="green-white"
             />
+            <el-option
+              key="purple-black"
+              :label="translateTitle('紫黑')"
+              value="purple-black"
+            />
+            <el-option
+              key="purple-white"
+              :label="translateTitle('紫白')"
+              value="purple-white"
+            />
             <!-- 红黑、红白主题完成群文档任务免费获取 -->
             <el-option
               key="red-black"
@@ -294,7 +304,7 @@
       }
 
       const randomTheme = async () => {
-        const loading = proxy.$baseColorfullLoading(0)
+        const loading = proxy.$baseLoading(0)
         // 随机换肤重置移除主题，防止代码更新影响样式
         await resetTheme()
         const themeNameArray = [
@@ -303,6 +313,8 @@
           'ocean',
           'green-black',
           'green-white',
+          'purple-black',
+          'purple-white',
           'red-black',
           'red-white',
         ]

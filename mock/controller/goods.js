@@ -6,7 +6,7 @@ const List = [
     price: '众筹版 ￥899',
     label: ['敬请期待', '人工智能', '科技风'],
     company: 'vdp',
-    url: 'http://vue-admin-beautiful.com/dashboard-pro',
+    url: 'https://vue-admin-beautiful.com/dashboard-pro',
     description:
       '为答谢付费版用户支持：凡是购买过Admin Pro、Admin Plus版本老用户新购买Dashboard Pro版本立返现金红包100元',
   },

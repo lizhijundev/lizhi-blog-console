@@ -9,7 +9,7 @@
           </el-form-item>
           <el-form-item>
             <el-button
-              icon="el-icon-search"
+              :icon="Search"
               native-type="submit"
               type="primary"
               @click="queryData"
@@ -82,6 +82,7 @@
 <script>
   import { defineComponent, onMounted, reactive, toRefs } from 'vue'
   import { getList } from '@/api/goods'
+  import { Search } from '@element-plus/icons'
 
   export default defineComponent({
     name: 'Goods',
@@ -123,6 +124,7 @@
         handleSizeChange,
         handleCurrentChange,
         queryData,
+        Search,
       }
     },
   })

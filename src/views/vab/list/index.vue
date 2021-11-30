@@ -11,7 +11,7 @@
             />
           </el-form-item>
           <el-form-item>
-            <el-button icon="el-icon-search" type="primary" @click="queryData">
+            <el-button :icon="Search" type="primary" @click="queryData">
               查询
             </el-button>
           </el-form-item>
@@ -59,6 +59,7 @@
 <script>
   import { defineComponent, onMounted, reactive, toRefs } from 'vue'
   import { getList } from '@/api/table'
+  import { Search } from '@element-plus/icons'
 
   export default defineComponent({
     name: 'List',
@@ -101,6 +102,7 @@
         handleSizeChange,
         handleCurrentChange,
         queryData,
+        Search,
       }
     },
   })

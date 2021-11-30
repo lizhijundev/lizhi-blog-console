@@ -14,7 +14,7 @@
           </el-form-item>
           <el-form-item>
             <el-button
-              icon="el-icon-search"
+              :icon="Search"
               native-type="submit"
               type="primary"
               @click="queryData"
@@ -85,7 +85,7 @@
           </el-button>
           <el-button
             v-else
-            icon="el-icon-edit"
+            :icon="Edit"
             size="small"
             type="primary"
             @click="row.edit = !row.edit"
@@ -113,6 +113,7 @@
 <script>
   import { defineComponent, onMounted, reactive, toRefs } from 'vue'
   import { getList } from '@/api/table'
+  import { Edit, Search } from '@element-plus/icons'
 
   export default defineComponent({
     name: 'InlineEditTable',
@@ -173,6 +174,8 @@
         queryData,
         cancelEdit,
         confirmEdit,
+        Edit,
+        Search,
       }
     },
   })

@@ -84,18 +84,20 @@
 <style lang="scss" scoped>
   :deep() {
     .el-tag {
-      float: right;
+      position: absolute;
+      right: 20px;
       height: 16px;
       padding-right: 4px;
       padding-left: 4px;
-      margin-top: #{math.div($base-menu-item-height - 16, 2)};
+      // margin-top: #{math.div($base-menu-item-height - 16, 2)};
       line-height: 16px;
       border: 0;
     }
   }
 
   .vab-dot {
-    float: right;
-    margin-top: #{math.div($base-menu-item-height - 6, 2)};
+    position: absolute !important;
+    right: 20px;
+    // margin-top: #{math.div($base-menu-item-height - 6, 2)};
   }
 </style>

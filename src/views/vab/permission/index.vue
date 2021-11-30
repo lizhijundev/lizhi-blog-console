@@ -128,7 +128,7 @@
           }"
           type="danger"
         >
-          没有["Admin"]和["delete:system"]权限点的按钮
+          未拥有["Admin"]和["delete:system"]权限点的按钮
         </el-button>
       </el-form-item>
     </el-form>
