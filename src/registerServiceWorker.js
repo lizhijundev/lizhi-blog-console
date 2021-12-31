@@ -21,7 +21,7 @@ if (process.env.NODE_ENV === 'production') {
       gp.$baseNotify(
         '检测到新版本，正在下载中，请稍后...',
         '温馨提示',
-        'success',
+        'info',
         'bottom-right',
         8000
       )

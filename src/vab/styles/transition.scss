@@ -2,17 +2,28 @@
  * @description vue过渡动画
  */
 
-.fade-transform-leave-active,
-.fade-transform-enter-active {
-  transition: $base-transition;
+.fade-transform {
+  &-leave-active,
+  &-enter-active {
+    transition: $base-transition;
+  }
+
+  &-enter,
+  &-leave-to {
+    opacity: 0;
+  }
 }
 
-.fade-transform-enter {
-  opacity: 0;
-}
+.no-transform {
+  &-leave-active,
+  &-enter-active {
+    transition: none;
+  }
 
-.fade-transform-leave-to {
-  opacity: 0;
+  &-enter,
+  &-leave-to {
+    opacity: 0;
+  }
 }
 
 /**

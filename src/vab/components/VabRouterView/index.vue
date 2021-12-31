@@ -1,8 +1,8 @@
 <template>
   <router-view v-slot="{ Component }">
     <transition
-      :mode="theme.showPageTransition ? 'out-in' : ''"
-      :name="theme.showPageTransition ? 'fade-transform' : ''"
+      mode="out-in"
+      :name="theme.showPageTransition ? 'fade-transform' : 'no-transform'"
     >
       <keep-alive :include="keepAliveNameList" :max="keepAliveMaxNum">
         <component :is="Component" :key="routerKey" />
@@ -43,16 +43,11 @@
       const keepAliveNameList = ref()
 
       const updateKeepAliveNameList = (refreshRouteName = null) => {
-        keepAliveNameList.value = [
-          ...new Set(
-            visitedRoutes.value
-              .filter(
-                (item) =>
-                  !item.meta.noKeepAlive && item.name !== refreshRouteName
-              )
-              .flatMap((item) => item.matched)
-          ),
-        ]
+        keepAliveNameList.value = visitedRoutes.value
+          .filter(
+            (item) => !item.meta.noKeepAlive && item.name !== refreshRouteName
+          )
+          .flatMap((item) => item.name)
       }
 
       // 更新KeepAlive缓存页面
@@ -62,11 +57,11 @@
       })
 
       onBeforeMount(() => {
-        proxy.$sub('reload-router-view', () => {
+        proxy.$sub('reload-router-view', (refreshRouteName = route.name) => {
           if (theme.value.showProgressBar) VabProgress.start()
           const cacheActivePath = routerKey.value
           routerKey.value = null
-          updateKeepAliveNameList(route.name)
+          updateKeepAliveNameList(refreshRouteName)
           nextTick(() => {
             routerKey.value = cacheActivePath
             updateKeepAliveNameList()

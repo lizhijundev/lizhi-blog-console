@@ -5,7 +5,7 @@
         <vab-card shadow="hover">
           <template #header>常规风格</template>
 
-          <el-timeline :reverse="reverse1">
+          <el-timeline>
             <el-timeline-item
               v-for="(item, index) in activities"
               :key="index"
@@ -38,7 +38,7 @@
         <vab-card shadow="hover">
           <template #header>卡片风格</template>
 
-          <el-timeline :reverse="reverse2">
+          <el-timeline>
             <el-timeline-item
               v-for="(item, index) in activities"
               :key="index"

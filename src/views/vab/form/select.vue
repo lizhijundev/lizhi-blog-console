@@ -2,6 +2,19 @@
   <div class="select-container">
     <vab-card shadow="hover">
       <template #header>
+        <span>行政区划</span>
+        <el-tag class="card-header-tag" type="danger">New</el-tag>
+      </template>
+      <el-cascader
+        v-model="area"
+        clearable
+        filterable
+        :options="areaOptions"
+        :props="{ label: 'name', value: 'code' }"
+      />
+    </vab-card>
+    <vab-card shadow="hover">
+      <template #header>
         <span>基础用法</span>
       </template>
       <el-select v-model="value1" placeholder="请选择">
@@ -83,7 +96,8 @@
 </template>
 
 <script>
-  import { defineComponent, reactive, toRefs } from 'vue'
+  import { defineComponent, onMounted, reactive, toRefs } from 'vue'
+  import { getList } from '@/api/area'
 
   export default defineComponent({
     name: 'Select',
@@ -106,6 +120,19 @@
         ],
         value2: '',
         value3: [],
+        area: [],
+        areaOptions: [],
+      })
+
+      const fetchData = async () => {
+        const {
+          data: { list },
+        } = await getList()
+        state.areaOptions = list
+      }
+
+      onMounted(() => {
+        fetchData()
       })
 
       return {

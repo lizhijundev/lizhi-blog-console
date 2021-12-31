@@ -64,7 +64,7 @@
   } from 'vue'
   import { Delete, Plus, Search } from '@element-plus/icons'
   import VabFormTable from '@/extra/VabFormTable'
-  import { getList, doEdit } from '@/api/table'
+  import { doEdit, getList } from '@/api/table'
 
   export default defineComponent({
     name: 'DynamicTable',

@@ -54,9 +54,6 @@
           <template #header>
             <span>动态高亮菜单</span>
           </template>
-          <el-button @click="handleActiveName('Role')">
-            修改高亮菜单至角色权限
-          </el-button>
           <el-button @click="handleActiveName('Notice')">
             修改高亮菜单至通知组件
           </el-button>

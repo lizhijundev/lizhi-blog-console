@@ -54,6 +54,7 @@
         color: var(--el-color-white);
         border-bottom: 0;
       }
+
       .el-card__body {
         padding-top: 0;
       }

@@ -4,10 +4,7 @@
       <el-col :lg="12" :md="24" :sm="24" :xl="12" :xs="24">
         <vab-card shadow="hover">
           <template #header>常规视频播放(可配置弹幕)</template>
-          <vab-player-mp4
-            :config="mp4Config"
-            @player="$vabPlayerMp4 = $event"
-          />
+          <vab-player-mp4 :config="mp4Config" @player="vabPlayerMp4 = $event" />
           <el-form :inline="true" :model="form" style="margin-top: 20px">
             <el-form-item label="弹幕">
               <el-input v-model="form.danmu" placeholder="弹幕" />
@@ -21,10 +18,7 @@
       <el-col :lg="12" :md="24" :sm="24" :xl="12" :xs="24">
         <vab-card shadow="hover">
           <template #header>Hls推流、m3u8播放(可配置弹幕)</template>
-          <vab-player-hls
-            :config="hlsConfig"
-            @player="$vabPlayerHls = $event"
-          />
+          <vab-player-hls :config="hlsConfig" @player="vabPlayerHls = $event" />
         </vab-card>
       </el-col>
     </el-row>
@@ -79,7 +73,7 @@
             },
           },
         },
-        $vabPlayerMp4: null,
+        vabPlayerMp4: null,
         hlsConfig: {
           id: 'mse2',
           url: 'https://cdn.jsdelivr.net/gh/chuzhixin/videos@master/video.m3u8',
@@ -89,14 +83,14 @@
           pip: false,
           screenShot: false,
         },
-        $vabPlayerHls: null,
+        vabPlayerHls: null,
       })
 
       const onSubmit = () => {
-        state.$vabPlayerMp4.danmu.sendComment({
+        state.vabPlayerMp4.danmu.sendComment({
           duration: 15000,
           id: uuid(),
-          start: state.$vabPlayerMp4.cumulateTime * 1100,
+          start: state.vabPlayerMp4.cumulateTime * 1100,
           txt: state.form.danmu,
           mode: 'scroll',
           style: {

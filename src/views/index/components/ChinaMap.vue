@@ -46,7 +46,7 @@
 
       const getMap = async () => {
         const { data } = await axios({
-          url: 'https://cdn.jsdelivr.net/npm/echarts@4.9.0/map/json/china.json',
+          url: 'json/china.json',
           method: 'get',
         })
         VabChart.registerMap('china', data)

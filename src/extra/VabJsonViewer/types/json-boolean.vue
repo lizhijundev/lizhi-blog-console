@@ -1,5 +1,6 @@
 <script>
   import { h } from 'vue'
+
   export default {
     name: 'JsonBoolean',
     functional: true,

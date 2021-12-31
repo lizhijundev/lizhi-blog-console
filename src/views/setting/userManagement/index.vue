@@ -102,6 +102,7 @@
 
 <script>
   import {
+    defineAsyncComponent,
     defineComponent,
     getCurrentInstance,
     onMounted,
@@ -109,12 +110,15 @@
     toRefs,
   } from 'vue'
   import { doDelete, getList } from '@/api/userManagement'
-  import Edit from './components/UserManagementEdit'
   import { Delete, Plus, Search } from '@element-plus/icons'
 
   export default defineComponent({
     name: 'UserManagement',
-    components: { Edit },
+    components: {
+      Edit: defineAsyncComponent(() =>
+        import('./components/UserManagementEdit')
+      ),
+    },
     setup() {
       const { proxy } = getCurrentInstance()
 

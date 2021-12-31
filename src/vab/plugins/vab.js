@@ -187,7 +187,7 @@ export function setup(app) {
 
   const _emitter = mitt()
   app.config.globalProperties.$pub = (...args) => {
-    _emitter.emit(_.head(args), args.slice(1))
+    _emitter.emit(_.head(args), args[1])
   }
   app.config.globalProperties.$sub = function () {
     Reflect.apply(_emitter.on, _emitter, _.toArray(arguments))

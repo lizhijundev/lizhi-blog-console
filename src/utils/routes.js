@@ -81,9 +81,8 @@ export function handleMatched(routes, name) {
 /**
  * 生成单个多标签元素，可用于同步/异步添加多标签
  * @param tag route页信息
- * @param init 是否是从router获取路由
  */
-export function handleTabs(tag, init = false) {
+export function handleTabs(tag) {
   let parentIcon = null
   if (tag.matched)
     for (let i = tag.matched.length - 2; i >= 0; i--)
@@ -97,9 +96,6 @@ export function handleTabs(tag, init = false) {
       query: tag.query,
       params: tag.params,
       name: tag.name,
-      matched: init
-        ? [tag.name]
-        : tag.matched.map((route) => route.components.default.name),
       parentIcon,
       meta: { ...tag.meta },
     }
@@ -119,7 +115,7 @@ export function handleActivePath(route, isTab = false) {
     : path
   const fullPath =
     route.query && Object.keys(route.query).length
-      ? `${route.path}&${qs.stringify(route.query)}`
+      ? `${route.path}?${qs.stringify(route.query)}`
       : route.path
   if (isTab) return meta.dynamicNewTab ? fullPath : rawPath
   if (meta.activeMenu) return meta.activeMenu

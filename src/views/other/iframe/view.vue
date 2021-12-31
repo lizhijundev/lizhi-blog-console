@@ -25,15 +25,13 @@
       }),
       handleIframe() {
         this.url = this.$route.query.url
-        if (this.$route.query.title)
-          this.$nextTick(() => {
-            this.changeTabsMeta({
-              title: 'Iframe',
-              meta: {
-                title: this.$route.query.title,
-              },
-            })
+        const meta = { ...this.$route.meta, ...this.$route.query }
+        this.$nextTick(() => {
+          this.changeTabsMeta({
+            title: 'Iframe',
+            meta,
           })
+        })
       },
     },
   })

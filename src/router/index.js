@@ -227,7 +227,17 @@ export const asyncRoutes = [
           title: '描述',
           guard: ['Admin'],
           icon: 'slideshow-line',
-          badge: 'New',
+        },
+      },
+      {
+        path: 'calendar',
+        name: 'Calendar',
+        component: () => import('@/views/vab/calendar'),
+        meta: {
+          title: '日历',
+          guard: ['Admin'],
+          icon: 'calendar-check-line',
+          dot: true,
         },
       },
       {
@@ -464,6 +474,17 @@ export const asyncRoutes = [
         },
       },
       {
+        path: 'share',
+        name: 'Share',
+        component: () => import('@/views/other/share'),
+        meta: {
+          title: '分享',
+          guard: ['Admin'],
+          icon: 'share-line',
+          dot: true,
+        },
+      },
+      {
         path: 'dynamicAnchor',
         name: 'DynamicAnchor',
         component: () => import('@/views/other/dynamicAnchor'),
@@ -538,6 +559,15 @@ export const asyncRoutes = [
           icon: 'drag-drop-line',
         },
         children: [
+          {
+            path: 'dialogDrag',
+            name: 'DialogDrag',
+            component: () => import('@/views/other/drag/dialogDrag'),
+            meta: {
+              title: '弹窗拖拽',
+              dot: true,
+            },
+          },
           {
             path: 'cardDrag',
             name: 'CardDrag',
@@ -695,17 +725,15 @@ export const asyncRoutes = [
             },
           },
           {
-            path: 'view?url=https://www.so.com',
-            name: 'baiduIframe',
-            component: () => import('@/views/other/iframe/view'),
-            meta: { title: '360搜索', icon: 'search-line' },
+            path: 'view?url=https%3A%2Fwww.so.com&title=360%E6%90%9C%E7%B4%A2&icon=search-2-line',
+            name: 'Search360Iframe',
+            meta: { title: '360搜索', icon: 'search-2-line' },
           },
-          // {
-          //   path: 'view?url=https%3A%2Fgitee.com%2Fchu1204505056%2Fvue-admin-beautiful&title=Gitee',
-          //   name: 'githubIframe',
-          //   component: () => import('@/views/other/iframe/view'),
-          //   meta: { title: 'Gitee', icon: 'github-fill' },
-          // },
+          {
+            path: 'view?url=https%3A%2Fwww.bilibili.com&title=%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9&icon=bilibili-line',
+            name: 'BiliBiliIframe',
+            meta: { title: '哔哩哔哩', icon: 'bilibili-line' },
+          },
           {
             path: 'search',
             name: 'IframeSearch',
@@ -893,7 +921,7 @@ export const asyncRoutes = [
       {
         path: '//github.com/chuzhixin/vue-admin-beautiful?utm_source=gold_browser_extension',
         name: 'GithubExternalLink',
-        component: () => import('@/views/Github/GithubExternalLink/index'),
+        component: () => import('@/views/github/githubExternalLink/index'),
         meta: {
           title: '外链',
           icon: 'external-link-line',

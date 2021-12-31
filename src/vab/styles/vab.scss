@@ -80,6 +80,10 @@ html {
       @include base-scrollbar;
     }
 
+    [class*='ri-'] {
+      vertical-align: -3px !important;
+    }
+
     /*a标签 */
     a {
       color: var(--el-color-primary);
@@ -190,9 +194,11 @@ html {
     /* el-button按钮 */
     .el-button {
       border-radius: var(--el-border-radius-base);
+
       &.is-round {
         border-radius: var(--el-border-radius-round);
       }
+
       &.is-circle {
         border-radius: var(--el-border-radius-circle);
       }
@@ -202,6 +208,7 @@ html {
         font-size: 12px;
         vertical-align: -1.8px;
       }
+
       .el-icon {
         font-size: 12px;
       }
@@ -212,7 +219,7 @@ html {
     }
 
     a + a,
-    span + span,
+  /*   span + span, */
     a + .el-button,
     .el-button + a {
       margin-left: 10px;
@@ -452,6 +459,16 @@ html {
       margin-bottom: var(--vab-margin);
       border-radius: var(--el-border-radius-base);
 
+      &__header {
+        position: relative;
+
+        .card-header-tag {
+          position: absolute;
+          top: 15px;
+          right: 20px;
+        }
+      }
+
       &__body {
         padding: var(--vab-padding);
       }
@@ -517,6 +534,7 @@ html {
     .vab-table-expand {
       padding: var(--vab-padding);
       line-height: 30px;
+
       &-title {
         display: inline-block;
         width: 80px;

@@ -80,7 +80,6 @@
       width: calc(100% - 100px);
       margin-right: 45px;
       font-size: 12px;
-      font-weight: bold;
       font-weight: normal;
       line-height: 20px;
       color: #fff;

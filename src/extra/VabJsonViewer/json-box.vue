@@ -8,6 +8,7 @@
   import JsonFunction from './types/json-function.vue'
   import JsonDate from './types/json-date.vue'
   import { h } from 'vue'
+
   export default {
     name: 'JsonBox',
     inject: ['expandDepth'],
@@ -138,15 +139,19 @@
   .jv-node {
     position: relative;
   }
+
   .jv-node:after {
     content: ',';
   }
+
   .jv-node:last-of-type:after {
     content: '';
   }
+
   .jv-node.toggle {
     margin-left: 13px !important;
   }
+
   .jv-node .jv-node {
     margin-left: 25px;
   }

@@ -80,6 +80,7 @@
 
 <script>
   import {
+    defineAsyncComponent,
     defineComponent,
     getCurrentInstance,
     onMounted,
@@ -87,12 +88,16 @@
     toRefs,
   } from 'vue'
   import { doDelete, getList } from '@/api/departmentManagement'
-  import Edit from './components/DepartmentManagementEdit'
+
   import { Delete, Plus, Search } from '@element-plus/icons'
 
   export default defineComponent({
     name: 'DepartmentManagement',
-    components: { Edit },
+    components: {
+      Edit: defineAsyncComponent(() =>
+        import('./components/DepartmentManagementEdit')
+      ),
+    },
     setup() {
       const { proxy } = getCurrentInstance()
 

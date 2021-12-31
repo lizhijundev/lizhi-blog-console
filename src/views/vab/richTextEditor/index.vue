@@ -2,7 +2,7 @@
   <div class="rich-text-editor-container">
     <el-form ref="formRef" label-width="100px" :model="form" :rules="rules">
       <el-form-item label="标题" prop="title">
-        <el-input v-model="form.title" maxlength="20" />
+        <el-input v-model="form.title" v-focus maxlength="20" />
       </el-form-item>
       <el-form-item label="所属模块" prop="module">
         <el-select v-model="form.module">
@@ -49,6 +49,15 @@
   export default defineComponent({
     name: 'RichTextEditor',
     components: { VabQuill, VabUpload },
+    directives: {
+      focus: {
+        mounted(el) {
+          setTimeout(() => {
+            el.querySelector('input').focus()
+          }, 500)
+        },
+      },
+    },
     setup() {
       const { proxy } = getCurrentInstance()
 

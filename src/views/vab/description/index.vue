@@ -186,10 +186,12 @@
   .description-container {
     padding: 0 !important;
     background: $base-color-background !important;
+
     :deep() {
       .el-descriptions {
         padding-top: var(--vab-padding) !important;
       }
+
       .el-collapse {
         margin-top: var(--vab-margin) !important;
       }

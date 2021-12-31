@@ -113,8 +113,9 @@
       const handleActiveMenu = () =>
         routes.value.find((_route) => _route.name === extra.value.first)
       const handleTabClick = (handler) => {
-        if (handler !== true && openFirstMenu) router.push(handleActiveMenu())
-        if (isExternal(handleActiveMenu().path)) {
+        if (handler !== true && openFirstMenu && handleActiveMenu())
+          router.push(handleActiveMenu())
+        if (handleActiveMenu() && isExternal(handleActiveMenu().path)) {
           window.open(handleActiveMenu().path)
           setTimeout(() => {
             router.push('/')

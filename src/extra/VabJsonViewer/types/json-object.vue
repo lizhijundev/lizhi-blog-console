@@ -1,6 +1,7 @@
 <script>
   import JsonBox from '../json-box.vue'
   import { h } from 'vue'
+
   export default {
     name: 'JsonObject',
     props: {

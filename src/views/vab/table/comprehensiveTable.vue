@@ -196,6 +196,7 @@
       />
       <el-table-column
         align="center"
+        fixed="right"
         label="操作"
         show-overflow-tooltip
         width="170"
@@ -219,38 +220,37 @@
       @current-change="handleCurrentChange"
       @size-change="handleSizeChange"
     />
-    <table-edit ref="editRef" @fetch-data="fetchData" />
+    <edit ref="editRef" @fetch-data="fetchData" />
   </div>
 </template>
 
 <script>
   import {
     computed,
+    defineAsyncComponent,
     defineComponent,
     getCurrentInstance,
+    onActivated,
     onBeforeMount,
     onBeforeUnmount,
     onMounted,
     reactive,
     toRefs,
-    watch,
   } from 'vue'
   import { useStore } from 'vuex'
-  import { useRouter, useRoute } from 'vue-router'
+  import { useRouter } from 'vue-router'
   import { doDelete, getList } from '@/api/table'
   import { handleMatched, handleTabs } from '@/utils/routes'
-  import TableEdit from './components/TableEdit'
   import { Delete, Plus, Search } from '@element-plus/icons'
 
   export default defineComponent({
     name: 'ComprehensiveTable',
     components: {
-      TableEdit,
+      Edit: defineAsyncComponent(() => import('./components/TableEdit')),
     },
     setup() {
       const store = useStore()
       const router = useRouter()
-      const route = useRoute()
       const routes = computed(() => store.getters['routes/routes'])
       const changeTabsMeta = (options) =>
         store.dispatch('tabs/changeTabsMeta', options)
@@ -276,12 +276,10 @@
         },
       })
 
-      watch(
-        () => route.path,
-        (value) => {
-          if (value === '/vab/table/comprehensiveTable') fetchData()
-        }
-      )
+      onActivated(() => {
+        state['tableSortRef'].doLayout()
+        fetchData()
+      })
 
       const fetchData = async () => {
         state.listLoading = true
@@ -368,16 +366,13 @@
       const handleDetailStayTable = async () => {
         for (let i = 0; i < state.selectRows.length; i++) {
           const matched = handleMatched(routes.value, 'Detail')
-          const tab = handleTabs(
-            {
-              ...matched[matched.length - 1],
-              query: state.selectRows[i],
-            },
-            true
-          )
+          const tab = handleTabs({
+            ...matched[matched.length - 1],
+            query: state.selectRows[i],
+          })
           if (tab) {
             await addVisitedRoute(tab)
-            changeTabsMeta({
+            await changeTabsMeta({
               title: '详情页',
               meta: {
                 title: `${tab.query.title} 详情页`,

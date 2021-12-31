@@ -10,7 +10,9 @@
     <el-table :key="toggleIndex" ref="tableRef" border :data="data">
       <el-table-column v-if="drag" align="center" label="操作" width="50">
         <template #default>
-          <el-icon class="vab-rank" style="cursor: move"><rank /></el-icon>
+          <el-icon class="vab-rank" style="cursor: move">
+            <rank />
+          </el-icon>
         </template>
       </el-table-column>
 

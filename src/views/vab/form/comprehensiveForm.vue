@@ -95,7 +95,7 @@
 </template>
 
 <script>
-  import { defineComponent, reactive, toRefs } from 'vue'
+  import { defineComponent, onMounted, reactive, toRefs } from 'vue'
   import { getList } from '@/api/area'
 
   export default defineComponent({
@@ -195,7 +195,9 @@
         state[formName].resetFields()
       }
 
-      fetchData()
+      onMounted(() => {
+        fetchData()
+      })
 
       return {
         ...toRefs(state),

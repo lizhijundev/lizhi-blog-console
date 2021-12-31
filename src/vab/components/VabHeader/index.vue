@@ -125,6 +125,7 @@
           > .el-menu--horizontal.el-menu {
             > .el-sub-menu > .el-sub-menu__title {
               padding-right: 0;
+
               > .el-sub-menu__icon-arrow {
                 position: relative !important;
                 //margin-top: #{math.div($base-header-height - 11, 2)} !important;
@@ -133,6 +134,7 @@
                 margin-left: 30px;
               }
             }
+
             > .el-menu-item {
               .el-tag {
                 position: relative !important;
@@ -279,11 +281,13 @@ bug使用popper-append-to-body=false会导致多级路由无法显示，故所�
           display: none;
         }
       }
+
       .el-tag {
         position: absolute;
         right: 20px;
         margin-top: 0 !important;
       }
+
       .vab-dot {
         position: absolute;
         right: 20px;

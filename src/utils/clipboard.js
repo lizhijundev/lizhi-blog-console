@@ -2,11 +2,11 @@ import Clipboard from 'clipboard'
 import { gp } from '@vab'
 
 function clipboardSuccess(text) {
-  gp.$baseMessage(`复制${text}成功`, 'success', 'vab-hey-message-success')
+  gp.$baseMessage(`拷贝${text}成功`, 'success', 'vab-hey-message-success')
 }
 
 function clipboardError(text) {
-  gp.$baseMessage(`复制${text}失败`, 'error', 'vab-hey-message-success')
+  gp.$baseMessage(`拷贝${text}失败`, 'error', 'vab-hey-message-success')
 }
 
 /**

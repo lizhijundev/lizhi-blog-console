@@ -45,13 +45,12 @@
         </div>
         <el-button
           style="margin: 0 10px 10px 0 !important"
-          type="primary"
+          type="text"
           @click="clickFullScreen"
         >
           <vab-icon
             :icon="isFullscreen ? 'fullscreen-exit-fill' : 'fullscreen-fill'"
           />
-          表格全屏
         </el-button>
         <el-popover popper-class="custom-table-radio" trigger="hover">
           <el-radio-group v-model="lineHeight">
@@ -60,13 +59,17 @@
             <el-radio label="mini">小</el-radio>
           </el-radio-group>
           <template #reference>
-            <el-button style="margin: 0 10px 10px 0 !important" type="primary">
+            <el-button style="margin: 0 10px 10px 0 !important" type="text">
               <vab-icon icon="line-height" />
-              表格尺寸
             </el-button>
           </template>
         </el-popover>
         <el-popover popper-class="custom-table-checkbox" trigger="hover">
+          <template #reference>
+            <el-button style="margin: 0 0 10px 0 !important" type="text">
+              <vab-icon icon="settings-line" />
+            </el-button>
+          </template>
           <el-checkbox-group v-model="checkList">
             <vab-draggable
               v-bind="dragOptions"
@@ -86,15 +89,6 @@
               </template>
             </vab-draggable>
           </el-checkbox-group>
-          <template #reference>
-            <el-button
-              :icon="Setting"
-              style="margin: 0 0 10px 0 !important"
-              type="primary"
-            >
-              可拖拽列设置
-            </el-button>
-          </template>
         </el-popover>
       </vab-query-form-right-panel>
     </vab-query-form>
@@ -167,13 +161,14 @@
       @current-change="handleCurrentChange"
       @size-change="handleSizeChange"
     />
-    <table-edit ref="editRef" @fetch-data="fetchData" />
+    <edit ref="editRef" @fetch-data="fetchData" />
   </div>
 </template>
 
 <script>
   import {
     computed,
+    defineAsyncComponent,
     defineComponent,
     getCurrentInstance,
     onMounted,
@@ -181,14 +176,13 @@
     toRefs,
   } from 'vue'
   import { doDelete, getList } from '@/api/table'
-  import TableEdit from './components/TableEdit'
   import VabDraggable from 'vuedraggable'
   import { Delete, Plus, Search, Setting } from '@element-plus/icons'
 
   export default defineComponent({
     name: 'CustomTable',
     components: {
-      TableEdit,
+      Edit: defineAsyncComponent(() => import('./components/TableEdit')),
       VabDraggable,
     },
     setup() {
@@ -357,17 +351,27 @@
         cursor: pointer;
       }
     }
-
-    .stripe-panel,
-    .border-panel {
-      margin: 0 10px #{math.div($base-margin, 2)} 10px !important;
+    .right-panel {
+      .stripe-panel,
+      .border-panel {
+        margin: 0 10px #{math.div($base-margin, 2)} 10px !important;
+        :deep() {
+          .el-checkbox__label {
+            margin-left: 0 !important;
+          }
+        }
+      }
+      [class*='ri'] {
+        font-size: $base-font-size-big;
+        color: var(--el-color-black);
+      }
     }
   }
 </style>
 <style lang="scss">
-  .custom-table-checkbox {
+  html body .custom-table-checkbox {
     [class*='ri'] {
-      vertical-align: -2.5px;
+      vertical-align: -0.5px !important;
       cursor: pointer;
     }
 
@@ -375,6 +379,7 @@
       margin: 5px 0 5px 8px;
     }
   }
+
   .custom-table-radio {
     width: 240px !important;
   }

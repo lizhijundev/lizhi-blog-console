@@ -154,15 +154,18 @@
     position: relative;
     box-sizing: border-box;
   }
+
   .jv-container.boxed {
     border: 1px solid #eee;
     border-radius: 6px;
   }
+
   .jv-container.boxed:hover {
     position: relative;
     border-color: transparent;
     box-shadow: 0 2px 7px rgba(0, 0, 0, 0.15);
   }
+
   .jv-container.jv-light {
     font-family: Consolas, Menlo, Courier, monospace;
     font-size: 14px;
@@ -170,6 +173,7 @@
     white-space: nowrap;
     background: #fff;
   }
+
   .jv-container.jv-light .jv-ellipsis {
     display: inline-block;
     padding: 0px 4px 2px 4px;
@@ -183,59 +187,75 @@
     background-color: #eee;
     border-radius: 3px;
   }
+
   .jv-container.jv-light .jv-button {
     color: #49b3ff;
   }
+
   .jv-container.jv-light .jv-key {
     margin-right: 4px;
     color: #111111;
   }
+
   .jv-container.jv-light .jv-item.jv-array {
     color: #111111;
   }
+
   .jv-container.jv-light .jv-item.jv-boolean {
     color: #fc1e70;
   }
+
   .jv-container.jv-light .jv-item.jv-function {
     color: #067bca;
   }
+
   .jv-container.jv-light .jv-item.jv-number {
     color: #fc1e70;
   }
+
   .jv-container.jv-light .jv-item.jv-object {
     color: #111111;
   }
+
   .jv-container.jv-light .jv-item.jv-undefined {
     color: #e08331;
   }
+
   .jv-container.jv-light .jv-item.jv-string {
     color: #42b983;
     word-break: break-word;
     white-space: normal;
   }
+
   .jv-container.jv-light .jv-item.jv-string .jv-link {
     color: #0366d6;
   }
+
   .jv-container.jv-light .jv-code .jv-toggle:before {
     padding: 0px 2px;
     border-radius: 2px;
   }
+
   .jv-container.jv-light .jv-code .jv-toggle:hover:before {
     background: #eee;
   }
+
   .jv-container .jv-code {
     padding: 30px 20px;
     overflow: hidden;
   }
+
   .jv-container .jv-code.boxed {
     max-height: 300px;
   }
+
   .jv-container .jv-code.open {
     max-height: initial !important;
     padding-bottom: 45px;
     overflow: visible;
     overflow-x: auto;
   }
+
   .jv-container .jv-toggle {
     display: inline-block;
     width: 10px;
@@ -248,9 +268,11 @@
     background-size: contain;
     transition: transform 0.1s;
   }
+
   .jv-container .jv-toggle.open {
     transform: rotate(90deg);
   }
+
   .jv-container .jv-more {
     position: absolute;
     right: 0;
@@ -262,6 +284,7 @@
     text-align: center;
     cursor: pointer;
   }
+
   .jv-container .jv-more .jv-toggle {
     position: relative;
     top: 40%;
@@ -270,9 +293,11 @@
     transition: all 0.1s;
     transform: rotate(90deg);
   }
+
   .jv-container .jv-more .jv-toggle.open {
     transform: rotate(-90deg);
   }
+
   .jv-container .jv-more:after {
     position: absolute;
     bottom: 0;
@@ -288,10 +313,12 @@
     );
     transition: all 0.1s;
   }
+
   .jv-container .jv-more:hover .jv-toggle {
     top: 50%;
     color: #111;
   }
+
   .jv-container .jv-more:hover:after {
     background: linear-gradient(
       to bottom,
@@ -299,6 +326,7 @@
       rgba(230, 230, 230, 0.3) 100%
     );
   }
+
   .jv-container .jv-button {
     position: relative;
     z-index: 5;
@@ -306,19 +334,24 @@
     padding: 5px;
     cursor: pointer;
   }
+
   .jv-container .jv-button.copied {
     cursor: default;
     opacity: 0.4;
   }
+
   .jv-container .jv-tooltip {
     position: absolute;
   }
+
   .jv-container .jv-tooltip.right {
     right: 15px;
   }
+
   .jv-container .jv-tooltip.left {
     left: 15px;
   }
+
   .jv-container .j-icon {
     font-size: 12px;
   }

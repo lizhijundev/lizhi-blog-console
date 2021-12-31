@@ -27,7 +27,7 @@
 
 <script>
   import { computed, defineComponent, getCurrentInstance } from 'vue'
-  import { mapActions, useStore } from 'vuex'
+  import { useStore } from 'vuex'
   import { useRoute, useRouter } from 'vue-router'
   import { isExternal } from '@/utils/validate'
   import { translateTitle } from '@/utils/i18n'
@@ -47,8 +47,8 @@
       const store = useStore()
       const route = useRoute()
       const router = useRouter()
-
       const device = computed(() => store.getters['settings/device'])
+      const foldSideBar = () => store.dispatch('settings/foldSideBar')
 
       const { proxy } = getCurrentInstance()
 
@@ -71,9 +71,7 @@
       }
 
       return {
-        ...mapActions({
-          foldSideBar: 'settings/foldSideBar',
-        }),
+        foldSideBar,
         handleLink,
         translateTitle,
       }

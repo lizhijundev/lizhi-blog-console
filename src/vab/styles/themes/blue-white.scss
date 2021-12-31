@@ -23,11 +23,21 @@ body.vab-theme-blue-white {
     &:hover {
       color: $base-color-blue !important;
       background-color: $base-color-blue-light !important;
+      svg,
+      i,
+      span[title] {
+        color: $base-color-blue !important;
+      }
     }
 
     &.is-active {
       color: $base-color-blue !important;
       background-color: $base-color-blue-light !important;
+      svg,
+      i,
+      span[title] {
+        color: $base-color-blue !important;
+      }
     }
   }
 
@@ -124,10 +134,7 @@ body.vab-theme-blue-white {
     .el-menu {
       @include container;
 
-      .el-sub-menu__title {
-        @include container;
-      }
-
+      .el-sub-menu .el-sub-menu__title,
       .el-menu-item {
         @include container;
       }
@@ -160,39 +167,46 @@ body.vab-theme-blue-white {
   .vab-header {
     @include container;
 
-    .right-panel {
-      .user-name,
-      .user-name *,
-      > i,
-      > div > i,
-      > span > i,
-      > div > span > i,
-      > svg,
-      > div > svg,
-      > span > svg,
-      > div > span > svg {
-        @include container;
-      }
-    }
-
     .vab-main {
       @include container;
 
-      .ri-notification-line {
-        color: #515a6e !important;
-      }
+      .right-panel {
+        .user-name,
+        .user-name *,
+        > i,
+        > div > i,
+        > span > i,
+        > div > span > i,
+        > svg,
+        > div > svg,
+        > span > svg,
+        > div > span > svg,
+        .ri-notification-line,
+        .ri-translate,
+        .ri-bug-line {
+          @include container;
+        }
 
-      .el-menu {
-        &--horizontal {
-          .el-menu-item {
-            &.is-active {
+        .el-menu {
+          &--horizontal {
+            .el-sub-menu .el-sub-menu__title,
+            .el-menu-item {
               @include active;
             }
-          }
 
-          .el-sub-menu,
-          .el-menu-item {
-            @include active;
+            .el-sub-menu,
+            .el-menu-item {
+              &.is-active {
+                @include active;
+              }
+            }
+
+            .el-sub-menu.is-active {
+              .el-sub-menu__title {
+                background-color: $base-color-blue-light !important;
+                @include active;
+              }
+            }
           }
         }
       }
@@ -293,10 +307,12 @@ body.vab-theme-blue-white {
   .el-menu {
     border-right: 0;
   }
+
   .el-popper .el-menu--vertical .el-sub-menu.is-active .el-sub-menu__title,
   .el-menu--collapse.el-menu li.el-sub-menu.is-active > .el-sub-menu__title {
     color: $base-color-blue !important;
     background-color: $base-color-blue-light !important;
+
     i {
       color: $base-color-blue !important;
     }
@@ -311,14 +327,14 @@ body.vab-theme-blue-white {
       }
 
       .el-menu-item,
-      .el-sub-menu {
+      .el-sub-menu .el-sub-menu__title {
         color: $base-color-black !important;
         background: $base-color-white !important;
+      }
 
-        .el-sub-menu__title {
-          color: $base-color-black !important;
-          background: $base-color-white !important;
-        }
+      .el-sub-menu .el-sub-menu__title,
+      .el-menu-item {
+        @include active;
       }
     }
 

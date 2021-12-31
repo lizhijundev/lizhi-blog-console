@@ -225,6 +225,7 @@
         }
       }
     }
+
     .task-item {
       min-height: 255px;
       max-height: 255px;
@@ -234,6 +235,7 @@
         width: 150px;
         margin: 0 auto 20px auto;
       }
+
       &-bottom {
         display: flex;
         align-items: center;
@@ -250,6 +252,7 @@
         }
       }
     }
+
     .task-add {
       display: flex;
       flex-direction: column;

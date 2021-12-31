@@ -57,9 +57,9 @@
             {{
               item === 'read:system'
                 ? '读'
-                : 'wirte:system'
+                : item === 'write:system'
                 ? '写'
-                : 'delete:system'
+                : item === 'delete:system'
                 ? '删'
                 : '无'
             }}
@@ -100,6 +100,7 @@
 
 <script>
   import {
+    defineAsyncComponent,
     defineComponent,
     getCurrentInstance,
     onMounted,
@@ -107,12 +108,15 @@
     toRefs,
   } from 'vue'
   import { doDelete, getList } from '@/api/roleManagement'
-  import Edit from './components/RoleManagementEdit'
   import { Delete, Plus, Search } from '@element-plus/icons'
 
   export default defineComponent({
     name: 'RoleManagement',
-    components: { Edit },
+    components: {
+      Edit: defineAsyncComponent(() =>
+        import('./components/RoleManagementEdit')
+      ),
+    },
     setup() {
       const { proxy } = getCurrentInstance()
 

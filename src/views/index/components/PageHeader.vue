@@ -39,7 +39,7 @@
           {
             avatar:
               'https://gitee.com/chu1204505056/image/raw/master/user/fwfmiao.gif',
-            username: 'fwfmiao',
+            username: 'LiufengFish',
           },
           {
             avatar: 'https://i.gtimg.cn/club/item/face/img/3/15643_100.gif',

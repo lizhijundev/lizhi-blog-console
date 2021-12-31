@@ -179,18 +179,17 @@
       }
       const initNoCLosableTabs = (routes) => {
         routes.forEach((_route) => {
-          if (_route.meta && _route.meta.noClosable) addTabs(_route, true)
+          if (_route.meta && _route.meta.noClosable) addTabs(_route)
           if (_route.children) initNoCLosableTabs(_route.children)
         })
       }
       /**
        * 添加标签页
        * @param tag route
-       * @param init 是否是从router获取路由
        * @returns {Promise<void>}
        */
-      const addTabs = async (tag, init = false) => {
-        const tab = handleTabs(tag, init)
+      const addTabs = async (tag) => {
+        const tab = handleTabs(tag)
         if (tab) {
           await addVisitedRoute(tab)
           tabActive.value = tab.path

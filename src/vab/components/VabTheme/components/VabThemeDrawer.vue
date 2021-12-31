@@ -388,7 +388,7 @@
 <style lang="scss">
   .vab-drawer {
     .el-drawer__header {
-      padding: $base-padding$base-padding 0 $base-padding;
+      padding: $base-padding $base-padding 0 $base-padding;
       margin-bottom: 0;
     }
 
@@ -442,17 +442,21 @@
             margin: 10px;
             cursor: pointer;
             border-radius: 5px;
+
             &.is-disabled {
               cursor: not-allowed;
               opacity: 0.6;
             }
+
             &.is-active {
               box-shadow: 0 0 2px 2px #1890ff;
             }
+
             .el-radio-button__orig-radio,
             .el-radio-button__inner {
               display: none;
             }
+
             &.none {
               font-family: 'remixicon', sans-serif !important;
               font-size: 16px;
@@ -461,10 +465,12 @@
               text-align: center;
               background: #f7f7f7 none;
               background-size: cover;
+
               &:before {
                 content: '\eace';
               }
             }
+
             &.vab-background {
               background: url(~@/assets/theme_images/background-1.png);
               background-size: cover;

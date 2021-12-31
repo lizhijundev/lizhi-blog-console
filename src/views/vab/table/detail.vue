@@ -11,10 +11,17 @@
       <el-form-item label="输入框缓存">
         <el-input v-model="form.text" />
       </el-form-item>
+      <el-form-item :label-width="0">
+        <el-button
+          :icon="Refresh"
+          type="primary"
+          @click="handleRefreshMainPage"
+        >
+          刷新综合表格页面
+        </el-button>
+      </el-form-item>
     </el-form>
-    <el-button :icon="Refresh" type="primary" @click="handleRefreshMainPage">
-      刷新综合表格页面
-    </el-button>
+
     <el-descriptions border :column="3" title="详情">
       <template #extra>
         <el-button size="small" type="primary">操作</el-button>
@@ -57,7 +64,7 @@
   import {
     defineComponent,
     getCurrentInstance,
-    nextTick,
+    onMounted,
     reactive,
     toRefs,
   } from 'vue'
@@ -84,6 +91,7 @@
 
       const state = reactive({
         route: { query: { title: '加载中' } },
+        rate: 0,
         form: {
           text: '',
         },
@@ -100,7 +108,7 @@
         proxy.$pub('reload-router-view', 'ComprehensiveTable')
       }
 
-      nextTick(() => {
+      onMounted(() => {
         changeTabsMeta({
           title: '详情页',
           meta: {
@@ -111,25 +119,15 @@
         state.route = {
           path: route.path,
           params: route.params,
-          query: route.query,
+          query: { ...route.query, ...{ rate: parseInt(route.query.rate) } },
           name: route.name,
           meta: route.meta,
         }
       })
 
-      const jsonData = {
-        name: 'qiu', //字符串
-        age: 18, //数组
-        isMan: false, //布尔值
-        date: new Date(),
-        fn: () => {},
-        arr: [1, 2, 5],
-      }
-
       return {
         ...toRefs(state),
         goBack,
-        jsonData,
         handleRefreshMainPage,
         Refresh,
       }

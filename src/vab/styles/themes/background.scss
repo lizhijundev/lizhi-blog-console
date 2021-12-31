@@ -38,12 +38,14 @@
       .el-sub-menu__title {
         @include transparent;
         @include active;
+
         i,
         svg {
           @include transparent;
         }
       }
     }
+
     .logo-container-vertical,
     .logo-container-comprehensive,
     .logo-container-float {
@@ -68,6 +70,7 @@
           }
         }
       }
+
       .el-tabs {
         .el-tabs__nav-wrap.is-left {
           @include container;
@@ -83,6 +86,7 @@
           }
         }
       }
+
       &.vab-column-bar-container-card {
         .el-tabs {
           .el-tabs__item {

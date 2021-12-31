@@ -131,6 +131,7 @@
 
 <script>
   import {
+    defineAsyncComponent,
     defineComponent,
     getCurrentInstance,
     onMounted,
@@ -139,12 +140,15 @@
   } from 'vue'
   import { getList } from '@/api/router'
   import { doDelete, getTree } from '@/api/menuManagement'
-  import Edit from './components/MenuManagementEdit'
   import { Plus } from '@element-plus/icons'
 
   export default defineComponent({
     name: 'MenuManagement',
-    components: { Edit },
+    components: {
+      Edit: defineAsyncComponent(() =>
+        import('./components/MenuManagementEdit')
+      ),
+    },
     setup() {
       const { proxy } = getCurrentInstance()
 

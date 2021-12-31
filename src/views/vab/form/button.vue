@@ -129,15 +129,15 @@
 <script>
   import { defineComponent } from 'vue'
   import {
-    Search,
-    Edit,
-    Check,
-    Message,
-    Star,
-    Delete,
     ArrowLeft,
-    Share,
     ArrowRight,
+    Check,
+    Delete,
+    Edit,
+    Message,
+    Search,
+    Share,
+    Star,
   } from '@element-plus/icons'
 
   export default defineComponent({

@@ -2,9 +2,9 @@
   <vab-icon icon="lock-line" @click="handleLock" />
 
   <transition mode="out-in" name="fade-transform">
-    <div v-if="lock" class="vab-scren-lock">
+    <div v-if="lock" class="vab-screen-lock">
       <div
-        class="vab-scren-lock-background"
+        class="vab-screen-lock-background"
         :style="{
           background: `fixed url(${background}) center`,
           backgroundSize: '100% 100%',
@@ -12,16 +12,16 @@
         }"
       ></div>
 
-      <div class="vab-scren-lock-content">
-        <div class="vab-scren-lock-content-title">
-          <el-avatar :size="200" :src="avatar" />
+      <div class="vab-screen-lock-content">
+        <div class="vab-screen-lock-content-title">
+          <el-avatar :size="180" :src="avatar" />
           <vab-icon :icon="lockIcon ? 'lock-line' : 'lock-unlock-line'" />
 
           {{ title }} 屏幕已锁定
 
           {{ time }}
         </div>
-        <div class="vab-scren-lock-content-form">
+        <div class="vab-screen-lock-content-form">
           <el-form ref="formRef" :model="form" :rules="rules" @submit.prevent>
             <el-form-item label="" :label-width="0" prop="password">
               <el-input
@@ -97,7 +97,7 @@
 
       const handleLock = () => {
         store.dispatch('settings/lock')
-        if (document.getElementsByClassName('vab-side-bar'))
+        if (document.getElementsByClassName('vab-side-bar')[0])
           document.getElementsByClassName('vab-side-bar')[0].style.display =
             'none'
       }
@@ -110,7 +110,7 @@
               await store.dispatch('settings/unLock')
               state.lockIcon = true
               await redomBackground()
-              if (document.getElementsByClassName('vab-side-bar'))
+              if (document.getElementsByClassName('vab-side-bar')[0])
                 document.getElementsByClassName(
                   'vab-side-bar'
                 )[0].style.display = ''
@@ -132,7 +132,7 @@
         }, 1000)
 
         if (lock.value) {
-          if (document.getElementsByClassName('vab-side-bar'))
+          if (document.getElementsByClassName('vab-side-bar')[0])
             document.getElementsByClassName('vab-side-bar')[0].style.display =
               'none'
         }
@@ -152,7 +152,7 @@
 </script>
 
 <style lang="scss" scoped>
-  .vab-scren-lock {
+  .vab-screen-lock {
     position: fixed;
     top: 0;
     right: 0;
@@ -164,7 +164,7 @@
     align-items: center;
     justify-content: center;
     font-weight: bold;
-    background-color: rgba(255, 255, 255, 0.5);
+    background-color: rgba(255, 255, 255, 0.6);
     transition: $base-transition;
     backdrop-filter: blur(10px);
 
@@ -179,8 +179,12 @@
 
     &-content {
       z-index: $base-z-index;
-      color: var(--el-color-grey);
+      padding: 40px 95px 40px 95px;
+      color: #252a30;
       text-align: center;
+      background: rgba(255, 255, 255, 0.6);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
 
       > span {
         font-size: $base-font-size-small;
@@ -188,16 +192,16 @@
       }
 
       &-title {
-        line-height: 40px;
-        color: var(--el-color-grey);
+        line-height: 50px;
+        color: #252a30;
         text-align: center;
 
         .ri-lock-line,
         .ri-lock-unlock-line {
           display: block;
           margin: auto !important;
-          font-size: 40px;
-          color: var(--el-color-grey);
+          font-size: 30px;
+          color: #252a30 !important;
           transition: $base-transition;
         }
       }
@@ -216,6 +220,13 @@
             .el-button {
               border-top-left-radius: 0;
               border-bottom-left-radius: 0;
+              i {
+                margin-left: 0 !important;
+              }
+            }
+
+            .el-input__validateIcon {
+              display: none;
             }
           }
         }

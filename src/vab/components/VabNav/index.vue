@@ -80,7 +80,10 @@
         routes.value.find((_route) => _route.name === extra.value.first)
 
       const handleTabClick = (handler) => {
-        if (handler !== true && openFirstMenu) router.push(handleActiveMenu())
+        if (handler !== true && openFirstMenu) {
+          const { redirect } = handleActiveMenu()
+          router.push(redirect ? redirect : handleActiveMenu())
+        }
       }
 
       watch(
