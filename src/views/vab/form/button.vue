@@ -115,19 +115,14 @@
         <span>不同尺寸</span>
       </template>
       <el-button>默认按钮</el-button>
-      <el-button size="medium">中等按钮</el-button>
       <el-button size="small">小型按钮</el-button>
-      <el-button size="mini">超小按钮</el-button>
       <el-button round>默认按钮</el-button>
-      <el-button round size="medium">中等按钮</el-button>
       <el-button round size="small">小型按钮</el-button>
-      <el-button round size="mini">超小按钮</el-button>
     </vab-card>
   </div>
 </template>
 
 <script>
-  import { defineComponent } from 'vue'
   import {
     ArrowLeft,
     ArrowRight,
@@ -138,7 +133,7 @@
     Search,
     Share,
     Star,
-  } from '@element-plus/icons'
+  } from '@element-plus/icons-vue'
 
   export default defineComponent({
     name: 'Button',
@@ -167,6 +162,7 @@
       .el-button {
         &:first-child {
           margin-right: 10px;
+          margin-bottom: 10px;
         }
 
         & + .el-button {

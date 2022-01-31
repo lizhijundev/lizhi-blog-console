@@ -42,14 +42,13 @@
 </template>
 
 <script>
-  import { defineComponent, getCurrentInstance, reactive, toRefs } from 'vue'
   import { doEdit, getList } from '@/api/departmentManagement'
 
   export default defineComponent({
     name: 'DepartmentManagementEdit',
     emits: ['fetch-data'],
     setup(props, { emit }) {
-      const { proxy } = getCurrentInstance()
+      const $baseMessage = inject('$baseMessage')
 
       const state = reactive({
         formRef: null,
@@ -104,7 +103,7 @@
         state['formRef'].validate(async (valid) => {
           if (valid) {
             const { msg } = await doEdit(state.form)
-            proxy.$baseMessage(msg, 'success', 'vab-hey-message-success')
+            $baseMessage(msg, 'success', 'vab-hey-message-success')
             emit('fetch-data')
             close()
           }

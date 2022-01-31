@@ -14,8 +14,7 @@
 </template>
 
 <script>
-  import { defineComponent } from 'vue'
-  import VabChart from '@/extra/VabChart'
+  import VabChart from '@/plugins/VabChart'
 
   export default defineComponent({
     name: 'VabChartRadar',
@@ -42,11 +41,11 @@
           },
           radar: {
             indicator: [
-              { name: '销售', max: 6500 },
-              { name: '管理', max: 16000 },
-              { name: '信息技术', max: 30000 },
-              { name: '客服', max: 38000 },
-              { name: '研发', max: 52000 },
+              { name: '销售' },
+              { name: '管理' },
+              { name: '信息技术' },
+              { name: '客服' },
+              { name: '研发' },
             ],
           },
           series: [

@@ -45,7 +45,6 @@
 </template>
 
 <script>
-  import { defineComponent } from 'vue'
   import { getList } from '@/api/table'
   import { parseTime } from '@/utils'
 

@@ -13,7 +13,7 @@ export function convertRouter(asyncRoutes) {
   return asyncRoutes.map((route) => {
     if (route.component) {
       if (route.component === 'Layout') {
-        route.component = () => import('@/vab/layouts')
+        route.component = () => import('@vab/layouts')
       } else {
         const index = route.component.indexOf('views')
         const path =
@@ -51,15 +51,15 @@ export function filterRoutes(routes, rolesControl, baseUrl = '/') {
       if (route.children && route.children.length > 0) {
         route.children = filterRoutes(route.children, rolesControl, route.path)
         if (route.children.length > 0) {
-          route.childrenNameList = route.children.flatMap(
-            (_) => _.childrenNameList
+          route.childrenPathList = route.children.flatMap(
+            (_) => _.childrenPathList
           )
           if (!route.redirect)
             route.redirect = route.children[0].redirect
               ? route.children[0].redirect
               : route.children[0].path
         }
-      } else route.childrenNameList = [route.name]
+      } else route.childrenPathList = [route.path]
       return route
     })
 }
@@ -72,7 +72,7 @@ export function filterRoutes(routes, rolesControl, baseUrl = '/') {
  */
 export function handleMatched(routes, name) {
   return routes
-    .filter((route) => route.childrenNameList.indexOf(name) + 1)
+    .filter((route) => route.childrenPathList.indexOf(name) + 1)
     .flatMap((route) =>
       route.children ? [route, ...handleMatched(route.children, name)] : [route]
     )

@@ -24,19 +24,10 @@ export default function registerDownload(lf) {
       }
 
       getShape() {
-        const attributes = this.getAttributes()
-        const {
-          width,
-          height,
-          x,
-          y,
-          fill,
-          fillOpacity,
-          strokeWidth,
-          stroke,
-          strokeOpacity,
-          points,
-        } = attributes
+        const { model } = this.props
+        const { width, height, x, y, fillOpacity, strokeOpacity, points } =
+          model
+        const style = model.getNodeStyle()
         const transform = `matrix(1 0 0 1 ${x - width / 2} ${y - height / 2})`
         const pointsPath = points.map((point) => point.join(',')).join(' ')
         return h(
@@ -46,10 +37,8 @@ export default function registerDownload(lf) {
           },
           [
             h('polygon', {
+              ...style,
               points: pointsPath,
-              fill,
-              stroke,
-              strokeWidth,
               strokeOpacity,
               fillOpacity,
             }),

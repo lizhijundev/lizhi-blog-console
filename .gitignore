@@ -42,6 +42,6 @@ public/video
 *.zip
 *.7z
 *.rar
-src/vab/styles/themes/red.scss
-/src/vab/styles/themes/red-black.scss
-/src/vab/styles/themes/red-white.scss
+library/build/vuePlugins/unplugin/auto-imports.d.ts
+library/build/vuePlugins/unplugin/components.d.ts
+/library/styles/variables/vab-red-variables.scss

@@ -7,8 +7,6 @@
 </template>
 
 <script>
-  import { defineComponent, ref } from 'vue'
-
   export default defineComponent({
     name: 'Menu1111',
     setup() {
@@ -20,5 +18,3 @@
     },
   })
 </script>
-
-<style lang="scss" scoped></style>

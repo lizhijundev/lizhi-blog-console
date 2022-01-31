@@ -2,14 +2,13 @@ export default function registerStart(lf) {
   lf.register('start', ({ CircleNode, CircleNodeModel, h }) => {
     class StartNode extends CircleNode {
       getLabelShape() {
-        const attributes = this.getAttributes()
-        const { x, y } = attributes
+        const { x, y } = this.props.model
         return h(
           'text',
           {
             fill: '#000000',
             fontSize: 12,
-            x: x - 12,
+            x: x - 13,
             y: y + 4,
             width: 50,
             height: 25,
@@ -19,16 +18,14 @@ export default function registerStart(lf) {
       }
 
       getShape() {
-        const attributes = this.getAttributes()
-        const { x, y, r, fill, stroke, strokeWidth } = attributes
+        const { model } = this.props
+        const { x, y } = model
+        const style = model.getNodeStyle()
         return h('g', {}, [
           h('circle', {
+            ...style,
             cx: x,
             cy: y,
-            r,
-            fill,
-            stroke,
-            strokeWidth,
           }),
           this.getLabelShape(),
         ])

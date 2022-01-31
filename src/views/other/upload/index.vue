@@ -12,8 +12,7 @@
 </template>
 
 <script>
-  import VabUpload from '@/extra/VabUpload'
-  import { defineComponent, ref } from 'vue'
+  import VabUpload from '@/plugins/VabUpload'
 
   export default defineComponent({
     name: 'Upload',

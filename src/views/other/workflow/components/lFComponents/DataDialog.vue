@@ -5,8 +5,7 @@
 </template>
 
 <script>
-  import { defineComponent } from 'vue'
-  import VabJsonViewer from '@/extra/VabJsonViewer'
+  import VabJsonViewer from 'vue-json-viewer'
 
   export default defineComponent({
     components: { VabJsonViewer },

@@ -108,9 +108,8 @@
 </template>
 
 <script>
-  import { defineComponent, onMounted, reactive, toRefs } from 'vue'
   import { getList } from '@/api/systemLog'
-  import { Search } from '@element-plus/icons'
+  import { Search } from '@element-plus/icons-vue'
 
   export default defineComponent({
     name: 'SystemLog',

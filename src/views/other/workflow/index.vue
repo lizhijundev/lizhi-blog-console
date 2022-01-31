@@ -1,11 +1,11 @@
 <template>
   <div class="workflow-container">
     <!-- 辅助工具栏 -->
-    <Control v-if="lf" class="vab-control" :lf="lf" @cat-data="$_catData" />
+    <Control v-if="lf" class="vab-control" :lf="lf" @cat-data="catData" />
     <!-- 节点面板 -->
     <NodePanel :lf="lf" />
     <!-- 画布 -->
-    <div id="left-view"></div>
+    <div id="container" ref="container"></div>
     <!-- 用户节点自定义操作面板 -->
     <AddPanel
       v-if="showAddPanel"
@@ -38,7 +38,6 @@
 </template>
 
 <script>
-  import { defineComponent } from 'vue'
   import { getList } from '@/api/workflow'
   import LogicFlow from '@logicflow/core'
   import { Menu, Snapshot } from '@logicflow/extension'
@@ -93,9 +92,9 @@
         const _this = this
         // 画布配置
         const config = {
-          container: document.querySelector('#left-view'),
+          container: this.$refs.container,
           background: {
-            color: '#f7f9ff',
+            backgroundColor: '#f7f9ff',
           },
           grid: {
             size: 10,
@@ -122,15 +121,16 @@
         // 使用插件
         LogicFlow.use(Menu)
         LogicFlow.use(Snapshot)
-        const lf = new LogicFlow({ ...config })
-        this.lf = lf
+        // 渲染画布
+        this.lf = new LogicFlow({ ...config })
+
         // 菜单配置文档：http://logic-flow.org/guide/extension/extension-components.html#%E8%8F%9C%E5%8D%95
         // 重置，增加，节点自由配置(以user节点为示例)
-        lf.setMenuConfig({
+        this.lf.setMenuConfig({
           nodeMenu: [],
           edgeMenu: [],
         })
-        lf.addMenuConfig({
+        this.lf.addMenuConfig({
           nodeMenu: [
             {
               text: '分享',
@@ -163,7 +163,7 @@
           ],
         })
         // 设置主题
-        lf.setTheme({
+        this.lf.setTheme({
           circle: {
             r: 20,
             stroke: '#000000',
@@ -194,27 +194,27 @@
             },
           },
         })
-        this.$_registerNode()
+        this.registerNode()
       },
       // 自定义
-      $_registerNode() {
+      registerNode() {
         registerStart(this.lf)
         registerUser(this.lf)
         registerEnd(this.lf)
         registerPush(this.lf, this.clickPlus, this.mouseDownPlus)
         registerDownload(this.lf)
         registerPolyline(this.lf)
-        this.$_render()
+        this.render()
       },
-      $_render() {
+      render() {
         this.lf.render(this.data)
-        this.$_LfEvent()
+        this.event()
       },
-      $_getData() {
+      getData() {
         const data = this.lf.getGraphData()
         console.log(JSON.stringify(data))
       },
-      $_LfEvent() {
+      event() {
         this.lf.on('node:click', ({ data }) => {
           console.log('node:click', data)
           this.clickNode = data
@@ -264,7 +264,7 @@
       closeDialog() {
         this.dialogVisible = false
       },
-      $_catData() {
+      catData() {
         this.graphData = this.lf.getGraphData()
         this.dataVisible = true
       },
@@ -283,8 +283,8 @@
       z-index: 2;
     }
 
-    #left-view {
-      height: $base-keep-alive-height;
+    #container {
+      height: calc(#{$base-keep-alive-height} - #{$base-padding} * 2);
       outline: none;
     }
 

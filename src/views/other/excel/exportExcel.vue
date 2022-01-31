@@ -56,7 +56,6 @@
 </template>
 
 <script>
-  import { defineComponent } from 'vue'
   import { getList } from '@/api/table'
 
   export default defineComponent({

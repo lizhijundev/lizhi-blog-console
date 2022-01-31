@@ -47,20 +47,20 @@
 </template>
 
 <script>
-  import { defineComponent, getCurrentInstance } from 'vue'
-
   export default defineComponent({
     name: 'Loading',
     setup() {
-      const { proxy } = getCurrentInstance()
+      const $baseLoading = inject('$baseLoading')
+      const $baseColorfullLoading = inject('$baseColorfullLoading')
+
       const handleLoading = (index) => {
-        const Loading = proxy.$baseLoading(index)
+        const Loading = $baseLoading(index)
         setTimeout(() => {
           Loading.close()
         }, 3000)
       }
       const handleColorfullLoading = (index) => {
-        const Loading = proxy.$baseColorfullLoading(index)
+        const Loading = $baseColorfullLoading(index)
         setTimeout(() => {
           Loading.close()
         }, 3000)

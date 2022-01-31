@@ -48,10 +48,9 @@
               <li>
                 <el-divider />
                 <h5>个性标签</h5>
-                <el-tag size="small">腹黑</el-tag>
-                <el-tag size="small">怕麻烦</el-tag>
-                <el-tag size="small">小仙女</el-tag>
-                <el-tag size="small">仙气飘飘</el-tag>
+                <el-tag v-for="tag in dynamicTags" :key="tag">
+                  {{ tag }}
+                </el-tag>
               </li>
             </ul>
           </div>
@@ -79,6 +78,34 @@
                   <el-form-item label="个人简介">
                     <el-input v-model="form.description" type="textarea" />
                   </el-form-item>
+                  <el-form-item label="标签">
+                    <el-tag
+                      v-for="tag in dynamicTags"
+                      :key="tag"
+                      closable
+                      :disable-transitions="false"
+                      @close="handleClose(tag)"
+                    >
+                      {{ tag }}
+                    </el-tag>
+                    <el-input
+                      v-if="inputVisible"
+                      ref="inputRef"
+                      v-model="inputValue"
+                      size="small"
+                      style="width: 100px; margin-left: 10px"
+                      @blur="handleInputConfirm"
+                      @keyup.enter="handleInputConfirm"
+                    />
+                    <el-button
+                      v-else
+                      size="small"
+                      style="margin-left: 10px"
+                      @click="showInput"
+                    >
+                      添加
+                    </el-button>
+                  </el-form-item>
                   <el-form-item>
                     <el-button type="primary" @click="onSubmit">保存</el-button>
                   </el-form-item>
@@ -91,7 +118,7 @@
                 <div class="personal-center-item-content">
                   <div>绑定QQ</div>
                   <div class="personal-center-item-content-second">
-                    1204505056
+                    当前未绑定绑定QQ账号
                   </div>
                 </div>
                 <el-link type="primary">更换绑定</el-link>
@@ -162,52 +189,71 @@
 </template>
 
 <script>
-  import {
-    computed,
-    defineComponent,
-    getCurrentInstance,
-    reactive,
-    toRefs,
-  } from 'vue'
-  import { useStore } from 'vuex'
-  import VabCropper from '@/extra/VabCropper'
+  import { useUserStore } from '@/store/modules/user'
+  import VabCropper from '@/plugins/VabCropper'
 
   export default defineComponent({
     name: 'PersonalCenter',
     components: { VabCropper },
     setup() {
-      const store = useStore()
+      const $baseMessage = inject('$baseMessage')
 
-      const { proxy } = getCurrentInstance()
+      const userStore = useUserStore()
+      const { avatar } = storeToRefs(userStore)
 
-      const _fullName = unescape('\u695a\u829d\u99a8')
       const _description = unescape(
         '\u5bcc\u5728\u672f\u6570\uff0c\u4e0d\u5728\u52b3\u8eab\uff1b\u5229\u5728\u52bf\u5c45\uff0c\u4e0d\u5728\u529b\u8015\u3002'
       )
 
       const state = reactive({
         vabCropperRef: null,
-        activeName: 'second',
+        activeName: 'first',
         form: {
-          fullName: _fullName,
+          fullName: 'chuzhixin',
           nickname: 'good luck',
           sex: 2,
           description: _description,
         },
+        inputRef: null,
+        dynamicTags: ['腹黑', '怕麻烦', '小仙女', '仙气飘飘'],
+        inputVisible: false,
+        inputValue: '',
       })
 
       const openDialog = () => {
         state['vabCropperRef'].dialogVisible = true
       }
       const onSubmit = () => {
-        proxy.$baseMessage('模拟保存成功', 'success', 'vab-hey-message-success')
+        $baseMessage('模拟保存成功', 'success', 'vab-hey-message-success')
+      }
+
+      const handleClose = (tag) => {
+        state.dynamicTags.splice(state.dynamicTags.indexOf(tag), 1)
+      }
+
+      const showInput = () => {
+        state.inputVisible = true
+        nextTick(() => {
+          state.inputRef.focus()
+        })
+      }
+
+      const handleInputConfirm = () => {
+        if (state.inputValue) {
+          state.dynamicTags.push(state.inputValue)
+        }
+        state.inputVisible = false
+        state.inputValue = ''
       }
 
       return {
         ...toRefs(state),
-        avatar: computed(() => store.getters['user/avatar']),
+        avatar,
         openDialog,
         onSubmit,
+        showInput,
+        handleClose,
+        handleInputConfirm,
       }
     },
   })

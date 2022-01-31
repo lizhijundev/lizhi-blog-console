@@ -1,6 +1,7 @@
+import pinia from '@/store'
+import { useSettingsStore } from '@/store/modules/settings'
 import en from './en'
 import zh from './zh'
-import store from '@/store'
 import { createI18n } from 'vue-i18n'
 import enLocale from 'element-plus/lib/locale/lang/en'
 import zhLocale from 'element-plus/lib/locale/lang/zh-cn'
@@ -17,7 +18,8 @@ const messages = {
 }
 
 function getLanguage() {
-  return store.getters['settings/language'] || 'zh'
+  const { getLanguage } = useSettingsStore(pinia)
+  return getLanguage || 'zh'
 }
 
 const i18n = createI18n({

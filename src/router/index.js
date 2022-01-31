@@ -6,7 +6,8 @@ import {
   createWebHashHistory,
   createWebHistory,
 } from 'vue-router'
-import Layout from '@/vab/layouts'
+import Layout from '@vab/layouts'
+import { setupPermissions } from './permissions'
 import { authentication, isHashRouterMode, publicPath } from '@/config'
 
 export const constantRoutes = [
@@ -241,6 +242,36 @@ export const asyncRoutes = [
         },
       },
       {
+        path: 'editor',
+        name: 'Editor',
+        meta: {
+          title: '编辑器',
+          guard: ['Admin'],
+          icon: 'edit-2-line',
+        },
+        children: [
+          {
+            path: 'richTextEditor',
+            name: 'RichTextEditor',
+            component: () => import('@/views/vab/editor/richTextEditor'),
+            meta: {
+              title: '富文本编辑器',
+              guard: ['Admin'],
+            },
+          },
+          {
+            path: 'wangEditor',
+            name: 'WangEditor',
+            component: () => import('@/views/vab/editor/wangEditor'),
+            meta: {
+              title: '腾讯文档',
+              guard: ['Admin'],
+              dot: true,
+            },
+          },
+        ],
+      },
+      {
         path: 'form',
         name: 'Form',
         meta: {
@@ -370,16 +401,6 @@ export const asyncRoutes = [
             },
           },
         ],
-      },
-      {
-        path: 'richTextEditor',
-        name: 'RichTextEditor',
-        component: () => import('@/views/vab/richTextEditor'),
-        meta: {
-          title: '富文本编辑器',
-          guard: ['Admin'],
-          icon: 'edit-2-line',
-        },
       },
     ],
   },
@@ -906,6 +927,28 @@ export const asyncRoutes = [
     ],
   },
   {
+    path: '/tools',
+    name: 'Tools',
+    component: Layout,
+    meta: {
+      title: '工具',
+      icon: 'tools-line',
+      levelHidden: true,
+      guard: ['Admin'],
+    },
+    children: [
+      {
+        path: 'eyeDropper',
+        name: 'EyeDropper',
+        component: () => import('@/views/tools/eyeDropper'),
+        meta: {
+          title: '取色器',
+          icon: 'contrast-drop-line',
+        },
+      },
+    ],
+  },
+  {
     path: '//github.com/chuzhixin/vue-admin-beautiful?utm_source=gold_browser_extension',
     name: 'Github',
     component: Layout,
@@ -931,6 +974,7 @@ export const asyncRoutes = [
       },
     ],
   },
+
   {
     path: '/error',
     name: 'Error',
@@ -1006,6 +1050,7 @@ export function resetRouter(routes = constantRoutes) {
 
 export function setupRouter(app) {
   if (authentication === 'intelligence') addRouter(asyncRoutes)
+  setupPermissions(router)
   app.use(router)
   return router
 }

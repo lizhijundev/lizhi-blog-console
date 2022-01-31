@@ -12,7 +12,9 @@
         :suffix="countConfig.suffix"
       />
     </p>
-    <div class="right-icon"><vab-icon :icon="icon" /></div>
+    <div class="right-icon">
+      <vab-icon :icon="icon" />
+    </div>
 
     <div class="bottom">
       自上周以来
@@ -23,9 +25,8 @@
 </template>
 
 <script>
-  import { defineComponent, reactive, toRefs } from 'vue'
   import _ from 'lodash'
-  import VabCount from '@/extra/VabCount'
+  import VabCount from '@/plugins/VabCount'
 
   export default defineComponent({
     name: 'TopCard',
@@ -95,6 +96,7 @@
       background: var(--el-color-primary-light-9);
       border-radius: 50%;
       transform: translateY(-50%);
+
       i {
         font-size: 35px;
       }
@@ -120,6 +122,12 @@
     &-blue {
       color: #fff;
       background: var(--el-color-primary);
+      background: linear-gradient(
+        90deg,
+        var(--el-color-primary-light-4),
+        var(--el-color-primary)
+      );
+
       .bottom {
         .ri-arrow-up-line {
           color: #fff;
@@ -131,6 +139,7 @@
           background: var(--el-color-primary-light-9);
           transform: scale(0.8);
         }
+
         span {
           color: #fff;
         }

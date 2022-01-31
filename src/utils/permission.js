@@ -1,5 +1,5 @@
-import store from '@/store'
 import { isArray } from '@/utils/validate'
+import { useAclStore } from '@/store/modules/acl'
 
 /**
  * 是否可以访问目标权限元素
@@ -7,22 +7,18 @@ import { isArray } from '@/utils/validate'
  * @returns {boolean} 满足访问条件
  */
 export function hasPermission(target) {
-  if (store.getters['acl/admin']) return true
+  const { getAdmin, getRole, getPermission } = useAclStore()
+  if (getAdmin) return true
   if (isArray(target) && target.length > 0)
-    return can(
-      [...store.getters['acl/role'], ...store.getters['acl/permission']],
-      {
-        permission: target,
-        mode: 'oneOf',
-      }
-    )
+    return can([...getRole, ...getPermission], {
+      permission: target,
+      mode: 'oneOf',
+    })
   const { role, permission, mode = 'oneOf' } = target
   return can([mode !== 'except'], {
     permission: [
-      role ? can(store.getters['acl/role'], { permission: role, mode }) : false,
-      permission
-        ? can(store.getters['acl/permission'], { permission, mode })
-        : false,
+      role ? can(getRole, { permission: role, mode }) : false,
+      permission ? can(getPermission, { permission, mode }) : false,
     ],
     mode,
   })

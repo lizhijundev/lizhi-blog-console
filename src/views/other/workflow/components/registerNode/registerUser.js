@@ -2,8 +2,7 @@ export default function registerUser(lf) {
   lf.register('user', ({ PolygonNode, PolygonNodeModel, h }) => {
     class Node extends PolygonNode {
       getIconShape() {
-        const attributes = this.getAttributes()
-        const { stroke } = attributes
+        const { stroke } = this.props.model
         return h(
           'svg',
           {
@@ -21,19 +20,10 @@ export default function registerUser(lf) {
       }
 
       getShape() {
-        const attributes = this.getAttributes()
-        const {
-          width,
-          height,
-          x,
-          y,
-          fill,
-          fillOpacity,
-          strokeWidth,
-          stroke,
-          strokeOpacity,
-          points,
-        } = attributes
+        const { model } = this.props
+        const { width, height, x, y, fillOpacity, strokeOpacity, points } =
+          model
+        const style = model.getNodeStyle()
         const transform = `matrix(1 0 0 1 ${x - width / 2} ${y - height / 2})`
         const pointsPath = points.map((point) => point.join(',')).join(' ')
         return h(
@@ -43,10 +33,8 @@ export default function registerUser(lf) {
           },
           [
             h('polygon', {
+              ...style,
               points: pointsPath,
-              fill,
-              stroke,
-              strokeWidth,
               strokeOpacity,
               fillOpacity,
             }),
@@ -74,6 +62,7 @@ export default function registerUser(lf) {
         // 右键菜单自由配置，也可以通过边的properties或者其他属性条件更换不同菜单
         this.menu = [
           {
+            text: '删除',
             className: 'lf-menu-delete',
             icon: true,
             callback(node) {
@@ -85,7 +74,7 @@ export default function registerUser(lf) {
             text: '编辑',
             className: 'lf-menu-item',
             callback(node) {
-              lf.editNodeText(node.id)
+              lf.editText(node.id)
             },
           },
           {

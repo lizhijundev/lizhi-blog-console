@@ -29,9 +29,8 @@
 </template>
 
 <script>
-  import { defineComponent, reactive, toRefs } from 'vue'
-
   export default defineComponent({
+    name: 'Step1',
     emits: ['change-step'],
     setup(props, { emit }) {
       const state = reactive({
@@ -63,7 +62,7 @@
       const handleSubmit = () => {
         state['formRef'].validate((valid) => {
           if (valid) {
-            emit('change-step', 2, state.form)
+            emit('change-step', 1, state.form)
           }
         })
       }

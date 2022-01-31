@@ -68,15 +68,10 @@
               @confirm="handlePlay(item.status)"
             >
               <template #reference>
-                <el-button
-                  v-if="item.status == 1"
-                  circle
-                  size="mini"
-                  type="warning"
-                >
+                <el-button v-if="item.status == 1" circle type="warning">
                   <vab-icon icon="pause-line" />
                 </el-button>
-                <el-button v-else circle size="mini" type="primary">
+                <el-button v-else circle type="primary">
                   <vab-icon icon="play-line" />
                 </el-button>
               </template>
@@ -95,20 +90,13 @@
 </template>
 
 <script>
-  import {
-    defineComponent,
-    getCurrentInstance,
-    onMounted,
-    reactive,
-    toRefs,
-  } from 'vue'
   import { getList } from '@/api/taskManagement'
-  import { Search } from '@element-plus/icons'
+  import { Search } from '@element-plus/icons-vue'
 
   export default defineComponent({
     name: 'TaskManagement',
     setup() {
-      const { proxy } = getCurrentInstance()
+      const $baseMessage = inject('$baseMessage')
 
       const state = reactive({
         list: [],
@@ -135,20 +123,11 @@
       }
       const handlePlay = (status) => {
         if (status)
-          proxy.$baseMessage(
-            '模拟停用成功',
-            'success',
-            'vab-hey-message-success'
-          )
-        else
-          proxy.$baseMessage(
-            '模拟开启成功',
-            'success',
-            'vab-hey-message-success'
-          )
+          $baseMessage('模拟停用成功', 'success', 'vab-hey-message-success')
+        else $baseMessage('模拟开启成功', 'success', 'vab-hey-message-success')
       }
       const handleAdd = () => {
-        proxy.$baseMessage('模拟添加成功', 'success', 'vab-hey-message-success')
+        $baseMessage('模拟添加成功', 'success', 'vab-hey-message-success')
       }
       onMounted(() => {
         fetchData()

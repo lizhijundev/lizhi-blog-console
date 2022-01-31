@@ -93,19 +93,11 @@
 </template>
 
 <script>
-  import {
-    computed,
-    defineComponent,
-    nextTick,
-    onBeforeMount,
-    reactive,
-    toRefs,
-    watchEffect,
-  } from 'vue'
-  import { useStore } from 'vuex'
-  import { onBeforeRouteLeave, useRoute, useRouter } from 'vue-router'
+  import { useSettingsStore } from '@/store/modules/settings'
+  import { useUserStore } from '@/store/modules/user'
   import { translateTitle } from '@/utils/i18n'
   import { isPassword } from '@/utils/validate'
+  import { onBeforeRouteLeave } from 'vue-router'
 
   export default defineComponent({
     name: 'Login',
@@ -117,11 +109,13 @@
       },
     },
     setup() {
-      const store = useStore()
       const route = useRoute()
       const router = useRouter()
 
-      const login = (form) => store.dispatch('user/login', form)
+      const userStore = useUserStore()
+      const settingsStore = useSettingsStore()
+
+      const login = (form) => userStore.login(form)
 
       const validateUsername = (rule, value, callback) => {
         if ('' === value) callback(new Error(translateTitle('用户名不能为空')))
@@ -135,6 +129,7 @@
 
       const state = reactive({
         formRef: null,
+        passwordRef: null,
         form: {
           username: '',
           password: '',
@@ -227,7 +222,7 @@
       return {
         translateTitle,
         ...toRefs(state),
-        title: computed(() => store.getters['settings/title']),
+        title: settingsStore.getTitle,
         handlePassword,
         handleLogin,
         changeCode,

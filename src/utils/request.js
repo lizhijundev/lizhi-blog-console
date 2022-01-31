@@ -1,3 +1,4 @@
+import { useUserStore } from '@/store/modules/user'
 import axios from 'axios'
 import {
   baseURL,
@@ -8,13 +9,12 @@ import {
   statusName,
   successCode,
 } from '@/config'
-import store from '@/store'
 import qs from 'qs'
 import router from '@/router'
 import { isArray } from '@/utils/validate'
-import { addErrorLog, needErrorLog } from '@/vab/plugins/errorLog'
+import { addErrorLog, needErrorLog } from '@vab/plugins/errorLog'
 import { refreshToken } from '@/api/refreshToken'
-import { gp } from '@vab'
+import { gp } from '@gp'
 
 let loadingInstance
 
@@ -51,8 +51,8 @@ const CODE_MESSAGE = {
  * @returns {any}
  */
 const requestConf = (config) => {
-  const token = store.getters['user/token']
-
+  const userStore = useUserStore()
+  const { token } = userStore
   // 不规范写法 可根据setting.config.js tokenName配置随意自定义headers
   // if (token) config.headers[tokenName] = token
 
@@ -83,7 +83,8 @@ const tryRefreshToken = async (config) => {
         data: { token },
       } = await refreshToken()
       if (token) {
-        store.dispatch('user/setToken', token).then(() => {})
+        const { setToken } = useUserStore()
+        setToken(token)
         // 已经刷新了token，将所有队列中的请求进行重试
         requests.forEach((cb) => cb(token))
         requests = []
@@ -114,6 +115,7 @@ const tryRefreshToken = async (config) => {
  * @returns {Promise<*|*>}
  */
 const handleData = async ({ config, data, status, statusText }) => {
+  const { resetAll } = useUserStore()
   if (loadingInstance) loadingInstance.close()
   // 若data.code存在，覆盖默认code
   let code = data && data[statusName] ? data[statusName] : status
@@ -128,11 +130,9 @@ const handleData = async ({ config, data, status, statusText }) => {
       // return data
       return data
     case 401:
-      store
-        .dispatch('user/resetAll')
-        .then(() =>
-          router.push({ path: '/login', replace: true }).then(() => {})
-        )
+      resetAll().then(() => {
+        router.push({ path: '/login', replace: true }).then(() => {})
+      })
       break
     case 402:
       return await tryRefreshToken(config)
@@ -184,7 +184,7 @@ instance.interceptors.response.use(
     if (response === undefined) {
       if (loadingInstance) loadingInstance.close()
       gp.$baseMessage(
-        '未可知错误，可能是因为后端不支持跨域CORS、接口地址不存在等问题引起',
+        '连接后台接口失败，可能由以下原因造成：后端不支持跨域CORS、接口地址不存在、请求超时等，请联系管理员排查后端接口问题 ',
         'error',
         'vab-hey-message-error'
       )

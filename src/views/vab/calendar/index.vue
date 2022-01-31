@@ -30,9 +30,8 @@
 </template>
 
 <script>
-  import { defineComponent, reactive, toRefs } from 'vue'
   import dayjs from 'dayjs'
-  import { solar2lunar } from '@/extra/VabCalendar'
+  import { solar2lunar } from '@/plugins/VabCalendar'
 
   export default defineComponent({
     name: 'Calendar',

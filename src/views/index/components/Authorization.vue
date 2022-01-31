@@ -29,18 +29,12 @@
 </template>
 
 <script>
-  import {
-    defineComponent,
-    onMounted,
-    onUnmounted,
-    reactive,
-    toRefs,
-  } from 'vue'
   import _ from 'lodash'
-  import VabChart from '@/extra/VabChart'
-  import VabCount from '@/extra/VabCount'
+  import VabChart from '@/plugins/VabChart'
+  import VabCount from '@/plugins/VabCount'
 
   export default defineComponent({
+    name: 'Authorization',
     components: {
       VabChart,
       VabCount,
@@ -101,7 +95,10 @@
                   0,
                   0,
                   1,
-                  ['#88D1FF', '#1890FF'].map((color, offset) => ({
+                  [
+                    'var(--el-color-primary-light-6)',
+                    'var(--el-color-primary)',
+                  ].map((color, offset) => ({
                     color,
                     offset,
                   }))
@@ -122,7 +119,7 @@
             state.n--
           } else {
             state.option.series[0].type = _.sample(
-              _.pull(['line', 'bar', 'scatter'], [state.option.series[0].type])
+              _.pull(['bar', 'line', 'scatter'], state.option.series[0].type)
             )
             state.n = 5
           }

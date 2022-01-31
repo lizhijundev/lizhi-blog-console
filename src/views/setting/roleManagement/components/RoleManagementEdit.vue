@@ -19,7 +19,9 @@
               '/vab',
               '/other',
               '/mall',
+              '/noColumn',
               '/setting',
+              '//github.com/chuzhixin/vue-admin-beautiful?utm_source=gold_browser_extension',
               '/error',
             ]"
             :default-expanded-keys="[]"
@@ -52,13 +54,6 @@
 </template>
 
 <script>
-  import {
-    defineComponent,
-    getCurrentInstance,
-    onMounted,
-    reactive,
-    toRefs,
-  } from 'vue'
   import { doEdit } from '@/api/roleManagement'
   import { getList } from '@/api/router'
 
@@ -66,7 +61,7 @@
     name: 'RoleManagementEdit',
     emits: ['fetch-data'],
     setup(props, { emit }) {
-      const { proxy } = getCurrentInstance()
+      const $baseMessage = inject('$baseMessage')
 
       const state = reactive({
         formRef: null,
@@ -128,7 +123,7 @@
               ...state.form,
               ...treeObject,
             })
-            proxy.$baseMessage(msg, 'success', 'vab-hey-message-success')
+            $baseMessage(msg, 'success', 'vab-hey-message-success')
             emit('fetch-data')
             close()
           }
@@ -150,7 +145,8 @@
 
 <style lang="scss" scoped>
   .vab-tree-border {
-    height: 200px;
+    width: 100%;
+    height: 250px;
     padding: $base-padding;
     overflow-y: auto;
     border: 1px solid #dcdfe6;

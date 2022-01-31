@@ -36,7 +36,7 @@
         align="center"
         label="序号"
         show-overflow-tooltip
-        width="95"
+        width="110"
       >
         <template #default="{ $index }">
           {{ $index + 1 }}
@@ -51,11 +51,7 @@
         <template #default="{ row }">
           <template v-if="row.edit">
             <el-input v-model="row.title" style="width: 300px" />
-            <el-button
-              class="cancel-btn"
-              type="warning"
-              @click="cancelEdit(row)"
-            >
+            <el-button style="margin-left: 10px" @click="cancelEdit(row)">
               取消
             </el-button>
           </template>
@@ -78,18 +74,12 @@
           <el-button
             v-if="row.edit"
             size="small"
-            type="success"
+            type="primary"
             @click="confirmEdit(row)"
           >
             保存
           </el-button>
-          <el-button
-            v-else
-            :icon="Edit"
-            size="small"
-            type="primary"
-            @click="row.edit = !row.edit"
-          >
+          <el-button v-else type="text" @click="row.edit = !row.edit">
             编辑
           </el-button>
         </template>
@@ -111,9 +101,8 @@
 </template>
 
 <script>
-  import { defineComponent, onMounted, reactive, toRefs } from 'vue'
   import { getList } from '@/api/table'
-  import { Edit, Search } from '@element-plus/icons'
+  import { Edit, Search } from '@element-plus/icons-vue'
 
   export default defineComponent({
     name: 'InlineEditTable',

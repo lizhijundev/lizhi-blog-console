@@ -38,6 +38,9 @@
       </vab-query-form-top-panel>
     </vab-query-form>
     <el-row :gutter="20">
+      <el-col v-if="emptyShow" :span="24">
+        <el-empty class="vab-data-empty" description="暂无数据" />
+      </el-col>
       <el-col
         v-for="(item, index) in list"
         :key="index"
@@ -76,10 +79,9 @@
 </template>
 
 <script>
-  import { defineComponent, onMounted, reactive, toRefs } from 'vue'
-  import VabMagnifier from '@/extra/VabMagnifier'
+  import VabMagnifier from '@/plugins/VabMagnifier'
   import { getList } from '@/api/table'
-  import { Search } from '@element-plus/icons'
+  import { Search } from '@element-plus/icons-vue'
 
   export default defineComponent({
     name: 'Card',
@@ -90,6 +92,7 @@
         total: 0,
         queryForm: { pageNo: 1, pageSize: 20, title: '' },
         layout: 'total, sizes, prev, pager, next, jumper',
+        emptyShow: true,
       })
 
       const fetchData = async () => {
@@ -98,6 +101,7 @@
         } = await getList(state.queryForm)
         state.list = list
         state.total = total
+        state.emptyShow = false
       }
       const handleSizeChange = (val) => {
         state.queryForm.pageSize = val

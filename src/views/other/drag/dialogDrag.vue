@@ -6,8 +6,6 @@
 </template>
 
 <script>
-  import { defineAsyncComponent, defineComponent, reactive, toRefs } from 'vue'
-
   export default defineComponent({
     name: 'DialogDrag',
     components: {

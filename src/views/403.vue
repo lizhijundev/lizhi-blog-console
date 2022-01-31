@@ -33,22 +33,18 @@
 </template>
 
 <script>
-  import { onBeforeRouteLeave, useRoute, useRouter } from 'vue-router'
-  import {
-    computed,
-    defineComponent,
-    onBeforeMount,
-    reactive,
-    toRefs,
-  } from 'vue'
-  import { useStore } from 'vuex'
+  import { useTabsStore } from '@/store/modules/tabs'
+  import { onBeforeRouteLeave } from 'vue-router'
 
   export default defineComponent({
     name: 'Page403',
     setup() {
-      const store = useStore()
       const route = useRoute()
       const router = useRouter()
+
+      const tabsStore = useTabsStore()
+      const { visitedRoutes } = storeToRefs(tabsStore)
+      const { delVisitedRoute } = tabsStore
 
       const state = reactive({
         jumpTime: 5,
@@ -58,9 +54,6 @@
         btn: '返回',
         timer: 0,
       })
-      const delVisitedRoute = (path) => {
-        store.dispatch('tabs/delVisitedRoute', path)
-      }
       const timeChange = () => {
         state.timer = setInterval(() => {
           if (state.jumpTime) {
@@ -85,7 +78,7 @@
 
       return {
         ...toRefs(state),
-        visitedRoutes: computed(() => store.getters['tabs/visitedRoutes']),
+        visitedRoutes,
         delVisitedRoute,
         timeChange,
       }

@@ -26,8 +26,7 @@
 </template>
 
 <script>
-  import { defineComponent, reactive, toRefs } from 'vue'
-  import { VabPlayerHls, VabPlayerMp4 } from '@/extra/VabPlayer.js'
+  import { VabPlayerHls, VabPlayerMp4 } from '@/plugins/VabPlayer.js'
   import { uuid } from '@/utils'
 
   export default defineComponent({

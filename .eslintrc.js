@@ -2,22 +2,23 @@ module.exports = {
   root: true,
   env: {
     node: true,
+    browser: true,
   },
   extends: [
-    'plugin:vue/vue3-recommended',
+    'vue-global-api',
     'eslint:recommended',
-    '@vue/prettier',
+    'plugin:vue/vue3-recommended',
+    '@vue/eslint-config-prettier',
   ],
   parser: 'vue-eslint-parser',
   parserOptions: {
+    parser: 'espree',
     sourceType: 'module',
     ecmaVersion: 2020,
-    ecmaFeatures: {
-      jsx: true,
-    },
   },
   rules: {
-    //'no-undef': 2,
+    'prettier/prettier': 'warn',
+    'no-undef': 'off',
     'no-console': 'off',
     'no-debugger': 'off',
     'vue/no-v-html': 'off',

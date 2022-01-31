@@ -16,7 +16,6 @@
 </template>
 
 <script>
-  import { defineComponent } from 'vue'
   import CommonProperty from './CommonProperty'
   import User from './User.vue'
 

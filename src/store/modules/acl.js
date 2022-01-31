@@ -1,33 +1,25 @@
-const state = () => ({
-  admin: false,
-  role: [],
-  permission: [],
+import { defineStore } from 'pinia'
+
+export const useAclStore = defineStore('acl', {
+  state: () => ({
+    admin: false,
+    role: [],
+    permission: [],
+  }),
+  getters: {
+    getAdmin: (state) => state.admin,
+    getRole: (state) => state.role,
+    getPermission: (state) => state.permission,
+  },
+  actions: {
+    setFull(admin) {
+      this.admin = admin
+    },
+    setRole(role) {
+      this.role = role
+    },
+    setPermission(permission) {
+      this.permission = permission
+    },
+  },
 })
-const getters = {
-  admin: (state) => state.admin,
-  role: (state) => state.role,
-  permission: (state) => state.permission,
-}
-const mutations = {
-  setFull(state, admin) {
-    state.admin = admin
-  },
-  setRole(state, role) {
-    state.role = role
-  },
-  setPermission(state, permission) {
-    state.permission = permission
-  },
-}
-const actions = {
-  setFull({ commit }, admin) {
-    commit('setFull', admin)
-  },
-  setRole({ commit }, role) {
-    commit('setRole', role)
-  },
-  setPermission({ commit }, permission) {
-    commit('setPermission', permission)
-  },
-}
-export default { state, getters, mutations, actions }

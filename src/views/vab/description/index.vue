@@ -2,10 +2,9 @@
   <div class="description-container">
     <vab-card shadow="never">
       <el-radio-group v-model="size">
-        <el-radio label="">默认</el-radio>
-        <el-radio label="medium">中等</el-radio>
+        <el-radio label="large">默认</el-radio>
+        <el-radio label="default">中等</el-radio>
         <el-radio label="small">小</el-radio>
-        <el-radio label="mini">迷你</el-radio>
       </el-radio-group>
 
       <el-descriptions border :column="3" :size="size" title="With border">
@@ -158,13 +157,11 @@
 </template>
 
 <script>
-  import { defineComponent, reactive, toRefs } from 'vue'
-
   export default defineComponent({
     name: 'Description',
     setup() {
       const state = reactive({
-        size: 'small',
+        size: 'default',
         accordion: false,
         activeName: ['1', '2', '3', '4'],
       })
@@ -189,11 +186,11 @@
 
     :deep() {
       .el-descriptions {
-        padding-top: var(--vab-padding) !important;
+        padding-top: $base-padding !important;
       }
 
       .el-collapse {
-        margin-top: var(--vab-margin) !important;
+        margin-top: $base-margin !important;
       }
     }
   }

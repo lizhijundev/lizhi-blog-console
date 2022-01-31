@@ -76,7 +76,7 @@
         align="center"
         label="操作"
         show-overflow-tooltip
-        width="95"
+        width="110"
       >
         <template #default="{ row }">
           <el-button type="text" @click="handleEdit(row)">编辑</el-button>
@@ -101,16 +101,8 @@
 </template>
 
 <script>
-  import {
-    defineAsyncComponent,
-    defineComponent,
-    getCurrentInstance,
-    onMounted,
-    reactive,
-    toRefs,
-  } from 'vue'
   import { doDelete, getList } from '@/api/userManagement'
-  import { Delete, Plus, Search } from '@element-plus/icons'
+  import { Delete, Plus, Search } from '@element-plus/icons-vue'
 
   export default defineComponent({
     name: 'UserManagement',
@@ -120,7 +112,8 @@
       ),
     },
     setup() {
-      const { proxy } = getCurrentInstance()
+      const $baseConfirm = inject('$baseConfirm')
+      const $baseMessage = inject('$baseMessage')
 
       const state = reactive({
         editRef: null,
@@ -148,21 +141,21 @@
       }
       const handleDelete = (row) => {
         if (row.id) {
-          proxy.$baseConfirm('你确定要删除当前项吗', null, async () => {
+          $baseConfirm('你确定要删除当前项吗', null, async () => {
             const { msg } = await doDelete({ ids: row.id })
-            proxy.$baseMessage(msg, 'success', 'vab-hey-message-success')
+            $baseMessage(msg, 'success', 'vab-hey-message-success')
             await fetchData()
           })
         } else {
           if (state.selectRows.length > 0) {
             const ids = state.selectRows.map((item) => item.id).join()
-            proxy.$baseConfirm('你确定要删除选中项吗', null, async () => {
+            $baseConfirm('你确定要删除选中项吗', null, async () => {
               const { msg } = await doDelete({ ids })
-              proxy.$baseMessage(msg, 'success', 'vab-hey-message-success')
+              $baseMessage(msg, 'success', 'vab-hey-message-success')
               await fetchData()
             })
           } else {
-            proxy.$baseMessage('未选中任何行', 'error', 'vab-hey-message-error')
+            $baseMessage('未选中任何行', 'error', 'vab-hey-message-error')
           }
         }
       }

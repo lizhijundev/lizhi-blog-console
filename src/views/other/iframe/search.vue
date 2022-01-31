@@ -37,10 +37,8 @@
 </template>
 
 <script>
-  import { defineComponent, reactive, toRefs } from 'vue'
-  import { useRouter } from 'vue-router'
   import { isExternal } from '@/utils/validate'
-  import { Search } from '@element-plus/icons'
+  import { Search } from '@element-plus/icons-vue'
 
   export default defineComponent({
     name: 'IframeSearch',

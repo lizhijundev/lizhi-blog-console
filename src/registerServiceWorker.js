@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 import { register } from 'register-service-worker'
-import { gp } from '@vab'
+import { gp } from '@gp'
 
 if (process.env.NODE_ENV === 'production') {
   register(`${process.env.BASE_URL}service-worker.js`, {
@@ -18,26 +18,27 @@ if (process.env.NODE_ENV === 'production') {
     },
     updatefound() {
       console.log('New content is downloading.')
-      gp.$baseNotify(
-        '检测到新版本，正在下载中，请稍后...',
-        '温馨提示',
-        'info',
-        'bottom-right',
-        8000
-      )
+      // gp.$baseNotify(
+      //   '检测到新版本，正在下载中，请稍后...',
+      //   '温馨提示',
+      //   'info',
+      //   'bottom-right',
+      //   8000
+      // )
+      gp.$pub('vab-update')
     },
     updated() {
       console.log('New content is available; please refresh.')
-      gp.$baseNotify(
-        '更新版本完成，10S后刷新项目',
-        '温馨提示',
-        'success',
-        'bottom-right',
-        8000
-      )
-      setTimeout(() => {
-        window.location.reload()
-      }, 10000)
+      // gp.$baseNotify(
+      //   '更新版本完成，10S后刷新项目',
+      //   '温馨提示',
+      //   'success',
+      //   'bottom-right',
+      //   8000
+      // )
+      // setTimeout(() => {
+      //   window.location.reload()
+      // }, 10000)
     },
     offline() {
       console.log(

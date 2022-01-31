@@ -8,23 +8,23 @@
 </template>
 
 <script>
-  import { defineComponent, getCurrentInstance, ref } from 'vue'
+  import { useUserStore } from '@/store/modules/user'
   import { login } from '@/utils/social'
-  import { useStore } from 'vuex'
 
   export default defineComponent({
     name: 'Social',
     setup() {
-      const store = useStore()
+      const $baseLoading = inject('$baseLoading')
+      const $baseMessage = inject('$baseMessage')
 
-      const socialLogin = (data) => store.dispatch('user/socialLogin', data)
+      const userStore = useUserStore()
 
-      const { proxy } = getCurrentInstance()
+      const socialLogin = (data) => userStore.socialLogin(data)
 
       const data = ref()
 
       const handleSocialLogin = () => {
-        const loading = proxy.$baseLoading()
+        const loading = $baseLoading()
         login(`https://github.com/login/oauth/authorize`, {
           client_id:
             process.env.NODE_ENV === 'development'
@@ -42,7 +42,7 @@
             // this.$router.push(routerPath).catch(() => {});
           })
           .catch(() => {
-            proxy.$baseMessage(
+            $baseMessage(
               '第三方登录失败，未返回令牌',
               'error',
               'vab-hey-message-error'

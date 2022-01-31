@@ -14,9 +14,7 @@
 </template>
 
 <script>
-  import { defineComponent, reactive, toRefs } from 'vue'
-
-  import VabDialog from '@/extra/VabDialog'
+  import VabDialog from '@/plugins/VabDialog'
 
   export default defineComponent({
     name: 'DialogDemo',

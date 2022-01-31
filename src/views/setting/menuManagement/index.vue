@@ -16,11 +16,7 @@
         <vab-card shadow="hover">
           <vab-query-form>
             <vab-query-form-top-panel :span="12">
-              <el-button
-                :icon="Plus"
-                type="primary"
-                @click="handleEdit($event)"
-              >
+              <el-button :icon="Plus" type="primary" @click="handleEdit()">
                 添加
               </el-button>
             </vab-query-form-top-panel>
@@ -102,14 +98,10 @@
                 {{ row.meta && row.meta.dot ? '是' : '否' }}
               </template>
             </el-table-column>
-            <el-table-column label="操作" show-overflow-tooltip width="185">
+            <el-table-column label="操作" show-overflow-tooltip width="110">
               <template #default="{ row }">
-                <el-button type="primary" @click="handleEdit(row)">
-                  <vab-icon icon="edit-2-line" />
-                  编辑
-                </el-button>
-                <el-button type="danger" @click="handleDelete(row)">
-                  <vab-icon icon="delete-bin-6-line" />
+                <el-button type="text" @click="handleEdit(row)">编辑</el-button>
+                <el-button type="text" @click="handleDelete(row)">
                   删除
                 </el-button>
               </template>
@@ -130,17 +122,9 @@
 </template>
 
 <script>
-  import {
-    defineAsyncComponent,
-    defineComponent,
-    getCurrentInstance,
-    onMounted,
-    reactive,
-    toRefs,
-  } from 'vue'
   import { getList } from '@/api/router'
   import { doDelete, getTree } from '@/api/menuManagement'
-  import { Plus } from '@element-plus/icons'
+  import { Plus } from '@element-plus/icons-vue'
 
   export default defineComponent({
     name: 'MenuManagement',
@@ -150,7 +134,8 @@
       ),
     },
     setup() {
-      const { proxy } = getCurrentInstance()
+      const $baseConfirm = inject('$baseConfirm')
+      const $baseMessage = inject('$baseMessage')
 
       const state = reactive({
         editRef: null,
@@ -164,7 +149,7 @@
       })
 
       const handleEdit = (row) => {
-        if (row.path && row.component) {
+        if (row && row.path) {
           state['editRef'].showEdit(row)
         } else {
           state['editRef'].showEdit()
@@ -172,9 +157,9 @@
       }
       const handleDelete = (row) => {
         if (row.path) {
-          proxy.$baseConfirm('你确定要删除当前项吗', null, async () => {
+          $baseConfirm('你确定要删除当前项吗', null, async () => {
             const { msg } = await doDelete({ paths: row.path })
-            proxy.$baseMessage(msg, 'success', 'vab-hey-message-success')
+            $baseMessage(msg, 'success', 'vab-hey-message-success')
             await fetchData()
           })
         }

@@ -6,8 +6,7 @@
 </template>
 
 <script>
-  import { defineComponent, ref } from 'vue'
-  import VabCropper from '@/extra/VabCropper'
+  import VabCropper from '@/plugins/VabCropper'
 
   export default defineComponent({
     name: 'Cropper',

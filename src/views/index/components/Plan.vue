@@ -27,7 +27,6 @@
 </template>
 
 <script>
-  import { defineComponent, onMounted, reactive, toRefs } from 'vue'
   import Sortable from 'sortablejs'
 
   export default defineComponent({

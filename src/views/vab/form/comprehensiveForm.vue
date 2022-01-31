@@ -95,7 +95,6 @@
 </template>
 
 <script>
-  import { defineComponent, onMounted, reactive, toRefs } from 'vue'
   import { getList } from '@/api/area'
 
   export default defineComponent({

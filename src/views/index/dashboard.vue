@@ -51,7 +51,6 @@
 </template>
 
 <script>
-  import { defineComponent, reactive, toRefs } from 'vue'
   import _ from 'lodash'
   import Trend from './components/Trend'
   import Branch from './components/Branch'

@@ -27,9 +27,8 @@
 </template>
 
 <script>
-  import { defineComponent, reactive, toRefs } from 'vue'
-
   export default defineComponent({
+    name: 'Step2',
     props: {
       infoData: {
         type: Object,
@@ -58,7 +57,7 @@
           if (valid) {
             state.loading = true
             setTimeout(() => {
-              emit('change-step', 3)
+              emit('change-step', 2)
               state.loading = false
             }, 2000)
           } else {
@@ -67,7 +66,7 @@
         })
       }
       const handlePrev = () => {
-        emit('change-step', 1)
+        emit('change-step', 0)
       }
 
       return {

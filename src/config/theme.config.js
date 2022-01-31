@@ -35,7 +35,9 @@ module.exports = {
   // 是否开启右侧悬浮窗
   showThemeSetting: true,
   //纵向布局、常规布局、综合布局时是否默认收起左侧菜单（不支持分栏布局、横向布局）
-  collapse: false,
+  foldSidebar: false,
   // 是否开启页面动画
   showPageTransition: true,
+  // 是否开启锁屏
+  showLock: true,
 }

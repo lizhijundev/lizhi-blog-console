@@ -2,7 +2,12 @@
   <div class="dynamic-table-container">
     <el-form ref="formRef" :model="form">
       <el-form-item :label-width="0" prop="list">
-        <vab-form-table v-model="form.list" drag :row-template="rowTemplate">
+        <vab-form-table
+          v-model="form.list"
+          drag
+          :row-template="rowTemplate"
+          style="width: 100%"
+        >
           <el-table-column align="center" label="标题" prop="title">
             <template #default="{ row }">
               <el-input v-model="row.title" />
@@ -55,25 +60,18 @@
 </template>
 
 <script>
-  import {
-    defineComponent,
-    getCurrentInstance,
-    onMounted,
-    reactive,
-    toRefs,
-  } from 'vue'
-  import { Delete, Plus, Search } from '@element-plus/icons'
-  import VabFormTable from '@/extra/VabFormTable'
+  import { Delete, Plus, Search } from '@element-plus/icons-vue'
+  import VabFormTable from '@/plugins/VabFormTable'
   import { doEdit, getList } from '@/api/table'
 
   export default defineComponent({
     name: 'DynamicTable',
     components: { VabFormTable },
     setup() {
-      const { proxy } = getCurrentInstance()
+      const $baseMessage = inject('$baseMessage')
 
       const state = reactive({
-        formRef: '',
+        formRef: null,
         rowTemplate: {
           title: '',
           author: '',
@@ -101,7 +99,7 @@
         state.formRef.validate(async (valid) => {
           if (valid) {
             const { msg } = await doEdit(state.form)
-            proxy.$baseMessage(msg, 'success', 'vab-hey-message-success')
+            $baseMessage(msg, 'success', 'vab-hey-message-success')
           } else {
             return false
           }

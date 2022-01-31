@@ -2,16 +2,15 @@ export default function registerEnd(lf) {
   lf.register('end', ({ CircleNode, CircleNodeModel, h }) => {
     class EndNode extends CircleNode {
       getIconShape() {
-        const attributes = this.getAttributes()
-        const { x, y, width, height } = attributes
+        const { x, y, width, height } = this.props.model
         const stroke = '#404040'
         return h(
           'svg',
           {
-            x: x - width / 2,
-            y: y - height / 2,
-            width: 40,
-            height: 40,
+            x: x - width / 4,
+            y: y - height / 4,
+            width: width / 2,
+            height: width / 2,
             viewBox: '0 0 1024 1024',
           },
           h('path', {
@@ -34,16 +33,14 @@ export default function registerEnd(lf) {
       }
 
       getShape() {
-        const attributes = this.getAttributes()
-        const { x, y, r, fill, stroke, strokeWidth } = attributes
+        const { model } = this.props
+        const { x, y } = model
+        const style = model.getNodeStyle()
         return h('g', {}, [
           h('circle', {
+            ...style,
             cx: x,
             cy: y,
-            r,
-            fill,
-            stroke,
-            strokeWidth,
           }),
           this.getIconShape(),
         ])

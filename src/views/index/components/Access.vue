@@ -28,16 +28,9 @@
 </template>
 
 <script>
-  import {
-    defineComponent,
-    onMounted,
-    onUnmounted,
-    reactive,
-    toRefs,
-  } from 'vue'
   import _ from 'lodash'
-  import VabChart from '@/extra/VabChart'
-  import VabCount from '@/extra/VabCount'
+  import VabChart from '@/plugins/VabChart'
+  import VabCount from '@/plugins/VabCount'
 
   export default defineComponent({
     components: {
@@ -100,10 +93,12 @@
                   0,
                   1,
                   0,
-                  ['#3ED572', '#399efd'].map((color, offset) => ({
-                    color,
-                    offset,
-                  }))
+                  ['var(--el-color-transition)', 'var(--el-color-primary)'].map(
+                    (color, offset) => ({
+                      color,
+                      offset,
+                    })
+                  )
                 ),
               },
             },

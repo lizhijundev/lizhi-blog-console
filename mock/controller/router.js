@@ -189,6 +189,36 @@ const List = [
         },
       },
       {
+        path: 'editor',
+        name: 'Editor',
+        meta: {
+          title: '编辑器',
+          guard: ['Admin'],
+          icon: 'edit-2-line',
+        },
+        children: [
+          {
+            path: 'richTextEditor',
+            name: 'RichTextEditor',
+            component: '@/views/vab/editor/richTextEditor',
+            meta: {
+              title: '富文本编辑器',
+              guard: ['Admin'],
+            },
+          },
+          {
+            path: 'wangEditor',
+            name: 'WangEditor',
+            component: '@/views/vab/editor/wangEditor',
+            meta: {
+              title: '腾讯文档',
+              guard: ['Admin'],
+              dot: true,
+            },
+          },
+        ],
+      },
+      {
         path: 'form',
         name: 'Form',
         meta: {
@@ -315,35 +345,6 @@ const List = [
             component: '@/views/vab/form/rate',
             meta: {
               title: '评分',
-            },
-          },
-        ],
-      },
-      {
-        path: 'editor',
-        name: 'Editor',
-        meta: {
-          title: '编辑器',
-          guard: ['Admin'],
-          icon: 'edit-2-line',
-        },
-        children: [
-          {
-            path: 'richTextEditor',
-            name: 'RichTextEditor',
-            component: '@/views/vab/editor/richTextEditor',
-            meta: {
-              title: '富文本编辑器',
-              guard: ['Admin'],
-            },
-          },
-          {
-            path: 'markdownEditor',
-            name: 'MarkdownEditor',
-            component: '@/views/vab/editor/markdownEditor',
-            meta: {
-              title: 'Markdown编辑器',
-              guard: ['Admin'],
             },
           },
         ],
@@ -854,6 +855,28 @@ const List = [
         meta: {
           title: '系统日志',
           icon: 'file-shield-2-line',
+        },
+      },
+    ],
+  },
+  {
+    path: '/tools',
+    name: 'Tools',
+    component: 'Layout',
+    meta: {
+      title: '工具',
+      icon: 'tools-line',
+      levelHidden: true,
+      guard: ['Admin'],
+    },
+    children: [
+      {
+        path: 'eyeDropper',
+        name: 'EyeDropper',
+        component: '@/views/tools/eyeDropper',
+        meta: {
+          title: '取色器',
+          icon: 'contrast-drop-line',
         },
       },
     ],

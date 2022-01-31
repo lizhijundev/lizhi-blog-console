@@ -41,8 +41,7 @@
 </template>
 
 <script>
-  import { defineComponent } from 'vue'
-  import { Edit } from '@element-plus/icons'
+  import { Edit } from '@element-plus/icons-vue'
 
   export default defineComponent({
     name: 'Link',

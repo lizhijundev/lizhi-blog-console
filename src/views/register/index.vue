@@ -10,7 +10,6 @@
           class="register-form"
           :model="form"
           :rules="registerRules"
-          size="mini"
         >
           <div class="title-tips">{{ translateTitle('注册') }}</div>
           <el-form-item prop="username">
@@ -94,18 +93,10 @@
 </template>
 
 <script>
-  import {
-    defineComponent,
-    getCurrentInstance,
-    onBeforeUnmount,
-    reactive,
-    toRefs,
-  } from 'vue'
-  import { useRouter } from 'vue-router'
   import { translateTitle } from '@/utils/i18n'
   import { isPassword, isPhone } from '@/utils/validate'
   import { register } from '@/api/user'
-  import { mapActions } from 'vuex'
+  import { useUserStore } from '@/store/modules/user'
 
   export default defineComponent({
     name: 'Register',
@@ -117,9 +108,12 @@
       },
     },
     setup() {
+      const $baseConfirm = inject('$baseConfirm')
+
       const router = useRouter()
 
-      const { proxy } = getCurrentInstance()
+      const userStore = useUserStore()
+      const { setToken } = userStore
 
       const validateUsername = (rule, value, callback) => {
         if ('' === value) {
@@ -213,12 +207,12 @@
               msg,
               data: { token },
             } = await register(state.form).catch(() => {})
-            //proxy.$baseMessage(msg, 'success', 'vab-hey-message-success')
-            proxy.$baseConfirm(
+            //$baseMessage(msg, 'success', 'vab-hey-message-success')
+            $baseConfirm(
               `${msg}，点击确定模拟进入拥有【editor】角色的首页`,
               null,
               async () => {
-                await proxy.setToken(token)
+                setToken(token)
                 await router.push('/index')
               }
             )
@@ -226,7 +220,7 @@
         })
       }
 
-      onBeforeUnmount(() => {
+      onUnmounted(() => {
         clearInterval(state.getPhoneInterval)
         state.getPhoneInterval = null
       })
@@ -234,9 +228,6 @@
       return {
         translateTitle,
         ...toRefs(state),
-        ...mapActions({
-          setToken: 'user/setToken',
-        }),
         getPhoneCode,
         handleRegister,
       }

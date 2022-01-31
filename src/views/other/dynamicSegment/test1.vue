@@ -6,22 +6,21 @@
 </template>
 
 <script>
-  import { defineComponent, nextTick, onMounted, reactive, toRefs } from 'vue'
-  import { useStore } from 'vuex'
-  import { useRoute } from 'vue-router'
-  import VabJsonViewer from '@/extra/VabJsonViewer'
+  import { useTabsStore } from '@/store/modules/tabs'
+  import VabJsonViewer from 'vue-json-viewer'
 
   export default defineComponent({
     name: 'Test1',
     components: { VabJsonViewer },
     setup() {
-      const store = useStore()
       const route = useRoute()
+
+      const tabsStore = useTabsStore()
+      const { changeTabsMeta } = tabsStore
+
       const state = reactive({
         route: {},
       })
-      const changeTabsMeta = (options) =>
-        store.dispatch('tabs/changeTabsMeta', options)
       const handleParams = () => {
         nextTick(() => {
           changeTabsMeta({

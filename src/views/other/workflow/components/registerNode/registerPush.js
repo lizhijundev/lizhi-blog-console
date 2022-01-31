@@ -2,8 +2,8 @@ export default function registerPush(lf, clickPlus, mouseDownPlus) {
   lf.register('push', ({ PolygonNode, PolygonNodeModel, h }) => {
     class Node extends PolygonNode {
       getIconShape() {
-        const attributes = this.getAttributes()
-        const { stroke } = attributes
+        const { model } = this.props
+        const { stroke } = model
         return h(
           'svg',
           {
@@ -21,11 +21,11 @@ export default function registerPush(lf, clickPlus, mouseDownPlus) {
       }
 
       getPlusShape() {
-        const attributes = this.getAttributes()
+        const { model } = this.props
         // 判断当前节点是否子节点
         const graphData = lf.getGraphData()
         const edges = graphData.edges
-        const hasChildNode = edges.some((_) => _.sourceNodeId === attributes.id)
+        const hasChildNode = edges.some((_) => _.sourceNodeId === model.id)
         if (hasChildNode) {
           return false
         }
@@ -38,9 +38,9 @@ export default function registerPush(lf, clickPlus, mouseDownPlus) {
             height: 30,
             viewBox: '0 0 1024 1024',
             class: 'time-plus',
-            onClick: (e) => clickPlus(e, attributes),
-            onMousedown: (e) => mouseDownPlus(e, attributes),
-            onMouseUp: (e) => mouseDownPlus(e, attributes),
+            onClick: (e) => clickPlus(e, model),
+            onMousedown: (e) => mouseDownPlus(e, model),
+            onMouseUp: (e) => mouseDownPlus(e, model),
           },
           h('path', {
             fill: '#f17611',
@@ -58,19 +58,10 @@ export default function registerPush(lf, clickPlus, mouseDownPlus) {
       }
 
       getShape() {
-        const attributes = this.getAttributes()
-        const {
-          width,
-          height,
-          x,
-          y,
-          fill,
-          fillOpacity,
-          strokeWidth,
-          stroke,
-          strokeOpacity,
-          points,
-        } = attributes
+        const { model } = this.props
+        const { width, height, x, y, fillOpacity, strokeOpacity, points } =
+          model
+        const style = model.getNodeStyle()
         const transform = `matrix(1 0 0 1 ${x - width / 2} ${y - height / 2})`
         const pointsPath = points.map((point) => point.join(',')).join(' ')
         return h(
@@ -80,10 +71,8 @@ export default function registerPush(lf, clickPlus, mouseDownPlus) {
           },
           [
             h('polygon', {
+              ...style,
               points: pointsPath,
-              fill,
-              stroke,
-              strokeWidth,
               strokeOpacity,
               fillOpacity,
             }),

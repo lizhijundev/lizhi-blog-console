@@ -12,6 +12,9 @@
               <el-table-column label="地址" prop="address" />
               <el-table-column label="邮编" prop="zip" />
             </el-table-column>
+            <template #empty>
+              <el-empty class="vab-data-empty" description="暂无数据" />
+            </template>
           </el-table>
         </el-tab-pane>
         <el-tab-pane label="区域管理" name="second">敬请期待</el-tab-pane>
@@ -21,8 +24,6 @@
 </template>
 
 <script>
-  import { defineComponent } from 'vue'
-
   export default defineComponent({
     data() {
       return {

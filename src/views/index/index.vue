@@ -23,7 +23,6 @@
 </template>
 
 <script>
-  import { defineComponent } from 'vue'
   import PageHeader from './components/PageHeader'
   /* import Plan from './components/Plan' */
   import Access from './components/Access'

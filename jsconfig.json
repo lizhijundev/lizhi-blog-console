@@ -1,13 +1,21 @@
 {
   "compilerOptions": {
-    "target": "es6",
-    "module": "es6",
-    "allowSyntheticDefaultImports": true,
     "baseUrl": "./",
+    "target": "ES5",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
     "paths": {
       "@/*": ["src/*"],
-      "@vab": ["src/vab/plugins/vab"]
-    }
+      "@vab/*": ["library/*"],
+      "@gp": ["library/plugins/vab"]
+    },
+    "lib": [
+      "dom",
+      "esnext",
+      "scripthost",
+      "dom.iterable"
+    ]
   },
   "exclude": ["node_modules"]
 }

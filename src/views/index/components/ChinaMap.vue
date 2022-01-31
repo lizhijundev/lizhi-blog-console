@@ -17,10 +17,9 @@
 </template>
 
 <script>
-  import { defineComponent, reactive, toRefs } from 'vue'
   import _ from 'lodash'
   import axios from 'axios'
-  import VabChart from '@/extra/VabChart'
+  import VabChart from '@/plugins/VabChart'
 
   export default defineComponent({
     components: {
@@ -68,12 +67,14 @@
             {
               name: '2099年全国GDP分布',
               type: 'map',
-              roam: false,
               map: 'china',
-              selectedMode: 'multiple',
               emphasis: {
                 label: {
                   show: true,
+                  color: 'var(--el-color-primary-light-9)',
+                },
+                itemStyle: {
+                  areaColor: 'var(--el-color-primary)',
                 },
               },
               data: [
@@ -114,7 +115,9 @@
         }
       }
 
-      getMap()
+      onMounted(() => {
+        getMap()
+      })
 
       return {
         ...toRefs(state),

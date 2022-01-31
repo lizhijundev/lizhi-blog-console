@@ -16,8 +16,7 @@
 </template>
 
 <script>
-  import { defineComponent } from 'vue'
-  import VabChart from '@/extra/VabChart'
+  import VabChart from '@/plugins/VabChart'
 
   export default defineComponent({
     components: {

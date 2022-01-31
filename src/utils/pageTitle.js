@@ -1,6 +1,7 @@
-import { titleReverse, titleSeparator } from '@/config'
-import store from '@/store'
 import i18n from '@/i18n'
+import pinia from '@/store'
+import { useSettingsStore } from '@/store/modules/settings'
+import { titleReverse, titleSeparator } from '@/config'
 
 /**
  * @description 设置标题
@@ -8,12 +9,12 @@ import i18n from '@/i18n'
  * @returns {string}
  */
 export default function getPageTitle(pageTitle) {
-  const title = store.getters['settings/title']
+  const { getTitle } = useSettingsStore(pinia)
   const { t, te } = i18n.global
   if (te(`vabI18n.${pageTitle}`)) pageTitle = t(`vabI18n.${pageTitle}`)
   let newTitles = []
   if (pageTitle) newTitles.push(pageTitle)
-  if (title) newTitles.push(title)
+  if (getTitle) newTitles.push(getTitle)
   if (titleReverse) newTitles = newTitles.reverse()
   return newTitles.join(titleSeparator)
 }

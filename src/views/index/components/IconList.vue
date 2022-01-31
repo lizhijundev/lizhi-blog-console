@@ -29,6 +29,15 @@
       <p>{{ item.title }}</p>
     </vab-card>
     <vab-card
+      v-else-if="item.click && item.click === 'handleUpdate'"
+      class="icon-panel"
+      shadow="hover"
+      @click="handleUpdate"
+    >
+      <vab-icon :icon="item.icon" :style="{ color: item.color }" />
+      <p>{{ item.title }}</p>
+    </vab-card>
+    <vab-card
       v-else-if="item.click && item.click === 'handleMore'"
       class="icon-panel"
       shadow="hover"
@@ -47,11 +56,10 @@
 </template>
 
 <script>
-  import { defineComponent, getCurrentInstance } from 'vue'
-
   export default defineComponent({
     setup() {
-      const { proxy } = getCurrentInstance()
+      const $pub = inject('$pub')
+      const $baseAlert = inject('$baseAlert')
 
       // 卡片图标
       const iconList = [
@@ -68,6 +76,13 @@
           title: '主题配置',
           link: '',
           color: '#69c0ff',
+        },
+        {
+          click: 'handleUpdate',
+          icon: 'upload-cloud-2-line',
+          title: '网站升级',
+          link: '',
+          color: '#ffd666',
         },
         {
           icon: 'baidu-line',
@@ -100,28 +115,28 @@
           link: '',
           color: '#ff85c0',
         },
-        {
-          click: 'handleMore',
-          icon: 'gift-line',
-          title: '礼物',
-          link: '',
-          color: '#ffd666',
-        },
       ]
 
       const changeTheme = () => {
-        proxy.$pub('theme')
+        $pub('theme')
       }
+
+      const handleUpdate = () => {
+        $pub('vab-update')
+      }
+
       const handleMore = () => {
-        proxy.$baseAlert('敬请期待！')
+        $baseAlert('敬请期待！')
       }
+
       const randomTheme = () => {
-        proxy.$pub('random-theme')
+        $pub('random-theme')
       }
 
       return {
         iconList,
         changeTheme,
+        handleUpdate,
         handleMore,
         randomTheme,
       }

@@ -57,6 +57,7 @@ module.exports = {
     '/vab/table',
     '/vab/icon',
     '/vab/form',
+    '/vab/editor',
     '/other/drag',
   ],
   // 需要加loading层的请求，防止重复提交

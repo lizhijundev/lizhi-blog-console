@@ -27,7 +27,6 @@
 </template>
 
 <script>
-  import { computed, defineComponent, reactive, toRefs } from 'vue'
   import _ from 'lodash'
   import { getIconList } from '@/api/remixIcon'
   import VabDraggable from 'vuedraggable'

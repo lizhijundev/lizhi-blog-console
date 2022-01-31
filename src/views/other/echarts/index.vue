@@ -17,7 +17,6 @@
 </template>
 
 <script>
-  import { defineComponent } from 'vue'
   import VabChartLine from './components/VabChartLine'
   import VabChartBar from './components/VabChartBar'
   import VabChartPie from './components/VabChartPie'

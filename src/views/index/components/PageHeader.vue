@@ -9,7 +9,7 @@
         <p class="page-header-tip-description" v-html="description"></p>
       </div>
       <div class="page-header-avatar-list">
-        <vab-avatar-list :avatar-list="avatatList" />
+        <vab-avatar-list :avatar-list="avatarList" />
         <p>participants</p>
       </div>
     </vab-card>
@@ -17,21 +17,19 @@
 </template>
 
 <script>
-  import { computed, defineComponent, onMounted, reactive, toRefs } from 'vue'
-  import { useStore } from 'vuex'
+  import { useUserStore } from '@/store/modules/user'
   import { getList } from '@/api/description'
-  import VabAvatarList from '@/extra/VabAvatarList'
+  import VabAvatarList from '@/plugins/VabAvatarList'
 
   export default defineComponent({
     components: { VabAvatarList },
     setup() {
-      const store = useStore()
-
-      const username = computed(() => store.getters['user/username'])
+      const userStore = useUserStore()
+      const { avatar, username } = storeToRefs(userStore)
 
       const state = reactive({
         description: '',
-        avatatList: [
+        avatarList: [
           {
             avatar: 'https://i.gtimg.cn/club/item/face/img/2/15922_100.gif',
             username: 'good luck',
@@ -39,7 +37,7 @@
           {
             avatar:
               'https://gitee.com/chu1204505056/image/raw/master/user/fwfmiao.gif',
-            username: 'LiufengFish',
+            username: 'FlowPeakFish',
           },
           {
             avatar: 'https://i.gtimg.cn/club/item/face/img/3/15643_100.gif',
@@ -68,12 +66,19 @@
       }
 
       onMounted(() => {
-        fetchData()
+        // 仅在开发坏境和演示地址调用首页更新提示AD，防止正式环境触发更新推广
+        if (
+          document.domain.includes('vue-admin-beautiful') ||
+          document.domain.includes('chu1204505056') ||
+          document.domain.includes('localhost') ||
+          document.domain.includes('127.0.0.1')
+        )
+          fetchData()
       })
 
       return {
         ...toRefs(state),
-        avatar: computed(() => store.getters['user/avatar']),
+        avatar,
         handleTips,
       }
     },

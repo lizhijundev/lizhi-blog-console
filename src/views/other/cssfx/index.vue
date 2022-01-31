@@ -19,7 +19,6 @@
 </template>
 
 <script>
-  import { defineComponent } from 'vue'
   import { components, effects } from './components'
 
   export default defineComponent({

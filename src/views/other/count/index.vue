@@ -36,8 +36,7 @@
 </template>
 
 <script>
-  import { defineComponent, reactive, toRefs } from 'vue'
-  import VabCount from '@/extra/VabCount'
+  import VabCount from '@/plugins/VabCount'
 
   export default defineComponent({
     name: 'Count',

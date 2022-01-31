@@ -2,23 +2,13 @@
   <el-tabs tab-position="left">
     <el-tab-pane label="添加动作">
       <div v-for="item in nodeList" :key="item.type">
-        <el-button
-          class="add-node-btn"
-          size="mini"
-          type="primary"
-          @click="$_addNode(item)"
-        >
+        <el-button class="add-node-btn" type="primary" @click="$_addNode(item)">
           {{ item.label }}
         </el-button>
       </div>
     </el-tab-pane>
     <el-tab-pane label="添加组">
-      <el-button
-        class="add-node-btn"
-        size="mini"
-        type="primary"
-        @click="$_addTempalte"
-      >
+      <el-button class="add-node-btn" type="primary" @click="$_addTempalte">
         模板
       </el-button>
     </el-tab-pane>
@@ -26,8 +16,6 @@
 </template>
 
 <script>
-  import { defineComponent } from 'vue'
-
   export default defineComponent({
     name: 'AddPanel',
     props: {

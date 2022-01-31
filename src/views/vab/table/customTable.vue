@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="custom-table-container"
-    :class="{ 'vab-fullscreen': isFullscreen }"
-  >
+  <div ref="containerRef" class="custom-table-container">
     <vab-query-form>
       <vab-query-form-left-panel>
         <el-form
@@ -54,9 +51,9 @@
         </el-button>
         <el-popover popper-class="custom-table-radio" trigger="hover">
           <el-radio-group v-model="lineHeight">
-            <el-radio label="medium">大</el-radio>
-            <el-radio label="small">中</el-radio>
-            <el-radio label="mini">小</el-radio>
+            <el-radio label="large">大</el-radio>
+            <el-radio label="default">中</el-radio>
+            <el-radio label="small">小</el-radio>
           </el-radio-group>
           <template #reference>
             <el-button style="margin: 0 10px 10px 0 !important" type="text">
@@ -107,7 +104,7 @@
         align="center"
         label="序号"
         show-overflow-tooltip
-        width="95"
+        width="110"
       >
         <template #default="{ $index }">
           {{ $index + 1 }}
@@ -136,7 +133,7 @@
         align="center"
         label="操作"
         show-overflow-tooltip
-        width="95"
+        width="110"
       >
         <template #default="{ row }">
           <el-button type="text" @click="handleEdit(row)">编辑</el-button>
@@ -166,18 +163,9 @@
 </template>
 
 <script>
-  import {
-    computed,
-    defineAsyncComponent,
-    defineComponent,
-    getCurrentInstance,
-    onMounted,
-    reactive,
-    toRefs,
-  } from 'vue'
   import { doDelete, getList } from '@/api/table'
   import VabDraggable from 'vuedraggable'
-  import { Delete, Plus, Search, Setting } from '@element-plus/icons'
+  import { Delete, Plus, Search, Setting } from '@element-plus/icons-vue'
 
   export default defineComponent({
     name: 'CustomTable',
@@ -186,20 +174,16 @@
       VabDraggable,
     },
     setup() {
-      const { proxy } = getCurrentInstance()
+      const $baseConfirm = inject('$baseConfirm')
+      const $baseMessage = inject('$baseMessage')
+      const $baseTableHeight = inject('$baseTableHeight')
 
       const state = reactive({
         editRef: null,
-        list2: [
-          { name: 'John', id: 0 },
-          { name: 'Joao', id: 1 },
-          { name: 'Jean', id: 2 },
-        ],
-        isFullscreen: false,
         border: true,
-        height: proxy.$baseTableHeight(1),
+        height: $baseTableHeight(1),
         stripe: false,
-        lineHeight: 'medium',
+        lineHeight: 'small',
         checkList: ['标题', '作者', '评级', '点击量', '时间'],
         columns: [
           {
@@ -280,13 +264,16 @@
         fetchData()
       }
 
+      const containerRef = ref(null)
+      const { toggle, isFullscreen } = useFullscreen(containerRef)
       const clickFullScreen = () => {
-        state.isFullscreen = !state.isFullscreen
-        handleHeight()
+        toggle().then(() => {
+          handleHeight()
+        })
       }
       const handleHeight = () => {
-        if (state.isFullscreen) state.height = proxy.$baseTableHeight(1) + 210
-        else state.height = proxy.$baseTableHeight(1)
+        if (isFullscreen.value) state.height = $baseTableHeight(1) + 356
+        else state.height = $baseTableHeight(1)
       }
       const setSelectRows = (val) => {
         state.selectRows = val
@@ -299,21 +286,21 @@
       }
       const handleDelete = (row) => {
         if (row.id) {
-          proxy.$baseConfirm('你确定要删除当前项吗', null, async () => {
+          $baseConfirm('你确定要删除当前项吗', null, async () => {
             const { msg } = await doDelete({ ids: row.id })
-            proxy.$baseMessage(msg, 'success', 'vab-hey-message-success')
+            $baseMessage(msg, 'success', 'vab-hey-message-success')
             await fetchData()
           })
         } else {
           if (state.selectRows.length > 0) {
             const ids = state.selectRows.map((item) => item.id).join()
-            proxy.$baseConfirm('你确定要删除选中项吗', null, async () => {
+            $baseConfirm('你确定要删除选中项吗', null, async () => {
               const { msg } = await doDelete({ ids: ids })
-              proxy.$baseMessage(msg, 'success', 'vab-hey-message-success')
+              $baseMessage(msg, 'success', 'vab-hey-message-success')
               await fetchData()
             })
           } else {
-            proxy.$baseMessage('未选中任何行', 'error', 'vab-hey-message-error')
+            $baseMessage('未选中任何行', 'error', 'vab-hey-message-error')
           }
         }
       }
@@ -324,19 +311,21 @@
       return {
         ...toRefs(state),
         dragOptions,
+        containerRef,
+        isFullscreen,
         finallyColumns,
         handleSizeChange,
         handleCurrentChange,
         queryData,
-        clickFullScreen,
         handleHeight,
         setSelectRows,
+        clickFullScreen,
+        fetchData,
         handleAdd,
         handleEdit,
         handleDelete,
-        fetchData,
-        Delete,
         Plus,
+        Delete,
         Search,
         Setting,
       }
@@ -351,16 +340,19 @@
         cursor: pointer;
       }
     }
+
     .right-panel {
       .stripe-panel,
       .border-panel {
         margin: 0 10px #{math.div($base-margin, 2)} 10px !important;
+
         :deep() {
           .el-checkbox__label {
             margin-left: 0 !important;
           }
         }
       }
+
       [class*='ri'] {
         font-size: $base-font-size-big;
         color: var(--el-color-black);

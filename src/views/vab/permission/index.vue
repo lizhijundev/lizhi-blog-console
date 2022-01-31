@@ -248,14 +248,8 @@
 </template>
 
 <script>
-  import {
-    computed,
-    defineComponent,
-    getCurrentInstance,
-    reactive,
-    toRefs,
-  } from 'vue'
-  import { useStore } from 'vuex'
+  import { useAclStore } from '@/store/modules/acl'
+  import { useUserStore } from '@/store/modules/user'
   import {
     authentication,
     loginInterception,
@@ -270,12 +264,13 @@
   export default defineComponent({
     name: 'Permission',
     setup() {
-      const store = useStore()
+      const $baseLoading = inject('$baseLoading')
+      const $baseMessage = inject('$baseMessage')
 
-      const username = computed(() => store.getters['user/username'])
-      const token = computed(() => store.getters['user/token'])
-
-      const { proxy } = getCurrentInstance()
+      const aclStore = useAclStore()
+      const { role, permission } = storeToRefs(aclStore)
+      const userStore = useUserStore()
+      const { username, token } = storeToRefs(userStore)
 
       const state = reactive({
         form: {
@@ -295,7 +290,7 @@
         state.tableData = filterRoutes([...list])
       }
       const handleChangeRole = async () => {
-        proxy.$baseLoading(0, '正在切换账号请稍后...')
+        $baseLoading(0, '正在切换账号请稍后...')
         await localStorage.setItem(
           tokenTableName,
           `${state.form.account}-token-${Random.guid()}-${new Date().getTime()}`
@@ -304,7 +299,7 @@
       }
       const handleRefreshToken = async () => {
         const { msg } = await expireToken()
-        proxy.$baseMessage(
+        $baseMessage(
           `${msg}: [${token.value}] `,
           'success',
           'vab-hey-message-success'
@@ -315,8 +310,8 @@
 
       return {
         ...toRefs(state),
-        role: computed(() => store.getters['acl/role']),
-        permission: computed(() => store.getters['acl/permission']),
+        role,
+        permission,
         username,
         token,
         fetchData,

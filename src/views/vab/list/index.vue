@@ -1,65 +1,73 @@
 <template>
   <div class="list-container">
-    <vab-query-form>
-      <vab-query-form-top-panel :span="24">
-        <el-form :inline="true" :model="queryForm" @submit.prevent>
-          <el-form-item>
-            <el-input
-              v-model.trim="queryForm.title"
-              clearable
-              placeholder="请输入标题"
-            />
-          </el-form-item>
-          <el-form-item>
-            <el-button :icon="Search" type="primary" @click="queryData">
-              查询
-            </el-button>
-          </el-form-item>
-        </el-form>
-      </vab-query-form-top-panel>
-    </vab-query-form>
-    <ul v-loading="listLoading">
-      <li v-for="(item, index) in list" :key="index" class="list-item">
-        <div class="list-item-meta">
-          <div class="list-item-meta-avatar">
-            <el-image :src="item.img" />
-          </div>
-          <div class="list-item-meta-content">
-            <div class="list-item-meta-title">
-              {{ item.title }}
+    <el-row :gutter="20">
+      <vab-query-form>
+        <vab-query-form-top-panel :span="24">
+          <el-form :inline="true" :model="queryForm" @submit.prevent>
+            <el-form-item>
+              <el-input
+                v-model.trim="queryForm.title"
+                clearable
+                placeholder="请输入标题"
+              />
+            </el-form-item>
+            <el-form-item>
+              <el-button :icon="Search" type="primary" @click="queryData">
+                查询
+              </el-button>
+            </el-form-item>
+          </el-form>
+        </vab-query-form-top-panel>
+      </vab-query-form>
+      <el-col v-if="emptyShow" :span="24">
+        <el-empty class="vab-data-empty" description="暂无数据" />
+      </el-col>
+      <el-col :span="24">
+        <ul v-loading="listLoading">
+          <li v-for="(item, index) in list" :key="index" class="list-item">
+            <div class="list-item-meta">
+              <div class="list-item-meta-avatar">
+                <el-image :src="item.img" />
+              </div>
+              <div class="list-item-meta-content">
+                <div class="list-item-meta-title">
+                  {{ item.title }}
+                </div>
+                <div class="list-item-meta-description">
+                  {{ item.description }}
+                </div>
+              </div>
+              <div class="list-item-meta-content">
+                <div class="list-item-meta-item">
+                  <span>时间</span>
+                  <p>{{ item.datetime }}</p>
+                </div>
+              </div>
+              <div class="list-item-meta-content">
+                <el-progress :percentage="item.percentage" />
+              </div>
             </div>
-            <div class="list-item-meta-description">
-              {{ item.description }}
-            </div>
-          </div>
-          <div class="list-item-meta-content">
-            <div class="list-item-meta-item">
-              <span>时间</span>
-              <p>{{ item.datetime }}</p>
-            </div>
-          </div>
-          <div class="list-item-meta-content">
-            <el-progress :percentage="item.percentage" />
-          </div>
-        </div>
-      </li>
-    </ul>
-    <el-pagination
-      background
-      :current-page="queryForm.pageNo"
-      :layout="layout"
-      :page-size="queryForm.pageSize"
-      :total="total"
-      @current-change="handleCurrentChange"
-      @size-change="handleSizeChange"
-    />
+          </li>
+        </ul>
+      </el-col>
+      <el-col :span="24">
+        <el-pagination
+          background
+          :current-page="queryForm.pageNo"
+          :layout="layout"
+          :page-size="queryForm.pageSize"
+          :total="total"
+          @current-change="handleCurrentChange"
+          @size-change="handleSizeChange"
+        />
+      </el-col>
+    </el-row>
   </div>
 </template>
 
 <script>
-  import { defineComponent, onMounted, reactive, toRefs } from 'vue'
   import { getList } from '@/api/table'
-  import { Search } from '@element-plus/icons'
+  import { Search } from '@element-plus/icons-vue'
 
   export default defineComponent({
     name: 'List',
@@ -70,6 +78,7 @@
         queryForm: { pageNo: 1, pageSize: 10, title: '' },
         layout: 'total, sizes, prev, pager, next, jumper',
         listLoading: true,
+        emptyShow: true,
       })
 
       const fetchData = async () => {
@@ -80,6 +89,7 @@
         state.list = list
         state.total = total
         state.listLoading = false
+        state.emptyShow = false
       }
       const handleSizeChange = (val) => {
         state.queryForm.pageSize = val

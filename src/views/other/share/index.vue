@@ -51,8 +51,7 @@
 </template>
 
 <script>
-  import { defineComponent, onMounted, reactive, toRefs } from 'vue'
-  import VabQrCode from '@/extra/VabQrCode'
+  import VabQrCode from '@/plugins/VabQrCode'
   import clip from '@/utils/clipboard'
 
   export default defineComponent({

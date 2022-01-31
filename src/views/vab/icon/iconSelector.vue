@@ -24,8 +24,7 @@
 </template>
 
 <script>
-  import { defineComponent, reactive, toRefs } from 'vue'
-  import VabIconSelector from '@/extra/VabIconSelector'
+  import VabIconSelector from '@/plugins/VabIconSelector'
 
   export default defineComponent({
     name: 'IconSelector',

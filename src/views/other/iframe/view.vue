@@ -5,8 +5,8 @@
 </template>
 
 <script>
-  import { defineComponent } from 'vue'
-  import { mapActions } from 'vuex'
+  import { mapActions } from 'pinia'
+  import { useTabsStore } from '@/store/modules/tabs'
 
   export default defineComponent({
     name: 'Iframe',
@@ -20,9 +20,7 @@
       this.handleIframe()
     },
     methods: {
-      ...mapActions({
-        changeTabsMeta: 'tabs/changeTabsMeta',
-      }),
+      ...mapActions(useTabsStore, ['changeTabsMeta']),
       handleIframe() {
         this.url = this.$route.query.url
         const meta = { ...this.$route.meta, ...this.$route.query }

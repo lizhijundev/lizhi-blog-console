@@ -90,10 +90,9 @@
 </template>
 
 <script>
-  import { defineComponent } from 'vue'
   import _ from 'lodash'
-  import VabChart from '@/extra/VabChart'
-  import VabCount from '@/extra/VabCount'
+  import VabChart from '@/plugins/VabChart'
+  import VabCount from '@/plugins/VabCount'
 
   export default defineComponent({
     components: { VabCount, VabChart },

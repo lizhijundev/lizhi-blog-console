@@ -67,54 +67,51 @@
 </template>
 
 <script>
-  import { defineComponent, getCurrentInstance, reactive, toRefs } from 'vue'
-  import { mapActions } from 'vuex'
+  import { useTabsStore } from '@/store/modules/tabs'
   import getPageTitle from '@/utils/pageTitle'
-  import VabIconSelector from '@/extra/VabIconSelector'
+  import VabIconSelector from '@/plugins/VabIconSelector'
 
   export default defineComponent({
     name: 'DynamicMeta',
     components: { VabIconSelector },
     setup() {
-      const { proxy } = getCurrentInstance()
+      const route = useRoute()
+
+      const tabsStore = useTabsStore()
+      const { changeActiveName, changeMenuMeta, changeTabsMeta } = tabsStore
 
       const state = reactive({
         badge: 0,
-        icon: proxy.$route.meta.icon,
-        defaultTitle: proxy.$route.meta.title,
+        icon: route.meta.icon,
+        defaultTitle: route.meta.title,
       })
       const handleBadge = (name) => {
         state.badge = state.badge + 1
-        proxy.changeMenuMeta({
+        changeMenuMeta({
           name,
           meta: { badge: state.badge },
         })
       }
       const resetBadge = (name, meta) => {
         state.badge = 0
-        proxy.changeMenuMeta({ name, meta })
+        changeMenuMeta({ name, meta })
       }
       const handleMeta = (name, meta) => {
         if (meta.title) document.title = getPageTitle(meta.title)
-        proxy.changeMenuMeta({ name, meta })
-        proxy.changeTabsMeta({ name, meta })
+        changeMenuMeta({ name, meta })
+        changeTabsMeta({ name, meta })
       }
       const handleIcon = (item) => {
         state.icon = item
-        proxy.changeMenuMeta({ name: 'DynamicMeta', meta: { icon: item } })
-        proxy.changeTabsMeta({ name: 'DynamicMeta', meta: { icon: item } })
+        changeMenuMeta({ name: 'DynamicMeta', meta: { icon: item } })
+        changeTabsMeta({ name: 'DynamicMeta', meta: { icon: item } })
       }
       const handleActiveName = (activeMenu) => {
-        proxy.changeActiveName(activeMenu)
+        changeActiveName(activeMenu)
       }
 
       return {
         ...toRefs(state),
-        ...mapActions({
-          changeActiveName: 'routes/changeActiveName',
-          changeMenuMeta: 'routes/changeMenuMeta',
-          changeTabsMeta: 'tabs/changeTabsMeta',
-        }),
         handleBadge,
         resetBadge,
         handleMeta,

@@ -143,7 +143,7 @@
       <el-table-column align="center" label="头像">
         <template #default="{ row }">
           <el-image
-            v-if="imgShow"
+            append-to-body
             :preview-src-list="imageList"
             :src="row.img"
           />
@@ -225,23 +225,11 @@
 </template>
 
 <script>
-  import {
-    computed,
-    defineAsyncComponent,
-    defineComponent,
-    getCurrentInstance,
-    onActivated,
-    onBeforeMount,
-    onBeforeUnmount,
-    onMounted,
-    reactive,
-    toRefs,
-  } from 'vue'
-  import { useStore } from 'vuex'
-  import { useRouter } from 'vue-router'
+  import { useTabsStore } from '@/store/modules/tabs'
+  import { useRoutesStore } from '@/store/modules/routes'
   import { doDelete, getList } from '@/api/table'
   import { handleMatched, handleTabs } from '@/utils/routes'
-  import { Delete, Plus, Search } from '@element-plus/icons'
+  import { Delete, Plus, Search } from '@element-plus/icons-vue'
 
   export default defineComponent({
     name: 'ComprehensiveTable',
@@ -249,21 +237,24 @@
       Edit: defineAsyncComponent(() => import('./components/TableEdit')),
     },
     setup() {
-      const store = useStore()
       const router = useRouter()
-      const routes = computed(() => store.getters['routes/routes'])
-      const changeTabsMeta = (options) =>
-        store.dispatch('tabs/changeTabsMeta', options)
-      const addVisitedRoute = (options) =>
-        store.dispatch('tabs/addVisitedRoute', options)
-      const { proxy } = getCurrentInstance()
+
+      const $baseConfirm = inject('$baseConfirm')
+      const $baseMessage = inject('$baseMessage')
+      const $baseAlert = inject('$baseAlert')
+      const $baseNotify = inject('$baseNotify')
+      const $baseTableHeight = inject('$baseTableHeight')
+
+      const routesStore = useRoutesStore()
+      const { getRoutes: routes } = storeToRefs(routesStore)
+      const tabsStore = useTabsStore()
+      const { changeTabsMeta, addVisitedRoute } = tabsStore
 
       const state = reactive({
         editRef: null,
         tableSortRef: null,
         fold: false,
-        height: proxy.$baseTableHeight(3) - 30,
-        imgShow: true,
+        height: $baseTableHeight(3) - 30,
         list: [],
         imageList: [],
         listLoading: true,
@@ -324,8 +315,8 @@
         handleHeight()
       }
       const handleHeight = () => {
-        if (state.fold) state.height = proxy.$baseTableHeight(2) - 47
-        else state.height = proxy.$baseTableHeight(3) - 30
+        if (state.fold) state.height = $baseTableHeight(2) - 47
+        else state.height = $baseTableHeight(3) - 30
       }
       const tableSortChange = () => {
         const imageList = []
@@ -345,21 +336,21 @@
       }
       const handleDelete = (row) => {
         if (row.id) {
-          proxy.$baseConfirm('你确定要删除当前项吗', null, async () => {
+          $baseConfirm('你确定要删除当前项吗', null, async () => {
             const { msg } = await doDelete({ ids: row.id })
-            proxy.$baseMessage(msg, 'success', 'vab-hey-message-success')
+            $baseMessage(msg, 'success', 'vab-hey-message-success')
             await fetchData()
           })
         } else {
           if (state.selectRows.length > 0) {
             const ids = state.selectRows.map((item) => item.id).join()
-            proxy.$baseConfirm('你确定要删除选中项吗', null, async () => {
+            $baseConfirm('你确定要删除选中项吗', null, async () => {
               const { msg } = await doDelete({ ids: ids })
-              proxy.$baseMessage(msg, 'success', 'vab-hey-message-success')
+              $baseMessage(msg, 'success', 'vab-hey-message-success')
               await fetchData()
             })
           } else {
-            proxy.$baseMessage('未选中任何行', 'error', 'vab-hey-message-error')
+            $baseMessage('未选中任何行', 'error', 'vab-hey-message-error')
           }
         }
       }
@@ -394,7 +385,7 @@
               query: state.selectRows[0],
             })
           } else {
-            proxy.$baseMessage(
+            $baseMessage(
               '请选择一行进行详情页跳转',
               'error',
               'vab-hey-message-error'
@@ -403,19 +394,19 @@
         }
       }
       const handleMessage = () => {
-        proxy.$baseMessage('test1', 'success', false, 'vab-hey-message-success')
+        $baseMessage('test1', 'success', false, 'vab-hey-message-success')
       }
       const handleAlert = () => {
-        proxy.$baseAlert('11')
-        // proxy.$baseAlert('11', '自定义标题', () => {
+        $baseAlert('11')
+        // $baseAlert('11', '自定义标题', () => {
         //   /* 可以写回调; */
         // })
-        // proxy.$baseAlert('11', null, () => {
+        // $baseAlert('11', null, () => {
         //   /* 可以写回调; */
         // })
       }
       const handleConfirm = () => {
-        proxy.$baseConfirm(
+        $baseConfirm(
           '你确定要执行该操作?',
           null,
           () => {
@@ -427,7 +418,7 @@
         )
       }
       const handleNotify = () => {
-        proxy.$baseNotify('测试消息提示', 'test', 'success', 'bottom-right')
+        $baseNotify('测试消息提示', 'test', 'success', 'bottom-right')
       }
       const toggleSelection = (rows) => {
         if (rows) {
@@ -442,7 +433,7 @@
       onBeforeMount(() => {
         window.addEventListener('resize', handleHeight)
       })
-      onBeforeUnmount(() => {
+      onUnmounted(() => {
         window.removeEventListener('resize', handleHeight)
       })
       onMounted(() => {

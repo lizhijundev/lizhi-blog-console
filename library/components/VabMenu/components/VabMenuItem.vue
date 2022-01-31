@@ -1,0 +1,88 @@
+<script setup>
+  import { useSettingsStore } from '@/store/modules/settings'
+  import { isExternal } from '@/utils/validate'
+  import { translateTitle } from '@/utils/i18n'
+  import { isHashRouterMode } from '@/config'
+
+  const props = defineProps({
+    itemOrMenu: {
+      type: Object,
+      default() {
+        return null
+      },
+    },
+  })
+
+  const route = useRoute()
+  const router = useRouter()
+
+  const $pub = inject('$pub')
+
+  const settingsStore = useSettingsStore()
+  const { device } = storeToRefs(settingsStore)
+  const { foldSideBar } = settingsStore
+
+  const handleLink = () => {
+    const routePath = props.itemOrMenu.path
+    const target = props.itemOrMenu.meta.target
+    if (target === '_blank') {
+      if (isExternal(routePath)) window.open(routePath)
+      else if (route.path !== routePath)
+        isHashRouterMode
+          ? window.open('/#' + routePath)
+          : window.open(routePath)
+    } else {
+      if (isExternal(routePath)) window.location.href = routePath
+      else if (route.path !== routePath) {
+        if (device.value === 'mobile') foldSideBar()
+        router.push(props.itemOrMenu.path)
+      } else $pub('reload-router-view')
+    }
+  }
+</script>
+
+<template>
+  <el-menu-item :index="itemOrMenu.path" @click="handleLink">
+    <vab-icon
+      v-if="itemOrMenu.meta && itemOrMenu.meta.icon"
+      :icon="itemOrMenu.meta.icon"
+      :is-custom-svg="itemOrMenu.meta.isCustomSvg"
+      :title="translateTitle(itemOrMenu.meta.title)"
+    />
+    <span :title="translateTitle(itemOrMenu.meta.title)">
+      {{ translateTitle(itemOrMenu.meta.title) }}
+    </span>
+    <el-tag
+      v-if="itemOrMenu.meta && itemOrMenu.meta.badge"
+      effect="dark"
+      type="danger"
+    >
+      {{ itemOrMenu.meta.badge }}
+    </el-tag>
+    <span
+      v-if="itemOrMenu.meta && itemOrMenu.meta.dot"
+      class="vab-dot vab-dot-error"
+    >
+      <span />
+    </span>
+  </el-menu-item>
+</template>
+
+<style lang="scss" scoped>
+  :deep(.el-tag) {
+    position: absolute;
+    right: 20px;
+    height: 16px;
+    padding-right: 4px;
+    padding-left: 4px;
+    // margin-top: #{math.div($base-menu-item-height - 16, 2)};
+    line-height: 16px;
+    border: 0;
+  }
+
+  .vab-dot {
+    position: absolute !important;
+    right: 20px;
+    // margin-top: #{math.div($base-menu-item-height - 6, 2)};
+  }
+</style>

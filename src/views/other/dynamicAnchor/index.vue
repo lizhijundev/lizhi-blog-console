@@ -11,8 +11,7 @@
 </template>
 
 <script>
-  import { defineComponent, reactive, toRefs } from 'vue'
-  import VabAnchor from '@/extra/VabAnchor'
+  import VabAnchor from '@/plugins/VabAnchor'
 
   export default defineComponent({
     name: 'DynamicAnchor',

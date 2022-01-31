@@ -3,20 +3,17 @@
 </template>
 
 <script>
-  import { defineComponent, getCurrentInstance, onBeforeUnmount } from 'vue'
   import { callback } from '@/utils/social'
 
   export default defineComponent({
     name: 'Callback',
     setup() {
-      const { proxy } = getCurrentInstance()
-
-      const loading = proxy.$baseLoading()
+      const loading = inject('$baseLoading')
       callback()
       window.open(' ', '_self')
       window.close()
 
-      onBeforeUnmount(() => {
+      onUnmounted(() => {
         loading.close()
       })
     },

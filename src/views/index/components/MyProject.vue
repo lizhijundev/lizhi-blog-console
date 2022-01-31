@@ -31,8 +31,6 @@
 </template>
 
 <script>
-  import { defineComponent } from 'vue'
-
   export default defineComponent({
     setup() {
       const list = [
@@ -40,8 +38,8 @@
           title: 'vue-admin-beautiful-pro(vue2.x)',
           description:
             '一款基于vue2.x + element-ui的绝佳的中后台前端开发管理框架',
-          colorFrom: '#1f94ff',
-          colorTo: '#77e19d',
+          colorFrom: 'var(--el-color-primary)',
+          colorTo: 'var(--el-color-transition)',
           icon: 'vuejs-line',
           url: 'https://github.com/chuzhixin/vue-admin-beautiful/tree/master',
         },
@@ -49,8 +47,8 @@
           title: 'vue-admin-beautiful-antdv(vue3.x)',
           description:
             '一款基于vue3.x + ant-design-vue的绝佳的中后台前端开发管理框架',
-          colorFrom: '#77e19d',
-          colorTo: '#1f94ff',
+          colorFrom: 'var(--el-color-transition)',
+          colorTo: 'var(--el-color-primary)',
           icon: 'dashboard-line',
           url: 'https://github.com/chuzhixin/vue-admin-beautiful/tree/vue3.0-antdv',
         },

@@ -16,8 +16,7 @@
 </template>
 
 <script>
-  import { defineComponent, reactive, toRefs } from 'vue'
-  import VabChart from '@/extra/VabChart'
+  import VabChart from '@/plugins/VabChart'
 
   export default defineComponent({
     components: {
@@ -77,9 +76,11 @@
               smooth: true,
               yAxisIndex: 0,
               showSymbol: false,
-              lineStyle: {},
               areaStyle: {
                 opacity: 0.8,
+              },
+              itemStyle: {
+                color: 'var(--el-color-transition)',
               },
             },
             {
@@ -93,9 +94,11 @@
               smooth: true,
               yAxisIndex: 0,
               showSymbol: false,
-              lineStyle: {},
               areaStyle: {
                 opacity: 0.8,
+              },
+              itemStyle: {
+                color: 'var(--el-color-primary-light-2)',
               },
             },
           ],

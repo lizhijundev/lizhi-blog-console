@@ -26,9 +26,8 @@
 </template>
 
 <script>
-  import { defineComponent, reactive, toRefs } from 'vue'
   import { ElMessageBox } from 'element-plus'
-  import VabPrint from '@/extra/VabPrint'
+  import VabPrint from '@/plugins/VabPrint'
 
   export default defineComponent({
     name: 'Print',

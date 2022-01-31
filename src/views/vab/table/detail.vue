@@ -61,33 +61,22 @@
 </template>
 
 <script>
-  import {
-    defineComponent,
-    getCurrentInstance,
-    onMounted,
-    reactive,
-    toRefs,
-  } from 'vue'
-  import { useStore } from 'vuex'
-  import { useRoute, useRouter } from 'vue-router'
+  import { useTabsStore } from '@/store/modules/tabs'
   import { handleActivePath } from '@/utils/routes'
-  import VabJsonViewer from '@/extra/VabJsonViewer'
-  import { Refresh } from '@element-plus/icons'
+  import VabJsonViewer from 'vue-json-viewer'
+  import { Refresh } from '@element-plus/icons-vue'
 
   export default defineComponent({
     name: 'Detail',
     components: { VabJsonViewer },
     setup() {
-      const store = useStore()
       const route = useRoute()
       const router = useRouter()
 
-      const { proxy } = getCurrentInstance()
+      const $pub = inject('$pub')
 
-      const changeTabsMeta = (options) =>
-        store.dispatch('tabs/changeTabsMeta', options)
-      const delVisitedRoute = (path) =>
-        store.dispatch('tabs/delVisitedRoute', path)
+      const tabsStore = useTabsStore()
+      const { changeTabsMeta, delVisitedRoute } = tabsStore
 
       const state = reactive({
         route: { query: { title: '加载中' } },
@@ -105,7 +94,7 @@
       }
 
       const handleRefreshMainPage = () => {
-        proxy.$pub('reload-router-view', 'ComprehensiveTable')
+        $pub('reload-router-view', 'ComprehensiveTable')
       }
 
       onMounted(() => {
