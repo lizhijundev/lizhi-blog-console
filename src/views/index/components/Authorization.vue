@@ -32,6 +32,7 @@
   import _ from 'lodash'
   import VabChart from '@/plugins/VabChart'
   import VabCount from '@/plugins/VabCount'
+  import { useSettingsStore } from '@/store/modules/settings'
 
   export default defineComponent({
     name: 'Authorization',
@@ -40,6 +41,8 @@
       VabCount,
     },
     setup() {
+      const settingsStore = useSettingsStore()
+      const { echartsGraphic2 } = storeToRefs(settingsStore)
       const state = reactive({
         timer: null,
         n: 5,
@@ -95,10 +98,7 @@
                   0,
                   0,
                   1,
-                  [
-                    'var(--el-color-primary-light-6)',
-                    'var(--el-color-primary)',
-                  ].map((color, offset) => ({
+                  echartsGraphic2.value.map((color, offset) => ({
                     color,
                     offset,
                   }))
@@ -108,6 +108,23 @@
           ],
         },
       })
+
+      watch(
+        () => echartsGraphic2.value,
+        () => {
+          state.option.series[0].itemStyle.color =
+            new VabChart.graphic.LinearGradient(
+              0,
+              0,
+              0,
+              1,
+              echartsGraphic2.value.map((color, offset) => ({
+                color,
+                offset,
+              }))
+            )
+        }
+      )
 
       onUnmounted(() => {
         state.timer = null

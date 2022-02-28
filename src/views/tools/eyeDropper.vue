@@ -1,6 +1,7 @@
 <script setup>
   const { isSupported, open, sRGBHex } = useEyeDropper()
 </script>
+
 <template>
   <div class="eye-dropper-container">
     <p>

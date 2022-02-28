@@ -11,9 +11,11 @@ import './styles/vab.scss'
 // 加载VabIcon
 import VabIcon from 'vab-icons'
 import 'vab-icons/lib/vab-icons.css'
+import { createHead } from '@vueuse/head'
 
 export function setupVab(app) {
   if ((noTest && noEmpty) || dev) {
+    app.use(createHead())
     app.component('VabIcon', VabIcon)
 
     // 加载背景

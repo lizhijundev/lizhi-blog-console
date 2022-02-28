@@ -356,7 +356,7 @@
       }
       const handleDetailStayTable = async () => {
         for (let i = 0; i < state.selectRows.length; i++) {
-          const matched = handleMatched(routes.value, 'Detail')
+          const matched = handleMatched(routes.value, '/vab/table/detail')
           const tab = handleTabs({
             ...matched[matched.length - 1],
             query: state.selectRows[i],

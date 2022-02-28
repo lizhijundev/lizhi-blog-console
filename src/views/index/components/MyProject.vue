@@ -35,22 +35,42 @@
     setup() {
       const list = [
         {
-          title: 'vue-admin-beautiful-pro(vue2.x)',
-          description:
-            '一款基于vue2.x + element-ui的绝佳的中后台前端开发管理框架',
+          title: 'vue-admin-better',
+          description: '一款' + '绝佳的' + '中后台前端开发管理框架',
           colorFrom: 'var(--el-color-primary)',
           colorTo: 'var(--el-color-transition)',
           icon: 'vuejs-line',
-          url: 'https://github.com/chuzhixin/vue-admin-beautiful/tree/master',
+          url:
+            'https://github.com/chuzhixin/' +
+            'vue-admin-better/' +
+            'tree/master',
         },
         {
-          title: 'vue-admin-beautiful-antdv(vue3.x)',
+          title: 'vue-admin-better-antdv(vue3.x)',
           description:
-            '一款基于vue3.x + ant-design-vue的绝佳的中后台前端开发管理框架',
+            '一款' +
+            '基于vue3.x + ant-design-vue的' +
+            '绝佳' +
+            '的中后台前端' +
+            '开发管理框架',
           colorFrom: 'var(--el-color-transition)',
           colorTo: 'var(--el-color-primary)',
           icon: 'dashboard-line',
-          url: 'https://github.com/chuzhixin/vue-admin-beautiful/tree/vue3.0-antdv',
+          url:
+            'https://github.com/chuzhixin/' +
+            'vue-admin-better/tree/vue3.0-antdv',
+        },
+        {
+          title: 'vue-admin' + '-arco(vue3.x)',
+          description:
+            '一款' +
+            '基于vue3.x + vite + ts + arco-' +
+            'design-pro-vue' +
+            '修改的前端框架',
+          colorFrom: 'var(--el-color-primary)',
+          colorTo: 'var(--el-color-transition)',
+          icon: 'dashboard-line',
+          url: 'https://github.com/' + 'chuzhixin' + '/vue-admin-arco',
         },
       ]
 

@@ -42,17 +42,16 @@
         default: false,
       },
     },
-    setup() {
-      watchEffect(() => {})
+    data() {
       return {
         lastArea: 0,
       }
     },
-    /* watch: {
-  group(group) {
-    this.chart.group = group
-  },
-}, */
+    watch: {
+      group(group) {
+        this.chart.group = group
+      },
+    },
     created() {
       this.initOptionsWatcher()
       INIT_TRIGGERS.forEach((prop) => {
@@ -157,18 +156,16 @@
         if (this.group) {
           chart.group = this.group
         }
+        chart.clear()
         chart.setOption(option || this.manualOptions || this.option || {}, true)
-        /* 没看懂暂时注释 */
-        /* // eslint-disable-next-line vue/no-deprecated-dollar-listeners-api
-    Object.keys(this.$listeners).forEach((event) => {
-      // eslint-disable-next-line vue/no-deprecated-dollar-listeners-api
-      const handler = this.$listeners[event]
-      if (event.indexOf('zr:') === 0) {
-        chart.getZr().on(event.slice(3), handler)
-      } else {
-        chart.on(event, handler)
-      }
-    }) */
+        Object.keys(this.$attrs).forEach((event) => {
+          const handler = this.$attrs[event]
+          if (event.indexOf('zr:') === 0) {
+            chart.getZr().on(event.slice(3), handler)
+          } else {
+            chart.on(event, handler)
+          }
+        })
         if (this.autoResize) {
           this.lastArea = this.getArea()
           this.__resizeHandler = debounce(
@@ -187,6 +184,7 @@
           )
           addListener(this.$el, this.__resizeHandler)
         }
+        this.chart = chart
         Object.defineProperties(this, {
           width: {
             configurable: true,
@@ -213,7 +211,6 @@
             },
           },
         })
-        this.chart = chart
       },
       initOptionsWatcher() {
         if (this.__unwatchOptions) {

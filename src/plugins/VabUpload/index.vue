@@ -57,7 +57,6 @@
         <el-button type="primary" @click="handleClose">关闭</el-button>
         <el-button
           :loading="loading"
-          size="small"
           style="margin-left: 10px"
           type="success"
           @click="submitUpload"
@@ -70,7 +69,6 @@
 </template>
 
 <script>
-  import { mapState } from 'pinia'
   import { useUserStore } from '@/store/modules/user'
   import _ from 'lodash'
 

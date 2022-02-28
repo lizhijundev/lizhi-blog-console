@@ -1,7 +1,6 @@
 /**
  * @description 异常捕获的状态拦截，请勿修改
  */
-import { defineStore } from 'pinia'
 
 export const useErrorLogStore = defineStore('errorLog', {
   state: () => ({
@@ -14,7 +13,7 @@ export const useErrorLogStore = defineStore('errorLog', {
     addErrorLog(errorLog) {
       this.errorLogs.push(errorLog)
     },
-    clearErrorLog: () => {
+    clearErrorLog() {
       this.errorLogs.splice(0)
     },
   },

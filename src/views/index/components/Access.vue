@@ -31,6 +31,7 @@
   import _ from 'lodash'
   import VabChart from '@/plugins/VabChart'
   import VabCount from '@/plugins/VabCount'
+  import { useSettingsStore } from '@/store/modules/settings'
 
   export default defineComponent({
     components: {
@@ -38,6 +39,8 @@
       VabCount,
     },
     setup() {
+      const settingsStore = useSettingsStore()
+      const { echartsGraphic1 } = storeToRefs(settingsStore)
       const state = reactive({
         timer: null,
         countConfig: {
@@ -93,18 +96,33 @@
                   0,
                   1,
                   0,
-                  ['var(--el-color-transition)', 'var(--el-color-primary)'].map(
-                    (color, offset) => ({
-                      color,
-                      offset,
-                    })
-                  )
+                  echartsGraphic1.value.map((color, offset) => ({
+                    color,
+                    offset,
+                  }))
                 ),
               },
             },
           ],
         },
       })
+
+      watch(
+        () => echartsGraphic1.value,
+        () => {
+          state.option.series[0].itemStyle.color =
+            new VabChart.graphic.LinearGradient(
+              0,
+              0,
+              1,
+              0,
+              echartsGraphic1.value.map((color, offset) => ({
+                color,
+                offset,
+              }))
+            )
+        }
+      )
 
       onMounted(() => {
         const base = +new Date(2021, 1, 1)

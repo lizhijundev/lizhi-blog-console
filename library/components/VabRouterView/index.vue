@@ -4,7 +4,6 @@
   import { useSettingsStore } from '@/store/modules/settings'
   import { handleActivePath } from '@/utils/routes'
   import { keepAliveMaxNum } from '@/config'
-  import { repository } from '~/package.json'
   import VabProgress from 'nprogress'
 
   const route = useRoute()
@@ -52,9 +51,7 @@
 
   $sub('get-code', () => {
     window.open(
-      `${repository.url.replace('git+', '').replace('.git', '')}/blob/main/${
-        componentRef.value.$options.__source
-      }`
+      `https://github.com/vue-admin-beautiful/admin-plus/blob/main/${componentRef.value.$options.__source}`
     )
   })
 

@@ -97,7 +97,7 @@
           state.title = '添加'
         } else {
           state.title = '编辑'
-          state.form = Object.assign({}, row)
+          state.form = JSON.parse(JSON.stringify(row))
         }
         state.dialogFormVisible = true
       }

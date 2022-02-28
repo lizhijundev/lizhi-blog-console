@@ -1,5 +1,3 @@
-import { defineStore } from 'pinia'
-
 /**
  * @description tabsBar标签页逻辑，如无必要请勿修改
  */

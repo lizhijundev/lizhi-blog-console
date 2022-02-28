@@ -78,12 +78,20 @@
                   <el-form-item label="个人简介">
                     <el-input v-model="form.description" type="textarea" />
                   </el-form-item>
-                  <el-form-item label="标签">
+                  <el-form-item>
+                    <template #label>
+                      <div style="margin-bottom: 10px">标签</div>
+                    </template>
                     <el-tag
                       v-for="tag in dynamicTags"
                       :key="tag"
                       closable
                       :disable-transitions="false"
+                      style="
+                        margin-right: 10px;
+                        margin-bottom: 10px;
+                        margin-left: 0;
+                      "
                       @close="handleClose(tag)"
                     >
                       {{ tag }}
@@ -93,14 +101,14 @@
                       ref="inputRef"
                       v-model="inputValue"
                       size="small"
-                      style="width: 100px; margin-left: 10px"
+                      style="width: 100px; margin-bottom: 10px"
                       @blur="handleInputConfirm"
                       @keyup.enter="handleInputConfirm"
                     />
                     <el-button
                       v-else
                       size="small"
-                      style="margin-left: 10px"
+                      style="margin-bottom: 10px"
                       @click="showInput"
                     >
                       添加

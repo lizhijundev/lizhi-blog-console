@@ -54,10 +54,10 @@
           <template #header>
             <span>动态高亮菜单</span>
           </template>
-          <el-button @click="handleActiveName('Notice')">
+          <el-button @click="handleActiveMenu({ data: '/other/notice' })">
             修改高亮菜单至通知组件
           </el-button>
-          <el-button @click="handleActiveName('DynamicMeta')">
+          <el-button @click="handleActiveMenu({ data: '/other/dynamicMeta' })">
             还原默认高亮菜单
           </el-button>
         </vab-card>
@@ -68,6 +68,7 @@
 
 <script>
   import { useTabsStore } from '@/store/modules/tabs'
+  import { useRoutesStore } from '@/store/modules/routes'
   import getPageTitle from '@/utils/pageTitle'
   import VabIconSelector from '@/plugins/VabIconSelector'
 
@@ -78,7 +79,10 @@
       const route = useRoute()
 
       const tabsStore = useTabsStore()
-      const { changeActiveName, changeMenuMeta, changeTabsMeta } = tabsStore
+      const routesStore = useRoutesStore()
+
+      const { changeTabsMeta } = tabsStore
+      const { changeActiveMenu, changeMenuMeta } = routesStore
 
       const state = reactive({
         badge: 0,
@@ -106,8 +110,8 @@
         changeMenuMeta({ name: 'DynamicMeta', meta: { icon: item } })
         changeTabsMeta({ name: 'DynamicMeta', meta: { icon: item } })
       }
-      const handleActiveName = (activeMenu) => {
-        changeActiveName(activeMenu)
+      const handleActiveMenu = (activeMenu) => {
+        changeActiveMenu(activeMenu)
       }
 
       return {
@@ -116,7 +120,7 @@
         resetBadge,
         handleMeta,
         handleIcon,
-        handleActiveName,
+        handleActiveMenu,
       }
     },
   })

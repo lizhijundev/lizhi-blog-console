@@ -1,3 +1,114 @@
+<script setup>
+  const props = defineProps({
+    appendToBody: {
+      type: Boolean,
+      default: false,
+    },
+    lockScroll: {
+      type: Boolean,
+      default: true,
+    },
+    width: {
+      type: [String, Number],
+      default: '50%',
+    },
+    modelValue: {
+      type: Boolean,
+      default: false,
+    },
+    title: {
+      type: String,
+      default: '',
+    },
+    showClose: {
+      type: Boolean,
+      default: true,
+    },
+    showFullscreen: {
+      type: Boolean,
+      default: false,
+    },
+    drag: {
+      type: Boolean,
+      default: true,
+    },
+    loading: {
+      type: Boolean,
+      default: false,
+    },
+  })
+  const emit = defineEmits(['update:modelValue'])
+
+  const vabDialogRef = ref()
+  const dialogVisible = useVModel(props, 'modelValue', emit)
+  const isFullscreen = ref(false)
+
+  const closeDialog = () => {
+    dialogVisible.value = false
+  }
+  const setFullscreen = () => {
+    isFullscreen.value = !isFullscreen.value
+  }
+  const dialogDrag = () => {
+    const dialogHeaderEl =
+      vabDialogRef.value.querySelector('.el-dialog__header')
+    const dragDom = vabDialogRef.value.querySelector('.el-dialog')
+    dialogHeaderEl.style.cursor = 'move'
+    dialogHeaderEl.onmousedown = (e) => {
+      const disX = e.clientX - dialogHeaderEl.offsetLeft
+      const disY = e.clientY - dialogHeaderEl.offsetTop
+      const screenWidth = document.body.clientWidth
+      const screenHeight = document.documentElement.clientHeight
+      const dragDomWidth = dragDom.offsetWidth
+      const dragDomHeight = dragDom.offsetHeight
+      let minDragDomLeft = -dragDom.offsetLeft
+      let maxDragDomLeft = screenWidth - dragDom.offsetLeft - dragDomWidth
+      let minDragDomTop = -dragDom.offsetTop
+      let maxDragDomTop = screenHeight - dragDom.offsetTop - dragDomHeight
+
+      if (screenHeight < dragDomHeight) {
+        return false
+      }
+      dragDom.style.marginBottom = '0px'
+
+      let styL = getComputedStyle(dragDom).left
+      let styT = getComputedStyle(dragDom).top
+      if (styL.includes('%')) {
+        styL = +document.body.clientWidth * (+styL.replace('%', '') / 100)
+        styT = +document.body.clientHeight * (+styT.replace('%', '') / 100)
+      } else {
+        styL = +styL.replace('px', '')
+        styT = +styT.replace('px', '')
+      }
+      document.onmousemove = function (e) {
+        let left = e.clientX - disX
+        let top = e.clientY - disY
+        if (left < minDragDomLeft) {
+          left = minDragDomLeft
+        } else if (left > maxDragDomLeft) {
+          left = maxDragDomLeft
+        }
+        if (top < minDragDomTop) {
+          top = minDragDomTop
+        } else if (top > maxDragDomTop) {
+          top = maxDragDomTop
+        }
+        dragDom.style.cssText += `;left:${left + styL}px;top:${top + styT}px;`
+      }
+      document.onmouseup = function () {
+        document.onmousemove = null
+        document.onmouseup = null
+      }
+    }
+  }
+
+  watch(dialogVisible, (val) => {
+    nextTick(() => {
+      if (val && props.drag) dialogDrag()
+    })
+  })
+</script>
+
 <template>
   <div ref="vabDialogRef" class="vab-dialog">
     <el-dialog
@@ -42,139 +153,6 @@
     </el-dialog>
   </div>
 </template>
-
-<script>
-  export default defineComponent({
-    name: 'VabDialog',
-    props: {
-      appendToBody: {
-        type: Boolean,
-        default: false,
-      },
-      lockScroll: {
-        type: Boolean,
-        default: true,
-      },
-      width: {
-        type: [String, Number],
-        default: '50%',
-      },
-      modelValue: {
-        type: Boolean,
-        default: false,
-      },
-      title: {
-        type: String,
-        default: '',
-      },
-      showClose: {
-        type: Boolean,
-        default: true,
-      },
-      showFullscreen: {
-        type: Boolean,
-        default: false,
-      },
-      drag: {
-        type: Boolean,
-        default: true,
-      },
-      loading: {
-        type: Boolean,
-        default: false,
-      },
-    },
-    setup(props) {
-      const state = reactive({
-        vabDialogRef: '',
-        dialogVisible: false,
-        isFullscreen: false,
-      })
-      onMounted(() => {
-        state.dialogVisible = props.modelValue
-        if (props.drag) dialogdrag()
-      })
-      watch(
-        () => props.modelValue,
-        (val) => {
-          state.dialogVisible = val
-          if (state.dialogVisible) {
-            state['vabDialogRef'].querySelector('.el-dialog').style.top = '0px'
-            state['vabDialogRef'].querySelector('.el-dialog').style.left = '0px'
-            state.isFullscreen = false
-          }
-        }
-      )
-
-      const closeDialog = () => {
-        state.dialogVisible = false
-      }
-      const setFullscreen = () => {
-        state.isFullscreen = !state.isFullscreen
-      }
-      const dialogdrag = () => {
-        const dialogHeaderEl =
-          state['vabDialogRef'].querySelector('.el-dialog__header')
-        const dragDom = state['vabDialogRef'].querySelector('.el-dialog')
-        dialogHeaderEl.style.cursor = 'move'
-        dialogHeaderEl.onmousedown = (e) => {
-          const disX = e.clientX - dialogHeaderEl.offsetLeft
-          const disY = e.clientY - dialogHeaderEl.offsetTop
-          const screenWidth = document.body.clientWidth
-          const screenHeight = document.documentElement.clientHeight
-          const dragDomWidth = dragDom.offsetWidth
-          const dragDomheight = dragDom.offsetHeight
-          let minDragDomLeft = -dragDom.offsetLeft
-          let maxDragDomLeft = screenWidth - dragDom.offsetLeft - dragDomWidth
-          let minDragDomTop = -dragDom.offsetTop
-          let maxDragDomTop = screenHeight - dragDom.offsetTop - dragDomheight
-
-          if (screenHeight < dragDomheight) {
-            return false
-          }
-          dragDom.style.marginBottom = '0px'
-
-          let styL = getComputedStyle(dragDom).left
-          let styT = getComputedStyle(dragDom).top
-          if (styL.includes('%')) {
-            styL = +document.body.clientWidth * (+styL.replace('%', '') / 100)
-            styT = +document.body.clientHeight * (+styT.replace('%', '') / 100)
-          } else {
-            styL = +styL.replace('px', '')
-            styT = +styT.replace('px', '')
-          }
-          document.onmousemove = function (e) {
-            let left = e.clientX - disX
-            let top = e.clientY - disY
-            if (left < minDragDomLeft) {
-              left = minDragDomLeft
-            } else if (left > maxDragDomLeft) {
-              left = maxDragDomLeft
-            }
-            if (top < minDragDomTop) {
-              top = minDragDomTop
-            } else if (top > maxDragDomTop) {
-              top = maxDragDomTop
-            }
-            dragDom.style.cssText += `;left:${left + styL}px;top:${
-              top + styT
-            }px;`
-          }
-          document.onmouseup = function () {
-            document.onmousemove = null
-            document.onmouseup = null
-          }
-        }
-      }
-
-      return {
-        ...toRefs(state),
-        closeDialog,
-        setFullscreen,
-      }
-    },
-  })
-</script>
 
 <style lang="scss" scoped>
   .vab-dialog {

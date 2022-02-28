@@ -1,7 +1,6 @@
 /**
  * @description 路由拦截状态管理，目前两种模式：all模式与intelligence模式，其中partialRoutes是菜单暂未使用
  */
-import { defineStore } from 'pinia'
 import { asyncRoutes, constantRoutes, resetRouter } from '@/router'
 import { convertRouter, filterRoutes } from '@/utils/routes'
 import { authentication, rolesControl } from '@/config'
@@ -107,7 +106,7 @@ export const useRoutesStore = defineStore('routes', {
      * @param activeMenu 当前激活菜单
      */
     changeActiveMenu(activeMenu) {
-      this.activeMenu = activeMenu
+      this.activeMenu.data = activeMenu
     },
   },
 })

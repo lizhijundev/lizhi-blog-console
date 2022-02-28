@@ -1,7 +1,6 @@
 /**
  * @description 登录、获取用户信息、退出登录、清除token逻辑，不建议修改
  */
-import { defineStore } from 'pinia'
 import { useAclStore } from './acl'
 import { useTabsStore } from './tabs'
 import { useRoutesStore } from './routes'
@@ -53,7 +52,7 @@ export const useUserStore = defineStore('user', {
     setVirtualRoles() {
       const aclStore = useAclStore()
       aclStore.setFull(true)
-      this.commit('admin(未开启登录拦截)')
+      this.setUsername('admin(未开启登录拦截)')
       this.setAvatar('https://i.gtimg.cn/club/item/face/img/2/15922_100.gif')
     },
     /**

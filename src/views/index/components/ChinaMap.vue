@@ -71,10 +71,6 @@
               emphasis: {
                 label: {
                   show: true,
-                  color: 'var(--el-color-primary-light-9)',
-                },
-                itemStyle: {
-                  areaColor: 'var(--el-color-primary)',
                 },
               },
               data: [

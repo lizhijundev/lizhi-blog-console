@@ -13,7 +13,7 @@ module.exports = {
   // 开发环境每次保存时是否输出为eslint编译警告
   lintOnSave: true,
   // 进行编译的依赖
-  transpileDependencies: ['resize-detector', 'element-plus'],
+  transpileDependencies: [],
   // 开发环境端口号
   devPort: 15000,
   // 需要自动注入并加载的模块

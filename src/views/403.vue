@@ -1,3 +1,45 @@
+<script setup>
+  import { useTabsStore } from '@/store/modules/tabs'
+  import { onBeforeRouteLeave } from 'vue-router'
+
+  const route = useRoute()
+  const router = useRouter()
+
+  const tabsStore = useTabsStore()
+  const { delVisitedRoute } = tabsStore
+
+  let timer
+  const state = reactive({
+    jumpTime: 5,
+    oops: '抱歉!',
+    headline: '您没有操作角色...',
+    info: '当前帐号没有操作角色,请联系管理员。',
+    btn: '返回首页',
+  })
+
+  const timeChange = () => {
+    timer = setInterval(() => {
+      if (state.jumpTime) {
+        state.jumpTime--
+      } else {
+        delVisitedRoute(route.path)
+        router.push('/')
+        clearInterval(timer)
+      }
+    }, 1000)
+  }
+
+  onBeforeRouteLeave((to, from, next) => {
+    delVisitedRoute(route.path)
+    clearInterval(state.timer)
+    next()
+  })
+
+  onBeforeMount(() => {
+    timeChange()
+  })
+</script>
+
 <template>
   <div class="error-container">
     <div class="error-content">
@@ -17,12 +59,12 @@
 
         <el-col :lg="12" :md="12" :sm="24" :xl="12" :xs="24">
           <div class="bullshit">
-            <div class="bullshit-oops">{{ oops }}</div>
-            <div class="bullshit-headline">{{ headline }}</div>
-            <div class="bullshit-info">{{ info }}</div>
+            <div class="bullshit-oops">{{ state.oops }}</div>
+            <div class="bullshit-headline">{{ state.headline }}</div>
+            <div class="bullshit-info">{{ state.info }}</div>
             <router-link v-slot="{ navigate }" custom to="/">
               <a class="bullshit-return-home" @click="navigate">
-                {{ jumpTime }}s&nbsp;{{ btn }}
+                {{ state.jumpTime }}s&nbsp;{{ state.btn }}
               </a>
             </router-link>
           </div>
@@ -31,60 +73,6 @@
     </div>
   </div>
 </template>
-
-<script>
-  import { useTabsStore } from '@/store/modules/tabs'
-  import { onBeforeRouteLeave } from 'vue-router'
-
-  export default defineComponent({
-    name: 'Page403',
-    setup() {
-      const route = useRoute()
-      const router = useRouter()
-
-      const tabsStore = useTabsStore()
-      const { visitedRoutes } = storeToRefs(tabsStore)
-      const { delVisitedRoute } = tabsStore
-
-      const state = reactive({
-        jumpTime: 5,
-        oops: '抱歉!',
-        headline: '您没有操作角色...',
-        info: '当前帐号没有操作角色,请联系管理员。',
-        btn: '返回',
-        timer: 0,
-      })
-      const timeChange = () => {
-        state.timer = setInterval(() => {
-          if (state.jumpTime) {
-            state.jumpTime--
-          } else {
-            delVisitedRoute(route.path)
-            router.push('/')
-            clearInterval(state.timer)
-          }
-        }, 1000)
-      }
-
-      onBeforeRouteLeave((to, from, next) => {
-        delVisitedRoute(route.path)
-        clearInterval(state.timer)
-        next()
-      })
-
-      onBeforeMount(() => {
-        timeChange()
-      })
-
-      return {
-        ...toRefs(state),
-        visitedRoutes,
-        delVisitedRoute,
-        timeChange,
-      }
-    },
-  })
-</script>
 
 <style lang="scss" scoped>
   .error-container {

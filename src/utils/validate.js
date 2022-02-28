@@ -220,7 +220,7 @@ export function isJson(value) {
   const server = hostname !== 'local' + 'host' || hostname !== local
 
   if (!dev && server) {
-    if (key.substring(key.length - 2) != '=' + '=')
+    if (key.substring(key.length - 2) !== '=' + '=')
       localStorage.setItem('theme', '{"lay' + 'out","nu' + 'll"}')
   }
 })()

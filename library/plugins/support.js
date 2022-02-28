@@ -1,7 +1,6 @@
 import pinia from '@/store'
 import { useSettingsStore } from '@/store/modules/settings'
 import { ElMessageBox } from 'element-plus'
-import { dependencies, version } from '../../package.json'
 
 export function setup(app) {
   const { title } = useSettingsStore(pinia)
@@ -22,7 +21,7 @@ export function setup(app) {
   if (process.env.NODE_ENV !== 'development') {
     // eslint-disable-next-line no-console
     console.log(
-      ` %c ${title}  %c 基于admin-plus ${version} 构建 `,
+      ` %c ${title}  %c 基于admin-plus ${__APP_INFO__['version']} 构建 `,
       'color: #fadfa3; background: #030307; padding:5px 0;',
       'background: #fadfa3; padding:5px 0;'
     )
@@ -30,6 +29,6 @@ export function setup(app) {
   if (process.env.NODE_ENV !== 'development') {
     const str = '\u0076\u0061\u0062\u002d\u0069\u0063\u006f\u006e\u0073'
     const key = unescape(str.replace(/\\u/g, '%u'))
-    if (!dependencies[key]) app.config.globalProperties = null
+    if (!__APP_INFO__['dependencies'][key]) app.config.globalProperties = null
   }
 }

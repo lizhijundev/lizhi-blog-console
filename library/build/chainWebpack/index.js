@@ -18,7 +18,7 @@ module.exports = {
       if (imageCompression) createImageCompression(config)
       createOptimization(config)
     }
-    if (env === 'development') config.devtool('source-map')
+    if (env === 'development') config.devtool('cheap-module-source-map')
     createSourceInjector(config)
   },
 }

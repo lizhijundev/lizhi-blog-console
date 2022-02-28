@@ -1,7 +1,6 @@
 /**
  * @description 所有全局配置的状态管理，如无必要请勿修改
  */
-import { defineStore } from 'pinia'
 import { isJson } from '@/utils/validate'
 import {
   background,
@@ -74,6 +73,8 @@ export const useSettingsStore = defineStore('settings', {
     lock,
     logo,
     title,
+    echartsGraphic1: ['#3ED572', '#399efd'],
+    echartsGraphic2: ['#399efd', '#8cc8ff'],
   }),
   getters: {
     getTheme: (state) => state.theme,
@@ -88,7 +89,12 @@ export const useSettingsStore = defineStore('settings', {
     updateState(obj) {
       Object.keys(obj).forEach((key) => {
         this[key] = obj[key]
-        localStorage.setItem(key, `{"${key}":${obj[key]}}`)
+        localStorage.setItem(
+          key,
+          typeof obj[key] == 'string'
+            ? `{"${key}":"${obj[key]}"}`
+            : `{"${key}":${obj[key]}}`
+        )
       })
     },
     saveTheme() {
@@ -103,13 +109,25 @@ export const useSettingsStore = defineStore('settings', {
       const index = this.theme.themeName.indexOf('-')
       const themeName = this.theme.themeName.substring(0, index) || 'blue'
 
-      const variables = require(`@vab/styles/variables/vab-${themeName}-variables.scss`)
+      let variables = require(`@vab/styles/variables/vab-${themeName}-variables.module.scss`)
+      if (variables.default) variables = variables.default
+
       Object.keys(variables).forEach((key) => {
         if (key.startsWith('vab-')) {
           useCssVar(key.replace('vab-', '--el-'), ref(null)).value =
             variables[key]
         }
       })
+
+      this.echartsGraphic1 = [
+        variables['vab-color-transition'],
+        variables['vab-color-primary'],
+      ]
+
+      this.echartsGraphic2 = [
+        variables['vab-color-primary-light-5'],
+        variables['vab-color-primary'],
+      ]
 
       const menuBackground =
         this.theme.themeName.split('-')[1] || this.theme.themeName
@@ -137,7 +155,7 @@ export const useSettingsStore = defineStore('settings', {
       this.updateState({ collapse: true })
     },
     changeLanguage(language) {
-      this.updateState({ ...language })
+      this.updateState({ language })
     },
     handleLock() {
       this.updateState({ lock: true })
@@ -145,10 +163,10 @@ export const useSettingsStore = defineStore('settings', {
     handleUnLock() {
       this.updateState({ lock: false })
     },
-    changeLogo: (logo) => {
+    changeLogo(logo) {
       this.updateState({ logo })
     },
-    changeTitle: (title) => {
+    changeTitle(title) {
       this.updateState({ title })
     },
   },

@@ -1,6 +1,6 @@
 <script setup>
-  import { pwa } from '@/config'
   import i18n from '@/i18n'
+  import { pwa } from '@/config'
 
   const VabUpdate = defineAsyncComponent(() => import('@/plugins/VabUpdate'))
 

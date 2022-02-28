@@ -101,12 +101,15 @@
 </template>
 
 <script>
-  import { dependencies, devDependencies } from '~/package.json'
-
   export default defineComponent({
     setup() {
+      const {
+        dependencies,
+        devDependencies,
+        lastBuildTime: updateTime,
+      } = __APP_INFO__
       return {
-        updateTime: process.env.VUE_APP_UPDATE_TIME,
+        updateTime,
         dependencies,
         devDependencies,
       }

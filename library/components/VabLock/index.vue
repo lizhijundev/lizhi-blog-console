@@ -33,10 +33,10 @@
     }
   }
 
-  const formRef = ref(null)
-  const form = {
+  const formRef = ref()
+  const form = ref({
     password: '123456',
-  }
+  })
   const rules = {
     password: [{ validator: validatePass, trigger: 'blur' }],
   }

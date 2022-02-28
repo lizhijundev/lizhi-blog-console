@@ -1,5 +1,5 @@
 import { saveAs } from 'file-saver'
-import XLSX from 'xlsx'
+import * as XLSX from 'xlsx/xlsx.mjs'
 
 function generateArray(table) {
   const out = []

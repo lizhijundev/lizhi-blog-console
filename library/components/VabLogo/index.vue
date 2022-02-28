@@ -42,6 +42,7 @@
     height: 32px;
     color: $base-title-color;
     vertical-align: middle;
+    fill: currentColor;
   }
 
   @mixin title {

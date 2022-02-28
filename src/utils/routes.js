@@ -67,14 +67,14 @@ export function filterRoutes(routes, rolesControl, baseUrl = '/') {
 /**
  * 根据path路径获取matched
  * @param routes 菜单routes
- * @param name 路由名
+ * @param path 路径
  * @returns {*} matched
  */
-export function handleMatched(routes, name) {
+export function handleMatched(routes, path) {
   return routes
-    .filter((route) => route.childrenPathList.indexOf(name) + 1)
+    .filter((route) => route.childrenPathList.indexOf(path) + 1)
     .flatMap((route) =>
-      route.children ? [route, ...handleMatched(route.children, name)] : [route]
+      route.children ? [route, ...handleMatched(route.children, path)] : [route]
     )
 }
 

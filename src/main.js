@@ -2,7 +2,6 @@ import App from './App.vue'
 import { setupVab } from '@vab/setup'
 import { setupStore } from '@/store'
 import { setupRouter } from '@/router'
-import { createHead } from '@vueuse/head'
 
 /**
  * @description 正式环境默认使用mock，正式项目记得注释后再打包
@@ -11,9 +10,6 @@ import { baseURL, pwa } from './config'
 import { isExternal } from '@/utils/validate'
 
 const app = createApp(App)
-
-const head = createHead()
-app.use(head)
 
 if (process.env.NODE_ENV === 'production' && !isExternal(baseURL)) {
   const { mockXHR } = require('@/utils/static')

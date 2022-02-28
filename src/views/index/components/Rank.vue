@@ -76,7 +76,6 @@
               label: {
                 show: true,
                 position: 'right',
-                color: 'var(--el-color-primary)',
                 fontSize: 12,
                 formatter: ({ data }) => {
                   return `${data}万元`

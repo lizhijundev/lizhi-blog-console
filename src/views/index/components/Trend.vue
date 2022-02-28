@@ -79,9 +79,6 @@
               areaStyle: {
                 opacity: 0.8,
               },
-              itemStyle: {
-                color: 'var(--el-color-transition)',
-              },
             },
             {
               name: '回款',
@@ -96,9 +93,6 @@
               showSymbol: false,
               areaStyle: {
                 opacity: 0.8,
-              },
-              itemStyle: {
-                color: 'var(--el-color-primary-light-2)',
               },
             },
           ],

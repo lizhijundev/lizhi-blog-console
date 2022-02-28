@@ -63,9 +63,14 @@ const registerRoutes = (app) => {
 
 /**
  *
- * @param app
+ * @param middlewares
+ * @param devServer
  */
-module.exports = (app) => {
+module.exports = (middlewares, devServer) => {
+  if (!devServer) {
+    throw new Error('webpack-dev-server is not defined')
+  }
+  const app = devServer.app
   app.use(bodyParser.json())
   app.use(
     bodyParser.urlencoded({
@@ -96,4 +101,5 @@ module.exports = (app) => {
         }
       }
     })
+  return middlewares
 }

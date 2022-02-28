@@ -1,4 +1,4 @@
-import VabMagnifier from 'vab-magnifier'
-import 'vab-magnifier/lib/vab-magnifier.css'
+import VabMagnifier from 'magnifier-vue3'
+import 'magnifier-vue3/lib/magnifier-vue3.css'
 
 export default VabMagnifier

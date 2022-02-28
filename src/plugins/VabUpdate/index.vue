@@ -13,9 +13,12 @@
     <h3>版本更新：</h3>
     <p>
       {{ title }}
-      <!-- V{{ version }} -->
+      V{{ version }}
     </p>
-    <p>更新时间：{{ updateTime }}</p>
+    <p>
+      更新时间：最近更新
+      <!-- {{ updateTime }} -->
+    </p>
     <template #footer>
       <el-button v-loading="loading" size="large" type="primary" @click="save">
         {{ button }}
@@ -25,7 +28,6 @@
 </template>
 
 <script>
-  import { version } from '../../../package.json'
   import { useSettingsStore } from '@/store/modules/settings'
 
   export default defineComponent({
@@ -38,8 +40,8 @@
 
       const state = reactive({
         title: getTitle,
-        version,
-        updateTime: process.env.VUE_APP_UPDATE_TIME,
+        version: __APP_INFO__['version'],
+        updateTime: __APP_INFO__['lastBuildTime'],
         dialogVisible: false,
         loading: false,
         button: '立即升级',

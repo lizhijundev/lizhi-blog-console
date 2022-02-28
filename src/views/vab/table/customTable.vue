@@ -91,6 +91,7 @@
     </vab-query-form>
 
     <el-table
+      ref="tableSortRef"
       v-loading="listLoading"
       :border="border"
       :data="list"
@@ -179,6 +180,7 @@
       const $baseTableHeight = inject('$baseTableHeight')
 
       const state = reactive({
+        tableSortRef: null,
         editRef: null,
         border: true,
         height: $baseTableHeight(1),
@@ -264,15 +266,16 @@
         fetchData()
       }
 
-      const containerRef = ref(null)
+      const containerRef = ref()
       const { toggle, isFullscreen } = useFullscreen(containerRef)
       const clickFullScreen = () => {
         toggle().then(() => {
           handleHeight()
+          state['tableSortRef'].doLayout()
         })
       }
       const handleHeight = () => {
-        if (isFullscreen.value) state.height = $baseTableHeight(1) + 356
+        if (isFullscreen.value) state.height = $baseTableHeight(1) + 200
         else state.height = $baseTableHeight(1)
       }
       const setSelectRows = (val) => {

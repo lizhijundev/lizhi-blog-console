@@ -10,9 +10,12 @@
 
   const breadcrumbList = computed(() =>
     handleMatched(routes.value, route.path).filter(
-      (item) => item.meta.breadcrumbHidden !== true
+      (item) => !item.meta.breadcrumbHidden
     )
   )
+  const handleTo = (path = '') => {
+    return { path }
+  }
 </script>
 
 <template>
@@ -20,7 +23,7 @@
     <el-breadcrumb-item
       v-for="(item, index) in breadcrumbList"
       :key="index"
-      :to="{ path: item.redirect }"
+      :to="handleTo(item.redirect)"
     >
       <vab-icon v-if="item.meta && item.meta.icon" :icon="item.meta.icon" />
       <span>{{ translateTitle(item.meta.title) }}</span>

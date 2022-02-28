@@ -41,10 +41,9 @@
 </template>
 
 <script>
-  import { mapActions } from 'pinia'
   import { useUserStore } from '@/store/modules/user'
-  import VabCropperBeta from 'vab-cropper'
-  import 'vab-cropper/lib/vab-cropper.css'
+  import VabCropperBeta from 'cropper-vue3'
+  import 'cropper-vue3/lib/cropper-vue3.css'
 
   export default defineComponent({
     name: 'VabCropper',

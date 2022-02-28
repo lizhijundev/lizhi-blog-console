@@ -100,8 +100,10 @@ html {
     }
 
     /* plus处理图标间距 */
-    i + span {
-      margin-left: 3px;
+    li, span {
+      i + span {
+        margin-left: 3px;
+      }
     }
 
     /* vab-dropdown下拉动画 */
@@ -483,17 +485,10 @@ html {
 
     /* el-pagination分页 */
     .el-pagination {
-      display: block;
+      justify-content: center;
       margin: $base-margin 0 0 0;
-      margin-right: auto;
-      margin-left: auto;
       font-weight: normal;
       color: var(--el-color-black);
-      text-align: center;
-
-      i {
-        margin: auto !important;
-      }
     }
 
     /* el-menu菜单开始 */

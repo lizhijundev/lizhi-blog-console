@@ -2,7 +2,6 @@ const { resolve } = require('path')
 
 module.exports = {
   createOptimization: (config) => {
-    config.devtool('none')
     config.performance.set('hints', false)
     config.optimization.splitChunks({
       automaticNameDelimiter: '-',

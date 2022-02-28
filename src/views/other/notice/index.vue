@@ -1,5 +1,5 @@
 <template>
-  <sdiv class="notice-container">
+  <div class="notice-container">
     <el-row :gutter="20">
       <el-col :lg="6" :md="12" :sm="24" :xl="6" :xs="24">
         <vab-card shadow="hover">
@@ -125,7 +125,7 @@
         </vab-card>
       </el-col>
     </el-row>
-  </sdiv>
+  </div>
 </template>
 
 <script>

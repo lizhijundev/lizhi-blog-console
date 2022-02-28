@@ -1,10 +1,10 @@
 <script setup>
-  import variables from '@vab/styles/variables/variables.scss'
-  import { defaultOpeneds, uniqueOpened } from '@/config'
-  import { translateTitle } from '@/utils/i18n'
   import { isExternal } from '@/utils/validate'
+  import { translateTitle } from '@/utils/i18n'
   import { useRoutesStore } from '@/store/modules/routes'
+  import { defaultOpeneds, uniqueOpened } from '@/config'
   import { useSettingsStore } from '@/store/modules/settings'
+  import variables from '@vab/styles/variables/variables.module.scss'
 
   const route = useRoute()
   const router = useRouter()
@@ -146,6 +146,10 @@
       * {
         transition: $base-transition;
       }
+
+      .el-tabs {
+        box-shadow: $base-box-shadow;
+      }
     }
 
     &-vertical,
@@ -262,6 +266,7 @@
       align-items: center;
       width: $base-left-menu-width-min;
       overflow: hidden;
+      text-align: center;
       text-overflow: ellipsis;
       word-break: break-all;
       white-space: nowrap;

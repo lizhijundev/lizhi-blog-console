@@ -5,7 +5,6 @@
 </template>
 
 <script>
-  import { mapActions } from 'pinia'
   import { useTabsStore } from '@/store/modules/tabs'
 
   export default defineComponent({

@@ -5,7 +5,6 @@ import {
   ElMessageBox,
   ElNotification,
 } from 'element-plus'
-import { dependencies } from '../../package.json'
 import mitt from 'mitt'
 import _ from 'lodash'
 
@@ -211,7 +210,7 @@ export function setup(app) {
   if (process.env.NODE_ENV !== 'development') {
     const str = '\u0076\u0061\u0062\u002d\u0069\u0063\u006f\u006e\u0073'
     const key = unescape(str.replace(/\\u/g, '%u'))
-    if (!dependencies[key]) app.config.globalProperties = null
+    if (!__APP_INFO__['dependencies'][key]) app.config.globalProperties = null
     if (!process.env.VUE_APP_SECRET_KEY) app.config.globalProperties = null
   }
 }

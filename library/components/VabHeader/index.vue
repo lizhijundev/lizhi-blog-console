@@ -1,6 +1,6 @@
 <script setup>
   import { useRoutesStore } from '@/store/modules/routes'
-  import variables from '@vab/styles/variables/variables.scss'
+  import variables from '@vab/styles/variables/variables.module.scss'
 
   defineProps({
     layout: {

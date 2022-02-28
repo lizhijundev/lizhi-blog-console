@@ -1,7 +1,7 @@
 <script setup>
   import { useRoutesStore } from '@/store/modules/routes'
   import { useSettingsStore } from '@/store/modules/settings'
-  import variables from '@vab/styles/variables/variables.scss'
+  import variables from '@vab/styles/variables/variables.module.scss'
   import { defaultOpeneds, uniqueOpened } from '@/config'
 
   defineProps({
