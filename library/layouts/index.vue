@@ -14,11 +14,11 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
   import { useSettingsStore } from '@/store/modules/settings'
 
   const imports = require.context('./', true, /\.vue$/)
-  const Components = {}
+  const Components: any = {}
   imports
     .keys()
     .filter((key) => key !== './index.vue')
@@ -110,7 +110,7 @@
         position: relative;
         width: auto;
         min-height: 100%;
-        margin-left: $base-left-menu-width;
+        margin-left: var(--el-left-menu-width);
 
         &.is-collapse-main {
           margin-left: $base-left-menu-width-min;
@@ -122,7 +122,7 @@
 
         &:not(.is-collapse-main) {
           .fixed-header {
-            width: $base-right-content-width;
+            width: calc(100% - var(--el-left-menu-width));
           }
         }
       }

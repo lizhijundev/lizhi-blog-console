@@ -36,9 +36,9 @@
       const state = reactive({
         formRef: null,
         form: {
-          payAccount: 'XXXXXXXXXXXXXXXX',
-          gatheringAccount: '1204505056@qq.com',
-          gatheringName: 'chuzhixin',
+          payAccount: '****************',
+          gatheringAccount: '****************',
+          gatheringName: '***',
           price: '100',
         },
         rules: {
@@ -47,7 +47,7 @@
           ],
           gatheringAccount: [
             { required: true, message: '请输入收款账户', trigger: 'blur' },
-            { type: 'email', message: '账户名应为邮箱格式', trigger: 'blur' },
+            { required: true, message: '账户名应为邮箱格式', trigger: 'blur' },
           ],
           gatheringName: [
             { required: true, message: '请输入收款人姓名', trigger: 'blur' },

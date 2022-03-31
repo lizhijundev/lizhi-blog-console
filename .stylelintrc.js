@@ -1,23 +1,24 @@
-const HtmlExtensions = ['.vue', '.htm', '.html']
-
 module.exports = {
   extends: ['stylelint-config-recess-order', 'stylelint-config-prettier'],
   overrides: [
     {
-      files: HtmlExtensions.flatMap((ext) => [`*${ext}`, `**/*${ext}`]),
+      files: ['.js', '.jsx', '.ts'].flatMap((ext) => [`*${ext}`, `**/*${ext}`]),
+      customSyntax: '@stylelint/postcss-css-in-js',
+    },
+    {
+      files: ['.vue', '.htm', '.html'].flatMap((ext) => [
+        `*${ext}`,
+        `**/*${ext}`,
+      ]),
       customSyntax: 'postcss-html',
     },
     {
-      files: ['*.js', '**/*.js'],
-      customSyntax: 'postcss-jsx',
+      files: ['.md', '.markdown'].flatMap((ext) => [`*${ext}`, `**/*${ext}`]),
+      customSyntax: 'postcss-markdown',
     },
     {
       files: ['**/*.scss'],
       customSyntax: 'postcss-scss',
-    },
-    {
-      files: ['**/*.md'],
-      customSyntax: 'postcss-markdown',
     },
   ],
 }

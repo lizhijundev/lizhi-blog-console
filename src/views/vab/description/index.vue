@@ -1,11 +1,11 @@
 <template>
   <div class="description-container">
     <vab-card shadow="never">
-      <el-radio-group v-model="size">
+      <!--  <el-radio-group v-model="size">
         <el-radio label="large">默认</el-radio>
         <el-radio label="default">中等</el-radio>
         <el-radio label="small">小</el-radio>
-      </el-radio-group>
+      </el-radio-group> -->
 
       <el-descriptions border :column="3" :size="size" title="With border">
         <template #extra>

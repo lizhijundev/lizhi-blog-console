@@ -1,7 +1,7 @@
-<script setup>
+<script lang="ts" setup>
   import { useSettingsStore } from '@/store/modules/settings'
 
-  const $pub = inject('$pub')
+  const $pub: any = inject('$pub')
 
   const settingsStore = useSettingsStore()
   const { theme } = storeToRefs(settingsStore)

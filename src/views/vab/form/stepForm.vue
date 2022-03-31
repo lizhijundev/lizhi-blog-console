@@ -62,22 +62,6 @@
       .el-steps {
         margin: $base-margin auto $base-margin * 2 auto;
 
-        .el-step__head.is-process {
-          color: var(--el-color-primary);
-          border-color: var(--el-color-primary);
-
-          .el-step__icon.is-text {
-            color: var(--el-color-primary);
-            background: var(--el-color-primary-light-9);
-            border: 1px solid;
-          }
-
-          .el-step__line {
-            height: 1px;
-            background: var(--el-color-primary);
-          }
-        }
-
         .el-step__title.is-process {
           color: var(--el-color-primary);
         }
@@ -85,26 +69,40 @@
         .el-step__description.is-process {
           color: var(--el-color-primary);
         }
+        .el-step__head {
+          &.is-process {
+            color: var(--el-color-primary);
+            border-color: var(--el-color-primary);
 
-        .el-step__head.is-finish {
-          .el-step__icon.is-text {
-            color: var(--el-color-white);
-            background: var(--el-color-primary);
+            .el-step__icon.is-text {
+              color: var(--el-color-primary);
+              background: var(--el-color-primary-light-9);
+              border: 1px solid;
+            }
+            .el-step__line {
+              height: 1px;
+            }
           }
 
-          .el-step__line {
-            height: 1px;
-            background: var(--el-color-primary);
-          }
-        }
+          &.is-wait {
+            .el-step__icon.is-text {
+              border: 1px solid;
+            }
 
-        .el-step__head.is-wait {
-          .el-step__icon.is-text {
-            border: 1px solid;
+            .el-step__line {
+              height: 1px;
+            }
           }
+          &.is-finish {
+            .el-step__icon.is-text {
+              color: var(--el-color-white);
+              background: var(--el-color-primary);
+            }
 
-          .el-step__line {
-            height: 1px;
+            .el-step__line {
+              height: 1px;
+              background: var(--el-color-primary);
+            }
           }
         }
       }

@@ -1,7 +1,8 @@
-<script setup>
+<script lang="ts" setup>
   import { useRoutesStore } from '@/store/modules/routes'
   import { translateTitle } from '@/utils/i18n'
   import { isExternal } from '@/utils/validate'
+  import { openFirstMenu } from '@/config'
 
   defineProps({
     layout: {
@@ -12,7 +13,7 @@
 
   const router = useRouter()
 
-  const routesStore = useRoutesStore()
+  const routesStore: any = useRoutesStore()
   const {
     getTab: tab,
     getTabMenu: tabMenu,
@@ -25,7 +26,7 @@
       setTimeout(() => {
         router.push('/')
       }, 1000)
-    } else if (tabMenu.value) {
+    } else if (tabMenu.value && openFirstMenu) {
       const { redirect } = tabMenu.value
       router.push(redirect ? redirect : tabMenu.value)
     }

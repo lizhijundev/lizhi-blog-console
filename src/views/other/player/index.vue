@@ -26,7 +26,7 @@
 </template>
 
 <script>
-  import { VabPlayerHls, VabPlayerMp4 } from '@/plugins/VabPlayer.js'
+  import { VabPlayerHls, VabPlayerMp4 } from '@/plugins/VabPlayer'
   import { uuid } from '@/utils'
 
   export default defineComponent({

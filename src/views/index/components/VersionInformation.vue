@@ -1,3 +1,15 @@
+<script lang="ts" setup>
+  const {
+    dependencies,
+    devDependencies,
+    lastBuildTime: updateTime,
+  } = __APP_INFO__
+
+  const handleUrl = (name: string) => {
+    window.open(`https://github.com/${name}/releases`)
+  }
+</script>
+
 <template>
   <vab-card class="version-information" shadow="hover">
     <template #header>
@@ -8,7 +20,7 @@
     <el-scrollbar>
       <table class="table">
         <tr>
-          <td>vue</td>
+          <td @dblclick="handleUrl('vuejs/vue')">vue</td>
           <td>
             {{ dependencies['vue'] }}
             <el-popover
@@ -32,9 +44,11 @@
           <td>{{ dependencies['vue-router'] }}</td>
         </tr>
         <tr>
-          <td>vue-i18n</td>
-          <td>{{ dependencies['vue-i18n'] }}</td>
-          <td>element-plus</td>
+          <td>typescript</td>
+          <td>{{ devDependencies['typescript'] }}</td>
+          <td @dblclick="handleUrl('element-plus/element-plus')">
+            element-plus
+          </td>
           <td>
             {{ dependencies['element-plus'] }}
             <el-popover
@@ -99,23 +113,6 @@
     </el-scrollbar>
   </vab-card>
 </template>
-
-<script>
-  export default defineComponent({
-    setup() {
-      const {
-        dependencies,
-        devDependencies,
-        lastBuildTime: updateTime,
-      } = __APP_INFO__
-      return {
-        updateTime,
-        dependencies,
-        devDependencies,
-      }
-    },
-  })
-</script>
 
 <style lang="scss" scoped>
   .version-information {

@@ -51,7 +51,7 @@ module.exports = {
   rolesControl: true,
   // vertical column comprehensive common布局时是否只保持一个子菜单的展开
   uniqueOpened: false,
-  // vertical column comprehensive common布局时默认展开的菜单path，使用逗号隔开建议只展开一个
+  // vertical column comprehensive common布局时默认展开的菜单path，使用逗号隔开建议只展开一个，true全部展开，false/[]不展开
   defaultOpeneds: [
     '/vab',
     '/vab/table',

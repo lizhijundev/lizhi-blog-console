@@ -1,5 +1,5 @@
 <!--常规布局 -->
-<script setup>
+<script lang="ts" setup>
   defineProps({
     collapse: {
       type: Boolean,

@@ -160,15 +160,14 @@
 
     :deep() {
       .el-button {
-        &:first-child {
-          margin-right: 10px;
-          margin-bottom: 10px;
-        }
+        margin-right: 10px;
+        margin-bottom: 10px;
+        margin-left: 0;
+      }
 
-        & + .el-button {
-          margin-right: 10px;
-          margin-bottom: 10px;
-          margin-left: 0;
+      .el-button-group {
+        .el-button {
+          margin-right: 0;
         }
       }
     }

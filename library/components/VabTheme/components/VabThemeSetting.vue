@@ -1,11 +1,11 @@
-<script setup>
+<script lang="ts" setup>
   import { useSettingsStore } from '@/store/modules/settings'
   import { translateTitle } from '@/utils/i18n'
 
-  const $pub = inject('$pub')
-  const $baseMessage = inject('$baseMessage')
+  const $pub: any = inject('$pub')
+  const $baseMessage: any = inject('$baseMessage')
 
-  const settingsStore = useSettingsStore()
+  const settingsStore: any = useSettingsStore()
   const { theme } = storeToRefs(settingsStore)
 
   const handleOpenTheme = () => {

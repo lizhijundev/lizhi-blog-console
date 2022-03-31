@@ -1,6 +1,55 @@
+<script lang="ts" setup>
+  import { useSettingsStore } from '@/store/modules/settings'
+
+  const $sub: any = inject('$sub')
+  const $baseMessage: any = inject('$baseMessage')
+
+  const { getTitle } = useSettingsStore()
+
+  const state = reactive({
+    title: getTitle,
+    version: __APP_INFO__['version'],
+    updateTime: __APP_INFO__['lastBuildTime'],
+    dialogVisible: false,
+    loading: false,
+    button: '立即升级',
+  })
+
+  onBeforeMount(() => {
+    $sub('vab-update', () => {
+      state.dialogVisible = true
+      setTimeout(() => {
+        save()
+      }, 1000 * 3)
+    })
+  })
+
+  const close = () => {
+    state.dialogVisible = false
+  }
+
+  const save = () => {
+    state.button = '正在更新'
+    state.loading = true
+    $baseMessage(
+      '正在更新，预计10S后更新完成',
+      'success',
+      'vab-hey-message-success'
+    )
+    setTimeout(() => {
+      state.loading = false
+      state.button = '更新完成'
+    }, 1000 * 6)
+
+    setTimeout(() => {
+      location.reload()
+    }, 1000 * 7)
+  }
+</script>
+
 <template>
   <el-dialog
-    v-model="dialogVisible"
+    v-model="state.dialogVisible"
     append-to-body
     custom-class="vab-update"
     width="410px"
@@ -12,80 +61,39 @@
     <vab-icon class="vab-update-cup" icon="cup-line" />
     <h3>版本更新：</h3>
     <p>
-      {{ title }}
-      V{{ version }}
+      {{ state.title }}
+      V{{ state.version }}
     </p>
     <p>
       更新时间：最近更新
       <!-- {{ updateTime }} -->
     </p>
+    <p
+      v-text="
+        `${
+          '如遇更' +
+          '新失败' +
+          '请手' +
+          '动点击' +
+          'Ctr' +
+          'l + F' +
+          '5' +
+          '重试'
+        }`
+      "
+    ></p>
     <template #footer>
-      <el-button v-loading="loading" size="large" type="primary" @click="save">
-        {{ button }}
+      <el-button
+        v-loading="state.loading"
+        size="large"
+        type="primary"
+        @click="save"
+      >
+        {{ state.button }}
       </el-button>
     </template>
   </el-dialog>
 </template>
-
-<script>
-  import { useSettingsStore } from '@/store/modules/settings'
-
-  export default defineComponent({
-    name: 'VabUpdate',
-    setup() {
-      const $sub = inject('$sub')
-      const $baseMessage = inject('$baseMessage')
-
-      const { getTitle } = useSettingsStore()
-
-      const state = reactive({
-        title: getTitle,
-        version: __APP_INFO__['version'],
-        updateTime: __APP_INFO__['lastBuildTime'],
-        dialogVisible: false,
-        loading: false,
-        button: '立即升级',
-      })
-
-      onBeforeMount(() => {
-        $sub('vab-update', () => {
-          state.dialogVisible = true
-          setTimeout(() => {
-            save()
-          }, 1000 * 3)
-        })
-      })
-
-      const close = () => {
-        state.dialogVisible = false
-      }
-
-      const save = () => {
-        state.button = '正在更新'
-        state.loading = true
-        $baseMessage(
-          '正在更新，预计10S后更新完成',
-          'success',
-          'vab-hey-message-success'
-        )
-        setTimeout(() => {
-          state.loading = false
-          state.button = '更新完成'
-        }, 1000 * 6)
-
-        setTimeout(() => {
-          location.reload()
-        }, 1000 * 7)
-      }
-
-      return {
-        ...toRefs(state),
-        close,
-        save,
-      }
-    },
-  })
-</script>
 
 <style lang="scss" scoped>
   .vab-update {

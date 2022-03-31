@@ -52,7 +52,7 @@
 
 <script>
   import VabQrCode from '@/plugins/VabQrCode'
-  import clip from '@/utils/clipboard'
+  import clip from '~/src/utils/clipboard'
 
   export default defineComponent({
     name: 'Share',
@@ -70,7 +70,7 @@
       }
 
       onMounted(() => {
-        state.form.url = 'https://chu1204505056.gitee.io/admin-plus'
+        state.form.url = 'https://vue-admin-beautiful.com/admin-plus'
       })
 
       return {

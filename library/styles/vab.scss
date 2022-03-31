@@ -99,13 +99,6 @@ html {
       }
     }
 
-    /* plus处理图标间距 */
-    li, span {
-      i + span {
-        margin-left: 3px;
-      }
-    }
-
     /* vab-dropdown下拉动画 */
     .vab-dropdown {
       transition: $base-transition;
@@ -411,21 +404,6 @@ html {
       }
     }
 
-    /* el-dropdown-menu */
-    .el-dropdown-menu__item {
-      [class*='ri-'] {
-        margin-right: 0;
-      }
-    }
-
-    /* markdown编辑器*/
-    .editor-toolbar {
-      .no-mobile,
-      .fa-question-circle {
-        display: none;
-      }
-    }
-
     /* el-divider间隔线 */
     .el-divider--horizontal {
       margin: 8px 0 $base-margin + 8px 0;
@@ -492,8 +470,18 @@ html {
     }
 
     /* el-menu菜单开始 */
-    .el-menu {
+    .el-menu,
+    .vab-column-grid {
       user-select: none;
+
+      /* plus处理图标间距 */
+      div,
+      li,
+      span {
+        i + span {
+          margin-left: 3px;
+        }
+      }
     }
 
     /* el-dialog、el-message-box、el-popover */

@@ -1,9 +1,10 @@
-<script setup>
+<script lang="ts" setup>
   import { useUserStore } from '@/store/modules/user'
   import { toLoginRoute } from '@/utils/routes'
   import { translateTitle } from '@/utils/i18n'
+  import { VabRoute } from '/#/router'
 
-  const route = useRoute()
+  const route: VabRoute = useRoute()
   const router = useRouter()
 
   const userStore = useUserStore()
@@ -12,10 +13,10 @@
 
   const active = ref(false)
 
-  const handleVisibleChange = (val) => {
+  const handleVisibleChange = (val: boolean) => {
     active.value = val
   }
-  const handleCommand = async (command) => {
+  const handleCommand = async (command: string) => {
     switch (command) {
       case 'logout':
         await logout()

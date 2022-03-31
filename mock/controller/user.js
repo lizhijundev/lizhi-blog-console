@@ -89,8 +89,9 @@ module.exports = [
           code: 401,
           msg: '令牌无效',
         }
-
-      const username = authorization.replace('Bearer ', '').split('-token-')[0]
+      const _authorization = authorization.replace('Bearer ', '')
+      const isTrue = _authorization.includes('-token-')
+      const username = isTrue ? _authorization.split('-token-')[0] : 'admin'
       const roles = username2role[username] || []
       const permissions = [
         ...new Set(roles.flatMap((role) => role2permission[role])),

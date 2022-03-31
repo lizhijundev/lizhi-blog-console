@@ -72,17 +72,21 @@
             </el-input>
             <el-image class="code" :src="codeUrl" @click="changeCode" />
           </el-form-item>
-          <el-button
-            class="login-btn"
-            :loading="loading"
-            type="primary"
-            @click="handleLogin"
-          >
-            {{ translateTitle('登录') }}
-          </el-button>
-          <router-link to="/register">
-            <div style="margin-top: 20px">{{ translateTitle('注册') }}</div>
-          </router-link>
+          <el-form-item>
+            <el-button
+              class="login-btn"
+              :loading="loading"
+              type="primary"
+              @click="handleLogin"
+            >
+              {{ translateTitle('登录') }}
+            </el-button>
+          </el-form-item>
+          <el-form-item>
+            <router-link to="/register">
+              {{ translateTitle('注册') }}
+            </router-link>
+          </el-form-item>
         </el-form>
       </el-col>
       <el-col :lg="1" :md="1" :sm="24" :xl="1" :xs="24">
@@ -361,9 +365,9 @@
 
         input {
           height: 48px;
-          padding-left: 35px;
+          padding-left: 45px;
           font-size: $base-font-size-default;
-          line-height: 58px;
+          line-height: 48px;
           background: #f6f4fc;
           border: 0;
         }

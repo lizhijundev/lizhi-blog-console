@@ -1,5 +1,5 @@
 const WebpackBar = require('webpackbar')
-const { name } = require('../../../../package.json')
+const { name } = require('./config.js')
 
 module.exports = {
   createWebpackBar: () => [

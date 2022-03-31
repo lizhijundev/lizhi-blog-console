@@ -12,7 +12,7 @@
     <el-row>
       <el-col :span="24">
         <vab-cropper-beta
-          ref="vabCropper"
+          ref="vabCropperRef"
           :options="options"
           :origin-img="slide.oriUrl"
           :preview-img="slide.preUrl"
@@ -23,7 +23,6 @@
 
     <template #footer>
       <div class="vab-cropper-footer">
-        <el-button type="primary" @click="upload">上传并保存</el-button>
         <el-upload
           accept="image/jpeg,image/gif,image/png"
           action="#"
@@ -35,6 +34,7 @@
             <el-button type="primary">选择图片</el-button>
           </template>
         </el-upload>
+        <el-button type="primary" @click="upload">上传并保存</el-button>
       </div>
     </template>
   </el-dialog>
@@ -48,8 +48,12 @@
   export default defineComponent({
     name: 'VabCropper',
     components: { VabCropperBeta },
-    data() {
-      return {
+    setup() {
+      const userStore = useUserStore()
+      const $baseMessage = inject('$baseMessage')
+
+      const state = reactive({
+        vabCropperRef: null,
         dialogVisible: false,
         value: '',
         options: {
@@ -61,31 +65,40 @@
           preUrl: require('@/assets/cropper_images/user.gif'),
         },
         timer: null,
-      }
-    },
-    methods: {
-      ...mapActions(useUserStore, ['setAvatar']),
-      getCropper(argument) {
-        if (this.timer) clearInterval(this.timer)
-        this.timer = setTimeout(() => {
-          this.slide.preUrl = argument
-          this.value = argument
-          this.setAvatar(argument)
+      })
+
+      const setAvatar = (argument) => userStore.setAvatar(argument)
+
+      const getCropper = (argument) => {
+        if (state.timer) clearInterval(state.timer)
+        state.timer = setTimeout(() => {
+          state.slide.preUrl = argument
+          state.value = argument
+          setAvatar(argument)
         }, 10)
-      },
-      onChange(file) {
-        this.$refs['vabCropper'].cancelCropper()
-        this.slide = {
+      }
+      const onChange = (file) => {
+        state.vabCropperRef.cancelCropper()
+        state.slide = {
           oriUrl: file.url,
           preUrl: file.url,
         }
-        this.$refs['vabCropper'].drawImg()
-      },
-      upload() {
-        this.setAvatar(this.value)
-        this.$baseMessage('模拟保存成功', 'success', 'vab-hey-message-success')
-        this.dialogVisible = false
-      },
+        state.vabCropperRef.drawImg()
+      }
+      const upload = () => {
+        setAvatar(state.value)
+        $baseMessage('模拟保存成功', 'success', 'vab-hey-message-success')
+
+        state.dialogVisible = false
+      }
+
+      return {
+        ...toRefs(state),
+        setAvatar,
+        getCropper,
+        onChange,
+        upload,
+      }
     },
   })
 </script>
@@ -109,9 +122,12 @@
   }
 </style>
 <style lang="scss">
-  /* 未知原因深度选择器不好使，临时全局复写样式！！！！！！#TODO */
   .el-dialog__footer {
     height: 62px;
+
+    .el-button {
+      float: right;
+    }
 
     &:before {
       display: block;
@@ -123,7 +139,7 @@
       > div {
         display: inline;
 
-        .el-upload-list {
+        .el-upload-list__item {
           display: none;
         }
 
@@ -132,7 +148,6 @@
           width: auto;
           height: $base-input-height;
           line-height: $base-input-height;
-          vertical-align: middle;
           background-color: transparent;
           border: 0;
           border-radius: 0;
@@ -140,7 +155,7 @@
 
         .el-button {
           float: right;
-          margin-left: 10px;
+          margin-right: 10px;
         }
       }
     }

@@ -106,7 +106,7 @@
       .ri-arrow-up-line {
         width: 18px;
         height: 18px;
-        margin: 0 -2px 0 -2px;
+        margin: 0 3px 0 2px;
         color: var(--el-color-success);
         vertical-align: -3px !important;
         background: var(--el-color-success-light);

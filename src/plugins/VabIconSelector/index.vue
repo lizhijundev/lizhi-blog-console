@@ -1,3 +1,50 @@
+<script lang="ts" setup>
+  import { getIconList } from '@/api/remixIcon'
+  const emit = defineEmits(['handle-icon'])
+  const state: any = reactive({
+    icon: '24-hours-fill',
+    layout: 'total, prev, next',
+    total: 0,
+    background: true,
+    height: 0,
+    selectRows: '',
+    queryIcon: [],
+    queryForm: {
+      pageNo: 1,
+      pageSize: 16,
+      title: '',
+    },
+  })
+
+  const handleSizeChange: any = (val: string) => {
+    state.queryForm.pageSize = val
+    fetchData()
+  }
+  const handleCurrentChange: any = (val: string) => {
+    state.queryForm.pageNo = val
+    fetchData()
+  }
+  const queryData: any = () => {
+    state.queryForm.pageNo = 1
+    fetchData()
+  }
+  const fetchData: any = async () => {
+    const {
+      data: { list, total },
+    } = await getIconList(state.queryForm)
+    state.queryIcon = list
+    state.total = total
+  }
+  const handleIcon: any = (item: any) => {
+    state.icon = item
+    emit('handle-icon', item)
+  }
+
+  onMounted(() => {
+    fetchData()
+  })
+</script>
+
 <template>
   <el-row :gutter="20">
     <el-col :span="24">
@@ -5,7 +52,7 @@
         <vab-query-form-top-panel>
           <el-form :inline="true" label-width="0" @submit.prevent>
             <el-form-item label="">
-              <el-input v-model="queryForm.title" />
+              <el-input v-model="state.queryForm.title" />
             </el-form-item>
             <el-form-item label-width="0">
               <el-button native-type="submit" type="primary" @click="queryData">
@@ -17,77 +64,24 @@
       </vab-query-form>
     </el-col>
 
-    <el-col v-for="(item, index) in queryIcon" :key="index" :span="6">
+    <el-col v-for="(item, index) in state.queryIcon" :key="index" :span="6">
       <vab-card shadow="hover" @click="handleIcon(item)">
         <vab-icon :icon="item" />
       </vab-card>
     </el-col>
     <el-col :span="24">
       <el-pagination
-        :background="background"
-        :current-page="queryForm.pageNo"
-        :layout="layout"
-        :page-size="queryForm.pageSize"
-        :total="total"
+        :background="state.background"
+        :current-page="state.queryForm.pageNo"
+        :layout="state.layout"
+        :page-size="state.queryForm.pageSize"
+        :total="state.total"
         @current-change="handleCurrentChange"
         @size-change="handleSizeChange"
       />
     </el-col>
   </el-row>
 </template>
-
-<script>
-  import { getIconList } from '@/api/remixIcon'
-
-  export default defineComponent({
-    name: 'VabIconSelector',
-    emits: ['handle-icon'],
-    data() {
-      return {
-        icon: '24-hours-fill',
-        layout: 'total, prev, next',
-        total: 0,
-        background: true,
-        height: 0,
-        selectRows: '',
-        queryIcon: [],
-        queryForm: {
-          pageNo: 1,
-          pageSize: 16,
-          title: '',
-        },
-      }
-    },
-    created() {
-      this.fetchData()
-    },
-    methods: {
-      handleSizeChange(val) {
-        this.queryForm.pageSize = val
-        this.fetchData()
-      },
-      handleCurrentChange(val) {
-        this.queryForm.pageNo = val
-        this.fetchData()
-      },
-      queryData() {
-        this.queryForm.pageNo = 1
-        this.fetchData()
-      },
-      async fetchData() {
-        const {
-          data: { list, total },
-        } = await getIconList(this.queryForm)
-        this.queryIcon = list
-        this.total = total
-      },
-      handleIcon(item) {
-        this.icon = item
-        this.$emit('handle-icon', item)
-      },
-    },
-  })
-</script>
 
 <style lang="scss">
   .icon-selector-popper {

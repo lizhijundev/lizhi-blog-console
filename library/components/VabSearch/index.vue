@@ -1,17 +1,17 @@
-<script setup>
+<script lang="ts" setup>
   import { useSettingsStore } from '@/store/modules/settings'
   import { getList } from '@/api/search'
 
-  const vFocus = {
-    mounted(el) {
-      el.querySelector('input').focus()
+  const vFocus: any = {
+    mounted(el: HTMLElement) {
+      el.querySelector('input')?.focus()
     },
   }
 
   const settingsStore = useSettingsStore()
   const { theme } = storeToRefs(settingsStore)
 
-  let timeout = null
+  let timer: any = null
   const state = reactive({
     dialogVisible: false,
     queryForm: {
@@ -36,20 +36,20 @@
     state.dialogVisible = true
   }
 
-  const querySearchAsync = (queryString, cb) => {
+  const querySearchAsync = (queryString: any, cb: any) => {
     const restaurants = state.restaurants
     const results = queryString
       ? restaurants.filter(createFilter(queryString))
       : restaurants
-    clearTimeout(timeout)
-    timeout = setTimeout(() => {
+    clearTimeout(timer)
+    timer = setTimeout(() => {
       cb(results)
     }, 500)
   }
 
-  const createFilter = (queryString) => (state) =>
+  const createFilter = (queryString: string) => (state: any) =>
     state.value.includes(queryString.toLowerCase())
-  const handleSelect = (item) => {
+  const handleSelect = (item: any) => {
     if (item.url) {
       window.open(item.url)
     } else {
@@ -81,14 +81,18 @@
 
 <style lang="scss" scoped>
   :deep(.el-dialog) {
-    .el-dialog__header {
-      display: none;
-      border: 0 !important;
-    }
-
-    .el-dialog__body {
-      padding: 0;
-      border: 0 !important;
+    .el-dialog {
+      &__header {
+        display: none;
+        border: 0 !important;
+      }
+      &__body {
+        padding: 0;
+        border: 0 !important;
+      }
+      &__footer {
+        display: none;
+      }
     }
 
     .el-form-item__content {
@@ -102,7 +106,7 @@
 
       .el-autocomplete {
         width: 100%;
-
+        transition: none;
         .el-input__inner {
           width: 100%;
           height: 60px;

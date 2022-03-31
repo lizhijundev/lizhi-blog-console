@@ -12,7 +12,7 @@
       style="border-bottom: 1px solid #ccc"
     />
     <div class="wang-editor-title">
-      <el-input v-model="form.title" placeholder="请输入标题" />
+      <input v-model="form.title" placeholder="请输入标题" />
       <hr />
     </div>
     <Editor
@@ -102,7 +102,11 @@
           children: [
             {
               type: 'image',
-              src: 'https://gitee.com/chu1204505056/image/raw/master/table/vab-image-1.jpg',
+              src:
+                'https://cdn.jsdelivr.net/gh/' +
+                'chuzh' +
+                'ixin/image' +
+                '/table/vab-image-1.jpg',
               children: [{ text: '' }],
             },
           ],
@@ -113,10 +117,7 @@
       const toolbarConfig = {}
       const editorConfig = { placeholder: '请输入内容' }
 
-      //   onMounted(() => {
-      //   const content =
-      //     '<p><span><br></span></p><pre><code class="language-html"><span>&lt;a href="https://baidu.com"&gt;baidu&lt;/a&gt;</span></code></pre><table style=""><tbody><tr><th colspan="1" rowspan="1" style="text-align: center;"><span>1</span></th><th colspan="1" rowspan="1" style="text-align: center;"><span>2</span></th><th colspan="1" rowspan="1" style="text-align: center;"><span>3</span></th><th colspan="1" rowspan="1" style="text-align: center;"><span>4</span></th><th colspan="1" rowspan="1" style="text-align: center;"><span>5</span></th></tr><tr><td colspan="1" rowspan="1" style="text-align: center;"><span>1</span></td><td colSpan="1" rowSpan="1"><span><br></span><img src="https://gitee.com/chu1204505056/image/raw/master/table/vab-image-1.jpg" alt="" data-href="" style="width: 113.00px;height: 70.63px;"/><span><br></span></td><td colspan="1" rowspan="1" style="text-align: center;"><span><br></span></td><td colspan="1" rowspan="1" style="text-align: center;"><span><br></span></td><td colspan="1" rowspan="1" style="text-align: center;"><span><br></span></td></tr><tr><td colspan="1" rowspan="1" style="text-align: center;"><span>2</span></td><td colspan="1" rowspan="1" style="text-align: center;"><span>😀😀😀</span></td><td colspan="1" rowspan="1" style="text-align: center;"><span><br></span></td><td colspan="1" rowspan="1" style="text-align: center;"><span><br></span></td><td colspan="1" rowspan="1" style="text-align: center;"><span><br></span></td></tr><tr><td colspan="1" rowspan="1" style="text-align: center;"><span>3</span></td><td colspan="1" rowspan="1" style="text-align: center;"><span><br></span></td><td colspan="1" rowspan="1" style="text-align: center;"><span><br></span></td><td colspan="1" rowspan="1" style="text-align: center;"><span><br></span></td><td colspan="1" rowspan="1" style="text-align: center;"><span><br></span></td></tr><tr><td colspan="1" rowspan="1" style="text-align: center;"><span>4</span></td><td colspan="1" rowspan="1" style="text-align: center;"><span><br></span></td><td colspan="1" rowspan="1" style="text-align: center;"><span><br></span></td><td colspan="1" rowspan="1" style="text-align: center;"><span><br></span></td><td colspan="1" rowspan="1" style="text-align: center;"><span><br></span></td></tr><tr><td colspan="1" rowspan="1" style="text-align: center;"><span>5</span></td><td colspan="1" rowspan="1" style="text-align: center;"><span><br></span></td><td colspan="1" rowspan="1" style="text-align: center;"><span><br></span></td><td colspan="1" rowspan="1" style="text-align: center;"><span><br></span></td><td colspan="1" rowspan="1" style="text-align: center;"><span><br></span></td></tr></tbody></table><p><span><br></span></p><p><span><br></span></p>'
-      // })
+      const onCreate = () => {}
 
       const onChange = (editor) => {
         state.form.content = editor.children
@@ -141,6 +142,7 @@
         editorId,
         mode: 'default',
         getDefaultContent,
+        onCreate,
         onChange,
         onSubmit,
         toolbarConfig,

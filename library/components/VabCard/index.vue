@@ -1,4 +1,4 @@
-<script setup>
+<script lang="ts" setup>
   import { onBeforeRouteLeave } from 'vue-router'
 
   defineProps({
@@ -7,8 +7,10 @@
       default: '',
     },
     bodyStyle: {
-      type: [String, Object, Array],
-      default: '',
+      type: Object,
+      default: () => {
+        return {}
+      },
     },
     shadow: {
       type: String,
@@ -24,7 +26,7 @@
     },
   })
 
-  let timer = null
+  let timer: any = null
   const skeletonShow = ref(true)
 
   timer = setTimeout(() => {

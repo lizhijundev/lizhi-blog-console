@@ -13,7 +13,7 @@
         type="info"
       />
       <el-upload
-        ref="upload"
+        ref="uploadRef"
         accept="image/png, image/jpeg"
         :action="action"
         :auto-upload="false"
@@ -35,7 +35,7 @@
         :on-success="handleSuccess"
       >
         <template #trigger>
-          <i class="el-icon-plus" />
+          <vab-icon icon="add-line" />
         </template>
         <el-dialog v-model="dialogVisible" append-to-body title="查看大图">
           <div>
@@ -96,8 +96,13 @@
         required: true,
       },
     },
-    data() {
-      return {
+    setup() {
+      const userStore = useUserStore()
+      const { token } = storeToRefs(userStore)
+      const $baseMessage = inject('$baseMessage')
+
+      const state = reactive({
+        uploadRef: null,
         show: false,
         loading: false,
         dialogVisible: false,
@@ -113,40 +118,31 @@
         title: '上传',
         dialogFormVisible: false,
         data: {},
+      })
+
+      const submitUpload = () => {
+        state.uploadRef.submit()
       }
-    },
-    computed: {
-      ...mapState(useUserStore, ['token']),
-      percentage() {
-        if (this.allImgNum === 0) return 0
-        return _.round(this.imgNum / this.allImgNum, 2) * 100
-      },
-    },
-    created() {
-      this.headers['Authorization'] = `Bearer ${this.token}`
-    },
-    methods: {
-      submitUpload() {
-        this.$refs.upload.submit()
-      },
-      handleProgress() {
-        this.loading = true
-        this.show = true
-      },
-      handleChange(file, fileList) {
-        if (file.size > 1048576 * this.size) {
-          fileList.filter((item) => item !== file)
-          this.fileList = fileList
-        } else {
-          this.allImgNum = fileList.length
+      const handleProgress = () => {
+        state.loading = true
+        state.show = true
+      }
+      const handleChange = (file, fileList) => {
+        if (fileList && fileList.length > 0) {
+          if (file.size > 1048576 * state.size) {
+            fileList.filter((item) => item !== file)
+            state.fileList = fileList
+          } else {
+            state.allImgNum = fileList.length
+          }
         }
-      },
-      handleSuccess(response, file, fileList) {
-        this.imgNum = this.imgNum + 1
-        this.imgSuccessNum = this.imgSuccessNum + 1
-        if (fileList.length === this.imgNum) {
+      }
+      const handleSuccess = (response, file, fileList) => {
+        state.imgNum = state.imgNum + 1
+        state.imgSuccessNum = state.imgSuccessNum + 1
+        if (fileList.length === state.imgNum) {
           setTimeout(() => {
-            this.$baseMessage(
+            $baseMessage(
               `上传完成! 共上传${fileList.length}张图片`,
               'success',
               'vab-hey-message-success'
@@ -155,14 +151,14 @@
         }
 
         setTimeout(() => {
-          this.loading = false
-          this.show = false
+          state.loading = false
+          state.show = false
         }, 1000)
-      },
-      handleError(err, file) {
-        this.imgNum = this.imgNum + 1
-        this.imgErrorNum = this.imgErrorNum + 1
-        this.$baseMessage(
+      }
+      const handleError = (err, file) => {
+        state.imgNum = state.imgNum + 1
+        state.imgErrorNum = state.imgErrorNum + 1
+        $baseMessage(
           `文件[${file.raw.name}]上传失败,文件大小为${_.round(
             file.raw.size / 1024,
             0
@@ -171,42 +167,66 @@
           'vab-hey-message-error'
         )
         setTimeout(() => {
-          this.loading = false
-          this.show = false
+          state.loading = false
+          state.show = false
         }, 1000)
-      },
-      handleRemove() {
-        this.imgNum = this.imgNum - 1
-        this.allNum = this.allNum - 1
-      },
-      handlePreview(file) {
-        this.dialogImageUrl = file.url
-        this.dialogVisible = true
-      },
-      handleExceed(files) {
-        this.$baseMessage(
-          `当前限制选择 ${this.limit} 个文件，本次选择了
-             ${files.length}
-             个文件`,
+      }
+      const handleRemove = () => {
+        state.imgNum = state.imgNum - 1
+        state.allNum = state.allNum - 1
+      }
+      const handlePreview = (file) => {
+        state.dialogImageUrl = file.url
+        state.dialogVisible = true
+      }
+      const handleExceed = (files) => {
+        $baseMessage(
+          `当前限制选择 ${state.limit} 个文件，本次选择了
+                  ${files.length}
+                  个文件`,
           'error',
           'vab-hey-message-error'
         )
-      },
-      handleShow(data) {
-        this.title = '上传'
-        this.data = data
-        this.dialogFormVisible = true
-      },
-      handleClose() {
-        this.fileList = []
-        this.picture = 'picture'
-        this.allImgNum = 0
-        this.imgNum = 0
-        this.imgSuccessNum = 0
-        this.imgErrorNum = 0
-        this.headers['Authorization'] = `Bearer ${this.token}`
-        this.dialogFormVisible = false
-      },
+      }
+      const handleShow = (data) => {
+        state.title = '上传'
+        state.data = data
+        state.dialogFormVisible = true
+      }
+      const handleClose = () => {
+        state.fileList = []
+        state.picture = 'picture'
+        state.allImgNum = 0
+        state.imgNum = 0
+        state.imgSuccessNum = 0
+        state.imgErrorNum = 0
+        state.headers['Authorization'] = `Bearer ${token}`
+        state.dialogFormVisible = false
+      }
+
+      onMounted(() => {
+        state.headers['Authorization'] = `Bearer ${token}`
+      })
+
+      const percentage = computed(() => {
+        if (state.allImgNum === 0) return 0
+        return _.round(state.imgNum / state.allImgNum, 2) * 100
+      })
+
+      return {
+        ...toRefs(state),
+        submitUpload,
+        handleProgress,
+        handleChange,
+        handleSuccess,
+        handleError,
+        handleRemove,
+        handlePreview,
+        handleExceed,
+        handleShow,
+        handleClose,
+        percentage,
+      }
     },
   })
 </script>
@@ -228,6 +248,10 @@
           height: 128px;
           margin: 3px 8px 8px 8px;
           border: 2px dashed #c0ccda;
+
+          .ri-add-line {
+            font-size: 24px;
+          }
         }
 
         .el-upload-list--picture {

@@ -143,8 +143,8 @@
       <el-table-column align="center" label="头像">
         <template #default="{ row }">
           <el-image
-            append-to-body
             :preview-src-list="imageList"
+            preview-teleported
             :src="row.img"
           />
         </template>
@@ -320,10 +320,10 @@
       }
       const tableSortChange = () => {
         const imageList = []
-        state['tableSortRef'].tableData.forEach((item) => {
+        state.list.forEach((item) => {
           imageList.push(item.img)
         })
-        this.imageList = imageList
+        state.imageList = imageList
       }
       const setSelectRows = (val) => {
         state.selectRows = val

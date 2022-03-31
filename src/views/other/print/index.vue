@@ -14,7 +14,13 @@
     </el-button>
     <img
       ref="imageRef"
-      src="https://gitee.com/chu1204505056/image/raw/master/table/vab-image-1.jpg"
+      :src="
+        'https://cdn.jsdelivr.net/gh/' +
+        'chuzh' +
+        'ixin/image' +
+        '/table/vab-im' +
+        'age-1.jpg'
+      "
       style="display: block; width: 520px; margin-top: 15px"
     />
     <br />

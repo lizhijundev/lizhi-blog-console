@@ -15,7 +15,7 @@ const List = [
       {
         path: 'index',
         name: 'Index',
-        component: '@/views/index',
+        component: '@/views/index/index',
         meta: {
           title: '首页',
           icon: 'home-2-line',
@@ -81,7 +81,7 @@ const List = [
       {
         path: 'permission',
         name: 'Permission',
-        component: '@/views/vab/permission',
+        component: '@/views/vab/permission/index',
         meta: {
           title: '角色权限',
           icon: 'user-3-line',
@@ -93,6 +93,7 @@ const List = [
         name: 'Table',
         meta: {
           title: '表格',
+          // 非editor角色的用户可见
           guard: {
             role: ['Editor'],
             mode: 'except',
@@ -116,7 +117,7 @@ const List = [
               hidden: true,
               title: '详情页',
               activeMenu: '/vab/table/comprehensiveTable',
-              dynamicNewTab: true,
+              dynamicNewTab: true, //详情页根据id传参不同可打开多个
             },
           },
           {
@@ -150,7 +151,7 @@ const List = [
       {
         path: 'card',
         name: 'Card',
-        component: '@/views/vab/card',
+        component: '@/views/vab/card/index',
         meta: {
           title: '卡片',
           guard: ['Admin'],
@@ -160,7 +161,7 @@ const List = [
       {
         path: 'list',
         name: 'List',
-        component: '@/views/vab/list',
+        component: '@/views/vab/list/index',
         meta: {
           title: '列表',
           guard: ['Admin'],
@@ -170,21 +171,21 @@ const List = [
       {
         path: 'description',
         name: 'Description',
-        component: '@/views/vab/description',
+        component: '@/views/vab/description/index',
         meta: {
           title: '描述',
           guard: ['Admin'],
-          icon: 'calendar-check-line',
+          icon: 'slideshow-line',
         },
       },
       {
         path: 'calendar',
         name: 'Calendar',
-        component: '@/views/vab/calendar',
+        component: '@/views/vab/calendar/index',
         meta: {
           title: '日历',
           guard: ['Admin'],
-          icon: 'slideshow-line',
+          icon: 'calendar-check-line',
           dot: true,
         },
       },
@@ -364,7 +365,7 @@ const List = [
       {
         path: 'workflow',
         name: 'Workflow',
-        component: '@/views/other/workflow',
+        component: '@/views/other/workflow/index',
         meta: {
           title: '工作流',
           guard: ['Admin'],
@@ -374,7 +375,7 @@ const List = [
       {
         path: 'echarts',
         name: 'Echarts',
-        component: '@/views/other/echarts',
+        component: '@/views/other/echarts/index',
         meta: {
           title: '图表',
           guard: ['Admin'],
@@ -384,7 +385,7 @@ const List = [
       {
         path: 'print',
         name: 'Print',
-        component: '@/views/other/print',
+        component: '@/views/other/print/index',
         meta: {
           title: '打印',
           guard: ['Admin'],
@@ -394,7 +395,7 @@ const List = [
       {
         path: 'cropper',
         name: 'Cropper',
-        component: '@/views/other/cropper',
+        component: '@/views/other/cropper/index',
         meta: {
           title: '头像裁剪',
           guard: ['Admin'],
@@ -404,7 +405,7 @@ const List = [
       {
         path: 'notice',
         name: 'Notice',
-        component: '@/views/other/notice',
+        component: '@/views/other/notice/index',
         meta: {
           title: '通知',
           guard: ['Admin'],
@@ -414,7 +415,7 @@ const List = [
       {
         path: 'timeline',
         name: 'Timeline',
-        component: '@/views/other/timeline',
+        component: '@/views/other/timeline/index',
         meta: {
           title: '时间线',
           guard: ['Admin'],
@@ -424,7 +425,7 @@ const List = [
       {
         path: 'count',
         name: 'Count',
-        component: '@/views/other/count',
+        component: '@/views/other/count/index',
         meta: {
           title: '数字自增长',
           guard: ['Admin'],
@@ -434,7 +435,7 @@ const List = [
       {
         path: 'tabs',
         name: 'Tabs',
-        component: '@/views/other/tabs',
+        component: '@/views/other/tabs/index',
         meta: {
           title: '多标签',
           guard: ['Admin'],
@@ -444,7 +445,7 @@ const List = [
       {
         path: 'share',
         name: 'Share',
-        component: '@/views/other/share',
+        component: '@/views/other/share/index',
         meta: {
           title: '分享',
           guard: ['Admin'],
@@ -455,7 +456,7 @@ const List = [
       {
         path: 'dynamicAnchor',
         name: 'DynamicAnchor',
-        component: '@/views/other/dynamicAnchor',
+        component: '@/views/other/dynamicAnchor/index',
         meta: {
           title: '动态锚点',
           guard: ['Admin'],
@@ -466,7 +467,7 @@ const List = [
       {
         path: 'dynamicMeta',
         name: 'DynamicMeta',
-        component: '@/views/other/dynamicMeta',
+        component: '@/views/other/dynamicMeta/index',
         meta: {
           title: '动态Meta',
           guard: ['Admin'],
@@ -559,7 +560,7 @@ const List = [
       {
         path: 'player',
         name: 'Player',
-        component: '@/views/other/player',
+        component: '@/views/other/player/index',
         meta: {
           title: '视频播放器',
           guard: ['Admin'],
@@ -570,7 +571,7 @@ const List = [
       {
         path: 'upload',
         name: 'Upload',
-        component: '@/views/other/upload',
+        component: '@/views/other/upload/index',
         meta: {
           title: '上传',
           guard: ['Admin'],
@@ -607,7 +608,7 @@ const List = [
                       title: '多级路由1-1-1-1',
                     },
                     component:
-                      '@/views/other/nested/menu1/menu1-1/menu1-1-1/menu1-1-1-1',
+                      '@/views/other/nested/menu1/menu1-1/menu1-1-1/menu1-1-1-1/index',
                   },
                 ],
               },
@@ -618,7 +619,7 @@ const List = [
       {
         path: 'log',
         name: 'Log',
-        component: '@/views/other/errorLog',
+        component: '@/views/other/errorLog/index',
         meta: {
           title: '错误日志模拟',
           guard: ['Admin'],
@@ -628,7 +629,7 @@ const List = [
       {
         path: 'cssfx',
         name: 'Cssfx',
-        component: '@/views/other/cssfx',
+        component: '@/views/other/cssfx/index',
         meta: {
           title: 'Css动画',
           guard: ['Admin'],
@@ -638,19 +639,30 @@ const List = [
       {
         path: 'social',
         name: 'Social',
-        component: '@/views/other/social',
+        component: '@/views/other/social/index',
         meta: {
           title: '第三方登录',
           guard: ['Admin'],
           icon: 'github-fill',
         },
       },
+      // {
+      //   path: 'mobilePreview',
+      //   name: 'MobilePreview',
+      //   component: '@/views/vab/mobilePreview',
+      //   meta: {
+      //     title: '手机预览',
+      //     guard: ['Admin'],
+      //     icon: 'smartphone-line',
+      //   },
+      // },
       {
         path: '//github.com/chuzhixin/vue-admin-beautiful?utm_source=gold_browser_extension',
         name: 'ExternalLink',
         meta: {
           title: '外链',
           target: '_blank',
+          // 等价guard: ['Admin', 'Editor'],
           guard: {
             role: ['Admin', 'Editor'],
             mode: 'oneOf',
@@ -680,12 +692,12 @@ const List = [
             },
           },
           {
-            path: 'view?url=https%3A%2Fwww.so.com&title=360%E6%90%9C%E7%B4%A2&icon=search-2-line',
+            path: 'view?url=www.so.com&title=360%E6%90%9C%E7%B4%A2&icon=search-2-line',
             name: 'Search360Iframe',
             meta: { title: '360搜索', icon: 'search-2-line' },
           },
           {
-            path: 'view?url=https%3A%2Fwww.bilibili.com&title=%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9&icon=bilibili-line',
+            path: 'view?url=www.bilibili.com&title=%E5%93%94%E5%93%A9%E5%93%94%E5%93%A9&icon=bilibili-line',
             name: 'BiliBiliIframe',
             meta: { title: '哔哩哔哩', icon: 'bilibili-line' },
           },
@@ -751,7 +763,7 @@ const List = [
       {
         path: 'goods',
         name: 'Goods',
-        component: '@/views/mall/goods',
+        component: '@/views/mall/goods/index',
         meta: {
           title: '物料市场',
           icon: 'shopping-cart-line',
@@ -774,7 +786,7 @@ const List = [
       {
         path: 'deleteColumn',
         name: 'DeleteColumn',
-        component: '@/views/noColumn/deleteColumn',
+        component: '@/views/noColumn/deleteColumn/index',
         meta: {
           title: '无分栏',
           icon: 'delete-column',
@@ -796,7 +808,7 @@ const List = [
       {
         path: 'personalCenter',
         name: 'PersonalCenter',
-        component: '@/views/setting/personalCenter',
+        component: '@/views/setting/personalCenter/index',
         meta: {
           title: '个人中心',
           icon: 'map-pin-user-line',
@@ -805,7 +817,7 @@ const List = [
       {
         path: 'userManagement',
         name: 'UserManagement',
-        component: '@/views/setting/userManagement',
+        component: '@/views/setting/userManagement/index',
         meta: {
           title: '用户管理',
           icon: 'user-3-line',
@@ -814,7 +826,7 @@ const List = [
       {
         path: 'roleManagement',
         name: 'RoleManagement',
-        component: '@/views/setting/roleManagement',
+        component: '@/views/setting/roleManagement/index',
         meta: {
           title: '角色管理',
           icon: 'admin-line',
@@ -823,7 +835,7 @@ const List = [
       {
         path: 'departmentManagement',
         name: 'DepartmentManagement',
-        component: '@/views/setting/departmentManagement',
+        component: '@/views/setting/departmentManagement/index',
         meta: {
           title: '部门管理',
           icon: 'group-line',
@@ -832,7 +844,7 @@ const List = [
       {
         path: 'menuManagement',
         name: 'MenuManagement',
-        component: '@/views/setting/menuManagement',
+        component: '@/views/setting/menuManagement/index',
         meta: {
           title: '菜单管理',
           icon: 'menu-2-fill',
@@ -841,7 +853,7 @@ const List = [
       {
         path: 'taskManagement',
         name: 'TaskManagement',
-        component: '@/views/setting/taskManagement',
+        component: '@/views/setting/taskManagement/index',
         meta: {
           title: '任务管理',
           icon: 'task-line',
@@ -851,7 +863,7 @@ const List = [
       {
         path: 'systemLog',
         name: 'SystemLog',
-        component: '@/views/setting/systemLog',
+        component: '@/views/setting/systemLog/index',
         meta: {
           title: '系统日志',
           icon: 'file-shield-2-line',
@@ -907,6 +919,7 @@ const List = [
       },
     ],
   },
+
   {
     path: '/error',
     name: 'Error',

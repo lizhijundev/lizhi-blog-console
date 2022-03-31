@@ -1,4 +1,4 @@
-<script setup>
+<script lang="ts" setup>
   import { useRoutesStore } from '@/store/modules/routes'
   import variables from '@vab/styles/variables/variables.module.scss'
 
@@ -34,10 +34,18 @@
               style="width: 100%"
               :text-color="variables['menu-color']"
             >
-              <template v-for="(item, index) in routes">
+              <template
+                v-for="(item, index) in routes.flatMap((route) =>
+                  route['meta'] &&
+                  route['meta']['levelHidden'] &&
+                  route['children']
+                    ? [...route['children']]
+                    : route
+                )"
+              >
                 <vab-menu
-                  v-if="item.meta && !item.meta.hidden"
-                  :key="index + item.name"
+                  v-if="item['meta'] && !item['meta']['hidden']"
+                  :key="index + item['name']"
                   :item="item"
                   :layout="layout"
                 />
@@ -60,6 +68,7 @@
 </template>
 
 <style lang="scss" scoped>
+  $base-menu-height: 40px;
   .vab-header {
     display: flex;
     align-items: center;
@@ -78,7 +87,8 @@
 
         :deep() {
           .el-sub-menu__icon-more {
-            margin-top: #{math.div($base-header-height - 20, 2)} !important;
+            margin-top: #{math.div($base-menu-height - 20, 2)} !important;
+            margin-right: 20px !important;
           }
 
           > .el-menu--horizontal.el-menu {
@@ -116,36 +126,37 @@
           }
 
           .el-menu {
+            border: 0 !important;
+            * {
+              border: 0 !important;
+            }
             &.el-menu--horizontal {
               display: flex;
               align-items: center;
               justify-content: flex-end;
               width: 100%;
-              height: $base-header-height;
-              border-bottom: 0 solid transparent !important;
-
-              .el-menu-item,
-              .el-sub-menu__title {
-                height: #{math.div($base-header-height, 1.3)};
-                padding: 0 $base-padding;
-                line-height: #{math.div($base-header-height, 1.3)};
-              }
+              height: $base-menu-height;
+              border: 0 !important;
 
               > .el-menu-item,
               > .el-sub-menu {
-                height: $base-header-height;
-                line-height: $base-header-height;
+                height: $base-menu-height;
+                margin-right: 3px;
+                line-height: $base-menu-height;
+                border-radius: 3px;
 
                 .el-sub-menu__icon-arrow {
                   float: right;
-                  margin-top: #{math.div($base-menu-item-height - 16, 2)};
+                  margin-top: 7px;
                 }
 
                 > .el-sub-menu__title {
                   display: flex;
                   align-items: flex-start;
-                  height: $base-header-height;
-                  line-height: $base-header-height;
+                  height: $base-menu-height;
+                  line-height: $base-menu-height;
+                  border: 0 !important;
+                  border-radius: 3px;
                 }
               }
             }
@@ -163,10 +174,10 @@
               }
 
               &.is-active {
-                border-bottom: 0 solid transparent;
+                border: 0 !important;
 
                 .el-sub-menu__title {
-                  border-bottom: 0 solid transparent;
+                  border: 0 !important;
                 }
               }
             }
@@ -232,7 +243,7 @@ bug使用popper-append-to-body=false会导致多级路由无法显示，故所�
 
   .el-popper {
     .el-menu--horizontal {
-      height: #{math.div($base-header-height, 1.3)};
+      height: #{math.div($base-header-height, 1.4)};
       border-bottom: 0 solid transparent !important;
 
       @media only screen and (max-width: 1199px) {
@@ -255,8 +266,8 @@ bug使用popper-append-to-body=false会导致多级路由无法显示，故所�
 
       .el-menu-item,
       .el-sub-menu {
-        height: #{math.div($base-header-height, 1.3)};
-        line-height: #{math.div($base-header-height, 1.3)};
+        height: #{math.div($base-header-height, 1.4)} !important;
+        line-height: #{math.div($base-header-height, 1.4)} !important;
         @include menuActiveHover;
 
         i {
@@ -268,8 +279,8 @@ bug使用popper-append-to-body=false会导致多级路由无法显示，故所�
         }
 
         .el-sub-menu__title {
-          height: #{math.div($base-header-height, 1.3)};
-          line-height: #{math.div($base-header-height, 1.3)};
+          height: #{math.div($base-header-height, 1.4)} !important;
+          line-height: #{math.div($base-header-height, 1.4)} !important;
           @include menuActiveHover;
         }
       }

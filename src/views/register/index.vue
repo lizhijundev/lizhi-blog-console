@@ -77,10 +77,10 @@
             >
               {{ translateTitle('注册') }}
             </el-button>
+          </el-form-item>
+          <el-form-item>
             <router-link to="/login">
-              <div style="margin-top: 20px">
-                {{ translateTitle('登录') }}
-              </div>
+              {{ translateTitle('登录') }}
             </router-link>
           </el-form-item>
         </el-form>
@@ -247,7 +247,7 @@
       position: relative;
       max-width: 100%;
       padding: 4.5vh;
-      margin: calc((100vh - 590px) / 2) 5vw 5vw;
+      margin: calc((100vh - 475px) / 2) 5vw 5vw;
       overflow: hidden;
       background: url('~@/assets/login_images/login_form.png');
       background-size: 100% 100%;
@@ -339,9 +339,9 @@
 
         input {
           height: 48px;
-          padding-left: 35px;
+          padding-left: 45px;
           font-size: $base-font-size-default;
-          line-height: 58px;
+          line-height: 48px;
           background: #f6f4fc;
           border: 0;
         }

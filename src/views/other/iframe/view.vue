@@ -21,7 +21,7 @@
     methods: {
       ...mapActions(useTabsStore, ['changeTabsMeta']),
       handleIframe() {
-        this.url = this.$route.query.url
+        this.url = `https://${this.$route.query.url}`
         const meta = { ...this.$route.meta, ...this.$route.query }
         this.$nextTick(() => {
           this.changeTabsMeta({

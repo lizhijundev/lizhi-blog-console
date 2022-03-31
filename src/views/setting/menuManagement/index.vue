@@ -62,15 +62,12 @@
             </el-table-column>
             <el-table-column label="图标" show-overflow-tooltip>
               <template #default="{ row }">
-                <vab-icon
-                  v-if="row.meta && row.meta.icon"
-                  :icon="row.meta.icon"
-                />
+                <vab-icon v-if="row.meta.icon" :icon="row.meta.icon" />
               </template>
             </el-table-column>
             <el-table-column label="是否固定" show-overflow-tooltip>
               <template #default="{ row }">
-                {{ row.meta && row.meta.noClosable ? '是' : '否' }}
+                {{ row.meta.noClosable ? '是' : '否' }}
               </template>
             </el-table-column>
             <el-table-column
@@ -79,23 +76,19 @@
               width="120"
             >
               <template #default="{ row }">
-                {{ row.meta && row.meta.noKeepAlive ? '是' : '否' }}
+                {{ row.meta.noKeepAlive ? '是' : '否' }}
               </template>
             </el-table-column>
             <el-table-column label="badge" show-overflow-tooltip>
               <template #default="{ row }">
-                <el-tag
-                  v-if="row.meta && row.meta.badge"
-                  effect="dark"
-                  type="danger"
-                >
+                <el-tag v-if="row.meta.badge" effect="dark" type="danger">
                   {{ row.meta.badge }}
                 </el-tag>
               </template>
             </el-table-column>
             <el-table-column label="dot" show-overflow-tooltip>
               <template #default="{ row }">
-                {{ row.meta && row.meta.dot ? '是' : '否' }}
+                {{ row.meta.dot ? '是' : '否' }}
               </template>
             </el-table-column>
             <el-table-column label="操作" show-overflow-tooltip width="110">

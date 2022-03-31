@@ -1,15 +1,15 @@
-<script setup>
+<script lang="ts" setup>
   import { useSettingsStore } from '@/store/modules/settings'
   import { translateTitle } from '@/utils/i18n'
   import { getList } from '@/api/notice'
 
-  const $baseMessage = inject('$baseMessage')
+  const $baseMessage: any = inject('$baseMessage')
 
   const settingsStore = useSettingsStore()
   const { theme } = storeToRefs(settingsStore)
 
   const activeName = ref('notice')
-  const notices = ref('')
+  const notices: any = ref([])
   const badge = ref(undefined)
 
   const fetchData = async () => {

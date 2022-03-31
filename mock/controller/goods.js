@@ -29,7 +29,8 @@ const List = [
   },
   {
     uuid: '@uuid',
-    svg: 'https://gitee.com/chu1204505056/image/raw/master/logo/vab.svg',
+    svg:
+      'https://cdn.jsdelivr.net/gh/' + 'chuzh' + 'ixin/image' + '/logo/vab.svg',
     title: 'vue-admin-better',
     price: '免费',
     label: ['vue', 'element-ui', 'MIT协议'],
@@ -39,7 +40,8 @@ const List = [
   },
   {
     uuid: '@uuid',
-    svg: 'https://gitee.com/chu1204' + '505056/image/raw/master/logo/vdb.svg',
+    svg:
+      'https://cdn.jsdelivr.net/gh/' + 'chuzh' + 'ixin/image' + '/logo/vdb.svg',
     title: 'vue-datav-beautiful-pro',
     price: 'Admin Pro + Adm' + 'in Plus 1299版本赠品',
     label: ['数据大屏'],
@@ -50,7 +52,10 @@ const List = [
   {
     uuid: '@uuid',
     image:
-      'https://gitee.com/c' + 'hu1204505056/image/raw/master/goods/uview.gif',
+      'https://cdn.jsdelivr.net/gh/' +
+      'chuzh' +
+      'ixin/image' +
+      '/goods/uview.gif',
     title: 'uview',
     price: '免费',
     label: ['uniapp', '跨平台', '组件'],
@@ -73,7 +78,10 @@ const List = [
     uuid: '@uuid',
     title: 'OPSLI',
     image:
-      'https://gitee.com/chu120' + '4505056/image/raw/master/goods/OPSLI.png',
+      'https://cdn.jsdelivr.net/gh/' +
+      'chuzh' +
+      'ixin/image' +
+      '/goods/OPSLI.png',
     price: '免费',
     label: ['spring-boot', 'vue-admin-better'],
     company: 'OPSLI',

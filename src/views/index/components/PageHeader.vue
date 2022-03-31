@@ -15,8 +15,11 @@
       },
       {
         avatar:
-          'https://gitee.com/chu1204505056/image/raw/master/user/fwfmiao.gif',
-        username: 'FlowPeakFish',
+          'https://cdn.jsdelivr.net/gh/' +
+          'chuzh' +
+          'ixin/image' +
+          '/user/fwfmiao.gif',
+        username: 'FlowPea' + 'kFish',
       },
       {
         avatar: 'https://i.gtimg.cn/club/item/face/img/3/15643_100.gif',

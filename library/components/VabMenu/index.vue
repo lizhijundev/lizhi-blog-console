@@ -1,9 +1,5 @@
 <template>
-  <component
-    :is="menuComponent"
-    v-if="item.meta && !item.meta.hidden"
-    :item-or-menu="item"
-  >
+  <component :is="menuComponent" v-if="!item.meta.hidden" :item-or-menu="item">
     <template v-if="item.children && item.children.length">
       <el-scrollbar
         v-if="
@@ -29,11 +25,16 @@
   </component>
 </template>
 
-<script>
+<script lang="ts">
+  /* 防止偶发性自动导入失败 */
+  import { computed, defineComponent } from 'vue'
+  import { storeToRefs } from 'pinia'
   import { useSettingsStore } from '@/store/modules/settings'
 
   const imports = require.context('./components', true, /\.vue$/)
-  const Components = {}
+  const Components: {
+    [key: string]: any
+  } = {}
   imports.keys().forEach((key) => {
     Components[key.replace(/(\/|\.|vue)/g, '')] = imports(key).default
   })
@@ -57,8 +58,8 @@
 
       const menuComponent = computed(() =>
         props.item.children &&
-        props.item.children.some((_route) => {
-          return _route.meta && _route.meta.hidden !== true
+        props.item.children.some((_route: any) => {
+          return _route.meta.hidden !== true
         })
           ? 'VabSubMenu'
           : 'VabMenuItem'
@@ -78,8 +79,8 @@
     overflow-y: auto;
 
     &::-webkit-scrollbar {
-      width: 0px;
-      height: 0px;
+      width: 0;
+      height: 0;
     }
   }
 </style>

@@ -1,7 +1,16 @@
+<script lang="ts" setup>
+  const props: any = defineProps({
+    avatarList: {
+      type: Array,
+      default: () => [],
+    },
+  })
+</script>
+
 <template>
   <div class="vab-avatar-list">
     <el-tooltip
-      v-for="(item, index) in avatarList"
+      v-for="(item, index) in props.avatarList"
       :key="index"
       :content="item.username"
       effect="dark"
@@ -11,18 +20,6 @@
     </el-tooltip>
   </div>
 </template>
-
-<script>
-  export default defineComponent({
-    name: 'VabAvatarList',
-    props: {
-      avatarList: {
-        type: Array,
-        default: () => [],
-      },
-    },
-  })
-</script>
 
 <style lang="scss" scoped>
   .vab-avatar-list {

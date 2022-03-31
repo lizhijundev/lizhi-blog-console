@@ -1,16 +1,18 @@
-<script setup>
+<script lang="ts" setup>
+  import { VabRoute } from '/#/router'
   import { isExternal } from '@/utils/validate'
   import { translateTitle } from '@/utils/i18n'
   import { useRoutesStore } from '@/store/modules/routes'
-  import { defaultOpeneds, uniqueOpened } from '@/config'
+  import { defaultOpeneds, openFirstMenu, uniqueOpened } from '@/config'
   import { useSettingsStore } from '@/store/modules/settings'
   import variables from '@vab/styles/variables/variables.module.scss'
 
-  const route = useRoute()
+  const route: VabRoute = useRoute()
   const router = useRouter()
 
   const settingsStore = useSettingsStore()
   const { theme, collapse } = storeToRefs(settingsStore)
+  const { foldSideBar, openSideBar } = settingsStore
   const routesStore = useRoutesStore()
   const {
     getTab: tab,
@@ -18,9 +20,7 @@
     getActiveMenu: activeMenu,
     getRoutes: routes,
     getPartialRoutes: partialRoutes,
-  } = storeToRefs(routesStore)
-
-  const { foldSideBar, openSideBar } = settingsStore
+  }: any = storeToRefs(routesStore)
 
   const handleTabClick = () => {
     if (isExternal(tabMenu.value.path)) {
@@ -28,35 +28,24 @@
       setTimeout(() => {
         router.push('/')
       }, 1000)
-    } else if (tabMenu.value) {
+    } else if (tabMenu.value && openFirstMenu) {
       const { redirect } = tabMenu.value
       router.push(redirect ? redirect : tabMenu.value)
     }
   }
 
   watchEffect(() => {
+    const foldUnfold: any = document.querySelector(
+      '.fold-unfold'
+    ) as HTMLElement
     if (theme.value.layout === 'column' && route.meta.noColumn) {
       foldSideBar()
-      if (document.querySelector('.fold-unfold'))
-        document.querySelector('.fold-unfold').style = 'display:none'
+      if (foldUnfold) foldUnfold.style = 'display:none'
     } else {
       openSideBar()
-      if (document.querySelector('.fold-unfold'))
-        document.querySelector('.fold-unfold').style = ''
+      if (foldUnfold) foldUnfold.style = ''
     }
   })
-
-  const menuShow = ref(true)
-  watch(
-    tab,
-    () => {
-      menuShow.value = false
-      nextTick(() => {
-        menuShow.value = true
-      })
-    },
-    { deep: true }
-  )
 </script>
 
 <template>
@@ -96,7 +85,6 @@
     </el-tabs>
 
     <el-menu
-      v-if="menuShow"
       :background-color="variables['column-second-menu-background']"
       :default-active="activeMenu.data"
       :default-openeds="defaultOpeneds"
@@ -107,7 +95,7 @@
         {{ translateTitle(tabMenu ? tabMenu.meta.title : '') }}
       </el-divider>
       <template v-for="item in partialRoutes" :key="item.path">
-        <vab-menu v-if="item.meta && !item.meta.hidden" :item="item" />
+        <vab-menu v-if="!item.meta.hidden" :item="item" />
       </template>
     </el-menu>
   </el-scrollbar>
@@ -136,7 +124,7 @@
     top: 0;
     bottom: 0;
     left: 0;
-    width: $base-left-menu-width;
+    width: var(--el-left-menu-width);
     height: 100vh;
     overflow: hidden;
     background: $base-column-second-menu-background;
@@ -158,7 +146,7 @@
       :deep() {
         .el-tabs + .el-menu {
           left: $base-left-menu-width-min;
-          width: $base-left-menu-width - $base-left-menu-width-min;
+          width: calc(var(--el-left-menu-width) - #{$base-left-menu-width-min});
           border: 0;
         }
       }
@@ -178,7 +166,9 @@
 
         .el-tabs + .el-menu {
           left: $base-left-menu-width-min * 1.3;
-          width: $base-left-menu-width - $base-left-menu-width-min * 1.3;
+          width: calc(
+            var(--el-left-menu-width) - #{$base-left-menu-width-min} * 1.3
+          );
           border: 0;
         }
       }
@@ -208,7 +198,9 @@
 
         .el-tabs + .el-menu {
           left: $base-left-menu-width-min + 10;
-          width: $base-left-menu-width - $base-left-menu-width-min - 20;
+          width: calc(
+            var(--el-left-menu-width) - #{$base-left-menu-width-min} - 20px
+          );
         }
 
         .el-sub-menu .el-sub-menu__title,
@@ -249,7 +241,9 @@
 
         .el-tabs + .el-menu {
           left: $base-left-menu-width-min + 10;
-          width: $base-left-menu-width - $base-left-menu-width-min - 20;
+          width: calc(
+            var(--el-left-menu-width) - #{$base-left-menu-width-min} - 20px
+          );
         }
 
         .el-sub-menu .el-sub-menu__title,

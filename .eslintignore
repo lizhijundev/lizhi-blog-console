@@ -1,4 +1,4 @@
-library/vuePlugins/unplugin/components.d.ts
+library/build/vuePlugins/components.d.ts
 node_modules
 src/assets
 src/icons

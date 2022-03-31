@@ -1,15 +1,16 @@
-<script setup>
-  import { useHead } from '@vueuse/head'
-  import { useTabsStore } from '@/store/modules/tabs'
+<script lang="ts" setup>
   import { useSettingsStore } from '@/store/modules/settings'
+  import { useTabsStore } from '@/store/modules/tabs'
   import { handleActivePath } from '@/utils/routes'
   import { keepAliveMaxNum } from '@/config'
+  import { useHead } from '@vueuse/head'
+  import { VabRoute, VabRouteRecord } from '/#/router'
   import VabProgress from 'nprogress'
 
-  const route = useRoute()
+  const route: VabRoute = useRoute()
 
-  const $sub = inject('$sub')
-  const $unsub = inject('$unsub')
+  const $sub: any = inject('$sub')
+  const $unsub: any = inject('$unsub')
 
   const settingsStore = useSettingsStore()
   const { theme } = storeToRefs(settingsStore)
@@ -35,9 +36,10 @@
   const updateKeepAliveNameList = (refreshRouteName = null) => {
     keepAliveNameList.value = visitedRoutes.value
       .filter(
-        (item) => !item.meta.noKeepAlive && item.name !== refreshRouteName
+        (item: VabRouteRecord) =>
+          !item.meta.noKeepAlive && item.name !== refreshRouteName
       )
-      .flatMap((item) => item.name)
+      .flatMap((item: VabRouteRecord) => item.name)
   }
 
   // 更新KeepAlive缓存页面
@@ -55,7 +57,7 @@
     )
   })
 
-  $sub('reload-router-view', (refreshRouteName = route.name) => {
+  $sub('reload-router-view', (refreshRouteName: any = route.name) => {
     if (theme.value.showProgressBar) VabProgress.start()
     const cacheActivePath = routerKey.value
     routerKey.value = null

@@ -1,10 +1,10 @@
-<script setup>
+<script lang="ts" setup>
   import { useRoutesStore } from '@/store/modules/routes'
   import { useSettingsStore } from '@/store/modules/settings'
   import variables from '@vab/styles/variables/variables.module.scss'
   import { defaultOpeneds, uniqueOpened } from '@/config'
 
-  defineProps({
+  const props = defineProps({
     layout: {
       type: String,
       default: 'vertical',
@@ -15,23 +15,18 @@
   const { collapse } = storeToRefs(settingsStore)
   const routesStore = useRoutesStore()
   const {
-    getTab: tab,
-    getActiveMenu: activeMenu,
     getRoutes: routes,
+    getActiveMenu: activeMenu,
     getPartialRoutes: partialRoutes,
   } = storeToRefs(routesStore)
 
-  const menuShow = ref(true)
-  watch(
-    tab,
-    () => {
-      menuShow.value = false
-      nextTick(() => {
-        menuShow.value = true
-      })
-    },
-    { deep: true }
-  )
+  const handleRoutes = computed(() => {
+    return props.layout === 'comprehensive'
+      ? partialRoutes.value
+      : routes.value.flatMap((route: any) =>
+          route.meta.levelHidden && route.children ? [...route.children] : route
+        )
+  })
 </script>
 
 <template>
@@ -47,7 +42,6 @@
       "
     />
     <el-menu
-      v-if="menuShow"
       :active-text-color="variables['menu-color-active']"
       :background-color="variables['menu-background']"
       :collapse="collapse"
@@ -59,13 +53,8 @@
       :text-color="variables['menu-color']"
       :unique-opened="uniqueOpened"
     >
-      <template
-        v-for="(item, index) in layout === 'comprehensive'
-          ? partialRoutes
-          : routes"
-        :key="index + item.name"
-      >
-        <vab-menu v-if="item.meta && !item.meta.hidden" :item="item" />
+      <template v-for="(item, index) in handleRoutes" :key="index + item.name">
+        <vab-menu v-if="!item.meta.hidden" :item="item" />
       </template>
     </el-menu>
   </el-scrollbar>
@@ -90,7 +79,7 @@
     bottom: 0;
     left: 0;
     z-index: $base-z-index + 1;
-    width: $base-left-menu-width;
+    width: var(--el-left-menu-width);
     height: 100vh;
     overflow: hidden;
     background: $base-menu-background;

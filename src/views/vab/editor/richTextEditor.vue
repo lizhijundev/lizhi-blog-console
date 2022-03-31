@@ -161,7 +161,7 @@
       }
       const handleAddImg = () => {
         state.form.content +=
-          '<img src="https://gitee.com/chu1204505056/image/raw/master/ewm.png" />'
+          '<img src="https://cdn.jsdelivr.net/gh/chuzhixin/image/ewm.png" />'
       }
 
       return {

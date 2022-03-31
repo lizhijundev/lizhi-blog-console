@@ -16,7 +16,7 @@
     </vab-query-form>
 
     <el-table
-      ref="multipleTable"
+      ref="multipleTableRef"
       v-loading="listLoading"
       border
       :data="list"
@@ -57,53 +57,64 @@
 
   export default defineComponent({
     name: 'ExportSelectExcel',
-    data() {
-      return {
+    setup() {
+      const $baseMessage = inject('$baseMessage')
+
+      const state = reactive({
+        multipleTableRef: null,
         list: [],
         listLoading: true,
         multipleSelection: [],
         downloadLoading: false,
         filename: '',
-      }
-    },
-    created() {
-      this.fetchData()
-    },
-    methods: {
-      async fetchData() {
-        this.listLoading = true
+      })
+
+      const fetchData = async () => {
+        state.listLoading = true
         const {
           data: { list },
         } = await getList()
-        this.list = list
-        this.listLoading = false
-      },
-      handleSelectionChange(val) {
-        this.multipleSelection = val
-      },
-      handleDownload() {
-        if (this.multipleSelection.length) {
-          this.downloadLoading = true
-          import('@/utils/excel').then((excel) => {
+        state.list = list
+        state.listLoading = false
+      }
+      const handleSelectionChange = (val) => {
+        state.multipleSelection = val
+      }
+      const handleDownload = () => {
+        if (state.multipleSelection.length) {
+          state.downloadLoading = true
+          import('~/src/utils/excel').then((excel) => {
             const tHeader = ['Id', 'Title', 'Author', 'Readings', 'Date']
             const filterVal = ['id', 'title', 'author', 'pageViews', 'datetime']
-            const list = this.multipleSelection
-            const data = this.formatJson(filterVal, list)
+            const list = state.multipleSelection
+            const data = state.formatJson(filterVal, list)
             excel.export_json_to_excel({
               header: tHeader,
               data,
-              filename: this.filename,
+              filename: state.filename,
             })
-            this.$refs.multipleTable.clearSelection()
-            this.downloadLoading = false
+            state.multipleTableRef.clearSelection()
+            state.downloadLoading = false
           })
         } else {
-          this.$baseMessage('请至少选择一行', 'error', 'vab-hey-message-error')
+          $baseMessage('请至少选择一行', 'error', 'vab-hey-message-error')
         }
-      },
-      formatJson(filterVal, jsonData) {
+      }
+      const formatJson = (filterVal, jsonData) => {
         return jsonData.map((v) => filterVal.map((j) => v[j]))
-      },
+      }
+
+      onMounted(() => {
+        fetchData()
+      })
+
+      return {
+        ...toRefs(state),
+        fetchData,
+        handleSelectionChange,
+        handleDownload,
+        formatJson,
+      }
     },
   })
 </script>

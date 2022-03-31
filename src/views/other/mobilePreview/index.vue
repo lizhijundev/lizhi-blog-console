@@ -34,17 +34,6 @@
                 https://www.zhihu.com/question/423592827/answer/1502779880
               </a>
             </p>
-            <p>
-              admin-plus购买链接
-              <a
-                href="https://gitee.com/chu1204505056/image/raw/master/zfb_699.jpg"
-                target="_blank"
-              >
-                https://gitee.com/chu1204505056/image/raw/master/zfb_699.jpg
-              </a>
-              ，付款后加QQ
-              1204505056获取下载权限，是否购买pro填是即可(包含VIP专属问题解答群、PRO详细文档、PRO基础版源码、PRO标准版源码、绑定git随时克隆及更新权限、跟进Vue3.x)
-            </p>
           </div>
         </el-alert>
       </el-col>

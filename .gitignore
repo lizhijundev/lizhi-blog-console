@@ -42,7 +42,5 @@ public/video
 *.zip
 *.7z
 *.rar
-library/build/vuePlugins/unplugin/auto-imports.d.ts
-library/build/vuePlugins/unplugin/components.d.ts
 /library/styles/variables/vab-red-variables.module.scss
 /.history

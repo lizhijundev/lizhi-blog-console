@@ -1,8 +1,9 @@
-<script setup>
+<script lang="ts" setup>
   import { useSettingsStore } from '@/store/modules/settings'
   import { isExternal } from '@/utils/validate'
   import { translateTitle } from '@/utils/i18n'
   import { isHashRouterMode } from '@/config'
+  import { VabRoute } from '/#/router'
 
   const props = defineProps({
     itemOrMenu: {
@@ -13,10 +14,10 @@
     },
   })
 
-  const route = useRoute()
+  const route: VabRoute = useRoute()
   const router = useRouter()
 
-  const $pub = inject('$pub')
+  const $pub: any = inject('$pub')
 
   const settingsStore = useSettingsStore()
   const { device } = storeToRefs(settingsStore)
@@ -44,7 +45,7 @@
 <template>
   <el-menu-item :index="itemOrMenu.path" @click="handleLink">
     <vab-icon
-      v-if="itemOrMenu.meta && itemOrMenu.meta.icon"
+      v-if="itemOrMenu.meta.icon"
       :icon="itemOrMenu.meta.icon"
       :is-custom-svg="itemOrMenu.meta.isCustomSvg"
       :title="translateTitle(itemOrMenu.meta.title)"
@@ -52,17 +53,10 @@
     <span :title="translateTitle(itemOrMenu.meta.title)">
       {{ translateTitle(itemOrMenu.meta.title) }}
     </span>
-    <el-tag
-      v-if="itemOrMenu.meta && itemOrMenu.meta.badge"
-      effect="dark"
-      type="danger"
-    >
+    <el-tag v-if="itemOrMenu.meta.badge" effect="dark" type="danger">
       {{ itemOrMenu.meta.badge }}
     </el-tag>
-    <span
-      v-if="itemOrMenu.meta && itemOrMenu.meta.dot"
-      class="vab-dot vab-dot-error"
-    >
+    <span v-if="itemOrMenu.meta.dot" class="vab-dot vab-dot-error">
       <span />
     </span>
   </el-menu-item>

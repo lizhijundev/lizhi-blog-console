@@ -131,6 +131,18 @@ body.vab-theme-white {
       .el-menu-item {
         @include container;
       }
+
+      .el-menu-item.is-active,
+      .el-sub-menu__title.is-active,
+      .el-menu-item:hover,
+      .el-sub-menu__title:hover {
+        i {
+          color: var(--el-color-primary) !important;
+        }
+
+        color: var(--el-color-primary) !important;
+        background-color: var(--el-color-primary-light-9) !important;
+      }
     }
 
     .vab-side-bar,
@@ -343,20 +355,6 @@ body.vab-theme-white {
       &.is-active {
         background: var(--el-color-primary) !important;
       }
-    }
-  }
-
-  .el-menu {
-    .el-menu-item.is-active,
-    .el-sub-menu__title.is-active,
-    .el-menu-item:hover,
-    .el-sub-menu__title:hover {
-      i {
-        color: var(--el-color-primary) !important;
-      }
-
-      color: var(--el-color-primary) !important;
-      background-color: var(--el-color-primary-light-9) !important;
     }
   }
 }

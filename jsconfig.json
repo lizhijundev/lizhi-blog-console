@@ -1,21 +1,18 @@
 {
   "compilerOptions": {
-    "baseUrl": "./",
-    "target": "ES5",
+    "target": "ESNext",
     "module": "ESNext",
+    "baseUrl": "./",
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
     "paths": {
+      "~/*": ["*"],
       "@/*": ["src/*"],
+      "/#/*": ["types/*"],
       "@vab/*": ["library/*"],
       "@gp": ["library/plugins/vab"]
     },
-    "lib": [
-      "dom",
-      "esnext",
-      "scripthost",
-      "dom.iterable"
-    ]
+    "lib": ["esnext", "dom", "dom.iterable", "scripthost"]
   },
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "dist"]
 }

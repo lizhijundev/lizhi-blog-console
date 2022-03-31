@@ -1,10 +1,11 @@
-<script setup>
+<script lang="ts" setup>
   import { useUserStore } from '@/store/modules/user'
   import { useSettingsStore } from '@/store/modules/settings'
+  import { translateTitle } from '@/utils/i18n'
 
-  const vFocus = {
-    mounted(el) {
-      el.querySelector('input').focus()
+  const vFocus: any = {
+    mounted(el: HTMLElement) {
+      el.querySelector('input')?.focus()
     },
   }
 
@@ -15,17 +16,22 @@
   const { handleLock: _handleLock, handleUnLock: _handleUnLock } = settingsStore
 
   const background = ref(
-    `https://gitee.com/chu1204505056/image/raw/master/vab-image-lock/${Math.round(
-      Math.random() * 31
-    )}.jpg`
+    'https://cdn.jsdelivr.net/gh/' +
+      'chuzh' +
+      'ixin/image/vab-im' +
+      'age-lock/' +
+      `${Math.round(Math.random() * 31)}.jpg`
   )
   const randomBackground = () => {
-    background.value = `https://gitee.com/chu1204505056/image/raw/master/vab-image-lock/${Math.round(
-      Math.random() * 31
-    )}.jpg`
+    background.value =
+      'https://cdn.jsdelivr.net/gh/' +
+      'chuzh' +
+      'ixin/image/vab-im' +
+      'age-lock/' +
+      `${Math.round(Math.random() * 31)}.jpg`
   }
 
-  const validatePass = (rule, value, callback) => {
+  const validatePass = (rule: any, value: string, callback: any) => {
     if (value === '' || value !== '123456') {
       callback(new Error('请输入正确的密码'))
     } else {
@@ -43,16 +49,15 @@
 
   let lockIcon = true
   const handleUnLock = () => {
-    formRef.value.validate(async (valid) => {
+    formRef.value.validate(async (valid: boolean) => {
       if (valid) {
         lockIcon = false
         setTimeout(async () => {
           await _handleUnLock()
           lockIcon = true
           await randomBackground()
-          if (document.getElementsByClassName('vab-side-bar')[0])
-            document.getElementsByClassName('vab-side-bar')[0].style.display =
-              ''
+          const el = document.querySelector('.vab-side-bar') as HTMLElement
+          if (el) el.removeAttribute('style')
         }, 500)
       }
     })
@@ -60,8 +65,8 @@
 
   const handleLock = () => {
     _handleLock()
-    if (document.getElementsByClassName('vab-side-bar')[0])
-      document.getElementsByClassName('vab-side-bar')[0].style.display = 'none'
+    const el = document.querySelector('.vab-side-bar') as HTMLElement
+    if (el) el.style.display = 'none'
   }
 </script>
 
@@ -82,7 +87,7 @@
         <div class="vab-screen-lock-content-title">
           <el-avatar :size="180" :src="avatar" />
           <vab-icon :icon="lockIcon ? 'lock-line' : 'lock-unlock-line'" />
-          {{ title }} 屏幕已锁定
+          {{ title }} {{ translateTitle('屏幕已锁定') }}
         </div>
         <div class="vab-screen-lock-content-form">
           <el-form ref="formRef" :model="form" :rules="rules" @submit.prevent>
@@ -103,14 +108,14 @@
                     <vab-icon
                       :icon="lockIcon ? 'lock-line' : 'lock-unlock-line'"
                     />
-                    解锁
+                    {{ translateTitle('解锁') }}
                   </el-button>
                 </template>
               </el-input>
             </el-form-item>
           </el-form>
         </div>
-        <span @click="randomBackground">切换壁纸</span>
+        <span @click="randomBackground">{{ translateTitle('切换壁纸') }}</span>
       </div>
     </div>
   </transition>

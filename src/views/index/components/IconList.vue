@@ -87,7 +87,7 @@
         {
           icon: 'baidu-line',
           title: '百度一下',
-          link: 'https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=1&tn=baidu&wd=GitHub-chuzhixin%2Fvue-admin-beautiful%3A%F0%9F%9A%80vue-admi&oq=GitHub-chuzhixin%252Fvue-admin-beautiful%253A%25F0%259F%259A%2580vue-admi...&rsv_pq=a66fa3b80007fbd4&rsv_t=e8e0KMl6if8HMAuFVY8LMAEV2XLPQ%2F%2F29GPh2qVDUL20gxXFWjHTwkD%2BNhE&rqlang=cn&rsv_enter=0&rsv_dl=tb&rsv_btype=t&inputT=1163&rsv_sug3=104&rsv_sug4=1821&bs=GitHub-chuzhixin%2Fvue-admin-beautiful%3A%F0%9F%9A%80vue-admi...',
+          link: 'https://www.baidu.com/s?ie=utf-8&f=8&rsv_bp=1&tn=baidu&wd=Vue%20Admin%20Plus%E5%AE%98%E7%BD%91%E3%80%81%E9%A6%96%E9%A1%B5%E3%80%81%E6%96%87%E6%A1%A3%E5%92%8C%E4%B8%8B%E8%BD%BD%20-%20%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6&oq=Vue%20Admin%20Plus%E5%AE%98%E7%BD%91%E3%80%81%E9%A6%96%E9%A1%B5%E3%80%81%E6%96%87%E6%A1%A3%E5%92%8C%E4%B8%8B%E8%BD%BD%20-%20%E5%89%8D%E7%AB%AF%E5%BC%80%E5%8F%91%E6%A1%86%E6%9E%B6&rsv_pq=cbfffef5003538e3&rsv_t=7d18Juf2uB00iQ%2B1DZbwHAT5xZC5dEDts2s%2F2UFpt3nBojO%2FncoD0L3hDTw&rqlang=cn&rsv_enter=1&rsv_dl=tb&si=vue-admin-beautiful.com&ct=2097152',
           color: '#1890FF',
         },
         {
@@ -105,7 +105,7 @@
         {
           icon: 'code-box-line',
           title: '源码',
-          link: 'https://github.com/chuzhixin/vue-admin-beautiful',
+          link: 'https://github.com/chuzhixin',
           color: '#b37feb',
         },
         {

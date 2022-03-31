@@ -1,4 +1,4 @@
-<script setup>
+<script lang="ts" setup>
   import { useSettingsStore } from '@/store/modules/settings'
 
   const settingsStore = useSettingsStore()
@@ -93,7 +93,7 @@
 
       .title {
         @include title;
-        max-width: $base-left-menu-width - 60;
+        max-width: calc(var(--el-left-menu-width) - 60px);
       }
     }
 

@@ -1,19 +1,20 @@
-<script setup>
+<script lang="ts" setup>
   import { useRoutesStore } from '@/store/modules/routes'
   import { translateTitle } from '@/utils/i18n'
   import { handleMatched } from '@/utils/routes'
+  import { VabRoute } from '/#/router'
 
-  const route = useRoute()
+  const route: VabRoute = useRoute()
 
   const routesStore = useRoutesStore()
   const { getRoutes: routes } = storeToRefs(routesStore)
 
   const breadcrumbList = computed(() =>
     handleMatched(routes.value, route.path).filter(
-      (item) => !item.meta.breadcrumbHidden
+      (item: any) => !item.meta.breadcrumbHidden
     )
   )
-  const handleTo = (path = '') => {
+  const handleTo = (path: string | undefined = '') => {
     return { path }
   }
 </script>
@@ -25,8 +26,8 @@
       :key="index"
       :to="handleTo(item.redirect)"
     >
-      <vab-icon v-if="item.meta && item.meta.icon" :icon="item.meta.icon" />
-      <span>{{ translateTitle(item.meta.title) }}</span>
+      <vab-icon v-if="item.meta.icon" :icon="item.meta.icon" />
+      <span v-if="item.meta.title">{{ translateTitle(item.meta.title) }}</span>
     </el-breadcrumb-item>
   </el-breadcrumb>
 </template>

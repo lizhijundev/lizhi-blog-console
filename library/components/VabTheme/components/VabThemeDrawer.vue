@@ -1,15 +1,14 @@
-<script setup>
-  import { useSettingsStore } from '@/store/modules/settings'
+<script lang="ts" setup>
   import { translateTitle } from '@/utils/i18n'
-  import _ from 'lodash'
+  import { useSettingsStore } from '@/store/modules/settings'
 
-  const $sub = inject('$sub')
-  const $unsub = inject('$unsub')
-  const $baseLoading = inject('$baseLoading')
+  const $sub: any = inject('$sub')
+  const $unsub: any = inject('$unsub')
+  const $baseLoading: any = inject('$baseLoading')
 
-  const settingsStore = useSettingsStore()
-  const { theme, device } = storeToRefs(settingsStore)
-  const { saveTheme, resetTheme, updateTheme } = settingsStore
+  const settingsStore: any = useSettingsStore()
+  const { theme, device }: any = storeToRefs(settingsStore)
+  const { saveTheme, resetTheme, updateTheme }: any = settingsStore
 
   const state = reactive({
     drawerVisible: false,
@@ -17,6 +16,10 @@
 
   const handleOpenTheme = () => {
     state.drawerVisible = true
+  }
+
+  const updateMenuWidth = () => {
+    useCssVar('--el-left-menu-width', ref(null)).value = theme.value.menuWidth
   }
 
   const setDefaultTheme = async () => {
@@ -30,11 +33,15 @@
     state.drawerVisible = false
   }
 
+  const shuffle = (val: string | boolean, list: (string | boolean)[]) =>
+    list.filter((_) => _ !== val)[(Math.random() * (list.length - 1)) | 0]
+
   const randomTheme = async () => {
     const loading = $baseLoading(0)
     // 随机换肤重置移除主题，防止代码更新影响样式
     await resetTheme()
-    const themeNameArray = [
+
+    theme.value.themeName = shuffle(theme.value.themeName, [
       'blue-black',
       'blue-white',
       'ocean',
@@ -44,44 +51,43 @@
       'purple-white',
       'red-black',
       'red-white',
-    ]
-    theme.value.themeName = _.shuffle(
-      _.pull(themeNameArray, [theme.value.themeName])
-    )[0]
-    const columnStyleArray = ['vertical', 'horizontal', 'card', 'arrow']
-    theme.value.columnStyle = _.shuffle(
-      _.pull(columnStyleArray, [theme.value.columnStyle])
-    )[0]
-    const backgroundArray = ['none', 'vab-background']
-    theme.value.background = _.shuffle(
-      _.pull(backgroundArray, [theme.value.background])
-    )[0]
-    const tabsBarStyleArray = ['card', 'smart', 'smooth']
-    theme.value.tabsBarStyle = _.shuffle(
-      _.pull(tabsBarStyleArray, [theme.value.tabsBarStyle])
-    )[0]
-    const showTabsIconArray = [true, false]
-    theme.value.showTabsIcon = _.shuffle(
-      _.pull(showTabsIconArray, [theme.value.showTabsIcon])
-    )[0]
-    if (device.value === 'desktop') {
-      const layoutArray = [
-        'horizontal',
-        'vertical',
-        'column',
-        'comprehensive',
-        'common',
-        'float',
-      ]
-      theme.value.layout = _.shuffle(
-        _.pull(layoutArray, [theme.value.layout])
-      )[0]
-    } else theme.value.layout = 'vertical'
-    await updateTheme()
-    await saveTheme()
-    setTimeout(() => {
-      loading.close()
-    }, 1000)
+    ])
+    theme.value.columnStyle = shuffle(theme.value.columnStyle, [
+      'vertical',
+      'horizontal',
+      'card',
+      'arrow',
+    ])
+    // theme.value.background = shuffle(theme.value.background, [
+    //   'none',
+    //   'vab-background',
+    // ])
+    theme.value.tabsBarStyle = shuffle(theme.value.tabsBarStyle, [
+      'card',
+      'smart',
+      'smooth',
+    ])
+    theme.value.showTabsIcon = shuffle(theme.value.showTabsIcon, [true, false])
+    theme.value.layout =
+      device.value === 'desktop'
+        ? shuffle(theme.value.layout, [
+            'horizontal',
+            'vertical',
+            'column',
+            'comprehensive',
+            'common',
+            'float',
+          ])
+        : 'vertical'
+
+    try {
+      await updateTheme()
+      await saveTheme()
+    } finally {
+      setTimeout(() => {
+        loading.close()
+      }, 1000)
+    }
   }
 
   $sub('theme', () => {
@@ -114,7 +120,9 @@
             <el-tooltip
               :content="
                 translateTitle(
-                  '布局配置仅在电脑视窗下生效，手机视窗时将默认锁定为纵向布局'
+                  '布局配置仅' +
+                    '在电脑视窗下生效，手机视窗时将' +
+                    '默认锁定为纵向布局'
                 )
               "
               effect="dark"
@@ -216,7 +224,11 @@
             <el-tooltip
               :content="
                 translateTitle(
-                  '支持纵向布局、分栏布局、综合布局、常规布局，不支持横向布局、浮动布局'
+                  '支持纵向布局' +
+                    '、分栏布局、综合' +
+                    '布局、常规布局，不支持横' +
+                    '向布局、浮动' +
+                    '布局'
                 )
               "
               effect="dark"
@@ -235,6 +247,19 @@
             <el-radio-button class="none" label="none" />
             <el-radio-button class="vab-background" label="vab-background" />
           </el-radio-group>
+        </el-form-item>
+        <el-form-item :label="translateTitle('菜单宽度')">
+          <el-select
+            v-model="theme.menuWidth"
+            :disabled="
+              theme.layout === 'float' || theme.layout === 'horizontal'
+            "
+            @change="updateMenuWidth"
+          >
+            <el-option key="266px" label="266px" value="266px" />
+            <el-option key="277px" label="277px" value="277px" />
+            <el-option key="288px" label="288px" value="288px" />
+          </el-select>
         </el-form-item>
         <el-form-item :label="translateTitle('标签')">
           <el-switch v-model="theme.showTabs" />
@@ -383,11 +408,14 @@
           display: flex;
           align-items: center;
 
-          .el-form-item__label {
+          &__label {
             flex: 1 1;
+            i {
+              cursor: pointer;
+            }
           }
 
-          .el-form-item__content {
+          &__content {
             flex: 0 0 auto;
           }
 
@@ -438,9 +466,7 @@
               background-size: cover;
             }
           }
-        }
 
-        .el-form-item {
           .el-input__inner {
             width: 115px;
           }

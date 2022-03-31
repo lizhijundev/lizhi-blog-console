@@ -1,14 +1,15 @@
 <div align="center">
-<img width="200" src="https://gitee.com/chu1204505056/image/raw/master/logo/vab.svg" alt="VAB"/>
+<img width="200" src="https://cdn.jsdelivr.net/gh/chuzhixin/image/logo/vab.svg" alt="VAB"/>
 <h1>admin-plus</h1>
-<p>webpack 5 内测版 请勿在正式项目使用</p>
 </div>
 
 ## 🔈 框架使用建议
 
-- 使用前请一定先阅读 vip 群文档，一般在群公告前 5 条
-- 如果您经过翻阅文档、百度后努力尝试仍无法解决问题，可通过 vip 群寻求帮助，讨论时间法定工作日 10 点-16 点
-- 对于热心回答群内其他成员问题的用户，所提建议将优先被采纳，并可获得部分内测版本体验资格
+- 使用前请一定先阅读 vip 群文档及群文档中的常见问题，一般在群公告前 5 条。
+- 请勿屏蔽 vip 群消息，可设置免打扰，对于常见问题可直接使用 qq 群【消息记录】功能快速寻找到答案。
+- 如果您经过 qq 群聊天记录、翻阅文档、百度后努力尝试仍无法解决问题，可通过 vip 群寻求帮助，讨论时间法定工作日 10 点-16 点。
+- 2021 年 3 月 6 日后，main 分支支持 ts、js 混合开发，建议不熟悉 ts 的用户继续使用 js，熟悉 ts 用户可自行选择开发语言。
+- 对于热心回答群内其他成员问题的用户，所提建议将优先被采纳，并可获得部分内测版本体验资格。
 - 关于举报盗版侵权：请发送举报材料至zhangwenjia@vue-admin-beautiful.cn，一经查实，官司所得收入 20%归举报人所有，80%归律师事务所所有。
 - 关于客服人员满意度评价以及相关建议：请发送材料至zhangwenjia@vue-admin-beautiful.cn，邮件标题：满意度评价，邮件正文：评价依据，我们必将认真对待每一位客户的诉求。
 - 关于 bug 反馈：请发送材料至zhangwenjia@vue-admin-beautiful.cn，邮件标题：bug 反馈，邮件正文：bug 截图及描述。
@@ -34,22 +35,23 @@
 
 ## 🔗 链接
 
-- 💻 常规版演示地址：[admin-plus](https://chu1204505056.gitee.io/admin-plus/)
+- 💻 常规版演示地址：[admin-plus](https://vue-admin-beautiful.com/admin-plus/)
 - 📝 使用文档：(文档地址及密码请查看 vip 群群公告第一条)
 - 🗃 更新日志：[Releases](https://github.com/vue-admin-beautiful/admin-plus/releases)
 - 📌 付费版及 vip 群购买地址：[购买地址](https://vue-admin-beautiful.com/authorization/)
 
 ## 🌱 版本
 
-- `main`分支更新频率较快，较为激进，不推荐直接使用
+- `dev`分支为开发分支，较为激进，不推荐直接使用，非专业前端请勿使用。
 
 - 对于感兴趣的提交(commit)，可使用精选(Cherry-Pick)复制到自己的项目中
 
-| 分支名                                                                      | 是否精简 commit | 是否精简功能 | 是否支持 i18n | 更新时间 |                                                                                                    维护人                                                                                                    |
-| --------------------------------------------------------------------------- | :-------------: | :----------: | :-----------: | :------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
-| [main](https://github.com/vue-admin-beautiful/admin-plus/)                  |       ❌        |      ❌      |       ✔       |   即时   |  <a href="https://github.com/chuzhixin" target="_blank"><img style="border-radius:999px" src="https://avatars3.githubusercontent.com/u/26647258?s=50&u=753921fb23f418996dffd6196e89729fcb2329ed&v=4"/></a>   |
-| [template](https://github.com/vue-admin-beautiful/admin-plus/tree/template) |        ✔        |      ✔       |       ✔       | 10-30 天 | <a href="https://github.com/FlowPeakFish" target="_blank"><img style="border-radius:999px" src="https://avatars3.githubusercontent.com/u/29328241?s=50&u=bb0977b405ccf1a101ce4e18e4fb8d958854ca60&v=4"/></a> |
-| [seed](https://github.com/vue-admin-beautiful/admin-plus/tree/seed)         |        ✔        |      ✔       |      ❌       | 10-30 天 | <a href="https://github.com/FlowPeakFish" target="_blank"><img style="border-radius:999px" src="https://avatars3.githubusercontent.com/u/29328241?s=50&u=bb0977b405ccf1a101ce4e18e4fb8d958854ca60&v=4"/></a> |
+| 分支名                                                                      | 是否精简提交 | 是否精简功能 | 是否支持多国语言 | 同步时间 |                                                                                                    维护人                                                                                                    |
+| --------------------------------------------------------------------------- | :----------: | :----------: | :--------------: | :------: | :----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| [main](https://github.com/vue-admin-beautiful/admin-plus/)                  |      ❌      |      ❌      |        ✔         | 10-30 天 |  <a href="https://github.com/chuzhixin" target="_blank"><img style="border-radius:999px" src="https://avatars3.githubusercontent.com/u/26647258?s=50&u=753921fb23f418996dffd6196e89729fcb2329ed&v=4"/></a>   |
+| [template](https://github.com/vue-admin-beautiful/admin-plus/tree/template) |      ✔       |      ✔       |        ✔         | 30-60 天 | <a href="https://github.com/FlowPeakFish" target="_blank"><img style="border-radius:999px" src="https://avatars3.githubusercontent.com/u/29328241?s=50&u=bb0977b405ccf1a101ce4e18e4fb8d958854ca60&v=4"/></a> |
+| [seed](https://github.com/vue-admin-beautiful/admin-plus/tree/seed)         |      ✔       |      ✔       |        ❌        | 30-60 天 | <a href="https://github.com/FlowPeakFish" target="_blank"><img style="border-radius:999px" src="https://avatars3.githubusercontent.com/u/29328241?s=50&u=bb0977b405ccf1a101ce4e18e4fb8d958854ca60&v=4"/></a> |
+| [dev](https://github.com/vue-admin-beautiful/admin-plus/tree/webpack5)      |      ❌      |      ❌      |        ✔         |   即时   |                                                                                                     All                                                                                                      |
 
 ## ✅ 版权须知
 

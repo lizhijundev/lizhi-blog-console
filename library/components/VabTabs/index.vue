@@ -1,9 +1,10 @@
-<script setup>
+<script lang="ts" setup>
   import { useTabsStore } from '@/store/modules/tabs'
   import { useRoutesStore } from '@/store/modules/routes'
   import { useSettingsStore } from '@/store/modules/settings'
-  import { translateTitle } from '@/utils/i18n'
   import { handleActivePath, handleTabs } from '@/utils/routes'
+  import { translateTitle } from '@/utils/i18n'
+  import { VabRoute, VabRouteRecord } from '/#/router'
 
   defineProps({
     layout: {
@@ -12,7 +13,9 @@
     },
   })
 
-  const route = useRoute()
+  const $pub: any = inject('$pub')
+
+  const route: VabRoute = useRoute()
   const router = useRouter()
 
   const settingsStore = useSettingsStore()
@@ -38,17 +41,17 @@
   const top = ref(0)
   const left = ref(0)
 
-  const isActive = (path) => path === handleActivePath(route, true)
-  const isNoCLosable = (tag) => tag.meta && tag.meta.noClosable
-  const handleTabClick = (tab) => {
+  const isActive = (path: string) => path === handleActivePath(route, true)
+  const isNoCLosable = (tag: any) => tag.meta.noClosable
+  const handleTabClick = (tab: any) => {
     if (!isActive(tab.name)) router.push(visitedRoutes.value[tab.index])
   }
-  const handleVisibleChange = (val) => {
+  const handleVisibleChange = (val: boolean) => {
     active.value = val
   }
-  const initNoCLosableTabs = (routes) => {
+  const initNoCLosableTabs = (routes: VabRouteRecord[]) => {
     routes.forEach((_route) => {
-      if (_route.meta && _route.meta.noClosable) addTabs(_route)
+      if (_route.meta.noClosable) addTabs(_route)
       if (_route.children) initNoCLosableTabs(_route.children)
     })
   }
@@ -57,7 +60,7 @@
    * @param tag route
    * @returns {Promise<void>}
    */
-  const addTabs = async (tag) => {
+  const addTabs = async (tag: VabRoute | VabRouteRecord) => {
     const tab = handleTabs(tag)
     if (tab) {
       await addVisitedRoute(tab)
@@ -69,12 +72,15 @@
    * @param rawPath 原生路径
    * @returns {Promise<void>}
    */
-  const handleTabRemove = async (rawPath) => {
+  const handleTabRemove: any = async (rawPath: string) => {
     if (isActive(rawPath)) await toLastTab()
     await delVisitedRoute(rawPath)
   }
-  const handleCommand = (command) => {
+  const handleCommand = (command: string) => {
     switch (command) {
+      case 'refreshThisTab':
+        refreshThisTab()
+        break
       case 'closeOthersTabs':
         closeOthersTabs()
         break
@@ -88,6 +94,13 @@
         closeAllTabs()
         break
     }
+  }
+  /**
+   * 刷新当前标签页
+   * @returns {Promise<void>}
+   */
+  const refreshThisTab = () => {
+    $pub('reload-router-view')
   }
   /**
    * 删除其他标签页
@@ -136,7 +149,7 @@
    */
   const toLastTab = async () => {
     const latestView = visitedRoutes.value
-      .filter((_) => _.path !== handleActivePath(route, true))
+      .filter((_: any) => _.path !== handleActivePath(route, true))
       .slice(-1)[0]
     if (latestView) await router.push(latestView)
     else await router.push('/')
@@ -190,10 +203,7 @@
         :name="item.path"
       >
         <template #label>
-          <span
-            style="display: inline-block"
-            @contextmenu.prevent="openMenu($event, item)"
-          >
+          <span style="display: inline-block" @contextmenu.prevent="openMenu">
             <template v-if="theme.showTabsIcon">
               <vab-icon
                 v-if="item.meta && item.meta.icon"
@@ -203,7 +213,7 @@
               <!--  如果没有图标那么取第二级的图标 -->
               <vab-icon v-else :icon="item.parentIcon" />
             </template>
-            <span>
+            <span v-if="item.meta && item.meta.title">
               {{ translateTitle(item.meta.title) }}
             </span>
           </span>
@@ -225,6 +235,12 @@
       </span>
       <template #dropdown>
         <el-dropdown-menu class="tabs-more">
+          <el-dropdown-item command="refreshThisTab">
+            <vab-icon icon="refresh-line" />
+            <span>
+              {{ translateTitle('刷新') }}
+            </span>
+          </el-dropdown-item>
           <el-dropdown-item command="closeOthersTabs">
             <vab-icon icon="close-line" />
             <span>
@@ -254,9 +270,13 @@
     </el-dropdown>
     <ul
       v-if="visible"
-      class="contextmenu el-dropdown-menu el-dropdown-menu--small"
+      class="contextmenu el-dropdown-menu"
       :style="{ left: left + 'px', top: top + 'px' }"
     >
+      <li class="el-dropdown-menu__item" @click="refreshThisTab">
+        <vab-icon icon="refresh-line" />
+        <span>{{ translateTitle('刷新') }}</span>
+      </li>
       <li
         class="el-dropdown-menu__item"
         :class="{ 'is-disabled': visitedRoutes.length === 1 }"
@@ -291,17 +311,6 @@
     </ul>
   </div>
 </template>
-
-<style lang="scss">
-  .vab-tabs-more-dropdown {
-    width: 115px;
-    &[data-popper-placement='bottom-end'] {
-      .el-popper__arrow {
-        left: 95px !important;
-      }
-    }
-  }
-</style>
 
 <style lang="scss" scoped>
   .vab-tabs {
@@ -353,7 +362,7 @@
               height: $base-tag-item-height;
               margin-right: 5px;
               line-height: $base-tag-item-height;
-              border: 1px solid $base-border-color;
+              border: 1px solid $base-border-color !important;
               border-radius: $base-border-radius;
               transition: padding 0.3s cubic-bezier(0.645, 0.045, 0.355, 1) !important;
 
@@ -437,8 +446,8 @@
         :deep() {
           .el-tabs__nav-next,
           .el-tabs__nav-prev {
-            height: $base-tag-item-height + 4;
-            line-height: $base-tag-item-height + 4;
+            height: $base-tag-item-height + 14;
+            line-height: $base-tag-item-height + 14;
           }
 
           .el-tabs__header {
@@ -461,6 +470,9 @@
               border: 0;
               outline: none;
               transition: padding 0.3s cubic-bezier(0.645, 0.045, 0.355, 1) !important;
+              &.is-closable:hover {
+                padding: 0 30px 0 30px;
+              }
 
               &.is-active {
                 padding: 0 30px 0 30px;
@@ -476,6 +488,10 @@
                   background: var(--el-color-primary-light-9);
                   mask: url('~@/assets/tabs_images/vab-tab.png');
                   mask-size: 100% 100%;
+                }
+
+                &.is-closable {
+                  padding: 0 30px 0 30px;
                 }
               }
 
@@ -497,14 +513,16 @@
       top: 0;
       left: 0;
       z-index: 10;
+      .el-dropdown-menu__item:hover {
+        color: var(--el-color-primary);
+        background: var(--el-color-primary-light-9);
+      }
     }
 
     &-more {
       position: relative;
-      right: -60px;
       box-sizing: border-box;
       display: block;
-      width: 80px;
       text-align: left;
 
       &-active,

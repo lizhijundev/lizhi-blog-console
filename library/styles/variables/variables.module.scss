@@ -29,7 +29,11 @@ $base-column-first-menu-background: #282c34;
 //分栏菜单背景色
 $base-column-second-menu-background: #fff;
 //分栏菜单选中背景色
-$base-column-second-menu-active: mix($base-color-white, $base-color-primary, 10%);
+$base-column-second-menu-active: mix(
+  $base-color-white,
+  $base-color-primary,
+  10%
+);
 //横向、纵向菜单背景色
 $base-menu-background: #282c34;
 //菜单文字颜色
@@ -78,8 +82,6 @@ $base-keep-alive-height: calc(
 );
 //纵向左侧导航未折叠的宽度
 $base-left-menu-width: 266px;
-//纵向左侧导航未折叠右侧内容的宽度
-$base-right-content-width: calc(100% - #{$base-left-menu-width});
 //纵向左侧导航已折叠的宽度
 $base-left-menu-width-min: 64px;
 //纵向左侧导航已折叠右侧内容的宽度
