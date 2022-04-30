@@ -10,7 +10,7 @@
         </el-button>
       </vab-query-form-left-panel>
       <vab-query-form-right-panel :span="12">
-        <el-form :inline="true" :model="queryForm" @submit.prevent>
+        <el-form inline :model="queryForm" @submit.prevent>
           <el-form-item>
             <el-input
               v-model.trim="queryForm.role"

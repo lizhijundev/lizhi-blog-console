@@ -16,7 +16,7 @@
           <div class="title-tips">
             {{ translateTitle('欢迎来到') }}{{ title }}！
           </div>
-          <el-form-item prop="username" style="margin-top: 40px">
+          <el-form-item prop="username">
             <el-input
               v-model.trim="form.username"
               v-focus
@@ -247,7 +247,7 @@
     position: relative;
     max-width: 100%;
     padding: 4.5vh;
-    margin: calc((100vh - 475px) / 2) 5vw 5vw;
+    margin: calc((100vh - 555px) / 2) 5vw 5vw;
     overflow: hidden;
     background: url('~@/assets/login_images/login_form.png');
     background-size: 100% 100%;
@@ -270,24 +270,11 @@
       width: 220px;
       height: 50px;
       margin-top: 5px;
+      background: var(--el-color-primary);
       border: 0;
 
       &:hover {
         opacity: 0.9;
-      }
-
-      .forget-passwordword {
-        width: 100%;
-        margin-top: 40px;
-        text-align: left;
-
-        .forget-password {
-          width: 129px;
-          height: 19px;
-          font-size: 20px;
-          font-weight: 400;
-          color: rgba(92, 102, 240, 1);
-        }
       }
     }
 
@@ -318,22 +305,15 @@
     i {
       position: absolute;
       top: 8px;
-      left: 5px;
-      z-index: $base-z-index;
+      left: 15px;
       font-size: 16px;
-      color: #d7dee3;
-      cursor: pointer;
-      user-select: none;
     }
 
     .show-password {
-      position: absolute;
-      right: 25px;
-      left: -35px;
+      float: right;
+      width: 32px;
+      height: 32px;
       font-size: 16px;
-      color: #d7dee3;
-      cursor: pointer;
-      user-select: none;
     }
 
     :deep() {
@@ -365,11 +345,15 @@
 
         input {
           height: 48px;
-          padding-left: 45px;
-          font-size: $base-font-size-default;
+          padding-left: 30px;
           line-height: 48px;
-          background: #f6f4fc;
           border: 0;
+        }
+
+        &__suffix-inner {
+          position: absolute;
+          right: 65px;
+          cursor: pointer;
         }
       }
 

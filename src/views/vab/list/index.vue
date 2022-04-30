@@ -3,7 +3,7 @@
     <el-row :gutter="20">
       <vab-query-form>
         <vab-query-form-top-panel :span="24">
-          <el-form :inline="true" :model="queryForm" @submit.prevent>
+          <el-form inline :model="queryForm" @submit.prevent>
             <el-form-item>
               <el-input
                 v-model.trim="queryForm.title"

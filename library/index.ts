@@ -15,7 +15,7 @@ import 'vab-icons/lib/vab-icons.css'
 import { createHead } from '@vueuse/head'
 
 export function setupVab(app: App<Element>) {
-  if ((noTest && noEmpty) || dev) {
+  if ((noTest && noEmpty && !dev && VabIcon) || (dev && VabIcon)) {
     app.use(createHead())
     app.component('VabIcon', VabIcon)
 

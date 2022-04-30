@@ -28,9 +28,8 @@
       setTimeout(() => {
         router.push('/')
       }, 1000)
-    } else if (tabMenu.value && openFirstMenu) {
-      const { redirect } = tabMenu.value
-      router.push(redirect ? redirect : tabMenu.value)
+    } else if (openFirstMenu) {
+      router.push(tabMenu.value.redirect || tabMenu.value)
     }
   }
 

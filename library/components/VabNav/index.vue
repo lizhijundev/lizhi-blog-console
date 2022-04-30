@@ -26,9 +26,8 @@
       setTimeout(() => {
         router.push('/')
       }, 1000)
-    } else if (tabMenu.value && openFirstMenu) {
-      const { redirect } = tabMenu.value
-      router.push(redirect ? redirect : tabMenu.value)
+    } else if (openFirstMenu) {
+      router.push(tabMenu.value.redirect || tabMenu.value)
     }
   }
 </script>
@@ -54,7 +53,7 @@
                     :is-custom-svg="item.meta.isCustomSvg"
                     style="min-width: 16px"
                   />
-                  {{ translateTitle(item.meta.title) }}
+                  <span>{{ translateTitle(item.meta.title) }}</span>
                 </template>
               </el-tab-pane>
             </template>
@@ -117,16 +116,11 @@
                 font-weight: 600;
                 color: var(--el-color-grey);
               }
-            }
-          }
 
-          .el-tabs__item {
-            > div {
-              display: flex;
-              align-items: center;
-
-              i {
-                margin-right: 3px;
+              .el-tabs__item {
+                i {
+                  margin-right: 3px;
+                }
               }
             }
           }

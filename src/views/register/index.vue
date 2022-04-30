@@ -11,6 +11,7 @@
           :model="form"
           :rules="registerRules"
         >
+          <div class="title">hello !</div>
           <div class="title-tips">{{ translateTitle('注册') }}</div>
           <el-form-item prop="username">
             <el-input
@@ -247,10 +248,15 @@
       position: relative;
       max-width: 100%;
       padding: 4.5vh;
-      margin: calc((100vh - 475px) / 2) 5vw 5vw;
+      margin: calc((100vh - 555px) / 2) 5vw 5vw;
       overflow: hidden;
       background: url('~@/assets/login_images/login_form.png');
       background-size: 100% 100%;
+      .title {
+        font-size: 54px;
+        font-weight: 500;
+        color: var(--el-color-white);
+      }
 
       .title-tips {
         margin-top: 29px;
@@ -266,6 +272,7 @@
         width: 220px;
         height: 50px;
         margin-top: 5px;
+        background: var(--el-color-primary);
         border: 0;
 
         &:hover {
@@ -308,17 +315,6 @@
         border: 1px solid transparent;
         border-radius: 2px;
 
-        i {
-          position: absolute;
-          top: 8px;
-          left: 5px;
-          z-index: $base-z-index;
-          font-size: 16px;
-          color: #d7dee3;
-          cursor: pointer;
-          user-select: none;
-        }
-
         &__content {
           min-height: $base-input-height;
           line-height: $base-input-height;
@@ -339,12 +335,29 @@
 
         input {
           height: 48px;
-          padding-left: 45px;
-          font-size: $base-font-size-default;
           line-height: 48px;
-          background: #f6f4fc;
           border: 0;
         }
+
+        &__suffix-inner {
+          position: absolute;
+          right: 15px;
+          cursor: pointer;
+
+          .el-input__count {
+            position: absolute;
+            top: 25px;
+            right: 0px;
+          }
+        }
+      }
+
+      .code {
+        position: absolute;
+        top: 4px;
+        right: 4px;
+        cursor: pointer;
+        border-radius: $base-border-radius;
       }
     }
   }

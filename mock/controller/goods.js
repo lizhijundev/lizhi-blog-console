@@ -91,7 +91,7 @@ const List = [
   {
     uuid: '@uuid',
     title: 'WangEditor',
-    image: 'https://www.wangedi' + 'tor.com/v5/image/logo.png',
+    image: 'https://www.wangedi' + 'tor.com/image/logo.png',
     price: '免费',
     label: ['富文本编辑器'],
     company: 'WangEditor',

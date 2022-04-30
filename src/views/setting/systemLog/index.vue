@@ -2,12 +2,7 @@
   <div class="system-log-container">
     <vab-query-form>
       <vab-query-form-top-panel>
-        <el-form
-          :inline="true"
-          label-width="60px"
-          :model="queryForm"
-          @submit.prevent
-        >
+        <el-form inline label-width="60px" :model="queryForm" @submit.prevent>
           <el-form-item label="账号">
             <el-input
               v-model.trim="queryForm.account"

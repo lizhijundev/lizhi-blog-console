@@ -2,7 +2,7 @@
  * https://github.com/jjonline/calendar.js/blob/master/calendar.js
  */
 
-const VabCalendar = {
+const VabCalendar: any = {
   /**
    * 农历1900-2100的润大小信息表
    * @Array Of Property
@@ -649,7 +649,7 @@ const VabCalendar = {
    * @return Number
    * @eg:var count = calendar.lYearDays(1987) ;//count=387
    */
-  lYearDays: function (y) {
+  lYearDays: function (y: number) {
     let i,
       sum = 348
     for (i = 0x8000; i > 0x8; i >>= 1) {
@@ -664,7 +664,7 @@ const VabCalendar = {
    * @return Number (0-12)
    * @eg:var leapMonth = calendar.leapMonth(1987) ;//leapMonth=6
    */
-  leapMonth: function (y) {
+  leapMonth: function (y: number) {
     //闰字编码 \u95f0
     return this.lunarInfo[y - 1900] & 0xf
   },
@@ -675,7 +675,7 @@ const VabCalendar = {
    * @return Number (0、29、30)
    * @eg:var leapMonthDay = calendar.leapDays(1987) ;//leapMonthDay=29
    */
-  leapDays: function (y) {
+  leapDays: function (y: number) {
     if (this.leapMonth(y)) {
       return this.lunarInfo[y - 1900] & 0x10000 ? 30 : 29
     }
@@ -689,7 +689,7 @@ const VabCalendar = {
    * @return Number (-1、29、30)
    * @eg:var MonthDay = calendar.monthDays(1987,9) ;//MonthDay=29
    */
-  monthDays: function (y, m) {
+  monthDays: function (y: number, m: number) {
     if (m > 12 || m < 1) {
       return -1
     } //月份参数从1至12，参数错误返回-1
@@ -703,7 +703,7 @@ const VabCalendar = {
    * @return Number (-1、28、29、30、31)
    * @eg:var solarMonthDay = calendar.leapDays(1987) ;//solarMonthDay=30
    */
-  solarDays: function (y, m) {
+  solarDays: function (y: number, m: number) {
     if (m > 12 || m < 1) {
       return -1
     } //若参数错误 返回-1
@@ -721,9 +721,9 @@ const VabCalendar = {
    * @param  lYear 农历年的年份数
    * @return Cn string
    */
-  toGanZhiYear: function (lYear) {
-    var ganKey = (lYear - 3) % 10
-    var zhiKey = (lYear - 3) % 12
+  toGanZhiYear: function (lYear: number) {
+    let ganKey = (lYear - 3) % 10
+    let zhiKey = (lYear - 3) % 12
     if (ganKey === 0) ganKey = 10 //如果余数为0则为最后一个天干
     if (zhiKey === 0) zhiKey = 12 //如果余数为0则为最后一个地支
     return this.Gan[ganKey - 1] + this.Zhi[zhiKey - 1]
@@ -735,7 +735,7 @@ const VabCalendar = {
    * @param  cDay [description]
    * @return Cn string
    */
-  toAstro: function (cMonth, cDay) {
+  toAstro: function (cMonth: number, cDay: number) {
     const s =
       '\u9b54\u7faf\u6c34\u74f6\u53cc\u9c7c\u767d\u7f8a\u91d1\u725b\u53cc\u5b50\u5de8\u87f9\u72ee\u5b50\u5904\u5973\u5929\u79e4\u5929\u874e\u5c04\u624b\u9b54\u7faf'
     const arr = [20, 19, 21, 21, 21, 22, 23, 23, 23, 23, 22, 22]
@@ -747,7 +747,7 @@ const VabCalendar = {
    * @param offset 相对甲子的偏移量
    * @return Cn string
    */
-  toGanZhi: function (offset) {
+  toGanZhi: function (offset: number) {
     return this.Gan[offset % 10] + this.Zhi[offset % 12]
   },
 
@@ -758,7 +758,7 @@ const VabCalendar = {
    * @return day Number
    * @eg:var _24 = calendar.getTerm(1987,3) ;//_24=4;意即1987年2月4日立春
    */
-  getTerm: function (y, n) {
+  getTerm: function (y: number, n: number) {
     if (y < 1900 || y > 2100) {
       return -1
     }
@@ -814,7 +814,7 @@ const VabCalendar = {
    * @return Cn string
    * @eg:var cnMonth = calendar.toChinaMonth(12) ;//cnMonth='腊月'
    */
-  toChinaMonth: function (m) {
+  toChinaMonth: function (m: number) {
     // 月 => \u6708
     if (m > 12 || m < 1) {
       return -1
@@ -830,7 +830,7 @@ const VabCalendar = {
    * @return Cn string
    * @eg:var cnDay = calendar.toChinaDay(21) ;//cnMonth='廿一'
    */
-  toChinaDay: function (d) {
+  toChinaDay: function (d: number) {
     //日 => \u65e5
     let s
     switch (d) {
@@ -856,7 +856,7 @@ const VabCalendar = {
    * @return Cn string
    * @eg:var animal = calendar.getAnimal(1987) ;//animal='兔'
    */
-  getAnimal: function (y) {
+  getAnimal: function (y: number) {
     return this.Animals[(y - 4) % 12]
   },
 
@@ -869,10 +869,10 @@ const VabCalendar = {
    * @return JSON object
    * @eg:console.log(calendar.solar2lunar(1987,11,01));
    */
-  solar2lunar: function (yPara, mPara, dPara) {
-    let y = parseInt(yPara)
-    let m = parseInt(mPara)
-    let d = parseInt(dPara)
+  solar2lunar: function (yPara: string, mPara: string, dPara: string) {
+    let y: any = parseInt(yPara)
+    let m: any = parseInt(mPara)
+    let d: any = parseInt(dPara)
     //年份限定、上限
     if (y < 1900 || y > 2100) {
       return -1 // undefined转换为数字变为NaN
@@ -910,8 +910,8 @@ const VabCalendar = {
     }
 
     //是否今天
-    let isTodayObj = new Date(),
-      isToday = false
+    const isTodayObj: any = new Date()
+    let isToday: any = false
     if (
       isTodayObj.getFullYear() === y &&
       isTodayObj.getMonth() + 1 === m &&
@@ -920,8 +920,8 @@ const VabCalendar = {
       isToday = true
     }
     //星期几
-    let nWeek = objDate.getDay(),
-      cWeek = this.nStr1[nWeek]
+    let nWeek: any = objDate.getDay()
+    const cWeek: any = this.nStr1[nWeek]
     //数字表示周几顺应天朝周一开始的惯例
     if (nWeek === 0) {
       nWeek = 7
@@ -1044,7 +1044,7 @@ const VabCalendar = {
    * @return JSON object
    * @eg:console.log(calendar.lunar2solar(1987,9,10));
    */
-  lunar2solar: function (y, m, d, isLeapMonth) {
+  lunar2solar: function (y: any, m: any, d: any, isLeapMonth: boolean) {
     y = parseInt(y)
     m = parseInt(m)
     d = parseInt(d)
@@ -1103,7 +1103,7 @@ const VabCalendar = {
     return this.solar2lunar(cY, cM, cD)
   },
 }
-export function solar2lunar(val) {
+export function solar2lunar(val: string) {
   return VabCalendar.solar2lunar(
     val.split('-')[0],
     val.split('-')[1],

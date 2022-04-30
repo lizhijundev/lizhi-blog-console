@@ -12,7 +12,7 @@
         :suffix="form.suffix"
       />
     </div>
-    <el-form :inline="true" :model="form">
+    <el-form inline :model="form">
       <el-form-item label="起始值">
         <el-input-number v-model="form.startVal" @change="handleChange" />
       </el-form-item>

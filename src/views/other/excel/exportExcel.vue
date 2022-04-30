@@ -2,7 +2,7 @@
   <div class="export-excel-container">
     <vab-query-form>
       <vab-query-form-left-panel :span="24">
-        <el-form :inline="true" label-width="100px" @submit.prevent>
+        <el-form inline label-width="100px" @submit.prevent>
           <el-form-item label="文件名">
             <el-input v-model="filename" placeholder="请输出要导出文件的名称" />
           </el-form-item>

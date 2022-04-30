@@ -1,4 +1,4 @@
-const Print = function (dom, options) {
+const Print: any = function (this: any, dom: any, options: any) {
   if (!(this instanceof Print)) return new Print(dom, options)
 
   this.options = this.extend(
@@ -12,7 +12,7 @@ const Print = function (dom, options) {
     try {
       this.dom = document.querySelector(dom)
     } catch {
-      let createDom = document.createElement('div')
+      const createDom = document.createElement('div')
       createDom.innerHTML = dom
       this.dom = createDom
     }
@@ -25,19 +25,19 @@ const Print = function (dom, options) {
 }
 Print.prototype = {
   init() {
-    let content = this.getStyle() + this.getHtml()
+    const content = this.getStyle() + this.getHtml()
     this.writeIframe(content)
   },
-  extend(obj, obj2) {
-    for (let k in obj2) {
+  extend(obj: { [x: string]: any }, obj2: { [x: string]: any }) {
+    for (const k in obj2) {
       obj[k] = obj2[k]
     }
     return obj
   },
 
   getStyle() {
-    let str = '',
-      styles = document.querySelectorAll('style,link')
+    let str = ''
+    const styles = document.querySelectorAll('style,link')
     for (let i = 0; i < styles.length; i++) {
       str += styles[i].outerHTML
     }
@@ -50,9 +50,9 @@ Print.prototype = {
   },
 
   getHtml() {
-    let inputs = document.querySelectorAll('input')
-    let textareas = document.querySelectorAll('textarea')
-    let selects = document.querySelectorAll('select')
+    const inputs = document.querySelectorAll('input')
+    const textareas = document.querySelectorAll('textarea')
+    const selects = document.querySelectorAll('select')
 
     for (let k = 0; k < inputs.length; k++) {
       if (inputs[k].type == 'checkbox' || inputs[k].type == 'radio') {
@@ -75,8 +75,8 @@ Print.prototype = {
 
     for (let k3 = 0; k3 < selects.length; k3++) {
       if (selects[k3].type == 'select-one') {
-        let child = selects[k3].children
-        for (let i in child) {
+        const child: any = selects[k3].children
+        for (const i in child) {
           if (child[i].tagName == 'OPTION') {
             if (child[i].selected == true)
               child[i].setAttribute('selected', 'selected')
@@ -89,22 +89,20 @@ Print.prototype = {
     return this.dom.outerHTML
   },
 
-  writeIframe(content) {
-    let w,
-      doc,
-      iframe = document.createElement('iframe'),
-      f = document.body.appendChild(iframe)
+  writeIframe(content: string) {
+    const iframe: any = document.createElement('iframe')
+    const f: any = document.body.appendChild(iframe)
     iframe.id = 'myIframe'
     iframe.setAttribute(
       'style',
       'position:absolute;width:0;height:0;top:-10px;left:-10px;'
     )
-    w = f.contentWindow || f.contentDocument
-    doc = f.contentDocument || f.contentWindow.document
+    const w: any = f.contentWindow || f.contentDocument
+    const doc: any = f.contentDocument || f.contentWindow.document
     doc.open()
     doc.write(content)
     doc.close()
-    let _this = this
+    const _this = this
     iframe.onload = function () {
       _this.toPrint(w)
       setTimeout(function () {
@@ -113,7 +111,12 @@ Print.prototype = {
     }
   },
 
-  toPrint(frameWindow) {
+  toPrint(frameWindow: {
+    focus: () => void
+    document: { execCommand: (arg0: string, arg1: boolean, arg2: null) => any }
+    print: () => void
+    close: () => void
+  }) {
     try {
       setTimeout(function () {
         frameWindow.focus()
@@ -131,10 +134,10 @@ Print.prototype = {
   },
   isDOM:
     typeof HTMLElement === 'object'
-      ? function (obj) {
+      ? function (obj: any) {
           return obj instanceof HTMLElement
         }
-      : function (obj) {
+      : function (obj: { nodeType: number; nodeName: any }) {
           return (
             obj &&
             typeof obj === 'object' &&

@@ -8,12 +8,7 @@
     />
     <vab-query-form>
       <vab-query-form-top-panel>
-        <el-form
-          :inline="true"
-          label-width="49px"
-          :model="queryForm"
-          @submit.prevent
-        >
+        <el-form inline label-width="49px" :model="queryForm" @submit.prevent>
           <el-form-item label="标题">
             <el-input v-model="queryForm.title" placeholder="请输入标题" />
           </el-form-item>
@@ -376,13 +371,19 @@
         if (row.id)
           router.push({
             path: '/vab/table/detail',
-            query: row,
+            query: {
+              ...row,
+              timestamp: new Date().getTime(), //允许同一个详情页同时打开多次，否则会触发路由被缓存下次无法刷新的bug
+            },
           })
         else {
           if (state.selectRows.length === 1) {
             router.push({
               path: '/vab/table/detail',
-              query: state.selectRows[0],
+              query: {
+                ...state.selectRows[0],
+                timestamp: new Date().getTime(), //允许同一个详情页同时打开多次，否则会触发路由被缓存下次无法刷新的bug
+              },
             })
           } else {
             $baseMessage(

@@ -353,6 +353,7 @@ export const asyncRoutes: VabRouteRecord[] = [
             component: () => import('@/views/vab/form/select.vue'),
             meta: {
               title: '选择器',
+              dot: true,
             },
           },
           {

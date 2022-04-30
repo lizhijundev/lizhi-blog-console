@@ -26,4 +26,6 @@ module.exports = {
   imageCompression: true,
   // pwa
   pwa: true,
+  // 打包优化，如需实现服务器快速部署请配置false，如需提升网页加载速度请配置true
+  buildOptimize: false,
 }

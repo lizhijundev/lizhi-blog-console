@@ -2,12 +2,7 @@
   <div class="task-management-container">
     <vab-query-form class="page-header">
       <vab-query-form-top-panel>
-        <el-form
-          :inline="true"
-          label-width="60px"
-          :model="queryForm"
-          @submit.prevent
-        >
+        <el-form inline label-width="60px" :model="queryForm" @submit.prevent>
           <el-form-item label="任务名">
             <el-input
               v-model.trim="queryForm.taskName"
@@ -54,12 +49,10 @@
             </el-tag>
             <el-tag v-else class="card-header-tag" type="danger">已停用</el-tag>
           </template>
-          <div style="backgroud: #dedddd">
-            <el-image
-              class="task-item-image"
-              :src="require('@/assets/task_image/task.png')"
-            />
-          </div>
+          <el-image
+            class="task-item-image"
+            :src="require('@/assets/task_image/task.png')"
+          />
 
           <div class="task-item-bottom">
             <span>Ip: {{ item.ip }}</span>

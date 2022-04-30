@@ -4,13 +4,15 @@
 
 <template>
   <div class="eye-dropper-container">
-    <p>
-      <el-button :disabled="!isSupported" @click="open">
-        {{ isSupported ? '打开取色器' : '取色器不支持您的电脑' }}
-      </el-button>
-    </p>
-    <template v-if="isSupported">
-      <p>sRGBHex: {{ sRGBHex }}</p>
-    </template>
+    <el-form inline>
+      <el-form-item label="">
+        <el-button :disabled="!isSupported" @click="open">
+          {{ isSupported ? '打开取色器' : '取色器不支持您的电脑' }}
+        </el-button>
+      </el-form-item>
+      <el-form-item v-if="isSupported" label="sRGBHex">
+        <el-input v-model="sRGBHex" />
+      </el-form-item>
+    </el-form>
   </div>
 </template>

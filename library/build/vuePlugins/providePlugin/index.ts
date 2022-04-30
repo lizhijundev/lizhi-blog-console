@@ -1,3 +1,4 @@
+// @ts-ignore
 const Webpack = require('webpack')
 const { providePlugin } = require('../../../../src/config')
 

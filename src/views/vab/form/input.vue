@@ -31,12 +31,14 @@
       <el-input
         v-model="input5"
         placeholder="请输入内容"
+        style="float: left"
         :suffix-icon="Search"
       />
       <el-input
         v-model="input6"
         placeholder="请输入内容"
         :prefix-icon="Search"
+        style="float: left"
       />
     </vab-card>
     <vab-card shadow="hover">

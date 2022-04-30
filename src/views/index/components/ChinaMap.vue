@@ -18,7 +18,6 @@
 
 <script>
   import _ from 'lodash'
-  import axios from 'axios'
   import VabChart from '@/plugins/VabChart'
 
   export default defineComponent({

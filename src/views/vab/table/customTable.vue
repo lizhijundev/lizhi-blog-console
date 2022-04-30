@@ -2,12 +2,7 @@
   <div ref="containerRef" class="custom-table-container">
     <vab-query-form>
       <vab-query-form-left-panel>
-        <el-form
-          :inline="true"
-          label-width="0"
-          :model="queryForm"
-          @submit.prevent
-        >
+        <el-form inline label-width="0" :model="queryForm" @submit.prevent>
           <el-form-item>
             <el-input v-model="queryForm.title" placeholder="标题" />
           </el-form-item>

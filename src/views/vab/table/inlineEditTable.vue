@@ -8,7 +8,7 @@
     />
     <vab-query-form>
       <vab-query-form-right-panel :span="24">
-        <el-form :inline="true" :model="queryForm" @submit.prevent>
+        <el-form inline :model="queryForm" @submit.prevent>
           <el-form-item>
             <el-input v-model="queryForm.title" placeholder="标题" />
           </el-form-item>

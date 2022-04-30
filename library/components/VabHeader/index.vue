@@ -97,7 +97,6 @@
 
               > .el-sub-menu__icon-arrow {
                 position: relative !important;
-                //margin-top: #{math.div($base-header-height - 11, 2)} !important;
                 margin-top: -5px !important;
                 margin-right: 0;
                 margin-left: 30px;
@@ -161,15 +160,23 @@
               }
             }
 
-            [class*='ri-'] {
+            [class*='ri-'],
+            .vab-icon {
               margin-left: 0;
               color: var(--el-color-white);
               cursor: pointer;
             }
 
+            .el-sub-menu {
+              .vab-icon {
+                margin-top: 12px !important;
+              }
+            }
+
             .el-sub-menu,
             .el-menu-item {
-              i {
+              i,
+              .vab-icon {
                 color: inherit;
               }
 
@@ -245,7 +252,6 @@ bug使用popper-append-to-body=false会导致多级路由无法显示，故所�
     .el-menu--horizontal {
       height: #{math.div($base-header-height, 1.4)};
       border-bottom: 0 solid transparent !important;
-
       @media only screen and (max-width: 1199px) {
         .el-tag {
           display: none;
@@ -270,7 +276,8 @@ bug使用popper-append-to-body=false会导致多级路由无法显示，故所�
         line-height: #{math.div($base-header-height, 1.4)} !important;
         @include menuActiveHover;
 
-        i {
+        i,
+        svg {
           color: inherit;
         }
 

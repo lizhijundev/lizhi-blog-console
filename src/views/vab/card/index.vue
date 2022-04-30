@@ -2,12 +2,7 @@
   <div class="card-container">
     <vab-query-form class="page-header">
       <vab-query-form-top-panel :span="24">
-        <el-form
-          :inline="true"
-          label-width="50px"
-          :model="queryForm"
-          @submit.prevent
-        >
+        <el-form inline label-width="50px" :model="queryForm" @submit.prevent>
           <el-form-item label="区域">
             <el-select v-model="queryForm.area" placeholder="请选择活动区域">
               <el-option label="区域一" value="shanghai" />

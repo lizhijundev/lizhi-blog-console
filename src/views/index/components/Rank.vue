@@ -85,7 +85,6 @@
                 borderRadius: 10,
                 borderColor: '#fff',
                 borderWidth: 2,
-                color: 'var(--el-color-primary)',
               },
               data: [23, 54, 68, 76, 87, 99],
             },

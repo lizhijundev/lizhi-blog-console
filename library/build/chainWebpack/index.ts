@@ -1,13 +1,14 @@
-const { createGzip } = require('./gzip')
-const { createBanner } = require('./banner')
-const { createBuild7z } = require('./build7z')
-const { createSvgSprite } = require('./svgSprite')
-const { createOptimization } = require('./optimization')
-const { createSourceInjector } = require('./sourceInjector')
-const { createImageCompression } = require('./imageCompression')
+const { createGzip } = require('./gzip/index.ts')
+const { createBanner } = require('./banner/index.ts')
+const { createBuild7z } = require('./build7z/index.ts')
+const { createSvgSprite } = require('./svgSprite/index.ts')
+const { createOptimization } = require('./optimization/index.ts')
+const { createSourceInjector } = require('./sourceInjector/index.ts')
+const { createImageCompression } = require('./imageCompression/index.ts')
 const { build7z, buildGzip, imageCompression } = require('../../../src/config')
 
 module.exports = {
+  // @ts-ignore
   createChainWebpack: (env, config) => {
     config.resolve.symlinks(true)
     createBanner(config)

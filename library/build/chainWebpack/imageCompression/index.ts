@@ -1,4 +1,5 @@
 module.exports = {
+  // @ts-ignore
   createImageCompression: (config) => {
     config.module
       .rule('images')

@@ -2,7 +2,7 @@
   <div class="goods-container">
     <vab-query-form>
       <vab-query-form-right-panel :span="24">
-        <el-form ref="form" :inline="true" :model="queryForm" @submit.prevent>
+        <el-form ref="form" inline :model="queryForm" @submit.prevent>
           <el-form-item>
             <el-input v-model="queryForm.title" placeholder="请输入商品名称" />
           </el-form-item>

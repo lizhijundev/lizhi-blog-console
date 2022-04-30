@@ -7,11 +7,7 @@
   >
     <el-form ref="formRef" label-width="80px" :model="form" :rules="rules">
       <el-form-item label="父节点" prop="parentName">
-        <el-select
-          v-model="form.parentId"
-          :disabled="!form.parentId"
-          placeholder="请选择父节点"
-        >
+        <el-select v-model="form.parentId" placeholder="请选择父节点">
           <el-option
             :label="form.parentName"
             style="height: auto; padding: 0"

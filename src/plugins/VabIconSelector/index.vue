@@ -50,7 +50,7 @@
     <el-col :span="24">
       <vab-query-form>
         <vab-query-form-top-panel>
-          <el-form :inline="true" label-width="0" @submit.prevent>
+          <el-form inline label-width="0" @submit.prevent>
             <el-form-item label="">
               <el-input v-model="state.queryForm.title" />
             </el-form-item>

@@ -13,18 +13,21 @@ import { recordRoute } from '@/config'
 export function convertRouter(asyncRoutes: VabRouteRecord[]) {
   return asyncRoutes.map((route: any) => {
     if (route.component) {
-      if (route.component === 'Layout') {
-        route.component = () => import('@vab/layouts/index.vue')
-      } else {
-        const index = route.component.indexOf('views')
-        const path =
-          index > 0 ? route.component.slice(index) : `views/${route.component}`
-        route.component = () => import(`@/${path}.vue`)
-      }
+      const component = route.component.match(/^@\S+|^Layout$/)
+      if (component)
+        component[0] === 'Layout'
+          ? (route.component = () => import('@vab/layouts/index.vue'))
+          : (route.component = () =>
+              import(`@/${component[0].replace(/@\/*/, '')}.vue`))
+      else
+        throw `后端路由加载失败，请输入'Layout'或以'@/'开头的本地组件地址: ${route.component}`
     }
-    if (route.children && route.children.length)
-      route.children = convertRouter(route.children)
-    if (route.children && route.children.length === 0) delete route.children
+
+    if (route.children)
+      route.children.length
+        ? (route.children = convertRouter(route.children))
+        : delete route.children
+
     return route
   })
 }
@@ -63,9 +66,8 @@ export function filterRoutes(
             (_) => <string[]>_.childrenPathList
           )
           if (!route.redirect)
-            route.redirect = route.children[0].redirect
-              ? route.children[0].redirect
-              : route.children[0].path
+            route.redirect =
+              route.children[0].redirect || route.children[0].path
         }
       } else route.childrenPathList = [route.path]
       return route
@@ -104,7 +106,7 @@ export function handleTabs(tag: VabRoute | VabRouteRecord): any {
         parentIcon = tag.matched[i].meta.icon
   if (!parentIcon) parentIcon = 'menu-line'
   const path = handleActivePath(<VabRoute>tag, true)
-  if (tag.name && tag.meta.tabHidden !== true) {
+  if (tag.name && tag.meta.tabHidden !== true)
     return {
       path,
       query: 'query' in tag ? tag.query : {},
@@ -113,7 +115,6 @@ export function handleTabs(tag: VabRoute | VabRouteRecord): any {
       parentIcon,
       meta: { ...tag.meta },
     }
-  }
 }
 
 /**

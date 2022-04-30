@@ -6,23 +6,19 @@
     这意味着数据库需要分别保存html与content，如果有编辑回显功能时，您可能需要增加大量额外工作量来处理回显
     介意者请勿使用，详见：https://www.wangeditor.com/v5/guide/getting-started.html#content-%E5%88%9D%E5%A7%8B%E5%8C%96%E5%86%85%E5%AE%B9 -->
     <Toolbar
-      :default-config="toolbarConfig"
-      :editor-id="editorId"
+      :editor="editorRef"
       :mode="mode"
-      style="border-bottom: 1px solid #ccc"
+      style="border-bottom: 1px solid #e8e8e8"
     />
-    <div class="wang-editor-title">
-      <input v-model="form.title" placeholder="请输入标题" />
-      <hr />
-    </div>
     <Editor
       class="wang-editor-content"
       :default-config="editorConfig"
-      :default-content="getDefaultContent"
-      :editor-id="editorId"
+      :default-content="defaultContent"
+      :default-html="defaultHtml"
       :mode="mode"
-      @on-change="onChange"
-      @on-created="onCreate"
+      style="height: 300px"
+      @on-change="handleChange"
+      @on-created="handleCreated"
     />
     <div class="wang-editor-footer">
       <el-button type="primary" @click="onSubmit">保存</el-button>
@@ -30,31 +26,19 @@
   </div>
 </template>
 
-<script>
-  import {
-    Editor,
-    Toolbar,
-    getEditor,
-    removeEditor,
-  } from '@wangeditor/editor-for-vue'
-  import _ from 'lodash'
+<script lang="ts">
+  import { IDomEditor } from '@wangeditor/editor'
+  import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
 
   export default defineComponent({
     name: 'WangEditor',
     components: { Editor, Toolbar },
     setup() {
-      const $baseMessage = inject('$baseMessage')
-
-      const editorId = `w-e-${Math.random().toString().slice(-5)}`
-      const state = reactive({
-        form: {
-          title: '',
-          content: '',
-          html: '',
-        },
-      })
-
-      const defaultContent = [
+      const $baseMessage: any = inject('$baseMessage')
+      const flag = ref(false)
+      const mode = 'default'
+      const editorRef = shallowRef<IDomEditor | undefined>(undefined)
+      const defaultContent = ref([
         {
           type: 'header1',
           children: [
@@ -111,42 +95,52 @@
             },
           ],
         },
-      ]
-      const getDefaultContent = computed(() => _.cloneDeep(defaultContent))
-
-      const toolbarConfig = {}
-      const editorConfig = { placeholder: '请输入内容' }
-
-      const onCreate = () => {}
-
-      const onChange = (editor) => {
-        state.form.content = editor.children
-        state.form.html = editor.getHtml()
-      }
-      const onSubmit = () => {
-        if (!state.form.title || !state.form.content || !state.form.html)
-          $baseMessage('标题或内容不能为空', 'error', 'vab-hey-message-error')
-        else $baseMessage('模拟保存成功', 'success', 'vab-hey-message-success')
+      ])
+      const defaultHtml = ''
+      const editorConfig = {
+        placeholder: '请输入内容...',
+        MENU_CONF: {},
       }
 
-      onUnmounted(() => {
-        const editor = getEditor(editorId)
+      const handleCreated = (editor: IDomEditor) => {
+        editorRef.value = editor
+      }
+      const handleChange = (editor: IDomEditor) => {
+        console.log('change:', editor.getText())
+      }
+      const handlePaste = (
+        editor: IDomEditor,
+        event: ClipboardEvent,
+        callback: (val: boolean) => void
+      ) => {
+        editor.insertText('test')
+        callback(false)
+      }
+      const handleCreateEditor = () => {
+        flag.value = !flag.value
+      }
+      onBeforeUnmount(() => {
+        const editor = editorRef.value
         if (editor == null) return
-
         editor.destroy()
-        removeEditor(editorId)
       })
 
+      const onSubmit = () => {
+        $baseMessage('模拟保存成功', 'success', 'vab-hey-message-success')
+      }
+
       return {
-        ...toRefs(state),
-        editorId,
-        mode: 'default',
-        getDefaultContent,
-        onCreate,
-        onChange,
-        onSubmit,
-        toolbarConfig,
+        flag,
+        editorRef,
+        mode,
+        defaultHtml,
+        defaultContent,
         editorConfig,
+        handleCreated,
+        handleChange,
+        handlePaste,
+        handleCreateEditor,
+        onSubmit,
       }
     },
   })
@@ -168,34 +162,11 @@
       border-bottom: 1px solid #e8e8e8 !important;
     }
 
-    .wang-editor-title {
-      width: 70%;
-      padding: 40px 40px 0 40px;
-      margin: 20px auto 0px auto;
-      background-color: #fff;
-      border: 0;
-
-      input {
-        width: 100%;
-        margin-bottom: 10px;
-        font-size: 30px;
-        line-height: 1;
-        border: 0;
-        outline: none;
-      }
-
-      hr {
-        height: 1px;
-        background-color: #e8e8e8;
-        border: none;
-      }
-    }
-
     .wang-editor-content {
       width: 70%;
       height: 500px !important;
       padding: 0px 40px 0 40px;
-      margin: -7px auto 20px auto;
+      margin: 20px auto 20px auto;
       background-color: #fff;
       border: 0;
     }

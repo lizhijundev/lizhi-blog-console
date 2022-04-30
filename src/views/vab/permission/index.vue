@@ -27,13 +27,21 @@
           点击模拟token过期访问接口，无痛刷新
         </el-button>
       </el-form-item>
-      <el-form-item label="描述">
-        当前账号拥有的角色
-        <el-tag>{{ JSON.stringify(role) }}</el-tag>
-        ，权限点
-        <el-tag>{{ JSON.stringify(permission) }}</el-tag>
-        ，当前token
-        <el-tag>{{ token }}</el-tag>
+      <el-form-item label="当前账号">
+        <el-descriptions border :column="3" direction="vertical">
+          <el-descriptions-item>
+            <template #label>角色</template>
+            <el-tag>{{ JSON.stringify(role) }}</el-tag>
+          </el-descriptions-item>
+          <el-descriptions-item>
+            <template #label>权限点</template>
+            <el-tag>{{ JSON.stringify(permission) }}</el-tag>
+          </el-descriptions-item>
+          <el-descriptions-item>
+            <template #label>token</template>
+            <el-tag>{{ token }}</el-tag>
+          </el-descriptions-item>
+        </el-descriptions>
       </el-form-item>
       <el-form-item label="按钮级角色">
         <el-button v-permissions="['Admin']" type="primary">
@@ -131,11 +139,8 @@
           未拥有["Admin"]和["delete:system"]权限点的按钮
         </el-button>
       </el-form-item>
+      <el-form-item label="路由" />
     </el-form>
-    <h3>intelligence模式(前端控制路由)</h3>
-    <p>用法请阅读文档</p>
-    <h3>all模式(后端动态路由控制)</h3>
-    <p>用法请阅读文档</p>
     <el-row :gutter="20">
       <el-col :span="24">
         <el-table
@@ -333,7 +338,7 @@
       margin-left: 0;
     }
 
-    .el-form-item--small.el-form-item {
+    .el-form-item {
       margin-bottom: 0;
 
       .el-form-item__content {

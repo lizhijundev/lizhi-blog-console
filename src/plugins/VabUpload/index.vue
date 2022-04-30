@@ -45,25 +45,23 @@
       </el-upload>
     </div>
     <template #footer>
-      <div style="position: relative; padding-right: 15px; text-align: right">
-        <div
-          v-if="show"
-          style="position: absolute; top: 10px; left: 15px; color: #999"
-        >
-          正在上传中... 当前上传成功数:{{ imgSuccessNum }}张 当前上传失败数:{{
-            imgErrorNum
-          }}张
-        </div>
-        <el-button type="primary" @click="handleClose">关闭</el-button>
-        <el-button
-          :loading="loading"
-          style="margin-left: 10px"
-          type="success"
-          @click="submitUpload"
-        >
-          开始上传
-        </el-button>
+      <div
+        v-if="show"
+        style="position: absolute; top: 10px; left: 15px; color: #999"
+      >
+        正在上传中... 当前上传成功数:{{ imgSuccessNum }}张 当前上传失败数:{{
+          imgErrorNum
+        }}张
       </div>
+      <el-button type="primary" @click="handleClose">关闭</el-button>
+      <el-button
+        :loading="loading"
+        style="margin-left: 10px"
+        type="success"
+        @click="submitUpload"
+      >
+        开始上传
+      </el-button>
     </template>
   </el-dialog>
 </template>

@@ -1,6 +1,6 @@
 <template>
   <div class="share-container">
-    <el-form :inline="true" :model="form" @submit.prevent>
+    <el-form inline :model="form" @submit.prevent>
       <el-form-item label="URL">
         <el-input v-model="form.url" />
       </el-form-item>

@@ -184,21 +184,24 @@
             line-height: 40px;
           }
 
-          .el-input__suffix {
-            right: 0;
+          .el-input__wrapper {
+            padding-right: 0;
+            .el-input__suffix {
+              right: 0;
 
-            .el-button {
-              height: 40px;
-              line-height: 40px;
-              border-top-left-radius: 0;
-              border-bottom-left-radius: 0;
-              i {
-                margin-left: 0 !important;
+              .el-button {
+                height: 40px;
+                line-height: 40px;
+                border-top-left-radius: 0;
+                border-bottom-left-radius: 0;
+                i {
+                  margin-left: 0 !important;
+                }
               }
-            }
 
-            .el-input__validateIcon {
-              display: none;
+              .el-input__validateIcon {
+                display: none;
+              }
             }
           }
         }

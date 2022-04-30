@@ -2,6 +2,7 @@
   <el-dialog
     v-model="dialogVisible"
     :close-on-click-modal="false"
+    custom-class="vab-copper-dialog"
     title="头像裁剪"
     width="470px"
   >
@@ -122,40 +123,40 @@
   }
 </style>
 <style lang="scss">
-  .el-dialog__footer {
-    height: 62px;
+  .vab-copper-dialog {
+    .el-dialog__footer {
+      .el-button {
+        float: right;
+      }
 
-    .el-button {
-      float: right;
-    }
+      &:before {
+        display: block;
+        clear: both;
+        content: '';
+      }
 
-    &:before {
-      display: block;
-      clear: both;
-      content: '';
-    }
+      > .vab-cropper-footer {
+        > div {
+          display: inline;
 
-    > .vab-cropper-footer {
-      > div {
-        display: inline;
+          .el-upload-list__item {
+            display: none;
+          }
 
-        .el-upload-list__item {
-          display: none;
-        }
+          .el-upload--picture-card {
+            float: right;
+            width: auto;
+            height: $base-input-height;
+            line-height: $base-input-height;
+            background-color: transparent;
+            border: 0;
+            border-radius: 0;
+          }
 
-        .el-upload--picture-card {
-          float: right;
-          width: auto;
-          height: $base-input-height;
-          line-height: $base-input-height;
-          background-color: transparent;
-          border: 0;
-          border-radius: 0;
-        }
-
-        .el-button {
-          float: right;
-          margin-right: 10px;
+          .el-button {
+            float: right;
+            margin-right: 10px;
+          }
         }
       }
     }

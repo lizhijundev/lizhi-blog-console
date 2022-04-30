@@ -57,7 +57,7 @@
             />
             <el-table-column label="重定向" show-overflow-tooltip>
               <template #default="{ row }">
-                {{ row.redirect ? row.redirect : '无' }}
+                {{ row.redirect || '无' }}
               </template>
             </el-table-column>
             <el-table-column label="图标" show-overflow-tooltip>

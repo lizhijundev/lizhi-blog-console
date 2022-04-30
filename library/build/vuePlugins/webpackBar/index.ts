@@ -1,10 +1,10 @@
 const WebpackBar = require('webpackbar')
-const { name } = require('./config.js')
+const { version } = require('../../../../package.json')
 
 module.exports = {
   createWebpackBar: () => [
     new WebpackBar({
-      name,
+      name: 'Vue-' + 'Admin' + '-Plus ' + version,
     }),
   ],
 }

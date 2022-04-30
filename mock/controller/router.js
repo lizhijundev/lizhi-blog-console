@@ -298,6 +298,7 @@ const List = [
             component: '@/views/vab/form/select',
             meta: {
               title: '选择器',
+              dot: true,
             },
           },
           {

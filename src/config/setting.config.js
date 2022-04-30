@@ -8,7 +8,7 @@ module.exports = {
   titleSeparator: ' - ',
   // 标题是否反转
   // 如果为false: "page - title"
-  // 如果为ture : "title - page"
+  // 如果为true : "title - page"
   titleReverse: false,
   // 简写
   abbreviation: 'vab-admin-plus',
@@ -43,7 +43,7 @@ module.exports = {
   loginInterception: true,
   // 是否开启登录RSA加密
   loginRSA: false,
-  // intelligence(前端导出路由)和all(后端导出路由)两种方式
+  // intelligence(前端导出路由)和 all(后端导出路由)两种方式
   authentication: 'intelligence',
   // 是否支持游客模式，支持情况下，访问白名单，可查看所有asyncRoutes
   supportVisit: false,

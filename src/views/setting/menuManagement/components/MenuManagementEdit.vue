@@ -7,7 +7,7 @@
   >
     <el-form
       ref="formRef"
-      :inline="true"
+      inline
       label-width="140px"
       :model="form"
       :rules="rules"

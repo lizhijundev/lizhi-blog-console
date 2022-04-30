@@ -335,6 +335,10 @@
       [class*='ri'] {
         margin-right: 3px;
       }
+
+      .vab-icon {
+        vertical-align: -3px;
+      }
     }
 
     &-content {

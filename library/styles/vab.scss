@@ -83,6 +83,10 @@ html {
       vertical-align: -3px !important;
     }
 
+    .vab-icon {
+      margin: 0 3px 0 0 !important;
+    }
+
     /*a标签 */
     a {
       color: var(--el-color-primary);
@@ -271,6 +275,13 @@ html {
       }
     }
 
+    /* .el-select-tags */
+    .el-select-tags-wrapper {
+      .el-tag.el-tag {
+        margin-left: 0px;
+      }
+    }
+
     a + a,
    /*   span + span, */
      a + .el-button,
@@ -286,16 +297,21 @@ html {
       }
     }
 
-    /* v-modal遮罩 */
-    .v-modal {
-      z-index: $base-z-index;
-      background-color: rgba(0, 0, 0, 0.5);
-      opacity: 0.6;
-      //backdrop-filter: blur(10px);
+    /* el-overlay遮罩 */
+    .el-overlay {
+      background-color: rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(3px);
     }
 
     /* el-image-viewer遮罩 */
     .el-image-viewer__mask {
+      background-color: rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(3px);
+    }
+
+    /* v-modal遮罩 */
+    .v-modal {
+      z-index: $base-z-index;
       background-color: rgba(0, 0, 0, 0.5);
       opacity: 0.6;
       //backdrop-filter: blur(10px);
@@ -439,7 +455,7 @@ html {
       }
 
       th {
-        background: #f5f7fa;
+        background: #f5f7fa !important;
       }
 
       td,
@@ -482,15 +498,28 @@ html {
           margin-left: 3px;
         }
       }
+
+      &.vab-column-grid-card,
+      &.vab-column-grid-vertical {
+        div {
+          i + span {
+            margin-left: 0;
+          }
+        }
+      }
     }
 
-    /* el-dialog、el-message-box、el-popover */
+    /* el-dialog、el-message-box、el-popover、el-button、el-tag */
     @media (max-width: 576px) {
       .el-dialog,
       .el-message-box,
       .el-popover.el-popper {
         width: auto !important;
         margin: 5vw;
+      }
+
+      .el-button {
+        margin-bottom: 10px;
       }
     }
     /* el-card卡片 */

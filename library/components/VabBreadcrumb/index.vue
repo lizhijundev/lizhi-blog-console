@@ -26,7 +26,11 @@
       :key="index"
       :to="handleTo(item.redirect)"
     >
-      <vab-icon v-if="item.meta.icon" :icon="item.meta.icon" />
+      <vab-icon
+        v-if="item.meta.icon"
+        :icon="item.meta.icon"
+        :is-custom-svg="item.meta.isCustomSvg"
+      />
       <span v-if="item.meta.title">{{ translateTitle(item.meta.title) }}</span>
     </el-breadcrumb-item>
   </el-breadcrumb>
@@ -43,6 +47,10 @@
         .el-breadcrumb__inner {
           font-weight: normal;
           color: #515a6e;
+          i,
+          svg {
+            margin-right: 3px;
+          }
         }
 
         &:last-child {

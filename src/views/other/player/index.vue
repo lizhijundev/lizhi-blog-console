@@ -5,7 +5,7 @@
         <vab-card shadow="hover">
           <template #header>常规视频播放(可配置弹幕)</template>
           <vab-player-mp4 :config="mp4Config" @player="vabPlayerMp4 = $event" />
-          <el-form :inline="true" :model="form" style="margin-top: 20px">
+          <el-form inline :model="form" style="margin-top: 20px">
             <el-form-item label="弹幕">
               <el-input v-model="form.danmu" placeholder="弹幕" />
             </el-form-item>
