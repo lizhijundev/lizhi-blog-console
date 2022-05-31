@@ -91,10 +91,12 @@
                 {{ row.meta.dot ? '是' : '否' }}
               </template>
             </el-table-column>
-            <el-table-column label="操作" show-overflow-tooltip width="110">
+            <el-table-column label="操作" show-overflow-tooltip width="200">
               <template #default="{ row }">
-                <el-button type="text" @click="handleEdit(row)">编辑</el-button>
-                <el-button type="text" @click="handleDelete(row)">
+                <el-button text type="primary" @click="handleEdit(row)">
+                  编辑
+                </el-button>
+                <el-button text type="primary" @click="handleDelete(row)">
                   删除
                 </el-button>
               </template>

@@ -51,7 +51,7 @@
             >
               查询
             </el-button>
-            <el-button type="text" @click="handleFold">
+            <el-button text type="primary" @click="handleFold">
               <span v-if="fold">展开</span>
               <span v-else>合并</span>
               <vab-icon
@@ -194,12 +194,18 @@
         fixed="right"
         label="操作"
         show-overflow-tooltip
-        width="170"
+        width="200"
       >
         <template #default="{ row }">
-          <el-button type="text" @click="handleDetail(row)">详情</el-button>
-          <el-button type="text" @click="handleEdit(row)">编辑</el-button>
-          <el-button type="text" @click="handleDelete(row)">删除</el-button>
+          <el-button text type="primary" @click="handleDetail(row)">
+            详情
+          </el-button>
+          <el-button text type="primary" @click="handleEdit(row)">
+            编辑
+          </el-button>
+          <el-button text type="primary" @click="handleDelete(row)">
+            删除
+          </el-button>
         </template>
       </el-table-column>
       <template #empty>

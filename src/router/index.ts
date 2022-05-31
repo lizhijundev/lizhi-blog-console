@@ -603,6 +603,17 @@ export const asyncRoutes: VabRouteRecord[] = [
           },
         ],
       },
+      {
+        path: 'noLayout',
+        name: 'NoLayout',
+        component: () => import('@/views/other/noLayout/index.vue'),
+        meta: {
+          title: '无框',
+          guard: ['Admin'],
+          icon: 'aspect-ratio-line',
+          dot: true,
+        },
+      },
       // {
       //   path: 'loading',
       //   name: 'Loading',

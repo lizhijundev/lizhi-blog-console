@@ -42,7 +42,7 @@
         },
         mp4Config: {
           id: 'mse1',
-          url: 'https://cdn.jsdelivr.net/gh/chuzhixin/videos@master/video.mp4',
+          url: 'https://fastly.jsdelivr.net/gh/chuzhixin/videos@master/video.mp4',
           volume: 0.6,
           autoplay: true,
           fluid: true,
@@ -75,7 +75,7 @@
         vabPlayerMp4: null,
         hlsConfig: {
           id: 'mse2',
-          url: 'https://cdn.jsdelivr.net/gh/chuzhixin/videos@master/video.m3u8',
+          url: 'https://fastly.jsdelivr.net/gh/chuzhixin/videos@master/video.m3u8',
           volume: 0.6,
           autoplay: false,
           fluid: true,

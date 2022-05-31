@@ -62,6 +62,7 @@ export default {
     '多级路由1-1-1': 'Menu1-1-1',
     拖拽: 'Drag',
     卡片拖拽: 'Card drag',
+    无框: 'No layout',
     加载: 'Loading',
     视频播放器: 'Player',
     编辑器: 'Editor',

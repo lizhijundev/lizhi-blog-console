@@ -8,7 +8,7 @@ const { Random } = require('mockjs')
 function handleRandomImage(/* width = 50, height = 50 */) {
   //return `https://picsum.photos/${width}/${height}?random=${Random.guid()}`
   return (
-    'https://cdn.jsdelivr.net/gh/' +
+    'https://fastly.jsdelivr.net/gh/' +
     'chuzh' +
     'ixin/image' +
     `/table/vab-image-${Random.integer(1, 38)}.jpg`

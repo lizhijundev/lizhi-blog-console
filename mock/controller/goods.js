@@ -30,7 +30,10 @@ const List = [
   {
     uuid: '@uuid',
     svg:
-      'https://cdn.jsdelivr.net/gh/' + 'chuzh' + 'ixin/image' + '/logo/vab.svg',
+      'https://fastly.jsdelivr.net/gh/' +
+      'chuzh' +
+      'ixin/image' +
+      '/logo/vab.svg',
     title: 'vue-admin-better',
     price: '免费',
     label: ['vue', 'element-ui', 'MIT协议'],
@@ -41,7 +44,10 @@ const List = [
   {
     uuid: '@uuid',
     svg:
-      'https://cdn.jsdelivr.net/gh/' + 'chuzh' + 'ixin/image' + '/logo/vdb.svg',
+      'https://fastly.jsdelivr.net/gh/' +
+      'chuzh' +
+      'ixin/image' +
+      '/logo/vdb.svg',
     title: 'vue-datav-beautiful-pro',
     price: 'Admin Pro + Adm' + 'in Plus 1299版本赠品',
     label: ['数据大屏'],
@@ -52,7 +58,7 @@ const List = [
   {
     uuid: '@uuid',
     image:
-      'https://cdn.jsdelivr.net/gh/' +
+      'https://fastly.jsdelivr.net/gh/' +
       'chuzh' +
       'ixin/image' +
       '/goods/uview.gif',
@@ -78,7 +84,7 @@ const List = [
     uuid: '@uuid',
     title: 'OPSLI',
     image:
-      'https://cdn.jsdelivr.net/gh/' +
+      'https://fastly.jsdelivr.net/gh/' +
       'chuzh' +
       'ixin/image' +
       '/goods/OPSLI.png',

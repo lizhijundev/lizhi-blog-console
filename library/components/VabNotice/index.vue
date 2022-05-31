@@ -68,7 +68,7 @@
         </el-tab-pane>
       </el-tabs>
       <div class="notice-clear" @click="handleClearNotice">
-        <el-button type="text">
+        <el-button text type="primary">
           <vab-icon icon="close-circle-line" />
           <span>{{ translateTitle('清空消息') }}</span>
         </el-button>

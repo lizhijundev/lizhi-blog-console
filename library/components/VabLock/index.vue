@@ -16,7 +16,7 @@
   const { handleLock: _handleLock, handleUnLock: _handleUnLock } = settingsStore
 
   const background = ref(
-    'https://cdn.jsdelivr.net/gh/' +
+    'https://fastly.jsdelivr.net/gh/' +
       'chuzh' +
       'ixin/image/vab-im' +
       'age-lock/' +
@@ -24,7 +24,7 @@
   )
   const randomBackground = () => {
     background.value =
-      'https://cdn.jsdelivr.net/gh/' +
+      'https://fastly.jsdelivr.net/gh/' +
       'chuzh' +
       'ixin/image/vab-im' +
       'age-lock/' +

@@ -87,7 +87,7 @@
             {
               type: 'image',
               src:
-                'https://cdn.jsdelivr.net/gh/' +
+                'https://fastly.jsdelivr.net/gh/' +
                 'chuzh' +
                 'ixin/image' +
                 '/table/vab-image-1.jpg',

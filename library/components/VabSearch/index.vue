@@ -62,25 +62,21 @@
   <span v-if="theme.showSearch">
     <vab-icon icon="search-line" @click="openDialog" />
     <el-dialog v-model="state.dialogVisible" :width="'40%'">
-      <el-form :model="state.queryForm" @submit.prevent>
-        <el-form-item label-width="0">
-          <el-autocomplete
-            v-model="state.queryForm.searchWord"
-            v-focus
-            :fetch-suggestions="querySearchAsync"
-            select-when-unmatched
-            @select="handleSelect"
-          >
-            <template #prefix><vab-icon icon="search-line" /></template>
-          </el-autocomplete>
-        </el-form-item>
-      </el-form>
+      <el-autocomplete
+        v-model="state.queryForm.searchWord"
+        v-focus
+        :fetch-suggestions="querySearchAsync"
+        select-when-unmatched
+        @select="handleSelect"
+      >
+        <template #prefix><vab-icon icon="search-line" /></template>
+      </el-autocomplete>
     </el-dialog>
   </span>
 </template>
 
 <style lang="scss" scoped>
-  :deep(.el-dialog) {
+  :deep() {
     .el-dialog {
       &__header {
         display: none;
@@ -95,24 +91,14 @@
       }
     }
 
-    .el-form-item__content {
-      position: relative;
-
-      i {
-        position: absolute;
-        top: 14px;
-        left: -10px;
-      }
-
-      .el-autocomplete {
+    .el-autocomplete {
+      width: 100%;
+      transition: none;
+      .el-input__inner {
         width: 100%;
-        transition: none;
-        .el-input__inner {
-          width: 100%;
-          height: 60px;
-          padding-left: $base-padding * 2.5;
-          border: 0 !important;
-        }
+        height: 60px;
+        padding-left: $base-padding;
+        line-height: 60px;
       }
     }
   }

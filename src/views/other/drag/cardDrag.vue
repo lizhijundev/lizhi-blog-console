@@ -5,13 +5,13 @@
         <el-button type="primary" @click="sort">重置顺序</el-button>
       </vab-query-form-left-panel>
     </vab-query-form>
+
     <el-row :gutter="20">
       <vab-draggable
         v-model="iconList"
         v-bind="dragOptions"
-        :component-data="{ tag: '', name: 'flip-list', type: 'transition' }"
         item-key="icon"
-        tag="transition-group"
+        style="position: relative; display: flex; flex-wrap: wrap"
       >
         <template #item="{ element: item }">
           <el-col :lg="3" :md="3" :sm="6" :xl="3" :xs="12">
@@ -75,7 +75,9 @@
         }
       })
 
-      fetchData()
+      onMounted(() => {
+        fetchData()
+      })
 
       return {
         ...toRefs(state),

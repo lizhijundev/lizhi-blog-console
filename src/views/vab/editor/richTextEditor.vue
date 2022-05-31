@@ -161,7 +161,7 @@
       }
       const handleAddImg = () => {
         state.form.content +=
-          '<img src="https://cdn.jsdelivr.net/gh/chuzhixin/image/ewm.png" />'
+          '<img src="https://fastly.jsdelivr.net/gh/chuzhixin/image/ewm.png" />'
       }
 
       return {

@@ -45,12 +45,15 @@
         prop="createTime"
         show-overflow-tooltip
       />
-      <el-table-column label="操作" width="110">
+      <el-table-column label="操作" width="200">
         <template #default="{ row }">
-          <el-button type="text" @click="handleEdit(row)">编辑</el-button>
+          <el-button text type="primary" @click="handleEdit(row)">
+            编辑
+          </el-button>
           <el-button
             :disabled="!row.parentId"
-            type="text"
+            text
+            type="primary"
             @click="handleDelete({ row })"
           >
             删除

@@ -30,6 +30,7 @@ module.exports = {
     'no-console': 'off',
     'no-debugger': 'off',
     'prettier/prettier': 'warn',
+    'vue/no-reserved-component-names': 'off',
     '@typescript-eslint/no-this-alias': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/no-var-requires': 'off',

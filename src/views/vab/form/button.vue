@@ -50,7 +50,7 @@
       <template #header>
         <span>文字按钮</span>
       </template>
-      <el-button type="text">文字按钮</el-button>
+      <el-button text type="primary">文字按钮</el-button>
       <el-button disabled type="text">文字按钮</el-button>
     </vab-card>
 

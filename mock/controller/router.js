@@ -559,6 +559,17 @@ const List = [
       //   },
       // },
       {
+        path: 'noLayout',
+        name: 'NoLayout',
+        component: '@/views/other/noLayout/index.vue',
+        meta: {
+          title: '无框',
+          guard: ['Admin'],
+          icon: 'aspect-ratio-line',
+          dot: true,
+        },
+      },
+      {
         path: 'player',
         name: 'Player',
         component: '@/views/other/player/index',

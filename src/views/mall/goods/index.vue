@@ -59,7 +59,7 @@
                 :href="item.url + '?hmsr=admin-plus&hmpl=&hmcu=&hmkw=&hmci='"
                 target="_blank"
               >
-                <el-button type="text">查看详情</el-button>
+                <el-button text type="primary">查看详情</el-button>
               </a>
             </div>
           </div>

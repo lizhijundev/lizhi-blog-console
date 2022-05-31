@@ -94,7 +94,7 @@
         required: true,
       },
     },
-    setup() {
+    setup(props) {
       const userStore = useUserStore()
       const { token } = storeToRefs(userStore)
       const $baseMessage = inject('$baseMessage')
@@ -204,6 +204,7 @@
 
       onMounted(() => {
         state.headers['Authorization'] = `Bearer ${token}`
+        state.action = props.url
       })
 
       const percentage = computed(() => {

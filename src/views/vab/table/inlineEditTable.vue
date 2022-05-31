@@ -36,7 +36,7 @@
         align="center"
         label="序号"
         show-overflow-tooltip
-        width="110"
+        width="200"
       >
         <template #default="{ $index }">
           {{ $index + 1 }}
@@ -68,20 +68,13 @@
         align="center"
         label="操作"
         show-overflow-tooltip
-        width="200"
+        width="150"
       >
         <template #default="{ row }">
-          <el-button
-            v-if="row.edit"
-            size="small"
-            type="primary"
-            @click="confirmEdit(row)"
-          >
+          <el-button v-if="row.edit" type="primary" @click="confirmEdit(row)">
             保存
           </el-button>
-          <el-button v-else type="text" @click="row.edit = !row.edit">
-            编辑
-          </el-button>
+          <el-button v-else @click="row.edit = !row.edit">编辑</el-button>
         </template>
       </el-table-column>
       <template #empty>

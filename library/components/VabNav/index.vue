@@ -27,7 +27,9 @@
         router.push('/')
       }, 1000)
     } else if (openFirstMenu) {
-      router.push(tabMenu.value.redirect || tabMenu.value)
+      setTimeout(() => {
+        router.push(tabMenu.value.redirect || tabMenu.value)
+      }, 0)
     }
   }
 </script>

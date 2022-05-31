@@ -8,7 +8,7 @@
       </vab-query-form-top-panel>
     </vab-query-form>
     <el-table :key="toggleIndex" ref="tableRef" border :data="data">
-      <el-table-column v-if="drag" align="center" label="操作" width="80">
+      <el-table-column v-if="drag" align="center" label="操作" width="120">
         <template #default>
           <vab-icon
             class="vab-rank"
@@ -19,7 +19,7 @@
       </el-table-column>
 
       <slot></slot>
-      <el-table-column align="center" label="操作" width="100px">
+      <el-table-column align="center" label="操作" width="120">
         <template #default="{ $index, row }">
           <el-button
             :icon="Delete"

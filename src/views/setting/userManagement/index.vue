@@ -76,11 +76,15 @@
         align="center"
         label="操作"
         show-overflow-tooltip
-        width="110"
+        width="200"
       >
         <template #default="{ row }">
-          <el-button type="text" @click="handleEdit(row)">编辑</el-button>
-          <el-button type="text" @click="handleDelete(row)">删除</el-button>
+          <el-button text type="primary" @click="handleEdit(row)">
+            编辑
+          </el-button>
+          <el-button text type="primary" @click="handleDelete(row)">
+            删除
+          </el-button>
         </template>
       </el-table-column>
       <template #empty>

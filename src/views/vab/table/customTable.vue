@@ -37,7 +37,8 @@
         </div>
         <el-button
           style="margin: 0 10px 10px 0 !important"
-          type="text"
+          text
+          type="primary"
           @click="clickFullScreen"
         >
           <vab-icon
@@ -51,14 +52,22 @@
             <el-radio label="small">小</el-radio>
           </el-radio-group>
           <template #reference>
-            <el-button style="margin: 0 10px 10px 0 !important" type="text">
+            <el-button
+              style="margin: 0 10px 10px 0 !important"
+              text
+              type="primary"
+            >
               <vab-icon icon="line-height" />
             </el-button>
           </template>
         </el-popover>
         <el-popover popper-class="custom-table-checkbox" trigger="hover">
           <template #reference>
-            <el-button style="margin: 0 0 10px 0 !important" type="text">
+            <el-button
+              style="margin: 0 0 10px 0 !important"
+              text
+              type="primary"
+            >
               <vab-icon icon="settings-line" />
             </el-button>
           </template>
@@ -100,7 +109,7 @@
         align="center"
         label="序号"
         show-overflow-tooltip
-        width="110"
+        width="200"
       >
         <template #default="{ $index }">
           {{ $index + 1 }}
@@ -129,11 +138,15 @@
         align="center"
         label="操作"
         show-overflow-tooltip
-        width="110"
+        width="200"
       >
         <template #default="{ row }">
-          <el-button type="text" @click="handleEdit(row)">编辑</el-button>
-          <el-button type="text" @click="handleDelete(row)">删除</el-button>
+          <el-button text type="primary" @click="handleEdit(row)">
+            编辑
+          </el-button>
+          <el-button text type="primary" @click="handleDelete(row)">
+            删除
+          </el-button>
         </template>
       </el-table-column>
 
