@@ -2,7 +2,6 @@ const name = process['env']['VUE_' + 'APP_' + 'GITHUB_' + 'USER_' + 'NAME']
 const noTest = name !== 'test'
 const noEmpty = name !== 'undefined'
 const dev = process['env']['NODE_' + 'ENV'] === 'dev' + 'elop' + 'ment'
-import type { App } from 'vue'
 
 // 加载雪碧图
 import '@/icon'
@@ -14,7 +13,7 @@ import VabIcon from 'vab-icons'
 import 'vab-icons/lib/vab-icons.css'
 import { createHead } from '@vueuse/head'
 
-export function setupVab(app: App<Element>) {
+export function setupVab(app: any) {
   if ((noTest && noEmpty && !dev && VabIcon) || (dev && VabIcon)) {
     app.use(createHead())
     app.component('VabIcon', VabIcon)

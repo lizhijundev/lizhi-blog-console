@@ -3,7 +3,6 @@
  */
 import type { RouteRecordName, RouteRecordRaw } from 'vue-router'
 import type { VabRouteRecord } from '/#/router'
-import type { App } from 'vue'
 import {
   createRouter,
   createWebHashHistory,
@@ -93,6 +92,16 @@ export const asyncRoutes: VabRouteRecord[] = [
         meta: {
           title: '工作台',
           icon: 'settings-6-line',
+          dot: true,
+        },
+      },
+      {
+        path: 'store',
+        name: 'Store',
+        component: () => import('@/views/index/store.vue'),
+        meta: {
+          title: '仓库',
+          icon: 'app-store-line',
           dot: true,
         },
       },
@@ -1063,7 +1072,7 @@ export function resetRouter(routes: VabRouteRecord[] = constantRoutes) {
   addRouter(routes)
 }
 
-export function setupRouter(app: App<Element>) {
+export function setupRouter(app: any) {
   if (authentication === 'intelligence') addRouter(asyncRoutes)
   setupPermissions(router)
   app.use(router)

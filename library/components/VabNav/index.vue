@@ -21,16 +21,15 @@
   } = storeToRefs(routesStore)
 
   const handleTabClick = () => {
-    if (isExternal(tabMenu.value.path)) {
-      window.open(tabMenu.value.path)
-      setTimeout(() => {
-        router.push('/')
-      }, 1000)
-    } else if (openFirstMenu) {
-      setTimeout(() => {
+    nextTick(() => {
+      if (isExternal(tabMenu.value.path)) {
+        window.open(tabMenu.value.path)
+        setTimeout(() => {
+          router.push('/')
+        }, 1000)
+      } else if (openFirstMenu)
         router.push(tabMenu.value.redirect || tabMenu.value)
-      }, 0)
-    }
+    })
   }
 </script>
 

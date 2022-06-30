@@ -34,8 +34,8 @@
    * @returns {Promise<void>}
    */
   const handleTabRemove = async (rawPath) => {
+    if (isActive(rawPath)) await toLastTab()
     await delVisitedRoute(rawPath)
-    if (isActive(rawPath)) toLastTab()
   }
   /**
    * 删除其他标签页
@@ -78,10 +78,12 @@
   /**
    * 跳转最后一个标签页
    */
-  const toLastTab = () => {
-    const latestView = visitedRoutes.slice(-1)[0]
-    if (latestView) router.push(latestView)
-    else router.push('/')
+  const toLastTab = async () => {
+    const latestView = visitedRoutes.value
+      .filter((_) => _.path !== handleActivePath(route, true))
+      .slice(-1)[0]
+    if (latestView) await router.push(latestView)
+    else await router.push('/')
   }
   const isActive = (path) => {
     return path === handleActivePath(route, true)

@@ -1,9 +1,8 @@
-import type { App } from 'vue'
 import pinia from '@/store'
 import { useSettingsStore } from '@/store/modules/settings'
 import { ElMessageBox } from 'element-plus'
 
-export function setup(app: App<Element>) {
+export function setup(app: any) {
   const { title } = useSettingsStore(pinia)
   if (!!window.ActiveXObject || 'ActiveXObject' in window) {
     ElMessageBox({

@@ -1,4 +1,3 @@
-import type { App } from 'vue'
 import pinia from '@/store'
 import { useErrorLogStore } from '@/store/modules/errorLog'
 import { errorLog } from '@/config'
@@ -21,7 +20,7 @@ export const addErrorLog = (err: any) => {
   addErrorLog({ err, url })
 }
 
-export function setup(app: App<Element>) {
+export function setup(app: any) {
   if (needErrorLog()) {
     app.config.errorHandler = addErrorLog
   }

@@ -34,7 +34,7 @@
     <span class="avatar-dropdown">
       <el-avatar class="user-avatar" :src="avatar" />
       <div class="user-name">
-        <span class="hidden-xs-only">{{ username }}</span>
+        <span class="hidden-xs-only" :title="username">{{ username }}</span>
         <vab-icon
           class="vab-dropdown"
           :class="{ 'vab-dropdown-active': active }"
@@ -66,6 +66,7 @@
     justify-items: center;
 
     .user-avatar {
+      flex-shrink: 0;
       width: 40px;
       height: 40px;
       margin-left: 15px;
@@ -76,15 +77,21 @@
     .user-name {
       position: relative;
       display: flex;
+      flex-shrink: 0;
       align-content: center;
       align-items: center;
       height: 40px;
       margin-left: 6px;
       line-height: 40px;
       cursor: pointer;
-
+      span {
+        max-width: 100px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
       [class*='ri-'] {
-        margin-left: 0 !important;
+        margin-left: 3px !important;
       }
     }
   }

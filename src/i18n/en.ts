@@ -3,6 +3,7 @@ export default {
     首页: 'Home',
     看板: 'Dashboard',
     工作台: 'Workbench',
+    仓库: 'Store',
     更新日志: 'Change log',
     配置: 'Settings',
     无分栏: 'No column',

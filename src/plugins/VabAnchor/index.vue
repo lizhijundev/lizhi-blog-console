@@ -74,9 +74,9 @@
       },
       pulleyRoll(top, distance) {
         if (distance < top) {
-          let smallInterval = (top - distance) / 50
+          const smallInterval = (top - distance) / 50
           let i = 0
-          let timer = setInterval(() => {
+          const timer = setInterval(() => {
             i++
             distance += smallInterval
             document.getElementById('app').scrollTop = distance
@@ -85,9 +85,9 @@
             }
           }, 10)
         } else if (distance > top) {
-          let smallInterval = (distance - top) / 50
+          const smallInterval = (distance - top) / 50
           let i = 0
-          let timer = setInterval(() => {
+          const timer = setInterval(() => {
             i++
             distance -= smallInterval
             document.getElementById('app').scrollTop = distance

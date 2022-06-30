@@ -35,7 +35,7 @@
       const { toggleDevice, foldSideBar, openSideBar, updateTheme } =
         settingsStore
 
-      let mobile = ref(false)
+      const mobile = ref(false)
       let oldLayout = theme.value.layout
 
       const resizeBody = () => {

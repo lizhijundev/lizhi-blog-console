@@ -41,6 +41,16 @@ const List = [
           dot: true,
         },
       },
+      {
+        path: 'store',
+        name: 'Store',
+        component: '@/views/index/store.vue',
+        meta: {
+          title: '仓库',
+          icon: 'app-store-line',
+          dot: true,
+        },
+      },
     ],
   },
   {

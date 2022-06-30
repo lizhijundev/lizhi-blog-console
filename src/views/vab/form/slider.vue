@@ -36,12 +36,12 @@
       </template>
       <el-slider v-model="value8" :max="10" range show-stops />
     </vab-card>
-    <vab-card shadow="hover">
+    <!-- <vab-card shadow="hover">
       <template #header>
         <span>竖向模式</span>
       </template>
       <el-slider v-model="value9" height="200px" vertical />
-    </vab-card>
+    </vab-card> -->
   </div>
 </template>
 

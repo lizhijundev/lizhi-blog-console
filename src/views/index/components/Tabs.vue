@@ -17,7 +17,21 @@
             </template>
           </el-table>
         </el-tab-pane>
-        <el-tab-pane label="区域管理" name="second">敬请期待</el-tab-pane>
+        <el-tab-pane label="区域管理" name="second">
+          <el-table :data="tableData" height="280">
+            <el-table-column label="日期" prop="date" />
+            <el-table-column label="区域信息">
+              <el-table-column label="姓名" prop="name" />
+              <el-table-column label="省份" prop="province" />
+              <el-table-column label="市区" prop="city" />
+              <el-table-column label="地址" prop="address" />
+              <el-table-column label="邮编" prop="zip" />
+            </el-table-column>
+            <template #empty>
+              <el-empty class="vab-data-empty" description="暂无数据" />
+            </template>
+          </el-table>
+        </el-tab-pane>
       </el-tabs>
     </vab-card>
   </div>

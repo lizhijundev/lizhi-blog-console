@@ -18,9 +18,7 @@
     :locale="messages[locale]"
   >
     <router-view v-slot="{ Component }">
-      <keep-alive>
-        <component :is="Component" />
-      </keep-alive>
+      <component :is="Component" />
     </router-view>
     <vab-update v-if="pwa" ref="vabUpdateRef" />
   </el-config-provider>

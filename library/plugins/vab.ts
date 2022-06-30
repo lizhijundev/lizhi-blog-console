@@ -1,4 +1,3 @@
-import type { App } from 'vue'
 import { loadingText, messageDuration } from '@/config'
 import {
   ElLoading,
@@ -12,7 +11,7 @@ import { globalPropertiesType } from '/#/library'
 
 export let gp: globalPropertiesType
 
-export function setup(app: App<Element>) {
+export function setup(app: any) {
   gp = {
     /**
      * @description 全局加载层
