@@ -34,8 +34,8 @@
               </template>
             </el-popover>
           </td>
-          <td>@vue/cli</td>
-          <td>{{ devDependencies['@vue/cli-service'] }}</td>
+          <td>unplugin-auto-import</td>
+          <td>{{ devDependencies['unplugin-auto-import'] }}</td>
         </tr>
         <tr>
           <td>pinia</td>

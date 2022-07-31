@@ -22,6 +22,7 @@ export default {
     常规图标: 'Awesome icon',
     小清新图标: 'Remix icon',
     图标选择器: 'Icon selector',
+    自定义图标: 'Custom svg',
     表格: 'Table',
     综合表格: 'Comprehensive table',
     行内编辑表格: 'Inline edit table',

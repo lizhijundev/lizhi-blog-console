@@ -78,7 +78,7 @@
 
 <script>
   import { getIconList } from '@/api/remixIcon'
-  import clip from '~/src/utils/clipboard'
+  import clip from '@/utils/clipboard'
   import { Search } from '@element-plus/icons-vue'
 
   export default defineComponent({

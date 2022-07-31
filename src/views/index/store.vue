@@ -1,7 +1,13 @@
-<script lang="ts" setup>
-  defineOptions({
+<script lang="ts">
+  export default defineComponent({
     name: 'Store',
   })
+</script>
+
+<script lang="ts" setup>
+  // defineOptions({
+  //   name: 'Store',
+  // })
   const StoreHeader = defineAsyncComponent(
     () => import('./components/StoreHeader.vue')
   )

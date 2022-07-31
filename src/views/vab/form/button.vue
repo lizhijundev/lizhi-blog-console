@@ -159,9 +159,11 @@
     background: $base-color-background !important;
 
     :deep() {
-      .el-button {
-        margin-right: 10px;
-        margin-left: 0;
+      .el-card__body {
+        padding-bottom: 10px;
+        .el-button {
+          margin: 0 10px 10px 10px;
+        }
       }
 
       .el-button-group {

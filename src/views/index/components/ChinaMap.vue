@@ -51,7 +51,7 @@
         state.option = {
           title: {
             text: '2099年全国GDP分布',
-            subtext: '数据来自vue-admin-beautiful杜撰',
+            subtext: '非真实数据',
           },
           tooltip: {
             trigger: 'item',

@@ -71,7 +71,7 @@
       },
       handleDownload() {
         this.downloadLoading = true
-        import('~/src/utils/excel').then((excel) => {
+        import('@/utils/excel').then((excel) => {
           const multiHeader = [['Id', 'Main Information', '', '', 'Date']]
           const header = ['', 'Title', 'Author', 'Readings', '']
           const filterVal = ['id', 'title', 'author', 'pageViews', 'datetime']

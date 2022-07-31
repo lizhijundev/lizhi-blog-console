@@ -140,6 +140,14 @@ export const asyncRoutes: VabRouteRecord[] = [
               title: '图标选择器',
             },
           },
+          {
+            path: 'customSvg',
+            name: 'CustomSvg',
+            component: () => import('@/views/vab/icon/customSvg.vue'),
+            meta: {
+              title: '自定义图标',
+            },
+          },
         ],
       },
       {

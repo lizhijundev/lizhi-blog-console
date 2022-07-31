@@ -83,7 +83,7 @@
       const handleDownload = () => {
         if (state.multipleSelection.length) {
           state.downloadLoading = true
-          import('~/src/utils/excel').then((excel) => {
+          import('@/utils/excel').then((excel) => {
             const tHeader = ['Id', 'Title', 'Author', 'Readings', 'Date']
             const filterVal = ['id', 'title', 'author', 'pageViews', 'datetime']
             const list = state.multipleSelection

@@ -1,10 +1,16 @@
+<script lang="ts">
+  export default defineComponent({
+    name: 'NoLayout',
+  })
+</script>
+
 <script lang="ts" setup>
   import { handleActivePath } from '@/utils/routes'
   import { useTabsStore } from '@/store/modules/tabs'
 
-  defineOptions({
-    name: 'NoLayout',
-  })
+  // defineOptions({
+  //   name: 'NoLayout',
+  // })
 
   const tabsStore = useTabsStore()
   const route = useRoute()

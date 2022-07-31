@@ -52,7 +52,7 @@
 
 <script>
   import VabQrCode from '@/plugins/VabQrCode'
-  import clip from '~/src/utils/clipboard'
+  import clip from '@/utils/clipboard'
 
   export default defineComponent({
     name: 'Share',

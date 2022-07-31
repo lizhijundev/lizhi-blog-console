@@ -3,6 +3,8 @@
 // Read more: https://github.com/vuejs/core/pull/3399
 import '@vue/runtime-core'
 
+export {}
+
 declare module '@vue/runtime-core' {
   export interface GlobalComponents {
     ElAlert: typeof import('element-plus/es')['ElAlert']
@@ -78,7 +80,6 @@ declare module '@vue/runtime-core' {
     ElTree: typeof import('element-plus/es')['ElTree']
     ElTreeSelect: typeof import('element-plus/es')['ElTreeSelect']
     ElUpload: typeof import('element-plus/es')['ElUpload']
-    Loading: typeof import('element-plus/es')['ElLoadingDirective']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
     VabApp: typeof import('./../../components/VabApp/index.vue')['default']
@@ -116,6 +117,7 @@ declare module '@vue/runtime-core' {
     VabThemeDrawer: typeof import('./../../components/VabTheme/components/VabThemeDrawer.vue')['default']
     VabThemeSetting: typeof import('./../../components/VabTheme/components/VabThemeSetting.vue')['default']
   }
+  export interface ComponentCustomProperties {
+    vLoading: typeof import('element-plus/es')['ElLoadingDirective']
+  }
 }
-
-export {}
