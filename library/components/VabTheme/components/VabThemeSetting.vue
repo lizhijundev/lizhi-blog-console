@@ -1,6 +1,6 @@
 <script lang="ts" setup>
   import { useSettingsStore } from '@/store/modules/settings'
-  import { translateTitle } from '@/utils/i18n'
+  import { translate } from '@/i18n'
 
   const $pub: any = inject('$pub')
   const $baseMessage: any = inject('$baseMessage')
@@ -49,32 +49,32 @@
     <li @click="handleOpenTheme">
       <a>
         <vab-icon icon="brush-2-line" />
-        <p>{{ translateTitle('主题配置') }}</p>
+        <p>{{ translate('主题配置') }}</p>
       </a>
     </li>
     <li @click="randomTheme">
       <a>
         <vab-icon icon="apps-line" />
-        <p>{{ translateTitle('随机换肤') }}</p>
+        <p>{{ translate('随机换肤') }}</p>
       </a>
     </li>
     <li @click="buy">
       <a>
         <vab-icon icon="shopping-cart-2-line" />
-        <p>{{ translateTitle('购买源码') }}</p>
+        <p>{{ translate('购买源码') }}</p>
       </a>
     </li>
     <li @click="getCode">
       <a>
         <vab-icon icon="file-copy-line" />
-        <p>{{ translateTitle('拷贝源码') }}</p>
+        <p>{{ translate('拷贝源码') }}</p>
       </a>
     </li>
     <li @click="removeLocalStorage">
       <a>
         <vab-icon icon="delete-bin-4-line" />
         <p>
-          {{ translateTitle('清理缓存') }}
+          {{ translate('清理缓存') }}
         </p>
       </a>
     </li>

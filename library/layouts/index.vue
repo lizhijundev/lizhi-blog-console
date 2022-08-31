@@ -1,5 +1,5 @@
 <template>
-  <div class="vue-admin-beautiful-wrapper" :class="{ mobile }">
+  <div class="vue-admin-better-wrapper" :class="{ mobile }">
     <component
       :is="'vab-layout-' + theme.layout"
       :collapse="collapse"
@@ -76,7 +76,7 @@
 </script>
 
 <style lang="scss" scoped>
-  .vue-admin-beautiful-wrapper {
+  .vue-admin-better-wrapper {
     position: relative;
     width: 100%;
     height: 100%;

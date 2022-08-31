@@ -7,6 +7,8 @@ import { useAclStore } from '@/store/modules/acl'
  */
 export function hasPermission(targetRoleOrPermission: string[] | GuardType) {
   const { getAdmin, getRole, getPermission } = useAclStore()
+  //如需userInfo接口的permissons:["*"]放行全部权限解除注释即可 强烈不建议使用
+  //if (getPermission[0] == '*') return true
   if (getAdmin) return true
   if (Array.isArray(targetRoleOrPermission)) {
     return can([...getRole, ...getPermission], {

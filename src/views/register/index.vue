@@ -94,7 +94,8 @@
 </template>
 
 <script>
-  import { translateTitle } from '@/utils/i18n'
+  import { onBeforeRouteLeave } from 'vue-router'
+  import { translate } from '@/i18n'
   import { isPassword, isPhone } from '@/utils/validate'
   import { register } from '@/api/user'
   import { useUserStore } from '@/store/modules/user'
@@ -118,21 +119,21 @@
 
       const validateUsername = (rule, value, callback) => {
         if ('' === value) {
-          callback(new Error(translateTitle('用户名不能为空')))
+          callback(new Error(translate('用户名不能为空')))
         } else {
           callback()
         }
       }
       const validatePassword = (rule, value, callback) => {
         if (!isPassword(value)) {
-          callback(new Error(translateTitle('密码不能少于6位')))
+          callback(new Error(translate('密码不能少于6位')))
         } else {
           callback()
         }
       }
       const validatePhone = (rule, value, callback) => {
         if (!isPhone(value)) {
-          callback(new Error(translateTitle('请输入正确的手机号')))
+          callback(new Error(translate('请输入正确的手机号')))
         } else {
           callback()
         }
@@ -141,8 +142,8 @@
       const state = reactive({
         registerFormRef: null,
         isGetPhone: false,
-        getPhoneInterval: null,
-        phoneCode: translateTitle('获取验证码'),
+        timer: null,
+        phoneCode: translate('获取验证码'),
         showRegister: false,
         form: {},
         registerRules: {
@@ -150,7 +151,7 @@
             {
               required: true,
               trigger: 'blur',
-              message: translateTitle('请输入用户名'),
+              message: translate('请输入用户名'),
             },
             { validator: validateUsername, trigger: 'blur' },
           ],
@@ -158,7 +159,7 @@
             {
               required: true,
               trigger: 'blur',
-              message: translateTitle('请输入手机号'),
+              message: translate('请输入手机号'),
             },
             { validator: validatePhone, trigger: 'blur' },
           ],
@@ -166,7 +167,7 @@
             {
               required: true,
               trigger: 'blur',
-              message: translateTitle('请输入密码'),
+              message: translate('请输入密码'),
             },
             { validator: validatePassword, trigger: 'blur' },
           ],
@@ -174,7 +175,7 @@
             {
               required: true,
               trigger: 'blur',
-              message: translateTitle('请输入手机验证码'),
+              message: translate('请输入手机验证码'),
             },
           ],
         },
@@ -189,14 +190,14 @@
         }
         state.isGetPhone = true
         let n = 60
-        state.getPhoneInterval = setInterval(() => {
+        state.timer = setInterval(() => {
           if (n > 0) {
             n--
-            state.phoneCode = translateTitle('获取验证码 ') + n + 's'
+            state.phoneCode = translate('获取验证码 ') + n + 's'
           } else {
-            clearInterval(state.getPhoneInterval)
-            state.phoneCode = translateTitle('获取验证码')
-            state.getPhoneInterval = null
+            clearInterval(state.timer)
+            state.phoneCode = translate('获取验证码')
+            state.timer = null
             state.isGetPhone = false
           }
         }, 1000)
@@ -221,13 +222,13 @@
         })
       }
 
-      onUnmounted(() => {
-        clearInterval(state.getPhoneInterval)
-        state.getPhoneInterval = null
+      onBeforeRouteLeave((to, from, next) => {
+        clearInterval(state.timer)
+        next()
       })
 
       return {
-        translateTitle,
+        translateTitle: translate,
         ...toRefs(state),
         getPhoneCode,
         handleRegister,

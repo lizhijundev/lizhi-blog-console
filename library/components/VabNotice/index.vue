@@ -1,6 +1,6 @@
 <script lang="ts" setup>
   import { useSettingsStore } from '@/store/modules/settings'
-  import { translateTitle } from '@/utils/i18n'
+  import { translate } from '@/i18n'
   import { getList } from '@/api/notice'
 
   const $baseMessage: any = inject('$baseMessage')
@@ -42,7 +42,7 @@
         <vab-icon icon="notification-line" />
       </template>
       <el-tabs v-model="activeName" @tab-click="handleClick">
-        <el-tab-pane :label="translateTitle('通知')" name="notice">
+        <el-tab-pane :label="translate('通知')" name="notice">
           <div class="notice-list">
             <el-scrollbar>
               <ul>
@@ -54,7 +54,7 @@
             </el-scrollbar>
           </div>
         </el-tab-pane>
-        <el-tab-pane :label="translateTitle('邮件')" name="email">
+        <el-tab-pane :label="translate('邮件')" name="email">
           <div class="notice-list">
             <el-scrollbar>
               <ul>
@@ -70,7 +70,7 @@
       <div class="notice-clear" @click="handleClearNotice">
         <el-button text type="primary">
           <vab-icon icon="close-circle-line" />
-          <span>{{ translateTitle('清空消息') }}</span>
+          <span>{{ translate('清空消息') }}</span>
         </el-button>
       </div>
     </el-popover>

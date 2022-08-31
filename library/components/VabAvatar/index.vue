@@ -1,7 +1,7 @@
 <script lang="ts" setup>
   import { useUserStore } from '@/store/modules/user'
   import { toLoginRoute } from '@/utils/routes'
-  import { translateTitle } from '@/utils/i18n'
+  import { translate } from '@/i18n'
   import { VabRoute } from '/#/router'
 
   const route: VabRoute = useRoute()
@@ -46,11 +46,11 @@
       <el-dropdown-menu>
         <el-dropdown-item command="personalCenter">
           <vab-icon icon="user-line" />
-          <span>{{ translateTitle('个人中心') }}</span>
+          <span>{{ translate('个人中心') }}</span>
         </el-dropdown-item>
         <el-dropdown-item command="logout">
           <vab-icon icon="logout-circle-r-line" />
-          <span>{{ translateTitle('退出登录') }}</span>
+          <span>{{ translate('退出登录') }}</span>
         </el-dropdown-item>
       </el-dropdown-menu>
     </template>

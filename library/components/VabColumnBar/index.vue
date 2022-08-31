@@ -1,7 +1,7 @@
 <script lang="ts" setup>
   import { VabRoute } from '/#/router'
   import { isExternal } from '@/utils/validate'
-  import { translateTitle } from '@/utils/i18n'
+  import { translate } from '@/i18n'
   import { useRoutesStore } from '@/store/modules/routes'
   import { defaultOpeneds, openFirstMenu, uniqueOpened } from '@/config'
   import { useSettingsStore } from '@/store/modules/settings'
@@ -66,7 +66,7 @@
               :class="{
                 ['vab-column-grid-' + theme.columnStyle]: true,
               }"
-              :title="translateTitle(item.meta.title)"
+              :title="translate(item.meta.title)"
             >
               <div>
                 <vab-icon
@@ -75,7 +75,7 @@
                   :is-custom-svg="item.meta.isCustomSvg"
                 />
                 <span>
-                  {{ translateTitle(item.meta.title) }}
+                  {{ translate(item.meta.title) }}
                 </span>
               </div>
             </div>
@@ -92,7 +92,7 @@
       :unique-opened="uniqueOpened"
     >
       <el-divider>
-        {{ translateTitle(tabMenu ? tabMenu.meta.title : '') }}
+        {{ translate(tabMenu ? tabMenu.meta.title : tabMenu) }}
       </el-divider>
       <template v-for="item in partialRoutes" :key="item.path">
         <vab-menu v-if="!item.meta.hidden" :item="item" />

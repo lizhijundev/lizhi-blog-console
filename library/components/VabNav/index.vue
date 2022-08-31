@@ -1,6 +1,6 @@
 <script lang="ts" setup>
   import { useRoutesStore } from '@/store/modules/routes'
-  import { translateTitle } from '@/utils/i18n'
+  import { translate } from '@/i18n'
   import { isExternal } from '@/utils/validate'
   import { openFirstMenu } from '@/config'
 
@@ -54,7 +54,7 @@
                     :is-custom-svg="item.meta.isCustomSvg"
                     style="min-width: 16px"
                   />
-                  <span>{{ translateTitle(item.meta.title) }}</span>
+                  <span>{{ translate(item.meta.title) }}</span>
                 </template>
               </el-tab-pane>
             </template>

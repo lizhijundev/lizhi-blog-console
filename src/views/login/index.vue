@@ -99,7 +99,7 @@
 <script>
   import { useSettingsStore } from '@/store/modules/settings'
   import { useUserStore } from '@/store/modules/user'
-  import { translateTitle } from '@/utils/i18n'
+  import { translate } from '@/i18n'
   import { isPassword } from '@/utils/validate'
   import { onBeforeRouteLeave } from 'vue-router'
 
@@ -122,12 +122,12 @@
       const login = (form) => userStore.login(form)
 
       const validateUsername = (rule, value, callback) => {
-        if ('' === value) callback(new Error(translateTitle('用户名不能为空')))
+        if ('' === value) callback(new Error(translate('用户名不能为空')))
         else callback()
       }
       const validatePassword = (rule, value, callback) => {
         if (!isPassword(value))
-          callback(new Error(translateTitle('密码不能少于6位')))
+          callback(new Error(translate('密码不能少于6位')))
         else callback()
       }
 
@@ -224,7 +224,7 @@
       })
 
       return {
-        translateTitle,
+        translateTitle: translate,
         ...toRefs(state),
         title: settingsStore.getTitle,
         handlePassword,

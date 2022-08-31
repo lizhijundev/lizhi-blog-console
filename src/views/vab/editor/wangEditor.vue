@@ -1,23 +1,11 @@
 <template>
   <div class="wang-editor-container">
-    <!--
-    重要提示：
-    截至2022年1月15日，wangEditor-5 beta版本目前无法直接初始化html数据，仅能初始化chidren节点数据接口，
-    这意味着数据库需要分别保存html与content，如果有编辑回显功能时，您可能需要增加大量额外工作量来处理回显
-    介意者请勿使用，详见：https://www.wangeditor.com/v5/guide/getting-started.html#content-%E5%88%9D%E5%A7%8B%E5%8C%96%E5%86%85%E5%AE%B9 -->
-    <Toolbar
-      :editor="editorRef"
-      :mode="mode"
-      style="border-bottom: 1px solid #e8e8e8"
-    />
+    <Toolbar :editor="editorRef" style="border-bottom: 1px solid #e8e8e8" />
     <Editor
+      v-model="html"
       class="wang-editor-content"
       :default-config="editorConfig"
-      :default-content="defaultContent"
-      :default-html="defaultHtml"
-      :mode="mode"
       style="height: 300px"
-      @on-change="handleChange"
       @on-created="handleCreated"
     />
     <div class="wang-editor-footer">
@@ -27,6 +15,7 @@
 </template>
 
 <script lang="ts">
+  import '@wangeditor/editor/dist/css/style.css'
   import { IDomEditor } from '@wangeditor/editor'
   import { Editor, Toolbar } from '@wangeditor/editor-for-vue'
 
@@ -35,89 +24,25 @@
     components: { Editor, Toolbar },
     setup() {
       const $baseMessage: any = inject('$baseMessage')
-      const flag = ref(false)
-      const mode = 'default'
+      const $baseAlert: any = inject('$baseAlert')
       const editorRef = shallowRef<IDomEditor | undefined>(undefined)
-      const defaultContent = ref([
-        {
-          type: 'header1',
-          children: [
-            {
-              text: '一级标题',
-            },
-          ],
-        },
-        {
-          type: 'header2',
-          children: [
-            {
-              text: '二级标题',
-            },
-          ],
-        },
-        {
-          type: 'header3',
-          children: [
-            {
-              text: '三级标题',
-            },
-          ],
-        },
-        {
-          type: 'paragraph',
-          children: [{ text: 'hello world ~~~ ' }],
-        },
-        {
-          type: 'blockquote',
-          children: [{ text: 'blockquote' }],
-        },
-        {
-          type: 'pre',
-          children: [
-            {
-              type: 'code',
-              language: 'javascript',
-              children: [{ text: 'const a = 100;' }],
-            },
-          ],
-        },
-        {
-          type: 'paragraph',
-          children: [
-            {
-              type: 'image',
-              src:
-                'https://fastly.jsdelivr.net/gh/' +
-                'chuzh' +
-                'ixin/image' +
-                '/table/vab-image-1.jpg',
-              children: [{ text: '' }],
-            },
-          ],
-        },
-      ])
-      const defaultHtml = ''
-      const editorConfig = {
+      const html = ref(
+        '<h1>一级标题</h1><h2>二级标题</h2><h3>三级标题</h3><p>hello world ~~~ </p><blockquote>blockquote</blockquote><pre><code class="language-javascript">const a = 100;</code></pre><p><img src="https://fastly.jsdelivr.net/gh/chuzhixin/image/table/vab-image-1.jpg" alt="" data-href="" style=""/></p>'
+      )
+      const editorConfig = ref({
         placeholder: '请输入内容...',
-        MENU_CONF: {},
-      }
+        MENU_CONF: {
+          uploadImage: {
+            server: '', // 你的服务器地址，注意：当前接口格式特殊与其他vab接口不同，请查看vip文档
+            fieldName: 'vab-file-name',
+            allowedFileTypes: ['image/*'],
+            headers: {}, // 如需传递token请写到在这里
+          },
+        },
+      })
 
       const handleCreated = (editor: IDomEditor) => {
         editorRef.value = editor
-      }
-      const handleChange = (editor: IDomEditor) => {
-        console.log('change:', editor.getText())
-      }
-      const handlePaste = (
-        editor: IDomEditor,
-        event: ClipboardEvent,
-        callback: (val: boolean) => void
-      ) => {
-        editor.insertText('test')
-        callback(false)
-      }
-      const handleCreateEditor = () => {
-        flag.value = !flag.value
       }
       onBeforeUnmount(() => {
         const editor = editorRef.value
@@ -126,27 +51,21 @@
       })
 
       const onSubmit = () => {
+        $baseAlert(html.value)
         $baseMessage('模拟保存成功', 'success', 'vab-hey-message-success')
       }
 
       return {
-        flag,
         editorRef,
-        mode,
-        defaultHtml,
-        defaultContent,
+        html,
         editorConfig,
         handleCreated,
-        handleChange,
-        handlePaste,
-        handleCreateEditor,
         onSubmit,
       }
     },
   })
 </script>
 
-<style src="@wangeditor/editor/dist/css/style.css"></style>
 <style lang="scss">
   .wang-editor-container {
     padding: 0 !important;

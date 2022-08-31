@@ -1,6 +1,7 @@
 import { createApp } from 'vue'
 import App from './App.vue'
 import { setupVab } from '~/library'
+import { setupI18n } from '@/i18n'
 import { setupStore } from '@/store'
 import { setupRouter } from '@/router'
 
@@ -25,6 +26,7 @@ if (process.env.NODE_ENV === 'development') app.config.performance = true
 if (pwa) require('./registerServiceWorker')
 
 setupVab(app)
+setupI18n(app)
 setupStore(app)
 setupRouter(app)
   .isReady()

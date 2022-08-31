@@ -2,7 +2,7 @@
   import { useSettingsStore } from '@/store/modules/settings'
   import getPageTitle from '@/utils/pageTitle'
   import { VabRoute } from '/#/router'
-  import i18n from '@/i18n'
+  const { locale } = useI18n()
 
   const route: VabRoute = useRoute()
 
@@ -12,7 +12,7 @@
 
   const handleCommand = (language: string) => {
     changeLanguage(language)
-    i18n.global.locale = language
+    locale.value = language
     document.title = getPageTitle(route.meta.title)
   }
 </script>

@@ -1,7 +1,7 @@
 <script lang="ts" setup>
   import { useUserStore } from '@/store/modules/user'
   import { useSettingsStore } from '@/store/modules/settings'
-  import { translateTitle } from '@/utils/i18n'
+  import { translate } from '@/i18n'
 
   const vFocus: any = {
     mounted(el: HTMLElement) {
@@ -87,7 +87,7 @@
         <div class="vab-screen-lock-content-title">
           <el-avatar :size="180" :src="avatar" />
           <vab-icon :icon="lockIcon ? 'lock-line' : 'lock-unlock-line'" />
-          {{ title }} {{ translateTitle('屏幕已锁定') }}
+          {{ title }} {{ translate('屏幕已锁定') }}
         </div>
         <div class="vab-screen-lock-content-form">
           <el-form ref="formRef" :model="form" :rules="rules" @submit.prevent>
@@ -108,14 +108,14 @@
                     <vab-icon
                       :icon="lockIcon ? 'lock-line' : 'lock-unlock-line'"
                     />
-                    {{ translateTitle('解锁') }}
+                    {{ translate('解锁') }}
                   </el-button>
                 </template>
               </el-input>
             </el-form-item>
           </el-form>
         </div>
-        <span @click="randomBackground">{{ translateTitle('切换壁纸') }}</span>
+        <span @click="randomBackground">{{ translate('切换壁纸') }}</span>
       </div>
     </div>
   </transition>

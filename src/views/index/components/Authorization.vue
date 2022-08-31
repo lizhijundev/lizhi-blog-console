@@ -30,6 +30,7 @@
 
 <script>
   import _ from 'lodash'
+  import { onBeforeRouteLeave } from 'vue-router'
   import VabChart from '@/plugins/VabChart'
   import VabCount from '@/plugins/VabCount'
   import { useSettingsStore } from '@/store/modules/settings'
@@ -126,10 +127,11 @@
         }
       )
 
-      onUnmounted(() => {
-        state.timer = null
+      onBeforeRouteLeave((to, from, next) => {
         clearInterval(state.timer)
+        next()
       })
+
       onMounted(() => {
         state.timer = setInterval(() => {
           if (state.n > 0) {
