@@ -51,7 +51,7 @@
   <el-dialog
     v-model="state.dialogVisible"
     append-to-body
-    custom-class="vab-update"
+    class="vab-update"
     width="410px"
     @close="close"
   >

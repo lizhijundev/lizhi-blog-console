@@ -516,6 +516,17 @@ export const asyncRoutes: VabRouteRecord[] = [
         },
       },
       {
+        path: 'watermark',
+        name: 'Watermark',
+        component: () => import('@/views/other/watermark/index.vue'),
+        meta: {
+          title: '水印',
+          guard: ['Admin'],
+          icon: 'water-flash-line',
+          dot: true,
+        },
+      },
+      {
         path: 'share',
         name: 'Share',
         component: () => import('@/views/other/share/index.vue'),
@@ -937,6 +948,17 @@ export const asyncRoutes: VabRouteRecord[] = [
         meta: {
           title: '菜单管理',
           icon: 'menu-2-fill',
+        },
+      },
+      {
+        path: 'dictionaryManagement',
+        name: 'DictionaryManagement',
+        component: () =>
+          import('@/views/setting/dictionaryManagement/index.vue'),
+        meta: {
+          title: '字典管理',
+          icon: 'book-2-line',
+          dot: true,
         },
       },
       {

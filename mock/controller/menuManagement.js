@@ -1,6 +1,6 @@
 module.exports = [
   {
-    url: '/menuManagement/getList',
+    url: '/menuManagement/getTree',
     type: 'get',
     response() {
       return {

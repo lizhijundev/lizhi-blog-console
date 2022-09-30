@@ -51,7 +51,7 @@
         <span>文字按钮</span>
       </template>
       <el-button text type="primary">文字按钮</el-button>
-      <el-button disabled type="text">文字按钮</el-button>
+      <el-button disabled text>文字按钮</el-button>
     </vab-card>
 
     <vab-card shadow="hover">
@@ -64,7 +64,7 @@
       <el-button :icon="Search" type="primary">搜索</el-button>
       <el-button type="primary">
         上传
-        <i class="el-icon-upload el-icon--right" />
+        <el-icon class="el-icon--right"><Upload /></el-icon>
       </el-button>
     </vab-card>
 
@@ -95,7 +95,7 @@
         <el-button :icon="ArrowLeft" type="primary">上一页</el-button>
         <el-button type="primary">
           下一页
-          <i class="el-icon-arrow-right el-icon--right" />
+          <el-icon class="el-icon--right"><ArrowRight /></el-icon>
         </el-button>
       </el-button-group>
       <el-button-group>
@@ -133,10 +133,12 @@
     Search,
     Share,
     Star,
+    Upload,
   } from '@element-plus/icons-vue'
 
   export default defineComponent({
     name: 'Button',
+    components: { ArrowRight, Upload },
     setup() {
       return {
         Search,
@@ -147,7 +149,6 @@
         Delete,
         ArrowLeft,
         Share,
-        ArrowRight,
       }
     },
   })

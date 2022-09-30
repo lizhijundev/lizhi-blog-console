@@ -11,7 +11,13 @@ import { setupRouter } from '@/router'
 import { baseURL, pwa } from './config'
 import { isExternal } from '@/utils/validate'
 
+import * as ElementPlusIconsVue from '@element-plus/icons-vue'
+
 const app = createApp(App)
+
+for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+  app.component(key, component)
+}
 
 if (process.env.NODE_ENV === 'production' && !isExternal(baseURL)) {
   const { mockXHR } = require('@/utils/static')

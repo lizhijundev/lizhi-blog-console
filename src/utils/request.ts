@@ -129,8 +129,8 @@ const handleData = async ({ config, data, status, statusText }: any) => {
       // return data
       return data
     case 401:
-      resetAll().then(() => {
-        router.push({ path: '/login', replace: true }).then(() => {})
+      router.push({ path: '/login', replace: true }).then(() => {
+        resetAll().then(() => {})
       })
       break
     case 402:

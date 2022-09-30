@@ -1,8 +1,8 @@
 <template>
   <el-dialog
     v-model="dialogVisible"
+    class="vab-copper-dialog"
     :close-on-click-modal="false"
-    custom-class="vab-copper-dialog"
     title="头像裁剪"
     width="470px"
   >

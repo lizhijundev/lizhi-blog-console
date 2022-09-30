@@ -44,7 +44,7 @@ const List = [
       {
         path: 'store',
         name: 'Store',
-        component: '@/views/index/store.vue',
+        component: '@/views/index/store',
         meta: {
           title: '仓库',
           icon: 'app-store-line',
@@ -89,7 +89,7 @@ const List = [
           {
             path: 'customSvg',
             name: 'CustomSvg',
-            component: '@/views/vab/icon/customSvg.vue',
+            component: '@/views/vab/icon/customSvg',
             meta: {
               title: '自定义图标',
             },
@@ -462,6 +462,17 @@ const List = [
         },
       },
       {
+        path: 'watermark',
+        name: 'Watermark',
+        component: '@/views/other/watermark/index',
+        meta: {
+          title: '水印',
+          guard: ['Admin'],
+          icon: 'water-flash-line',
+          dot: true,
+        },
+      },
+      {
         path: 'share',
         name: 'Share',
         component: '@/views/other/share/index',
@@ -579,7 +590,7 @@ const List = [
       {
         path: 'noLayout',
         name: 'NoLayout',
-        component: '@/views/other/noLayout/index.vue',
+        component: '@/views/other/noLayout/index',
         meta: {
           title: '无框',
           guard: ['Admin'],
@@ -878,6 +889,16 @@ const List = [
         meta: {
           title: '菜单管理',
           icon: 'menu-2-fill',
+        },
+      },
+      {
+        path: 'dictionaryManagement',
+        name: 'DictionaryManagement',
+        component: '@/views/setting/dictionaryManagement/index',
+        meta: {
+          title: '字典管理',
+          icon: 'book-2-line',
+          dot: true,
         },
       },
       {
