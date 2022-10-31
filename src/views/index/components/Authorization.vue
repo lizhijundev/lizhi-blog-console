@@ -30,7 +30,6 @@
 
 <script>
   import _ from 'lodash'
-  import { onBeforeRouteLeave } from 'vue-router'
   import VabChart from '@/plugins/VabChart'
   import VabCount from '@/plugins/VabCount'
   import { useSettingsStore } from '@/store/modules/settings'

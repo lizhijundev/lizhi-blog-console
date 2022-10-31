@@ -1,6 +1,4 @@
 <script lang="ts" setup>
-  import { onBeforeRouteLeave } from 'vue-router'
-
   defineProps({
     header: {
       type: String,

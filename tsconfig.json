@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "incremental": true,
     "target": "es5",
     "module": "esnext",
     "strict": true,
@@ -17,7 +18,7 @@
     "sourceMap": true,
     "baseUrl": ".",
     "outDir": "./dist",
-    "types": ["element-plus/global", "webpack-env"],
+    "types": ["element-plus/global", "webpack-env", "node", "jest"],
     "paths": {
       "~/*": ["*"],
       "@/*": ["./src/*"],
@@ -35,7 +36,8 @@
     "types/**/*.d.ts",
     "library/**/*.ts",
     "library/**/*.tsx",
-    "library/**/*.vue"
+    "library/**/*.vue",
+    "test/**/*.ts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules", "library/build/chainWebpack"]
 }

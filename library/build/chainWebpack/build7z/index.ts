@@ -3,7 +3,6 @@ const { outputDir, abbreviation } = require('../../../../src/config')
 const FileManagerPlugin = require('filemanager-webpack-plugin')
 
 module.exports = {
-  // @ts-ignore
   createBuild7z: (config) => {
     config.plugin('fileManager').use(FileManagerPlugin, [
       {

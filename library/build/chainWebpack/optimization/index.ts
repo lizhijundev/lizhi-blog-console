@@ -1,9 +1,7 @@
 const rely = require('vue-plug' + 'in-rely')
-// @ts-ignore
 const { resolve } = require('path')
 
 module.exports = {
-  // @ts-ignore
   createOptimization: (config) => {
     process.env['VUE_AP' + 'P_RELY'] = rely
     config.performance.set('hints', false)

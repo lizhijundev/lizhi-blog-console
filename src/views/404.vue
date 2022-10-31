@@ -1,6 +1,5 @@
 <script setup>
   import { useTabsStore } from '@/store/modules/tabs'
-  import { onBeforeRouteLeave } from 'vue-router'
 
   const route = useRoute()
   const router = useRouter()

@@ -101,7 +101,6 @@
   import { useUserStore } from '@/store/modules/user'
   import { translate } from '@/i18n'
   import { isPassword } from '@/utils/validate'
-  import { onBeforeRouteLeave } from 'vue-router'
 
   export default defineComponent({
     name: 'Login',

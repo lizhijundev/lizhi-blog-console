@@ -1,18 +1,20 @@
 <script lang="ts" setup>
   import { pwa } from '@/config'
-  const { locale, messages } = useI18n()
+  import { enLocale, zhLocale } from '@/i18n/index'
+  const { locale: language } = useI18n()
+
+  const locale = computed(() => (language.value === 'en' ? enLocale : zhLocale))
 
   const VabUpdate = defineAsyncComponent(
     () => import('@/plugins/VabUpdate/index.vue')
   )
 </script>
-
 <template>
   <el-config-provider
     :button="{
       autoInsertSpace: true,
     }"
-    :locale="messages[locale]"
+    :locale="locale"
   >
     <router-view v-slot="{ Component }">
       <component :is="Component" />

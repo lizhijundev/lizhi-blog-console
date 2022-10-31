@@ -10,6 +10,7 @@ module.exports = {
   createVuePlugin: () => [
     ...createDefineOptions(),
     ...createUnPlugin(),
+    require('unplugin-element-plus/webpack')(),
     ...createWebpackBar(),
     ...createDefinePlugin(),
     ...createProvidePlugin(),

@@ -94,7 +94,6 @@
 </template>
 
 <script>
-  import { onBeforeRouteLeave } from 'vue-router'
   import { translate } from '@/i18n'
   import { isPassword, isPhone } from '@/utils/validate'
   import { register } from '@/api/user'

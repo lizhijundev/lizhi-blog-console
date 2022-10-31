@@ -642,16 +642,6 @@ export const asyncRoutes: VabRouteRecord[] = [
           dot: true,
         },
       },
-      // {
-      //   path: 'loading',
-      //   name: 'Loading',
-      //   component: () => import('@/views/other/loading.vue'),
-      //   meta: {
-      //     title: '加载',
-      //     guard: ['Admin'],
-      //     icon: 'loader-line',
-      //   },
-      // },
       {
         path: 'player',
         name: 'Player',

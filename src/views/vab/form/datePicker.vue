@@ -117,6 +117,7 @@
 
       .el-input {
         width: 180px;
+        margin-bottom: 10px;
 
         &:first-child {
           margin-right: 10px;
@@ -124,7 +125,6 @@
 
         & + .el-input {
           margin-right: 10px;
-          margin-bottom: 10px;
           margin-left: 0;
         }
       }

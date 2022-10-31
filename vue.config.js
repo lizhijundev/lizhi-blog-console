@@ -43,6 +43,7 @@ module.exports = defineConfig({
   lintOnSave,
   transpileDependencies,
   devServer: {
+    compress: true,
     client: {
       progress: true,
       overlay: {
@@ -134,7 +135,7 @@ module.exports = defineConfig({
             'library/styles/variables/variables.module.scss'
           )
             return (
-              '@use "sass:math";@import "~@vab/styles/variables/variables.module.scss";' +
+              '@use "sass:math";@use "~@vab/styles/variables/variables.module.scss" as *;' +
               content
             )
           return content

@@ -577,16 +577,6 @@ const List = [
           },
         ],
       },
-      // {
-      //   path: 'loading',
-      //   name: 'Loading',
-      //   component: '@/views/other/loading',
-      //   meta: {
-      //     title: '加载',
-      //     guard: ['Admin'],
-      //     icon: 'loader-line',
-      //   },
-      // },
       {
         path: 'noLayout',
         name: 'NoLayout',

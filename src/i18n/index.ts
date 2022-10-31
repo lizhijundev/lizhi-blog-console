@@ -6,14 +6,13 @@ import en from './locales/en.json'
 import enLocale from 'element-plus/lib/locale/lang/en'
 import zhLocale from 'element-plus/lib/locale/lang/zh-cn'
 
+export { enLocale, zhLocale }
+
 const messages: Record<LanguageType, any> = {
   en: {
     ...en,
-    ...enLocale,
   },
-  zh: {
-    ...zhLocale,
-  },
+  zh: {},
 }
 
 function getLanguage() {

@@ -8,7 +8,6 @@ const { createImageCompression } = require('./imageCompression/index.ts')
 const { build7z, buildGzip, imageCompression } = require('../../../src/config')
 
 module.exports = {
-  // @ts-ignore
   createChainWebpack: (env, config) => {
     config.resolve.symlinks(true)
     createBanner(config)

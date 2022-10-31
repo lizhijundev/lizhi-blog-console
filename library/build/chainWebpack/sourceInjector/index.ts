@@ -1,7 +1,6 @@
 const injector = require.resolve('./injector.ts')
 
 module.exports = {
-  // @ts-ignore
   createSourceInjector: (config) => {
     config.module
       .rule('vue')

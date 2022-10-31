@@ -1,8 +1,6 @@
-// @ts-ignore
 const { resolve } = require('path')
 
 module.exports = {
-  // @ts-ignore
   createSvgSprite: (config) => {
     config.module.rule('svg').exclude.add(resolve('src/icon'))
     config.module

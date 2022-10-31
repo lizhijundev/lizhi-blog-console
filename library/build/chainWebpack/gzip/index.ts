@@ -2,7 +2,6 @@ const productionGzipExtensions = ['html', 'js', 'css', 'svg']
 const CompressionWebpackPlugin = require('compression-webpack-plugin')
 
 module.exports = {
-  // @ts-ignore
   createGzip: (config) => {
     config.plugin('compression').use(CompressionWebpackPlugin, [
       {
