@@ -63,6 +63,7 @@
 </template>
 
 <style lang="scss" scoped>
+  @use 'sass:math';
   :deep(.el-tag) {
     position: absolute;
     right: 20px;

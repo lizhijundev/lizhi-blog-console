@@ -102,6 +102,7 @@
 </template>
 
 <style lang="scss" scoped>
+  @use 'sass:math';
   @mixin active {
     &:hover {
       color: var(--el-color-primary);

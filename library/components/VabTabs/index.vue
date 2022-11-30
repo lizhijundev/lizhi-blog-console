@@ -313,6 +313,7 @@
 </template>
 
 <style lang="scss" scoped>
+  @use 'sass:math';
   .vab-tabs {
     position: relative;
     box-sizing: border-box;

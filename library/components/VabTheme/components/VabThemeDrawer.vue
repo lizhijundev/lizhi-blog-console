@@ -26,11 +26,13 @@
     await resetTheme()
     await updateTheme()
     state.drawerVisible = false
+    if (document.body.getBoundingClientRect().width - 1 < 992) location.reload()
   }
 
   const handleSaveTheme = async () => {
     await saveTheme()
     state.drawerVisible = false
+    if (document.body.getBoundingClientRect().width - 1 < 992) location.reload()
   }
 
   const shuffle = (val: string | boolean, list: (string | boolean)[]) =>
@@ -351,6 +353,7 @@
 </template>
 
 <style lang="scss">
+  @use 'sass:math';
   .vab-drawer {
     .el-drawer__header {
       padding: $base-padding $base-padding 0 $base-padding;

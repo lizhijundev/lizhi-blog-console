@@ -345,6 +345,7 @@
 </script>
 
 <style lang="scss" scoped>
+  @use 'sass:math';
   .custom-table-container {
     :deep() {
       i {

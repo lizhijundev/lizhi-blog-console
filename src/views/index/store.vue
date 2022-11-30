@@ -28,11 +28,11 @@
 <template>
   <div class="store-container">
     <el-row :gutter="20">
-      <el-col :lg="18" :md="12" :sm="24" :xl="18" :xs="24">
+      <el-col :lg="16" :md="12" :sm="24" :xl="16" :xs="24">
         <store-header />
         <store-left />
       </el-col>
-      <el-col :lg="6" :md="12" :sm="24" :xl="6" :xs="24">
+      <el-col :lg="8" :md="12" :sm="24" :xl="8" :xs="24">
         <store-card />
         <store-carousel />
         <store-list />

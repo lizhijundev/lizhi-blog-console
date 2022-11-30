@@ -5,6 +5,7 @@
 </template>
 
 <style lang="scss" scoped>
+  @use 'sass:math';
   @mixin panel {
     display: flex;
     flex-wrap: wrap;

@@ -155,6 +155,7 @@
 </script>
 
 <style lang="scss" scoped>
+  @use 'sass:math';
   .remix-icon-container {
     :deep() {
       .el-form--inline {

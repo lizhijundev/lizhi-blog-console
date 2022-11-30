@@ -273,6 +273,10 @@ html {
         --el-tag-border-color: var(--el-color-primary);
         --el-tag-hover-color: var(--el-color-primary-2);
       }
+
+      &.is-round {
+        border-radius: var(--el-border-radius-round);
+      }
     }
 
     /* .el-select-tags */

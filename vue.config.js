@@ -45,9 +45,9 @@ module.exports = defineConfig({
   devServer: {
     compress: true,
     client: {
-      progress: true,
+      progress: false,
       overlay: {
-        warnings: true,
+        warnings: false,
         errors: true,
       },
     },
@@ -115,10 +115,10 @@ module.exports = defineConfig({
   chainWebpack(config) {
     createChainWebpack(process.env.NODE_ENV, config)
   },
-  runtimeCompiler: true,
+  runtimeCompiler: false,
   productionSourceMap: false,
   css: {
-    sourceMap: true,
+    sourceMap: false,
     extract:
       process.env.NODE_ENV === 'production'
         ? {
@@ -135,7 +135,7 @@ module.exports = defineConfig({
             'library/styles/variables/variables.module.scss'
           )
             return (
-              '@use "sass:math";@use "~@vab/styles/variables/variables.module.scss" as *;' +
+              '@use "~@vab/styles/variables/variables.module.scss" as *;' +
               content
             )
           return content

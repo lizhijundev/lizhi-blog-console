@@ -926,10 +926,19 @@ const List = [
       {
         path: 'eyeDropper',
         name: 'EyeDropper',
-        component: '@/views/tools/eyeDropper',
+        component: '@/views/tools/EyeDropper.vue',
         meta: {
           title: '取色器',
           icon: 'contrast-drop-line',
+        },
+      },
+      {
+        path: 'speechSynthesis',
+        name: 'SpeechSynthesis',
+        component: '@/views/tools/SpeechSynthesis.vue',
+        meta: {
+          title: '语音合成',
+          icon: 'customer-service-line',
         },
       },
     ],

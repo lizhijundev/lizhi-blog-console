@@ -18,7 +18,7 @@
     <el-scrollbar>
       <table class="table">
         <tr>
-          <td @dblclick="handleUrl('vuejs/vue')">vue</td>
+          <td @dblclick="handleUrl('vuejs/core')">vue</td>
           <td>
             {{ dependencies['vue'] }}
             <el-popover
@@ -32,17 +32,19 @@
               </template>
             </el-popover>
           </td>
-          <td>unplugin-auto-import</td>
+          <td @dblclick="handleUrl('antfu/unplugin-auto-import')">
+            unplugin-auto-import
+          </td>
           <td>{{ devDependencies['unplugin-auto-import'] }}</td>
         </tr>
         <tr>
-          <td>pinia</td>
+          <td @dblclick="handleUrl('vuejs/pinia')">pinia</td>
           <td>{{ dependencies['pinia'] }}</td>
           <td>vue-router</td>
           <td>{{ dependencies['vue-router'] }}</td>
         </tr>
         <tr>
-          <td>typescript</td>
+          <td @dblclick="handleUrl('microsoft/TypeScript')">typescript</td>
           <td>{{ devDependencies['typescript'] }}</td>
           <td @dblclick="handleUrl('element-plus/element-plus')">
             element-plus

@@ -46,9 +46,8 @@
         if (val) {
           oldLayout = theme.value.layout
           foldSideBar()
-        } else {
-          openSideBar()
-        }
+        } else openSideBar()
+
         theme.value.layout = val ? 'vertical' : oldLayout
         toggleDevice(val ? 'mobile' : 'desktop')
       })
@@ -56,10 +55,13 @@
       resizeBody()
       updateTheme()
 
-      window.addEventListener('resize', resizeBody)
+      const cleanup = useEventListener('resize', () => {
+        resizeBody()
+      })
+
       onUnmounted(() => {
         if (mobile) theme.value.layout = oldLayout
-        window.removeEventListener('resize', resizeBody)
+        cleanup()
       })
 
       return {

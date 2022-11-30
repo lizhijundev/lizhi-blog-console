@@ -979,17 +979,25 @@ export const asyncRoutes: VabRouteRecord[] = [
     meta: {
       title: '工具',
       icon: 'tools-line',
-      levelHidden: true,
       guard: ['Admin'],
     },
     children: [
       {
         path: 'eyeDropper',
         name: 'EyeDropper',
-        component: () => import('@/views/tools/eyeDropper.vue'),
+        component: () => import('@/views/tools/EyeDropper.vue'),
         meta: {
           title: '取色器',
           icon: 'contrast-drop-line',
+        },
+      },
+      {
+        path: 'speechSynthesis',
+        name: 'SpeechSynthesis',
+        component: () => import('@/views/tools/SpeechSynthesis.vue'),
+        meta: {
+          title: '语音合成',
+          icon: 'customer-service-line',
         },
       },
     ],

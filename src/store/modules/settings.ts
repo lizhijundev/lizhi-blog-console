@@ -121,11 +121,6 @@ export const useSettingsStore = defineStore('settings', {
         }
       })
 
-      if (this.theme.menuWidth && this.theme.menuWidth.endsWith('px'))
-        useCssVar('--el-left-menu-width', ref(null)).value =
-          this.theme.menuWidth
-      else useCssVar('--el-left-menu-width', ref(null)).value = '266px'
-
       this.echartsGraphic1 = [
         variables['vab-color-transition'],
         variables['vab-color-primary'],
@@ -142,11 +137,17 @@ export const useSettingsStore = defineStore('settings', {
         'body'
       )[0].className = `vab-theme-${menuBackground}`
 
-      if (this.theme.background !== 'none') {
+      if (this.theme.background !== 'none')
         document
           .getElementsByTagName('body')[0]
           .classList.add(this.theme.background)
-      }
+
+      nextTick(() => {
+        const el = ref(null)
+        if (this.theme.menuWidth && this.theme.menuWidth.endsWith('px'))
+          useCssVar('--el-left-menu-width', el).value = this.theme.menuWidth
+        else useCssVar('--el-left-menu-width', el).value = '266px'
+      })
     },
     toggleCollapse() {
       this.collapse = !this.collapse
