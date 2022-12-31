@@ -1,5 +1,8 @@
 <template>
-  <div ref="containerRef" class="custom-table-container">
+  <div
+    class="custom-table-container"
+    :class="{ 'vab-fullscreen': isFullscreen }"
+  >
     <vab-query-form>
       <vab-query-form-left-panel>
         <el-form inline label-width="0" :model="queryForm" @submit.prevent>
@@ -194,6 +197,7 @@
         height: $baseTableHeight(1),
         stripe: false,
         lineHeight: 'small',
+        isFullscreen: false,
         checkList: ['标题', '作者', '评级', '点击量', '时间'],
         columns: [
           {
@@ -274,18 +278,15 @@
         fetchData()
       }
 
-      const containerRef = ref()
-      const { toggle, isFullscreen } = useFullscreen(containerRef)
       const clickFullScreen = () => {
-        toggle().then(() => {
-          handleHeight()
-          state['tableSortRef'].doLayout()
-        })
+        state.isFullscreen = !state.isFullscreen
+        handleHeight()
       }
       const handleHeight = () => {
-        if (isFullscreen.value) state.height = $baseTableHeight(1) + 200
-        else state.height = $baseTableHeight(1)
+        if (state.isFullscreen) state.height = proxy.$baseTableHeight(1) + 210
+        else state.height = proxy.$baseTableHeight(1)
       }
+
       const setSelectRows = (val) => {
         state.selectRows = val
       }
@@ -322,8 +323,6 @@
       return {
         ...toRefs(state),
         dragOptions,
-        containerRef,
-        isFullscreen,
         finallyColumns,
         handleSizeChange,
         handleCurrentChange,

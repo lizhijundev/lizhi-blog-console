@@ -1,7 +1,6 @@
 import { App } from 'vue'
 import pinia from '@/store'
 import { useSettingsStore } from '@/store/modules/settings'
-import { ElMessageBox } from 'element-plus'
 
 export default {
   install(app: App<Element>) {

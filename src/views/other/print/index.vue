@@ -32,7 +32,6 @@
 </template>
 
 <script>
-  import { ElMessageBox } from 'element-plus'
   import VabPrint from '@/plugins/VabPrint'
 
   export default defineComponent({

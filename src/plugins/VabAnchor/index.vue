@@ -51,10 +51,10 @@
         const floorObject = this.floorObject
         for (let i = 0; i <= this.floorList.length + 1; i++) {
           if (
-            val > floorObject['floor' + i] &&
-            (val <= floorObject['floor' + parseInt(i + 1)] || val <= Infinity)
+            val > floorObject[`floor${i}`] &&
+            (val <= floorObject[`floor${parseInt(i + 1)}`] || val <= Infinity)
           ) {
-            this.step = '' + i + ''
+            this.step = `${i}`
           }
         }
       },
@@ -70,7 +70,7 @@
         this.anchors(index)
       },
       anchors(item) {
-        this.pulleyRoll(this.floorObject['floor' + item], this.scrolltop)
+        this.pulleyRoll(this.floorObject[`floor${item}`], this.scrolltop)
       },
       pulleyRoll(top, distance) {
         if (distance < top) {
@@ -99,8 +99,8 @@
       },
       getFloorDistance() {
         for (let i = 0; i < this.floorList.length; i++) {
-          this.floorObject['floor' + i] = document.getElementsByClassName(
-            'floor' + i
+          this.floorObject[`floor${i}`] = document.getElementsByClassName(
+            `floor${i}`
           )[0].offsetTop
         }
       },

@@ -739,7 +739,7 @@ const VabCalendar: any = {
     const s =
       '\u9b54\u7faf\u6c34\u74f6\u53cc\u9c7c\u767d\u7f8a\u91d1\u725b\u53cc\u5b50\u5de8\u87f9\u72ee\u5b50\u5904\u5973\u5929\u79e4\u5929\u874e\u5c04\u624b\u9b54\u7faf'
     const arr = [20, 19, 21, 21, 21, 22, 23, 23, 23, 23, 22, 22]
-    return s.substr(cMonth * 2 - (cDay < arr[cMonth - 1] ? 2 : 0), 2) + '\u5ea7' //座
+    return `${s.substr(cMonth * 2 - (cDay < arr[cMonth - 1] ? 2 : 0), 2)}\u5ea7` //座
   },
 
   /**
@@ -767,12 +767,12 @@ const VabCalendar: any = {
     }
     const _table = this.sTermInfo[y - 1900]
     const _info = [
-      parseInt('0x' + _table.substr(0, 5)).toString(),
-      parseInt('0x' + _table.substr(5, 5)).toString(),
-      parseInt('0x' + _table.substr(10, 5)).toString(),
-      parseInt('0x' + _table.substr(15, 5)).toString(),
-      parseInt('0x' + _table.substr(20, 5)).toString(),
-      parseInt('0x' + _table.substr(25, 5)).toString(),
+      parseInt(`0x${_table.substr(0, 5)}`).toString(),
+      parseInt(`0x${_table.substr(5, 5)}`).toString(),
+      parseInt(`0x${_table.substr(10, 5)}`).toString(),
+      parseInt(`0x${_table.substr(15, 5)}`).toString(),
+      parseInt(`0x${_table.substr(20, 5)}`).toString(),
+      parseInt(`0x${_table.substr(25, 5)}`).toString(),
     ]
     const _calcDay = [
       _info[0].substr(0, 1),
@@ -996,14 +996,14 @@ const VabCalendar: any = {
     //该日期所属的星座
     const astro = this.toAstro(m, d)
 
-    const solarDate = y + '-' + m + '-' + d
-    const lunarDate = year + '-' + month + '-' + day
+    const solarDate = `${y}-${m}-${d}`
+    const lunarDate = `${year}-${month}-${day}`
 
     const festival = this.festival
     const lFestival = this.lFestival
 
-    const festivalDate = m + '-' + d
-    const lunarFestivalDate = month + '-' + day
+    const festivalDate = `${m}-${d}`
+    const lunarFestivalDate = `${month}-${day}`
 
     return {
       date: solarDate,
@@ -1027,7 +1027,7 @@ const VabCalendar: any = {
       isToday: isToday,
       isLeap: isLeap,
       nWeek: nWeek,
-      ncWeek: '\u661f\u671f' + cWeek,
+      ncWeek: `\u661f\u671f${cWeek}`,
       isTerm: isTerm,
       Term: Term,
       astro: astro,

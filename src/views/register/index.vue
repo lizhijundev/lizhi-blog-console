@@ -192,7 +192,7 @@
         state.timer = setInterval(() => {
           if (n > 0) {
             n--
-            state.phoneCode = translate('获取验证码 ') + n + 's'
+            state.phoneCode = `${translate('获取验证码 ') + n}s`
           } else {
             clearInterval(state.timer)
             state.phoneCode = translate('获取验证码')

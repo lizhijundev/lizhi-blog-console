@@ -27,10 +27,9 @@ const setWatermark = (str: string) => {
   div.style.left = '0px'
   div.style.position = 'fixed'
   div.style.zIndex = '100000'
-  div.style.width = document.documentElement.clientWidth + 'px'
-  div.style.height = document.documentElement.clientHeight + 'px'
-  div.style.background =
-    'url(' + can.toDataURL('image/png') + ') left top repeat'
+  div.style.width = `${document.documentElement.clientWidth}px`
+  div.style.height = `${document.documentElement.clientHeight}px`
+  div.style.background = `url(${can.toDataURL('image/png')}) left top repeat`
   document.body.appendChild(div)
   return id
 }

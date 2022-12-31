@@ -1,11 +1,5 @@
 import { App } from 'vue'
 import { loadingText, messageDuration } from '@/config'
-import {
-  ElLoading,
-  ElMessage,
-  ElMessageBox,
-  ElNotification,
-} from 'element-plus'
 import mitt from 'mitt'
 import _ from 'lodash'
 import { globalPropertiesType } from '/#/library'
@@ -24,7 +18,7 @@ export default {
         return ElLoading.service({
           lock: true,
           text,
-          spinner: index ? 'vab-loading-type' + index : index,
+          spinner: index ? `vab-loading-type${index}` : index,
           background: 'hsla(0,0%,100%,.8)',
         })
       },

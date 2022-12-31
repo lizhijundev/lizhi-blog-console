@@ -134,10 +134,7 @@ module.exports = defineConfig({
             relativePath.replace(/\\/g, '/') !==
             'library/styles/variables/variables.module.scss'
           )
-            return (
-              '@use "~@vab/styles/variables/variables.module.scss" as *;' +
-              content
-            )
+            return `@use "~@vab/styles/variables/variables.module.scss" as *;${content}`
           return content
         },
       },

@@ -246,8 +246,8 @@
         console.log('clickPlus', e, attributes)
         const { clientX, clientY } = e
         console.log(clientX, clientY)
-        this.addPanelStyle.top = clientY - 40 + 'px'
-        this.addPanelStyle.left = clientX + 'px'
+        this.addPanelStyle.top = `${clientY - 40}px`
+        this.addPanelStyle.left = `${clientX}px`
         this.showAddPanel = true
         this.addClickNode = attributes
       },

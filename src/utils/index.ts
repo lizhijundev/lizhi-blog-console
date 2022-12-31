@@ -38,7 +38,7 @@ export function parseTime(time: string | number | Date, cFormat: string) {
         return ['日', '一', '二', '三', '四', '五', '六'][value]
       }
       if (result.length > 0 && value < 10) {
-        value = '0' + value
+        value = `0${value}`
       }
       return value || 0
     }
@@ -52,7 +52,7 @@ export function parseTime(time: string | number | Date, cFormat: string) {
  * @returns {string}
  */
 export function formatTime(time: any | number | Date, option: any) {
-  if (('' + time).length === 10) {
+  if (`${time}`.length === 10) {
     time = parseInt(time) * 1000
   } else {
     time = +time
@@ -66,26 +66,18 @@ export function formatTime(time: any | number | Date, option: any) {
     return '刚刚'
   } else if (diff < 3600) {
     // less 1 hour
-    return Math.ceil(diff / 60) + '分钟前'
+    return `${Math.ceil(diff / 60)}分钟前`
   } else if (diff < 3600 * 24) {
-    return Math.ceil(diff / 3600) + '小时前'
+    return `${Math.ceil(diff / 3600)}小时前`
   } else if (diff < 3600 * 24 * 2) {
     return '1天前'
   }
   if (option) {
     return parseTime(time, option)
   } else {
-    return (
-      d.getMonth() +
-      1 +
-      '月' +
-      d.getDate() +
-      '日' +
-      d.getHours() +
-      '时' +
-      d.getMinutes() +
-      '分'
-    )
+    return `${
+      d.getMonth() + 1
+    }月${d.getDate()}日${d.getHours()}时${d.getMinutes()}分`
   }
 }
 
@@ -100,13 +92,11 @@ export function paramObj(url: string) {
     return {}
   }
   return JSON.parse(
-    '{"' +
-      decodeURIComponent(search)
-        .replace(/"/g, '\\"')
-        .replace(/&/g, '","')
-        .replace(/=/g, '":"')
-        .replace(/\+/g, ' ') +
-      '"}'
+    `{"${decodeURIComponent(search)
+      .replace(/"/g, '\\"')
+      .replace(/&/g, '","')
+      .replace(/=/g, '":"')
+      .replace(/\+/g, ' ')}"}`
   )
 }
 
@@ -182,16 +172,16 @@ export function tenBitTimestamp(time: number) {
   const date = new Date(time * 1000)
   const y = date.getFullYear()
   let m: any = date.getMonth() + 1
-  m = m < 10 ? '' + m : m
+  m = m < 10 ? `${m}` : m
   let d: any = date.getDate()
-  d = d < 10 ? '' + d : d
+  d = d < 10 ? `${d}` : d
   let h: any = date.getHours()
-  h = h < 10 ? '0' + h : h
+  h = h < 10 ? `0${h}` : h
   let minute: any = date.getMinutes()
   let second: any = date.getSeconds()
-  minute = minute < 10 ? '0' + minute : minute
-  second = second < 10 ? '0' + second : second
-  return y + '年' + m + '月' + d + '日 ' + h + ':' + minute + ':' + second //组合
+  minute = minute < 10 ? `0${minute}` : minute
+  second = second < 10 ? `0${second}` : second
+  return `${y}年${m}月${d}日 ${h}:${minute}:${second}` //组合
 }
 
 /**
@@ -203,16 +193,16 @@ export function thirteenBitTimestamp(time: number) {
   const date = new Date(time / 1)
   const y = date.getFullYear()
   let m: any = date.getMonth() + 1
-  m = m < 10 ? '' + m : m
+  m = m < 10 ? `${m}` : m
   let d: any = date.getDate()
-  d = d < 10 ? '' + d : d
+  d = d < 10 ? `${d}` : d
   let h: any = date.getHours()
-  h = h < 10 ? '0' + h : h
+  h = h < 10 ? `0${h}` : h
   let minute: any = date.getMinutes()
   let second: any = date.getSeconds()
-  minute = minute < 10 ? '0' + minute : minute
-  second = second < 10 ? '0' + second : second
-  return y + '年' + m + '月' + d + '日 ' + h + ':' + minute + ':' + second //组合
+  minute = minute < 10 ? `0${minute}` : minute
+  second = second < 10 ? `0${second}` : second
+  return `${y}年${m}月${d}日 ${h}:${minute}:${second}` //组合
 }
 
 /**
