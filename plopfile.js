@@ -1,7 +1,7 @@
-const viewGenerator = require('vab-templates-vue3/view/prompt')
-const curdGenerator = require('vab-templates-vue3/curd/prompt')
-const componentGenerator = require('vab-templates-vue3/component/prompt')
-const mockGenerator = require('vab-templates-vue3/mock/prompt')
+const viewGenerator = require('plop-templates/view/prompt')
+const curdGenerator = require('plop-templates/curd/prompt')
+const componentGenerator = require('plop-templates/component/prompt')
+const mockGenerator = require('plop-templates/mock/prompt')
 
 module.exports = (plop) => {
   plop.setGenerator('view', viewGenerator)

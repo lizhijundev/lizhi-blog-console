@@ -18,7 +18,7 @@
     "sourceMap": true,
     "baseUrl": ".",
     "outDir": "./dist",
-    "types": ["element-plus/global", "webpack-env", "node", "jest"],
+    "types": ["element-plus/global", "webpack-env", "node"],
     "paths": {
       "~/*": ["*"],
       "@/*": ["./src/*"],

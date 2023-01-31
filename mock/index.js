@@ -1,6 +1,6 @@
-const chokidarNext = require('chokidar-next')
+const chokidarNext = require('chokidar')
 const bodyParser = require('body-parser')
-const chalkNext = require('chalk-next')
+const chalkNext = require('chalk')
 const path = require('path')
 const { mock } = require('mockjs')
 const { baseURL } = require('../src/config')

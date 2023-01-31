@@ -167,16 +167,6 @@ const List = [
         ],
       },
       {
-        path: 'card',
-        name: 'Card',
-        component: '@/views/vab/card/index',
-        meta: {
-          title: '卡片',
-          guard: ['Admin'],
-          icon: 'inbox-line',
-        },
-      },
-      {
         path: 'list',
         name: 'List',
         component: '@/views/vab/list/index',
@@ -216,15 +206,6 @@ const List = [
           icon: 'edit-2-line',
         },
         children: [
-          {
-            path: 'richTextEditor',
-            name: 'RichTextEditor',
-            component: '@/views/vab/editor/richTextEditor',
-            meta: {
-              title: '富文本编辑器',
-              guard: ['Admin'],
-            },
-          },
           {
             path: 'wangEditor',
             name: 'WangEditor',

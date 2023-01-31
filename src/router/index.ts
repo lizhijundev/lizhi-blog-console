@@ -221,16 +221,6 @@ export const asyncRoutes: VabRouteRecord[] = [
         ],
       },
       {
-        path: 'card',
-        name: 'Card',
-        component: () => import('@/views/vab/card/index.vue'),
-        meta: {
-          title: '卡片',
-          guard: ['Admin'],
-          icon: 'inbox-line',
-        },
-      },
-      {
         path: 'list',
         name: 'List',
         component: () => import('@/views/vab/list/index.vue'),
@@ -270,15 +260,6 @@ export const asyncRoutes: VabRouteRecord[] = [
           icon: 'edit-2-line',
         },
         children: [
-          {
-            path: 'richTextEditor',
-            name: 'RichTextEditor',
-            component: () => import('@/views/vab/editor/richTextEditor.vue'),
-            meta: {
-              title: '富文本编辑器',
-              guard: ['Admin'],
-            },
-          },
           {
             path: 'wangEditor',
             name: 'WangEditor',
@@ -466,16 +447,6 @@ export const asyncRoutes: VabRouteRecord[] = [
         },
       },
       {
-        path: 'cropper',
-        name: 'Cropper',
-        component: () => import('@/views/other/cropper/index.vue'),
-        meta: {
-          title: '头像裁剪',
-          guard: ['Admin'],
-          icon: 'crop-line',
-        },
-      },
-      {
         path: 'notice',
         name: 'Notice',
         component: () => import('@/views/other/notice/index.vue'),
@@ -493,16 +464,6 @@ export const asyncRoutes: VabRouteRecord[] = [
           title: '时间线',
           guard: ['Admin'],
           icon: 'time-line',
-        },
-      },
-      {
-        path: 'count',
-        name: 'Count',
-        component: () => import('@/views/other/count/index.vue'),
-        meta: {
-          title: '数字自增长',
-          guard: ['Admin'],
-          icon: 'number-9',
         },
       },
       {
@@ -640,17 +601,6 @@ export const asyncRoutes: VabRouteRecord[] = [
           guard: ['Admin'],
           icon: 'aspect-ratio-line',
           dot: true,
-        },
-      },
-      {
-        path: 'player',
-        name: 'Player',
-        component: () => import('@/views/other/player/index.vue'),
-        meta: {
-          title: '视频播放器',
-          guard: ['Admin'],
-          icon: 'video-line',
-          noKeepAlive: true,
         },
       },
       {

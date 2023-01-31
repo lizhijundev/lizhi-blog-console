@@ -192,17 +192,14 @@
         </vab-card>
       </el-col>
     </el-row>
-    <vab-cropper ref="vabCropperRef" />
   </div>
 </template>
 
 <script>
   import { useUserStore } from '@/store/modules/user'
-  import VabCropper from '@/plugins/VabCropper'
 
   export default defineComponent({
     name: 'PersonalCenter',
-    components: { VabCropper },
     setup() {
       const $baseMessage = inject('$baseMessage')
 

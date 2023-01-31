@@ -1,4 +1,4 @@
-const rely = require('vue-plug' + 'in-rely')
+const rely = require('./rely')
 const { resolve } = require('path')
 
 module.exports = {
