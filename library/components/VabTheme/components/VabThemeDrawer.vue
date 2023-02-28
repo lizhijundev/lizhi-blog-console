@@ -109,7 +109,7 @@
   <el-drawer
     v-model="state.drawerVisible"
     append-to-body
-    custom-class="vab-drawer"
+    class="vab-drawer"
     direction="rtl"
     size="285px"
     :title="translate('主题配置')"
