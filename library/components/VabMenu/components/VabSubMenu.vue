@@ -1,5 +1,6 @@
 <script lang="ts" setup>
   import { translate } from '@/i18n'
+  import { useSettingsStore } from '@/store/modules/settings'
 
   defineProps({
     itemOrMenu: {
@@ -9,10 +10,16 @@
       },
     },
   })
+
+  const settingsStore: any = useSettingsStore()
+  const { theme }: any = storeToRefs(settingsStore)
 </script>
 
 <template>
-  <el-sub-menu :index="itemOrMenu.path" popper-append-to-body>
+  <el-sub-menu
+    :index="itemOrMenu.path"
+    :teleported="theme.layout == 'horizontal' ? false : true"
+  >
     <template #title>
       <vab-icon
         v-if="itemOrMenu.meta.icon"

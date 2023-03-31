@@ -150,7 +150,7 @@
 </style>
 
 <!--由于element-plus
-bug使用popper-append-to-body=false会导致多级路由无法显示，故所有菜单必须生成至body下，样式必须放到body下-->
+bug使用teleported=false会导致多级路由无法显示，故所有菜单必须生成至body下，样式必须放到body下-->
 <style lang="scss">
   @mixin menuActiveHover {
     &:hover,

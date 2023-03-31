@@ -138,12 +138,15 @@ body.vab-theme-black {
             .el-menu-item {
               @include active;
             }
-
-            .el-sub-menu.is-active {
-              .el-sub-menu__title {
-                color: var(--el-color-white) !important;
-                background-color: var(--el-color-primary) !important;
-              }
+          }
+        }
+      }
+      .right-panel {
+        [role='menubar'].el-menu--horizontal {
+          > .el-sub-menu.is-active[tabindex='0'] {
+            > .el-sub-menu__title {
+              color: var(--el-color-white) !important;
+              background-color: var(--el-color-primary) !important;
             }
           }
         }
@@ -238,63 +241,6 @@ body.vab-theme-black {
     .peg {
       box-shadow: 0 0 10px var(--el-color-primary),
         0 0 5px var(--el-color-primary) !important;
-    }
-  }
-
-  /*由于element-plus
-bug使用popper-append-to-body=false会导致多级路由无法显示，故所有菜单必须生成至body下，样式必须放到body下*/
-  @mixin menuDefalut {
-    color: var(--el-color-white) !important;
-  }
-
-  @mixin menuActiveHover {
-    &:hover,
-    &.is-active {
-      i {
-        color: var(--el-color-white) !important;
-      }
-
-      color: var(--el-color-white) !important;
-      background: var(--el-color-primary) !important;
-
-      .el-sub-menu__title {
-        i {
-          color: var(--el-color-white) !important;
-        }
-
-        color: var(--el-color-white) !important;
-        background: var(--el-color-primary) !important;
-      }
-    }
-  }
-
-  .el-menu {
-    border-right: 0 !important;
-  }
-
-  .el-menu--collapse.el-menu li.el-sub-menu.is-active > .el-sub-menu__title {
-    background-color: var(--el-color-primary) !important;
-  }
-
-  .el-popper {
-    .el-menu--horizontal,
-    .el-menu--vertical {
-      @include menuDefalut;
-
-      .el-menu.el-menu--popup {
-        @include menuDefalut;
-      }
-
-      .el-menu-item,
-      .el-sub-menu {
-        @include menuDefalut;
-        @include menuActiveHover;
-
-        .el-sub-menu__title {
-          @include menuDefalut;
-          @include menuActiveHover;
-        }
-      }
     }
   }
 }

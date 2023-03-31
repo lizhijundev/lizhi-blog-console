@@ -93,6 +93,7 @@
         <div style="color: transparent">占位符</div>
       </el-col>
     </el-row>
+    <vab-footer />
   </div>
 </template>
 
@@ -198,6 +199,9 @@
         state.codeUrl = `https://www.oschina.net/action/user/captcha?timestamp=${new Date().getTime()}`
       }
 
+      // 国家法律法规要求显示备案号 实际项目请自行为自己的备案信息及域名
+      const beianShow = ref(false)
+
       onBeforeMount(() => {
         state.form.username = 'admin'
         state.form.password = '123456'
@@ -206,6 +210,7 @@
           document.domain === 'vue-admin-beautiful.com' ||
           document.domain === 'chu1204505056.gitee.io'
         ) {
+          beianShow.value = true
           state.previewText = '（演示地址验证码可不填）'
           state.timer = setTimeout(() => {
             handleLogin()
@@ -240,128 +245,140 @@
     background: url('~@/assets/login_images/background.jpg') center center fixed
       no-repeat;
     background-size: cover;
-  }
 
-  .login-form {
-    position: relative;
-    max-width: 100%;
-    padding: 4.5vh;
-    margin: calc((100vh - 555px) / 2) 5vw 5vw;
-    overflow: hidden;
-    background: url('~@/assets/login_images/login_form.png');
-    background-size: 100% 100%;
-
-    .title {
-      font-size: 54px;
-      font-weight: 500;
-      color: var(--el-color-white);
-    }
-
-    .title-tips {
-      margin-top: 29px;
-      font-size: 26px;
-      font-weight: 400;
-      color: var(--el-color-white);
-    }
-
-    .login-btn {
-      display: inherit;
-      width: 220px;
-      height: 50px;
-      margin-top: 5px;
-      background: var(--el-color-primary);
-      border: 0;
-
-      &:hover {
-        opacity: 0.9;
-      }
-    }
-
-    .tips {
-      margin-bottom: 10px;
-      font-size: $base-font-size-default;
-      color: var(--el-color-white);
-
-      span {
-        &:first-of-type {
-          margin-right: 16px;
-        }
-      }
-    }
-
-    .title-container {
+    .login-form {
       position: relative;
+      max-width: 100%;
+      padding: 4.5vh;
+      margin: calc((100vh - 555px) / 2) 5vw 5vw;
+      overflow: hidden;
+      background: url('~@/assets/login_images/login_form.png');
+      background-size: 100% 100%;
 
       .title {
-        margin: 0 auto 40px auto;
-        font-size: 34px;
-        font-weight: bold;
-        color: var(--el-color-primary);
-        text-align: center;
+        font-size: 54px;
+        font-weight: 500;
+        color: var(--el-color-white);
       }
-    }
 
-    i {
-      position: absolute;
-      top: 8px;
-      left: 15px;
-      font-size: 16px;
-    }
+      .title-tips {
+        margin-top: 29px;
+        font-size: 26px;
+        font-weight: 400;
+        color: var(--el-color-white);
+      }
 
-    .show-password {
-      float: right;
-      width: 32px;
-      height: 32px;
-      font-size: 16px;
+      .login-btn {
+        display: inherit;
+        width: 220px;
+        height: 50px;
+        margin-top: 5px;
+        background: var(--el-color-primary);
+        border: 0;
+
+        &:hover {
+          opacity: 0.9;
+        }
+      }
+
+      .tips {
+        margin-bottom: 10px;
+        font-size: $base-font-size-default;
+        color: var(--el-color-white);
+
+        span {
+          &:first-of-type {
+            margin-right: 16px;
+          }
+        }
+      }
+
+      .title-container {
+        position: relative;
+
+        .title {
+          margin: 0 auto 40px auto;
+          font-size: 34px;
+          font-weight: bold;
+          color: var(--el-color-primary);
+          text-align: center;
+        }
+      }
+
+      i {
+        position: absolute;
+        top: 8px;
+        left: 15px;
+        font-size: 16px;
+      }
+
+      .show-password {
+        float: right;
+        width: 32px;
+        height: 32px;
+        font-size: 16px;
+      }
+
+      :deep() {
+        .el-form-item {
+          padding-right: 0;
+          margin: 20px 0;
+          color: #454545;
+          background: transparent;
+          border: 1px solid transparent;
+          border-radius: 2px;
+
+          &__content {
+            min-height: $base-input-height;
+            line-height: $base-input-height;
+          }
+
+          &__error {
+            position: absolute;
+            top: 100%;
+            left: 18px;
+            font-size: $base-font-size-small;
+            line-height: 18px;
+            color: var(--el-color-error);
+          }
+        }
+
+        .el-input {
+          box-sizing: border-box;
+
+          input {
+            height: 48px;
+            padding-left: 30px;
+            line-height: 48px;
+            border: 0;
+          }
+
+          &__suffix-inner {
+            position: absolute;
+            right: 65px;
+            cursor: pointer;
+          }
+        }
+
+        .code {
+          position: absolute;
+          top: 4px;
+          right: 4px;
+          cursor: pointer;
+          border-radius: $base-border-radius;
+        }
+      }
     }
 
     :deep() {
-      .el-form-item {
-        padding-right: 0;
-        margin: 20px 0;
-        color: #454545;
+      .vab-footer {
+        position: fixed;
+        bottom: 20px;
+        width: 100%;
+        color: #fff !important;
+        text-align: center;
         background: transparent;
-        border: 1px solid transparent;
-        border-radius: 2px;
-
-        &__content {
-          min-height: $base-input-height;
-          line-height: $base-input-height;
-        }
-
-        &__error {
-          position: absolute;
-          top: 100%;
-          left: 18px;
-          font-size: $base-font-size-small;
-          line-height: 18px;
-          color: var(--el-color-error);
-        }
-      }
-
-      .el-input {
-        box-sizing: border-box;
-
-        input {
-          height: 48px;
-          padding-left: 30px;
-          line-height: 48px;
-          border: 0;
-        }
-
-        &__suffix-inner {
-          position: absolute;
-          right: 65px;
-          cursor: pointer;
-        }
-      }
-
-      .code {
-        position: absolute;
-        top: 4px;
-        right: 4px;
-        cursor: pointer;
-        border-radius: $base-border-radius;
+        border: 0;
       }
     }
   }

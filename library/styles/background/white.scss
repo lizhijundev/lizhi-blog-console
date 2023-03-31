@@ -205,8 +205,8 @@ body.vab-theme-white {
               }
             }
 
-            .el-sub-menu.is-active {
-              .el-sub-menu__title {
+            > .el-sub-menu.is-active {
+              > .el-sub-menu__title {
                 background-color: var(--el-color-primary-light-9) !important;
                 @include active;
               }
@@ -281,79 +281,6 @@ body.vab-theme-white {
             color: var(--el-color-black) !important;
           }
         }
-      }
-    }
-  }
-
-  /*由于element-plus
- bug使用popper-append-to-body=false会导致多级路由无法显示，故所有菜单必须生成至body下，样式必须放到body下*/
-
-  .el-menu {
-    border-right: 0;
-  }
-
-  .el-popper .el-menu--vertical .el-sub-menu.is-active .el-sub-menu__title,
-  .el-menu--collapse.el-menu li.el-sub-menu.is-active > .el-sub-menu__title {
-    color: var(--el-color-primary) !important;
-    background-color: var(--el-color-primary-light-9) !important;
-
-    i {
-      color: var(--el-color-primary) !important;
-    }
-  }
-
-  .el-popper {
-    .el-menu--horizontal {
-      background: var(--el-color-white) !important;
-
-      .el-menu.el-menu--popup {
-        background: var(--el-color-white) !important;
-      }
-
-      .el-menu-item,
-      .el-sub-menu .el-sub-menu__title {
-        color: var(--el-color-black) !important;
-        background: var(--el-color-white) !important;
-      }
-
-      .el-sub-menu .el-sub-menu__title,
-      .el-menu-item {
-        @include active;
-      }
-    }
-
-    .el-menu--vertical {
-      .el-menu.el-menu--popup {
-        color: var(--el-color-black) !important;
-        background: var(--el-color-white) !important;
-      }
-
-      .el-menu-item,
-      .el-sub-menu__title {
-        color: var(--el-color-black) !important;
-        background: var(--el-color-white) !important;
-
-        i {
-          color: inherit;
-        }
-      }
-
-      .el-menu-item {
-        &:hover {
-          color: var(--el-color-primary);
-          background-color: var(--el-color-primary-light-9) !important;
-        }
-
-        &.is-active {
-          color: var(--el-color-white);
-          background-color: var(--el-color-primary-light-9) !important;
-        }
-      }
-    }
-
-    .el-menu-item {
-      &.is-active {
-        background: var(--el-color-primary) !important;
       }
     }
   }

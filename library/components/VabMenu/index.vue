@@ -1,26 +1,11 @@
 <template>
   <component :is="menuComponent" v-if="!item.meta.hidden" :item-or-menu="item">
     <template v-if="item.children && item.children.length">
-      <el-scrollbar
-        v-if="
-          (layout === 'horizontal' && item.children.length > 18) ||
-          (layout !== 'horizontal' && collapse && item.children.length > 18)
-        "
-        class="vab-menu-children-height"
-      >
-        <vab-menu
-          v-for="route in item.children"
-          :key="route.path"
-          :item="route"
-        />
-      </el-scrollbar>
-      <template v-else>
-        <vab-menu
-          v-for="route in item.children"
-          :key="route.path"
-          :item="route"
-        />
-      </template>
+      <vab-menu
+        v-for="route in item.children"
+        :key="route.path"
+        :item="route"
+      />
     </template>
   </component>
 </template>
@@ -86,7 +71,7 @@
 </style>
 
 <!--由于element-plus
-bug使用popper-append-to-body=false会导致多级路由无法显示，故所有菜单必须生成至body下，样式必须放到body下-->
+bug使用teleported=false会导致多级路由无法显示，故所有菜单必须生成至body下，样式必须放到body下-->
 <style lang="scss">
   .el-popper.is-light {
     border: 0 !important;

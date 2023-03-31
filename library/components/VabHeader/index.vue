@@ -30,7 +30,6 @@
               :default-active="activeMenu.data"
               menu-trigger="hover"
               mode="horizontal"
-              popper-append-to-body
               style="width: 100%"
               :text-color="variables['menu-color']"
             >
@@ -148,7 +147,7 @@
 
                 .el-sub-menu__icon-arrow {
                   float: right;
-                  margin-top: 7px;
+                  margin-top: -6px;
                 }
 
                 > .el-sub-menu__title {
@@ -220,78 +219,6 @@
               fill: var(--el-color-white);
             }
           }
-        }
-      }
-    }
-  }
-</style>
-
-<!--由于element-plus
-bug使用popper-append-to-body=false会导致多级路由无法显示，故所有菜单必须生成至body下，样式必须放到body下-->
-<style lang="scss">
-  @use 'sass:math';
-  @mixin menuActiveHover {
-    &:hover,
-    &.is-active {
-      i {
-        color: var(--el-color-white) !important;
-      }
-
-      color: var(--el-color-white) !important;
-      background: var(--el-color-primary) !important;
-
-      .el-sub-menu__title {
-        i {
-          color: var(--el-color-white) !important;
-        }
-
-        color: var(--el-color-white) !important;
-        background: var(--el-color-primary) !important;
-      }
-    }
-  }
-
-  .el-popper {
-    .el-menu--horizontal {
-      height: #{math.div($base-header-height, 1.4)};
-      border-bottom: 0 solid transparent !important;
-      @media only screen and (max-width: 1199px) {
-        .el-tag {
-          display: none;
-        }
-      }
-
-      .el-tag {
-        position: absolute;
-        right: 20px;
-        margin-top: 0 !important;
-      }
-
-      .vab-dot {
-        position: absolute;
-        right: 20px;
-        margin-top: 0 !important;
-      }
-
-      .el-menu-item,
-      .el-sub-menu {
-        height: #{math.div($base-header-height, 1.4)} !important;
-        line-height: #{math.div($base-header-height, 1.4)} !important;
-        @include menuActiveHover;
-
-        i,
-        svg {
-          color: inherit;
-        }
-
-        .el-sub-menu__icon-arrow {
-          float: right;
-        }
-
-        .el-sub-menu__title {
-          height: #{math.div($base-header-height, 1.4)} !important;
-          line-height: #{math.div($base-header-height, 1.4)} !important;
-          @include menuActiveHover;
         }
       }
     }
