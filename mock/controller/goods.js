@@ -1,6 +1,16 @@
 const List = [
   {
     uuid: '@uuid',
+    image: 'https://cn.vitejs.dev/logo-with-shadow.png',
+    title: 'Shop Vite',
+    price: '敬请期待',
+    label: ['极简', 'vite'],
+    company: 'vdp',
+    url: 'https://vue-admin-bea' + 'utiful.com/shop-vite',
+    description: '全新一代前端框架',
+  },
+  {
+    uuid: '@uuid',
     icon: 'dashboard-2-line',
     title: 'Dash' + 'board Pro',
     price: 'Admin Pro + Admin Plus 1299版' + '本赠品',
@@ -57,11 +67,7 @@ const List = [
   },
   {
     uuid: '@uuid',
-    image:
-      'https://fastly.jsdelivr.net/gh/' +
-      'chuzh' +
-      'ixin/image' +
-      '/goods/uview.gif',
+    image: 'https://xuqu.gitee.io/common/logo.png',
     title: 'uview',
     price: '免费',
     label: ['uniapp', '跨平台', '组件'],
@@ -72,8 +78,18 @@ const List = [
   },
   {
     uuid: '@uuid',
+    image: 'https://element.eleme.cn/2.15/favicon.ico',
+    title: 'element-plus',
+    price: '免费',
+    label: ['element', '跨平台', '组件'],
+    company: 'element-plus',
+    url: 'https://github.com/element-plus/element-plus',
+    description: '国内用户量最高的vue 前端模板',
+  },
+  {
+    uuid: '@uuid',
     title: 'form-generator',
-    icon: 'newspaper-line',
+    image: 'https://mrhj.gitee.io/form-generator/img/logo.e1bc3747.png',
     price: '免费',
     label: ['element-ui', '表单设计器'],
     company: 'form-generator',
@@ -83,11 +99,7 @@ const List = [
   {
     uuid: '@uuid',
     title: 'OPSLI',
-    image:
-      'https://fastly.jsdelivr.net/gh/' +
-      'chuzh' +
-      'ixin/image' +
-      '/goods/OPSLI.png',
+    image: 'https://www.opsli.com/static/images/favicon.ico',
     price: '免费',
     label: ['spring-boot', 'vue-admin-better'],
     company: 'OPSLI',

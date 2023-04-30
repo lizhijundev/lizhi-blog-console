@@ -152,6 +152,11 @@
           width: 100%;
           height: 200px;
 
+          :deep() {
+            img {
+              width: 100px;
+            }
+          }
           .isSvg {
             padding: 100px;
           }
