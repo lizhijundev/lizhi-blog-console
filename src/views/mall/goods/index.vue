@@ -157,6 +157,7 @@
               width: 100px;
             }
           }
+
           .isSvg {
             padding: 100px;
           }
@@ -204,8 +205,6 @@
         line-height: 20px;
         color: #767676;
         text-overflow: ellipsis;
-        box-orient: vertical;
-        line-clamp: 2;
       }
 
       .goods-detail {

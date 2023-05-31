@@ -19,7 +19,7 @@
     font-family: inherit;
     font-size: inherit;
     color: white;
-    background-color: hsl(236, 32%, 26%);
+    background-color: hsl(236deg 32% 26%);
     border: 1px solid transparent;
     transition: background-color 0.3s ease-in-out;
   }
@@ -29,7 +29,7 @@
   }
 
   input::placeholder {
-    color: hsla(0, 0%, 100%, 0.6);
+    color: hsl(0deg 0% 100% / 60%);
   }
 
   span {

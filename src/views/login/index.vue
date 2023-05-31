@@ -207,8 +207,8 @@
         state.form.password = '123456'
         // 为了演示效果，会在官网演示页自动登录到首页，正式开发可删除
         if (
-          document.domain === 'vue-admin-beautiful.com' ||
-          document.domain === 'chu1204505056.gitee.io'
+          location.hostname === 'vue-admin-beautiful.com' ||
+          location.hostname === 'chu1204505056.gitee.io'
         ) {
           beianShow.value = true
           state.previewText = '（演示地址验证码可不填）'
@@ -297,7 +297,7 @@
         position: relative;
 
         .title {
-          margin: 0 auto 40px auto;
+          margin: 0 auto 40px;
           font-size: 34px;
           font-weight: bold;
           color: var(--el-color-primary);

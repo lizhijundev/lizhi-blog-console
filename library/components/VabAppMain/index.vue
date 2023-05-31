@@ -1,9 +1,8 @@
 <script lang="ts" setup>
   import { useRoutesStore } from '@/store/modules/routes'
   import { handleActivePath } from '@/utils/routes'
-  import { VabRoute } from '/#/router'
 
-  const route: VabRoute = useRoute()
+  const route = useRoute()
 
   const routesStore: any = useRoutesStore()
   const { tab, activeMenu } = storeToRefs(routesStore)

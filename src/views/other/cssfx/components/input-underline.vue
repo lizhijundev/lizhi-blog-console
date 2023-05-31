@@ -17,7 +17,7 @@
     color: white;
     background-color: transparent;
     border: 1px solid transparent;
-    border-bottom-color: hsla(185, 100%, 62%, 0.2);
+    border-bottom-color: hsl(185deg 100% 62% / 20%);
   }
 
   input:focus {
@@ -25,7 +25,7 @@
   }
 
   input::placeholder {
-    color: hsla(0, 0%, 100%, 0.6);
+    color: hsl(0deg 0% 100% / 60%);
   }
 
   span {

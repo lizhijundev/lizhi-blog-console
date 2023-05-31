@@ -206,7 +206,7 @@
       const userStore = useUserStore()
       const { avatar } = storeToRefs(userStore)
 
-      const _description = unescape(
+      const _description = decodeURI(
         '\u5bcc\u5728\u672f\u6570\uff0c\u4e0d\u5728\u52b3\u8eab\uff1b\u5229\u5728\u52bf\u5c45\uff0c\u4e0d\u5728\u529b\u8015\u3002'
       )
 
@@ -304,7 +304,7 @@
         list-style: none;
 
         h5 {
-          margin: -20px 0 5px 0;
+          margin: -20px 0 5px;
         }
 
         :deep() {

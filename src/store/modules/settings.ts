@@ -142,12 +142,10 @@ export const useSettingsStore = defineStore('settings', {
           .getElementsByTagName('body')[0]
           .classList.add(this.theme.background)
 
-      nextTick(() => {
-        const el = ref(null)
-        if (this.theme.menuWidth && this.theme.menuWidth.endsWith('px'))
-          useCssVar('--el-left-menu-width', el).value = this.theme.menuWidth
-        else useCssVar('--el-left-menu-width', el).value = '266px'
-      })
+      const el = ref(null)
+      if (this.theme.menuWidth && this.theme.menuWidth.endsWith('px'))
+        useCssVar('--el-left-menu-width', el).value = this.theme.menuWidth
+      else useCssVar('--el-left-menu-width', el).value = '266px'
     },
     toggleCollapse() {
       this.collapse = !this.collapse

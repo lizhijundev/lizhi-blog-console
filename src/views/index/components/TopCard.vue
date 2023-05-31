@@ -130,12 +130,8 @@
 
       .bottom {
         .ri-arrow-up-line {
-          color: #fff;
-          background: transparent;
-        }
-
-        .ri-arrow-up-line {
           color: var(--el-color-primary);
+          background: transparent;
           background: var(--el-color-primary-light-9);
           transform: scale(0.8);
         }

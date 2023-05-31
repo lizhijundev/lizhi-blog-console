@@ -1,10 +1,9 @@
 <script lang="ts" setup>
   import { useSettingsStore } from '@/store/modules/settings'
   import getPageTitle from '@/utils/pageTitle'
-  import { VabRoute } from '/#/router'
   const { locale } = useI18n()
 
-  const route: VabRoute = useRoute()
+  const route = useRoute()
 
   const settingsStore = useSettingsStore()
   const { theme } = storeToRefs(settingsStore)

@@ -143,7 +143,7 @@
       border-radius: 15px;
 
       .el-dialog__body {
-        margin: 0 40px 0 40px;
+        margin: 0 40px;
       }
 
       .el-dialog__footer {

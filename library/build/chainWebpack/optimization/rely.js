@@ -12,7 +12,7 @@ const chalk = require('chalk')
       },
     })
       .then(({ data }) => {
-        if (data.code != 200) {
+        if (data.code !== 200) {
           console.log(chalk.bgRed(data.msg))
         }
       })

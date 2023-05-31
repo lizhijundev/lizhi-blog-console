@@ -161,7 +161,7 @@
       background: #e2e2e2;
       border-radius: $base-border-radius + 2;
 
-      &:after {
+      &::after {
         position: absolute;
         top: 8px;
         left: -10px;
@@ -178,7 +178,7 @@
         color: var(--el-color-white);
         background: var(--el-color-success);
 
-        &:after {
+        &::after {
           border-color: var(--el-color-success) transparent transparent;
         }
       }
@@ -187,7 +187,7 @@
         color: var(--el-color-white);
         background: var(--el-color-error);
 
-        &:after {
+        &::after {
           border-color: var(--el-color-error) transparent transparent;
         }
       }
@@ -196,7 +196,7 @@
         color: var(--el-color-white);
         background: var(--el-color-warning);
 
-        &:after {
+        &::after {
           border-color: var(--el-color-warning) transparent transparent;
         }
       }

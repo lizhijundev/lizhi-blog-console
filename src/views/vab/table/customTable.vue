@@ -66,11 +66,7 @@
         </el-popover>
         <el-popover popper-class="custom-table-checkbox" trigger="hover">
           <template #reference>
-            <el-button
-              style="margin: 0 0 10px 0 !important"
-              text
-              type="primary"
-            >
+            <el-button style="margin: 0 0 10px !important" text type="primary">
               <vab-icon icon="settings-line" />
             </el-button>
           </template>
@@ -283,8 +279,8 @@
         handleHeight()
       }
       const handleHeight = () => {
-        if (state.isFullscreen) state.height = proxy.$baseTableHeight(1) + 210
-        else state.height = proxy.$baseTableHeight(1)
+        if (state.isFullscreen) state.height = $baseTableHeight(1) + 210
+        else state.height = $baseTableHeight(1)
       }
 
       const setSelectRows = (val) => {
@@ -345,6 +341,7 @@
 
 <style lang="scss" scoped>
   @use 'sass:math';
+
   .custom-table-container {
     :deep() {
       i {

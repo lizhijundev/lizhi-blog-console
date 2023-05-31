@@ -15,7 +15,7 @@
 
   const $pub: any = inject('$pub')
 
-  const route: VabRoute = useRoute()
+  const route = useRoute()
   const router = useRouter()
 
   const settingsStore = useSettingsStore()

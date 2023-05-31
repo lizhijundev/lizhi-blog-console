@@ -10,17 +10,14 @@
     font-family: inherit;
     font-size: inherit;
     color: white;
-    background-color: hsl(236, 32%, 26%);
+    background-color: hsl(236deg 32% 26%);
     border: none;
     outline: none;
   }
 
   button::before {
     position: absolute;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
+    inset: 0;
     z-index: -1;
     content: '';
     background-color: #1890ff;

@@ -75,10 +75,7 @@
 
       &-iframe {
         position: absolute;
-        top: 10px;
-        right: 12.5px;
-        bottom: 8px;
-        left: 12px;
+        inset: 10px 12.5px 8px 12px;
         width: 325.5px;
         height: 682px;
         padding: 10px;

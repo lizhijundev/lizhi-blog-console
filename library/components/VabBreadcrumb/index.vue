@@ -2,9 +2,8 @@
   import { useRoutesStore } from '@/store/modules/routes'
   import { translate } from '@/i18n'
   import { handleMatched } from '@/utils/routes'
-  import { VabRoute } from '/#/router'
 
-  const route: VabRoute = useRoute()
+  const route = useRoute()
 
   const routesStore = useRoutesStore()
   const { getRoutes: routes } = storeToRefs(routesStore)

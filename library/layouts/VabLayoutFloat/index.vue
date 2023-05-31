@@ -62,9 +62,7 @@ bug使用teleported=false会导致多级路由无法显示，故所有菜单必�
           width: $base-right-content-width-min !important;
         }
       }
-    }
 
-    :deep() {
       .el-menu--collapse.el-menu li.el-sub-menu.is-active {
         .el-sub-menu__title {
           background-color: transparent !important;

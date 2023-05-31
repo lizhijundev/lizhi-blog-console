@@ -156,6 +156,7 @@
 
 <style lang="scss" scoped>
   @use 'sass:math';
+
   .remix-icon-container {
     :deep() {
       .el-form--inline {
@@ -190,7 +191,7 @@
           width: 100%;
           padding: 4px 0;
           font-size: $base-font-size-small;
-          color: rgb(255, 255, 255);
+          color: rgb(255 255 255);
           text-align: center;
           content: '点击复制';
           background-color: var(--el-color-primary);

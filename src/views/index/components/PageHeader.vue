@@ -50,10 +50,10 @@
   onMounted(() => {
     // 仅在开发坏境和演示地址调用首页更新提示AD，防止正式环境触发更新推广
     if (
-      document.domain.includes('vue-admin-beautiful') ||
-      document.domain.includes('chu1204505056') ||
-      document.domain.includes('localhost') ||
-      document.domain.includes('127.0.0.1')
+      location.hostname.includes('vue-admin-beautiful') ||
+      location.hostname.includes('chu1204505056') ||
+      location.hostname.includes('localhost') ||
+      location.hostname.includes('127.0.0.1')
     )
       fetchData()
   })

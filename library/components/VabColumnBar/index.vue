@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-  import { VabRoute } from '/#/router'
   import { isExternal } from '@/utils/validate'
   import { translate } from '@/i18n'
   import { useRoutesStore } from '@/store/modules/routes'
@@ -7,7 +6,7 @@
   import { useSettingsStore } from '@/store/modules/settings'
   import variables from '@vab/styles/variables/variables.module.scss'
 
-  const route: VabRoute = useRoute()
+  const route = useRoute()
   const router = useRouter()
 
   const settingsStore = useSettingsStore()
@@ -130,16 +129,6 @@
     overflow: hidden;
     background: $base-column-second-menu-background;
     box-shadow: $base-box-shadow;
-
-    :deep() {
-      * {
-        transition: $base-transition;
-      }
-
-      .el-tabs {
-        box-shadow: $base-box-shadow;
-      }
-    }
 
     &-vertical,
     &-card,
@@ -297,12 +286,17 @@
     }
 
     :deep() {
+      * {
+        transition: $base-transition;
+      }
+
       .el-scrollbar__wrap {
         overflow-x: hidden;
       }
 
       .el-tabs {
         position: fixed;
+        box-shadow: $base-box-shadow;
 
         .el-tabs__header.is-left {
           margin-right: 0 !important;

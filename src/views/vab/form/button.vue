@@ -162,8 +162,9 @@
     :deep() {
       .el-card__body {
         padding-bottom: 10px;
+
         .el-button {
-          margin: 0 10px 10px 10px;
+          margin: 0 10px 10px;
         }
       }
 

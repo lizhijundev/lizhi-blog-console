@@ -18,7 +18,7 @@
 <template>
   <el-sub-menu
     :index="itemOrMenu.path"
-    :teleported="theme.layout == 'horizontal' ? false : true"
+    :teleported="theme.layout != 'horizontal'"
   >
     <template #title>
       <vab-icon

@@ -23,13 +23,11 @@
 
 <style lang="scss" scoped>
   .vab-avatar-list {
-    :deep() {
-      .el-avatar {
-        display: inline-block;
-        margin-left: -15px;
-        cursor: pointer;
-        border: 3px solid var(--el-color-white);
-      }
+    :deep(.el-avatar) {
+      display: inline-block;
+      margin-left: -15px;
+      cursor: pointer;
+      border: 3px solid var(--el-color-white);
     }
   }
 </style>

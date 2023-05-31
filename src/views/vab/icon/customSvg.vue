@@ -33,6 +33,7 @@
 
 <style lang="scss" scoped>
   @use 'sass:math';
+
   .custom-svg-container {
     :deep() {
       .el-card__body {

@@ -7,6 +7,5 @@ module.exports = {
       .use('vue-filename-injector')
       .loader(injector)
       .after('vue-loader')
-      .end()
   },
 }

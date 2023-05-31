@@ -32,8 +32,8 @@ if (process.env.NODE_ENV === 'production') {
 
       //如果是演示环境，更新后移除主题，用不到可删除
       if (
-        document.domain === 'vue-admin-beautiful.com' ||
-        document.domain === 'chu1204505056.gitee.io'
+        location.hostname === 'vue-admin-beautiful.com' ||
+        location.hostname === 'chu1204505056.gitee.io'
       )
         localStorage.removeItem('theme')
       // gp.$baseNotify(

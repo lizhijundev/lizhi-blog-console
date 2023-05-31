@@ -23,7 +23,7 @@ export function setupPermissions(router: Router) {
     trickleSpeed: 200,
     showSpinner: false,
   })
-  router.beforeEach(async (to: { path: string }, from: any, next: any) => {
+  router.beforeEach(async (to, from, next) => {
     const {
       getTheme: { showProgressBar },
     } = useSettingsStore()

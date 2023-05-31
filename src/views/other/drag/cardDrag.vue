@@ -109,7 +109,8 @@
       margin: auto;
       font-size: 40px;
       transition: all ease-in-out 0.3s;
-      //-webkit-text-stroke: 1px #fff;
+
+      /* -webkit-text-stroke: 1px #fff; */
     }
 
     p {

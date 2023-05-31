@@ -84,7 +84,7 @@
     text-align: center;
     background-color: white;
     border-radius: 6px;
-    box-shadow: 0 0 10px 1px rgb(228, 224, 219);
+    box-shadow: 0 0 10px 1px rgb(228 224 219);
   }
 
   .node-item {

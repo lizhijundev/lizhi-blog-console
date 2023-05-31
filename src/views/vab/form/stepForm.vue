@@ -69,6 +69,7 @@
         .el-step__description.is-process {
           color: var(--el-color-primary);
         }
+
         .el-step__head {
           &.is-process {
             color: var(--el-color-primary);
@@ -79,6 +80,7 @@
               background: var(--el-color-primary-light-9);
               border: 1px solid;
             }
+
             .el-step__line {
               height: 1px;
             }
@@ -93,6 +95,7 @@
               height: 1px;
             }
           }
+
           &.is-finish {
             .el-step__icon.is-text {
               color: var(--el-color-white);

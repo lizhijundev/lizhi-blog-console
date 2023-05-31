@@ -21,7 +21,7 @@
   }
 
   span:hover {
-    color: hsla(0, 0%, 100%, 0.8);
+    color: hsl(0deg 0% 100% / 80%);
   }
 
   span:hover::before {

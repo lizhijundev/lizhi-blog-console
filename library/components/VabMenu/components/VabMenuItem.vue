@@ -3,7 +3,6 @@
   import { isExternal } from '@/utils/validate'
   import { translate } from '@/i18n'
   import { isHashRouterMode } from '@/config'
-  import { VabRoute } from '/#/router'
 
   const props = defineProps({
     itemOrMenu: {
@@ -14,7 +13,7 @@
     },
   })
 
-  const route: VabRoute = useRoute()
+  const route = useRoute()
   const router = useRouter()
 
   const $pub: any = inject('$pub')

@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 
-export function getTree(params: any) {
+export function getTree(params?: any) {
   return request({
     url: '/dictionaryManagement/getTree',
     method: 'get',
@@ -8,7 +8,7 @@ export function getTree(params: any) {
   })
 }
 
-export function getList(params: any) {
+export function getList(params?: any) {
   return request({
     url: '/dictionaryManagement/getList',
     method: 'get',

@@ -205,7 +205,7 @@
       &-image {
         display: block;
         width: 150px;
-        margin: 0 auto 20px auto;
+        margin: 0 auto 20px;
       }
 
       &-bottom {

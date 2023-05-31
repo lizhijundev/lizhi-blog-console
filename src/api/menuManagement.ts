@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 
-export function getTree(params: any) {
+export function getTree(params?: any) {
   return request({
     url: '/menuManagement/getTree',
     method: 'get',

@@ -58,8 +58,8 @@
       width: 100%;
       height: 80px;
       clear: both;
-      background: #ffffff;
-      border-radius: 0px;
+      background: #fff;
+      border-radius: 0;
 
       $position: (
         1: -5px -122px,
@@ -77,7 +77,7 @@
         }
       }
 
-      &:after {
+      &::after {
         position: absolute;
         right: 20px;
         bottom: 0;
@@ -125,14 +125,14 @@
       &-left {
         float: left;
         height: 48px;
-        margin: 10px 0 18px 0;
+        margin: 10px 0 18px;
 
         .item-title {
           width: 175px;
           margin-bottom: 10px;
           overflow: hidden;
           font-size: 20px;
-          color: #333333;
+          color: #333;
           text-overflow: ellipsis;
           white-space: nowrap;
         }
@@ -143,7 +143,7 @@
           font-size: 14px;
           line-height: 20px;
           color: #999;
-          background: rgba(153, 153, 153, 0.1);
+          background: rgb(153 153 153 / 10%);
           border-radius: 1px;
         }
       }

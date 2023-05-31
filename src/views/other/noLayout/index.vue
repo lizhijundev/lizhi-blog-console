@@ -7,6 +7,7 @@
 <script lang="ts" setup>
   import { handleActivePath } from '@/utils/routes'
   import { useTabsStore } from '@/store/modules/tabs'
+  import { VabRoute } from '/#/router'
 
   // defineOptions({
   //   name: 'NoLayout',
@@ -18,9 +19,8 @@
   const router = useRouter()
 
   const goBack = async () => {
-    router.push({ path: '/index' })
-    const detailPath = await handleActivePath(route, true)
-    await delVisitedRoute(detailPath)
+    await router.push({ path: '/index' })
+    await delVisitedRoute(handleActivePath(route as VabRoute, true))
   }
 </script>
 
@@ -35,10 +35,7 @@
 <style lang="scss" scoped>
   .no-layout-container {
     position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
+    inset: 0;
     z-index: 9999;
   }
 </style>

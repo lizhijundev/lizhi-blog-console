@@ -149,19 +149,19 @@
           &-content {
             flex: 1 0;
             width: 0;
-            color: rgba(0, 0, 0, 0.85);
+            color: rgb(0 0 0 / 85%);
           }
 
           &-title {
             margin-top: 11px;
             margin-bottom: 4px;
             font-size: 14px;
-            color: rgba(0, 0, 0, 0.85);
+            color: rgb(0 0 0 / 85%);
           }
 
           &-description {
             font-size: 14px;
-            color: rgba(0, 0, 0, 0.45);
+            color: rgb(0 0 0 / 45%);
           }
 
           &-item {
@@ -169,7 +169,7 @@
             height: 61px;
             margin-left: 40px;
             font-size: 14px;
-            color: rgba(0, 0, 0, 0.45);
+            color: rgb(0 0 0 / 45%);
             vertical-align: middle;
 
             > span {

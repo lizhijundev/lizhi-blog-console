@@ -114,6 +114,7 @@
       border: none;
       outline: none;
       transition: $base-transition;
+
       &:hover i {
         color: var(--el-color-primary);
       }
@@ -121,8 +122,8 @@
 
     :deep(.el-dialog) {
       &.is-fullscreen {
-        top: 0px !important;
-        left: 0px !important;
+        top: 0 !important;
+        left: 0 !important;
         display: flex;
         flex-direction: column;
 

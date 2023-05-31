@@ -4,10 +4,10 @@
   import { handleActivePath } from '@/utils/routes'
   import { keepAliveMaxNum } from '@/config'
   import { useHead } from '@vueuse/head'
-  import { VabRoute, VabRouteRecord } from '/#/router'
+  import { VabRouteRecord } from '/#/router'
   import VabProgress from 'nprogress'
 
-  const route: VabRoute = useRoute()
+  const route = useRoute()
 
   const $sub: any = inject('$sub')
   const $unsub: any = inject('$unsub')

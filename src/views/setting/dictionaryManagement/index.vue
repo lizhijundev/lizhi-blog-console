@@ -180,6 +180,7 @@
   #{$base}-container {
     padding: 0 !important;
     background: $base-color-background !important;
+
     .tree-button {
       width: 100%;
       margin-bottom: $base-margin;
@@ -188,6 +189,7 @@
     :deep() {
       .el-tree {
         margin-top: $base-margin;
+
         &-node__label {
           display: block;
           width: 100%;

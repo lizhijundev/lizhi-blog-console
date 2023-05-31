@@ -11,7 +11,7 @@
     font-family: inherit;
     font-size: inherit;
     color: white;
-    background-color: hsl(236, 32%, 26%);
+    background-color: hsl(236deg 32% 26%);
     border: none;
     outline: none;
     transition: color 0.4s ease-in-out;

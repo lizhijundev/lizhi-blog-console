@@ -88,9 +88,8 @@
       })
 
       const goBack = async () => {
-        const detailPath = await handleActivePath(route, true)
         await router.push('/vab/table/comprehensiveTable')
-        await delVisitedRoute(detailPath)
+        await delVisitedRoute(handleActivePath(route, true))
       }
 
       const handleRefreshMainPage = () => {

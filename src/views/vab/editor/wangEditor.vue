@@ -69,7 +69,7 @@
 <style lang="scss">
   .wang-editor-container {
     padding: 0 !important;
-    margin: -19px -19px 19px -19px;
+    margin: -19px -19px 19px;
     overflow: hidden !important;
     background: $base-color-background !important;
 
@@ -84,8 +84,8 @@
     .wang-editor-content {
       width: 70%;
       height: 500px !important;
-      padding: 0px 40px 0 40px;
-      margin: 20px auto 20px auto;
+      padding: 0 40px;
+      margin: 20px auto;
       background-color: #fff;
       border: 0;
     }
@@ -95,7 +95,7 @@
       margin: auto;
     }
 
-    @media (max-width: 576px) {
+    @media (width <= 576px) {
       .wang-editor-title,
       .wang-editor-content,
       .wang-editor-footer {

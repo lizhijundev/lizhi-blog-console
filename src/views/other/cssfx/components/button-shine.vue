@@ -12,7 +12,7 @@
     font-size: inherit;
     color: white;
     cursor: pointer;
-    background-color: hsl(236, 32%, 26%);
+    background-color: hsl(236deg 32% 26%);
     border: none;
     outline: none;
   }
@@ -24,7 +24,7 @@
     z-index: -1;
     width: 1.25em;
     content: '';
-    background-color: hsla(0, 0%, 100%, 0.2);
+    background-color: hsl(0deg 0% 100% / 20%);
     transform: translate3d(-525%, 0, 0) rotate(35deg);
   }
 

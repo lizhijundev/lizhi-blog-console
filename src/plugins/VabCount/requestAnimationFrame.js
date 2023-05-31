@@ -6,12 +6,8 @@ let cancelAnimationFrame
 
 const isServer = typeof window === 'undefined'
 if (isServer) {
-  requestAnimationFrame = function () {
-    return
-  }
-  cancelAnimationFrame = function () {
-    return
-  }
+  requestAnimationFrame = function () {}
+  cancelAnimationFrame = function () {}
 } else {
   requestAnimationFrame = window.requestAnimationFrame
   cancelAnimationFrame = window.cancelAnimationFrame

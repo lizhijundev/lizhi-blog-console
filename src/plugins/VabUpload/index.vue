@@ -245,7 +245,7 @@
         .el-upload--picture-card {
           width: 128px;
           height: 128px;
-          margin: 3px 8px 8px 8px;
+          margin: 3px 8px 8px;
           border: 2px dashed #c0ccda;
 
           .ri-add-line {
@@ -261,7 +261,7 @@
           .el-upload-list__item {
             width: 128px;
             height: 128px;
-            margin: 3px 8px 8px 8px;
+            margin: 3px 8px 8px;
           }
         }
       }

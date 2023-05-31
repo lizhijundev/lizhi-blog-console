@@ -84,9 +84,7 @@
       async fetchData() {
         const { data } = await getList()
         this.data = data
-        this.$nextTick(() => {
-          this.$_initLf()
-        })
+        this.$_initLf()
       },
       $_initLf() {
         const _this = this

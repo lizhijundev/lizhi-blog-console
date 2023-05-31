@@ -7,7 +7,7 @@ module.exports = {
       {
         filename: '[path][base].gz[query]',
         algorithm: 'gzip',
-        test: new RegExp('\\.(' + productionGzipExtensions.join('|') + ')$'),
+        test: new RegExp(`\\.(${productionGzipExtensions.join('|')})$`),
         threshold: 8192,
         minRatio: 0.8,
       },

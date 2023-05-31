@@ -73,7 +73,7 @@
    */
   const closeAllTabs = async () => {
     await delAllVisitedRoutes()
-    toLastTab()
+    await toLastTab()
   }
   /**
    * 跳转最后一个标签页

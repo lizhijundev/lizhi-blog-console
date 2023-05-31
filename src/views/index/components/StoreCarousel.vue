@@ -21,6 +21,7 @@
 <style lang="scss" scoped>
   .el-carousel {
     margin-bottom: 20px;
+
     &__item {
       img {
         width: 100%;

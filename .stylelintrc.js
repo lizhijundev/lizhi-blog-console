@@ -1,24 +1,17 @@
 module.exports = {
-  extends: ['stylelint-config-recess-order', 'stylelint-config-prettier'],
-  overrides: [
-    {
-      files: ['.js', '.jsx', '.ts'].flatMap((ext) => [`*${ext}`, `**/*${ext}`]),
-      customSyntax: '@stylelint/postcss-css-in-js',
-    },
-    {
-      files: ['.vue', '.htm', '.html'].flatMap((ext) => [
-        `*${ext}`,
-        `**/*${ext}`,
-      ]),
-      customSyntax: 'postcss-html',
-    },
-    {
-      files: ['.md', '.markdown'].flatMap((ext) => [`*${ext}`, `**/*${ext}`]),
-      customSyntax: 'postcss-markdown',
-    },
-    {
-      files: ['**/*.scss'],
-      customSyntax: 'postcss-scss',
-    },
+  extends: [
+    'stylelint-config-recommended-scss',
+    'stylelint-config-recommended-vue',
+    'stylelint-config-recess-order',
   ],
+  rules: {
+    'no-empty-source': null,
+    'at-rule-no-unknown': null,
+    'property-no-unknown': null,
+    'function-no-unknown': null,
+    'selector-class-pattern': null,
+    'no-descending-specificity': null,
+    'scss/no-global-function-names': null,
+    'selector-pseudo-class-no-unknown': null,
+  },
 }

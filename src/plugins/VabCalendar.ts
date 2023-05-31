@@ -739,7 +739,10 @@ const VabCalendar: any = {
     const s =
       '\u9b54\u7faf\u6c34\u74f6\u53cc\u9c7c\u767d\u7f8a\u91d1\u725b\u53cc\u5b50\u5de8\u87f9\u72ee\u5b50\u5904\u5973\u5929\u79e4\u5929\u874e\u5c04\u624b\u9b54\u7faf'
     const arr = [20, 19, 21, 21, 21, 22, 23, 23, 23, 23, 22, 22]
-    return `${s.substr(cMonth * 2 - (cDay < arr[cMonth - 1] ? 2 : 0), 2)}\u5ea7` //座
+    return `${s.substring(
+      cMonth * 2 - (cDay < arr[cMonth - 1] ? 2 : 0),
+      2
+    )}\u5ea7` //座
   },
 
   /**
@@ -767,43 +770,43 @@ const VabCalendar: any = {
     }
     const _table = this.sTermInfo[y - 1900]
     const _info = [
-      parseInt(`0x${_table.substr(0, 5)}`).toString(),
-      parseInt(`0x${_table.substr(5, 5)}`).toString(),
-      parseInt(`0x${_table.substr(10, 5)}`).toString(),
-      parseInt(`0x${_table.substr(15, 5)}`).toString(),
-      parseInt(`0x${_table.substr(20, 5)}`).toString(),
-      parseInt(`0x${_table.substr(25, 5)}`).toString(),
+      parseInt(`0x${_table.substring(0, 5)}`).toString(),
+      parseInt(`0x${_table.substring(5, 5)}`).toString(),
+      parseInt(`0x${_table.substring(10, 5)}`).toString(),
+      parseInt(`0x${_table.substring(15, 5)}`).toString(),
+      parseInt(`0x${_table.substring(20, 5)}`).toString(),
+      parseInt(`0x${_table.substring(25, 5)}`).toString(),
     ]
     const _calcDay = [
-      _info[0].substr(0, 1),
-      _info[0].substr(1, 2),
-      _info[0].substr(3, 1),
-      _info[0].substr(4, 2),
+      _info[0].substring(0, 1),
+      _info[0].substring(1, 2),
+      _info[0].substring(3, 1),
+      _info[0].substring(4, 2),
 
-      _info[1].substr(0, 1),
-      _info[1].substr(1, 2),
-      _info[1].substr(3, 1),
-      _info[1].substr(4, 2),
+      _info[1].substring(0, 1),
+      _info[1].substring(1, 2),
+      _info[1].substring(3, 1),
+      _info[1].substring(4, 2),
 
-      _info[2].substr(0, 1),
-      _info[2].substr(1, 2),
-      _info[2].substr(3, 1),
-      _info[2].substr(4, 2),
+      _info[2].substring(0, 1),
+      _info[2].substring(1, 2),
+      _info[2].substring(3, 1),
+      _info[2].substring(4, 2),
 
-      _info[3].substr(0, 1),
-      _info[3].substr(1, 2),
-      _info[3].substr(3, 1),
-      _info[3].substr(4, 2),
+      _info[3].substring(0, 1),
+      _info[3].substring(1, 2),
+      _info[3].substring(3, 1),
+      _info[3].substring(4, 2),
 
-      _info[4].substr(0, 1),
-      _info[4].substr(1, 2),
-      _info[4].substr(3, 1),
-      _info[4].substr(4, 2),
+      _info[4].substring(0, 1),
+      _info[4].substring(1, 2),
+      _info[4].substring(3, 1),
+      _info[4].substring(4, 2),
 
-      _info[5].substr(0, 1),
-      _info[5].substr(1, 2),
-      _info[5].substr(3, 1),
-      _info[5].substr(4, 2),
+      _info[5].substring(0, 1),
+      _info[5].substring(1, 2),
+      _info[5].substring(3, 1),
+      _info[5].substring(4, 2),
     ]
     return parseInt(_calcDay[n - 1])
   },

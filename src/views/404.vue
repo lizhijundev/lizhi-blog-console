@@ -104,14 +104,14 @@
             left: 220px;
             width: 80px;
             opacity: 0;
-            animation-name: cloudLeft;
+            animation-name: cloud-left;
             animation-duration: 2s;
             animation-timing-function: linear;
             animation-delay: 1s;
             animation-fill-mode: forwards;
           }
 
-          @keyframes cloudLeft {
+          @keyframes cloud-left {
             0% {
               top: 17px;
               left: 220px;
@@ -153,7 +153,7 @@
           line-height: 40px;
           color: var(--el-color-primary);
           opacity: 0;
-          animation-name: slideUp;
+          animation-name: slide-up;
           animation-duration: 0.5s;
           animation-fill-mode: forwards;
         }
@@ -165,7 +165,7 @@
           line-height: 24px;
           color: #222;
           opacity: 0;
-          animation-name: slideUp;
+          animation-name: slide-up;
           animation-duration: 0.5s;
           animation-delay: 0.1s;
           animation-fill-mode: forwards;
@@ -177,7 +177,7 @@
           line-height: 21px;
           color: var(--el-color-grey);
           opacity: 0;
-          animation-name: slideUp;
+          animation-name: slide-up;
           animation-duration: 0.5s;
           animation-delay: 0.2s;
           animation-fill-mode: forwards;
@@ -196,13 +196,13 @@
           background: var(--el-color-primary);
           border-radius: 100px;
           opacity: 0;
-          animation-name: slideUp;
+          animation-name: slide-up;
           animation-duration: 0.5s;
           animation-delay: 0.3s;
           animation-fill-mode: forwards;
         }
 
-        @keyframes slideUp {
+        @keyframes slide-up {
           0% {
             opacity: 0;
             transform: translateY(60px);

@@ -252,6 +252,7 @@
       overflow: hidden;
       background: url('~@/assets/login_images/login_form.png');
       background-size: 100% 100%;
+
       .title {
         font-size: 54px;
         font-weight: 500;
@@ -347,7 +348,7 @@
           .el-input__count {
             position: absolute;
             top: 25px;
-            right: 0px;
+            right: 0;
           }
         }
       }

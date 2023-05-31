@@ -83,7 +83,7 @@
         </el-button>
         <el-badge class="item" value="New">
           <el-button
-            style="margin: 0 0 10px 0 !important"
+            style="margin: 0 0 10px !important"
             type="primary"
             @click="handleDetail"
           >
