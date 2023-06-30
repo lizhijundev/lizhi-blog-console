@@ -3,7 +3,6 @@
   import { useTabsStore } from '@/store/modules/tabs'
   import { handleActivePath } from '@/utils/routes'
   import { keepAliveMaxNum } from '@/config'
-  import { useHead } from '@vueuse/head'
   import { VabRouteRecord } from '/#/router'
   import VabProgress from 'nprogress'
 
@@ -21,18 +20,6 @@
   const routerKey = ref()
   const keepAliveNameList = ref()
 
-  const siteData = reactive({
-    description: '',
-  })
-  useHead({
-    meta: [
-      {
-        name: `description`,
-        content: computed(() => siteData.description),
-      },
-    ],
-  })
-
   const updateKeepAliveNameList = (refreshRouteName = null) => {
     keepAliveNameList.value = visitedRoutes.value
       .filter(
@@ -46,11 +33,9 @@
   watchEffect(() => {
     routerKey.value = handleActivePath(route, true)
     updateKeepAliveNameList()
-    siteData.description = `${'Vue'} ${'Admin'} ${'Plus'}-${
-      route.meta.title
-    }简介、官网、首页、文档和下载 - 前端开发框架`
   })
 
+  // 获取源码地址
   $sub('get-code', () => {
     window.open(
       `https://github.com/vue-admin-beautiful/admin-plus/blob/main/${componentRef.value.$options.__source}`

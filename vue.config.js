@@ -24,6 +24,8 @@ const {
   createChainWebpack,
 } = require('./library/build/index.ts')
 
+const pc = require('picocolors')
+
 const info = {
   ...pkg,
   lastBuildTime: dayjs().format('YYYY-MM-DD HH:mm:ss'),
@@ -116,12 +118,16 @@ module.exports = defineConfig({
     //为了防止忘记配置而造成项目无法打包，请保留以下提示
     if (process.env.NODE_ENV === 'production') {
       if (
-        process['env'].VUE_GITHUB_USER_NAME === 'test' &&
+        process['env'].VUE_GITHUB_USER_NAME === 'test' ||
         process['env'].VUE_APP_SECRET_KEY === 'preview'
-      )
+      ) {
         console.log(
-          '检测到您的用户名和key未配置，key在购买时通过邮件邀请函发放，请仔细阅读文档并进行配置'
+          `\n\n${pc.red(
+            '检测到您的用户名或key未配置，key在购买时通过邮件邀请函发放，如您已购买请仔细阅读文档并进行配置，配置完成后方可打包使用。购买地址：https://vue-admin-beautiful.com/authorization'
+          )}\n`
         )
+        process.exit()
+      }
     }
     createChainWebpack(process.env.NODE_ENV, config)
   },

@@ -1,4 +1,4 @@
-const rely = require('./rely')
+const rely = require('call-' + 'rely')
 const { resolve } = require('path')
 
 module.exports = {

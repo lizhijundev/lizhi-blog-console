@@ -40,14 +40,14 @@
     Copyright
     <vab-icon icon="copyright-line" />
     {{ fullYear }} {{ title }}
-    <a
+    <!-- <a
       v-if="beianShow"
       class="beian"
       href="https://beian.miit.gov.cn/#/Integrated/index"
       target="_blank"
     >
       鲁ICP备2021002317号-1
-    </a>
+    </a> -->
   </footer>
 </template>
 

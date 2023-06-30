@@ -54,5 +54,6 @@
   "path-intellisense.mappings": {
     "@": "${workspaceRoot}/src"
   },
-  "files.eol": "\n"
+  "files.eol": "\n",
+  "vue.codeActions.enabled": false
 }
