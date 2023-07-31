@@ -42,7 +42,7 @@ export const useTabsStore = defineStore('tabs', {
      */
     delVisitedRoute(path: string) {
       this.visitedRoutes = this.visitedRoutes.filter(
-        (route) => route.path !== path
+        (route: VabRouteRecord) => route.path !== path
       )
     },
     /**

@@ -28,10 +28,9 @@
     }, 1000)
   }
 
-  onBeforeRouteLeave((to, from, next) => {
+  onDeactivated(() => {
     delVisitedRoute(route.path)
     clearInterval(state.timer)
-    next()
   })
 
   onBeforeMount(() => {

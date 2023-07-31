@@ -135,8 +135,8 @@
     justify-content: center;
     font-weight: bold;
     background-color: rgba(255, 255, 255, 0.6);
-    transition: $base-transition;
     backdrop-filter: blur(10px);
+    transition: $base-transition;
 
     &-background {
       position: absolute;

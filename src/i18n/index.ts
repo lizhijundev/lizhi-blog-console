@@ -3,8 +3,8 @@ import { useSettingsStore } from '@/store/modules/settings'
 import { createI18n } from 'vue-i18n'
 import { LanguageType } from '/#/store'
 import en from './locales/en.json'
-import enLocale from 'element-plus/lib/locale/lang/en'
-import zhLocale from 'element-plus/lib/locale/lang/zh-cn'
+import enLocale from 'element-plus/dist/locale/en'
+import zhLocale from 'element-plus/dist/locale/zh-cn'
 
 export { enLocale, zhLocale }
 

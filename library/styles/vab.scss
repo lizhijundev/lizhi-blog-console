@@ -2,8 +2,8 @@
  * @description 全局样式
  */
 @import 'element-plus/theme-chalk/display.css';
-@import './normalize.scss';
-@import './transition.scss';
+@import './normalize';
+@import './transition';
 
 @mixin base-scrollbar {
   &::-webkit-scrollbar {
@@ -460,7 +460,8 @@ html {
       }
 
       .peg {
-        box-shadow: 0 0 10px var(--el-color-primary),
+        box-shadow:
+          0 0 10px var(--el-color-primary),
           0 0 5px var(--el-color-primary);
       }
     }
