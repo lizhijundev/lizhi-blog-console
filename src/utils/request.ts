@@ -14,6 +14,7 @@ import { isArray } from '@/utils/validate'
 import { addErrorLog, needErrorLog } from '@vab/plugins/errorLog'
 import { refreshToken } from '@/api/refreshToken'
 import { gp } from '@gp'
+import { i18n } from '@/i18n'
 
 let loadingInstance: any
 
@@ -57,6 +58,7 @@ const requestConf: any = (config: any) => {
 
   // 规范写法 不可随意自定义
   if (token) config.headers['Authorization'] = `Bearer ${token}`
+  config.headers['accept-language'] = i18n.global.locale.value
 
   if (
     config.data &&
@@ -145,8 +147,8 @@ const handleData = async ({ config, data, status, statusText }: any) => {
     data && data[messageName]
       ? data[messageName]
       : CODE_MESSAGE[code]
-      ? CODE_MESSAGE[code]
-      : statusText
+        ? CODE_MESSAGE[code]
+        : statusText
   }`
   // 是否显示高亮错误(与errorHandler钩子触发逻辑一致)
   gp.$baseMessage(errMsg, 'error', 'vab-hey-message-error', false)

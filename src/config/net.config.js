@@ -23,5 +23,5 @@ module.exports = {
   // 数据状态的字段名称
   statusName: 'code',
   // 状态信息的字段名称
-  messageName: 'msg',
+  messageName: 'message',
 }

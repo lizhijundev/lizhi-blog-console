@@ -12,9 +12,12 @@
           :model="form"
           :rules="rules"
         >
-          <div class="title">hello !</div>
+          <div class="title">
+            <span>{{ translateTitle('登录') }}</span>
+            <vab-language />
+          </div>
           <div class="title-tips">
-            {{ translateTitle('欢迎来到') }}{{ title }}！
+            {{ translateTitle('欢迎来到') }} {{ title }}
           </div>
           <el-form-item prop="username">
             <el-input
@@ -58,20 +61,6 @@
               </template>
             </el-input>
           </el-form-item>
-          <!-- 验证码验证逻辑需自行开发，如不需要验证码功能建议注释 -->
-          <el-form-item prop="verificationCode">
-            <el-input
-              v-model.trim="form.verificationCode"
-              :placeholder="translateTitle('验证码') + previewText"
-              tabindex="3"
-              type="text"
-            >
-              <template #prefix>
-                <vab-icon icon="barcode-box-line" />
-              </template>
-            </el-input>
-            <el-image class="code" :src="codeUrl" @click="changeCode" />
-          </el-form-item>
           <el-form-item>
             <el-button
               class="login-btn"
@@ -81,11 +70,6 @@
             >
               {{ translateTitle('登录') }}
             </el-button>
-          </el-form-item>
-          <el-form-item>
-            <router-link to="/register">
-              {{ translateTitle('注册') }}
-            </router-link>
           </el-form-item>
         </el-form>
       </el-col>
@@ -137,7 +121,6 @@
         form: {
           username: '',
           password: '',
-          verificationCode: '',
         },
         rules: {
           username: [
@@ -154,19 +137,10 @@
               validator: validatePassword,
             },
           ],
-          /* verificationCode: [
-          {
-            required: true,
-            trigger: 'blur',
-            message: '验证码不能空',
-          },
-        ], */
         },
         loading: false,
         passwordType: 'password',
         redirect: undefined,
-        timer: 0,
-        codeUrl: 'https://www.oschina.net/action/user/captcha',
         previewText: '',
       })
 
@@ -195,9 +169,6 @@
             }
         })
       }
-      const changeCode = () => {
-        state.codeUrl = `https://www.oschina.net/action/user/captcha?timestamp=${new Date().getTime()}`
-      }
 
       // 国家法律法规要求显示备案号 实际项目请自行为自己的备案信息及域名
       const beianShow = ref(false)
@@ -205,17 +176,6 @@
       onBeforeMount(() => {
         state.form.username = 'admin'
         state.form.password = '123456'
-        // 为了演示效果，会在官网演示页自动登录到首页，正式开发可删除
-        if (
-          location.hostname === 'vue-admin-beautiful.com' ||
-          location.hostname === 'chu1204505056.gitee.io'
-        ) {
-          beianShow.value = true
-          state.previewText = '（演示地址验证码可不填）'
-          state.timer = setTimeout(() => {
-            handleLogin()
-          }, 5000)
-        }
       })
 
       watchEffect(() => {
@@ -223,7 +183,6 @@
       })
 
       onBeforeRouteLeave((to, from, next) => {
-        clearInterval(state.timer)
         next()
       })
 
@@ -233,7 +192,6 @@
         title: settingsStore.getTitle,
         handlePassword,
         handleLogin,
-        changeCode,
       }
     },
   })
@@ -252,18 +210,28 @@
       padding: 4.5vh;
       margin: calc((100vh - 555px) / 2) 5vw 5vw;
       overflow: hidden;
-      background: url('~@/assets/login_images/login_form.png');
+      background: rgba(255, 255, 255, 0.2);
       background-size: 100% 100%;
+      border-radius: 10px;
+      box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.4);
+      backdrop-filter: blur(10px);
 
       .title {
-        font-size: 54px;
+        font-size: 28px;
         font-weight: 500;
         color: var(--el-color-white);
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        :deep(.ri-translate) {
+          color: var(--el-color-white);
+        }
       }
 
       .title-tips {
-        margin-top: 29px;
-        font-size: 26px;
+        margin-top: 24px;
+        font-size: 18px;
         font-weight: 400;
         color: var(--el-color-white);
       }
