@@ -50,7 +50,8 @@ module.exports = defineConfig({
       progress: false,
       overlay: {
         warnings: false,
-        errors: true,
+        errors: false,
+        runtimeErrors: false,
       },
     },
     hot: true,

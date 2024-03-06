@@ -1,5 +1,5 @@
 <template>
-  <div class="user-management-container">
+  <div class="department-management-container">
     <vab-query-form>
       <vab-query-form-left-panel :span="12">
         <el-button :icon="Plus" type="primary" @click="handleEdit($event)">
@@ -13,9 +13,9 @@
         <el-form inline :model="queryForm" @submit.prevent>
           <el-form-item>
             <el-input
-              v-model.trim="queryForm.username"
+              v-model.trim="queryForm.name"
               clearable
-              placeholder="请输入用户名"
+              placeholder="请输入名称"
             />
           </el-form-item>
           <el-form-item>
@@ -31,63 +31,40 @@
       v-loading="listLoading"
       border
       :data="list"
+      default-expand-all
+      row-key="id"
+      :tree-props="{ children: 'children' }"
       @selection-change="setSelectRows"
     >
-      <el-table-column align="center" show-overflow-tooltip type="selection" />
-      <el-table-column align="center" label="序号" width="55">
-        <template #default="{ $index }">
-          {{ $index + 1 }}
-        </template>
-      </el-table-column>
+      <el-table-column show-overflow-tooltip type="selection" />
+      <el-table-column label="名称" prop="name" show-overflow-tooltip />
+      <el-table-column label="父节点Id" prop="parentId" show-overflow-tooltip />
+      <el-table-column label="排序" prop="order" show-overflow-tooltip />
       <el-table-column
-        align="center"
-        label="id"
-        prop="id"
+        label="创建时间"
+        prop="createTime"
         show-overflow-tooltip
       />
-      <el-table-column
-        align="center"
-        label="用户名"
-        prop="username"
-        show-overflow-tooltip
-      />
-      <el-table-column
-        align="center"
-        label="邮箱"
-        prop="email"
-        show-overflow-tooltip
-      />
-
-      <el-table-column align="center" label="角色" show-overflow-tooltip>
-        <template #default="{ row }">
-          <el-tag v-for="(item, index) in row.roles" :key="index">
-            {{ item }}
-          </el-tag>
-        </template>
-      </el-table-column>
-
-      <el-table-column
-        align="center"
-        label="修改时间"
-        prop="datatime"
-        show-overflow-tooltip
-      />
-      <el-table-column
-        align="center"
-        label="操作"
-        show-overflow-tooltip
-        width="200"
-      >
+      <el-table-column label="操作" width="200">
         <template #default="{ row }">
           <el-button text type="primary" @click="handleEdit(row)">
             编辑
           </el-button>
-          <el-button text type="primary" @click="handleDelete(row)">
+          <el-button
+            :disabled="!row.parentId"
+            text
+            type="primary"
+            @click="handleDelete({ row })"
+          >
             删除
           </el-button>
         </template>
       </el-table-column>
       <template #empty>
+        <!--  <el-image
+          class="vab-data-empty"
+          :src="require('@/assets/empty_images/data_empty.png')"
+        /> -->
         <el-empty class="vab-data-empty" description="暂无数据" />
       </template>
     </el-table>
@@ -105,14 +82,14 @@
 </template>
 
 <script>
-  import { doDelete, getList } from '@/api/userManagement'
+  import { doDelete, getList } from '@/api/departmentManagement'
   import { Delete, Plus, Search } from '@element-plus/icons-vue'
 
   export default defineComponent({
-    name: 'UserManagement',
+    name: 'DepartmentManagement',
     components: {
-      Edit: defineAsyncComponent(() =>
-        import('./components/UserManagementEdit')
+      Edit: defineAsyncComponent(
+        () => import('./components/DepartmentManagementEdit')
       ),
     },
     setup() {
@@ -129,7 +106,7 @@
         queryForm: {
           pageNo: 1,
           pageSize: 10,
-          username: '',
+          title: '',
         },
       })
 
@@ -138,9 +115,9 @@
       }
       const handleEdit = (row) => {
         if (row.id) {
-          state['editRef'].showEdit(row)
+          state.editRef.showEdit(row)
         } else {
-          state['editRef'].showEdit()
+          state.editRef.showEdit()
         }
       }
       const handleDelete = (row) => {

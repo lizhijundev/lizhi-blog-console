@@ -124,8 +124,8 @@
   export default defineComponent({
     name: 'MenuManagement',
     components: {
-      Edit: defineAsyncComponent(() =>
-        import('./components/MenuManagementEdit')
+      Edit: defineAsyncComponent(
+        () => import('./components/MenuManagementEdit')
       ),
     },
     setup() {

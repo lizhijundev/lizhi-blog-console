@@ -85,8 +85,8 @@
   export default defineComponent({
     name: 'DictionaryManagement',
     components: {
-      Edit: defineAsyncComponent(() =>
-        import('./components/DictionaryManagementEdit')
+      Edit: defineAsyncComponent(
+        () => import('./components/DictionaryManagementEdit')
       ),
     },
     setup() {

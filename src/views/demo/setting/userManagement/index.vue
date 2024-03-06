@@ -1,5 +1,5 @@
 <template>
-  <div class="role-management-container">
+  <div class="user-management-container">
     <vab-query-form>
       <vab-query-form-left-panel :span="12">
         <el-button :icon="Plus" type="primary" @click="handleEdit($event)">
@@ -13,9 +13,9 @@
         <el-form inline :model="queryForm" @submit.prevent>
           <el-form-item>
             <el-input
-              v-model.trim="queryForm.role"
+              v-model.trim="queryForm.username"
               clearable
-              placeholder="请输入角色"
+              placeholder="请输入用户名"
             />
           </el-form-item>
           <el-form-item>
@@ -47,23 +47,31 @@
       />
       <el-table-column
         align="center"
-        label="角色码"
-        prop="role"
+        label="用户名"
+        prop="username"
         show-overflow-tooltip
       />
-      <el-table-column align="center" label="按钮权限" show-overflow-tooltip>
+      <el-table-column
+        align="center"
+        label="邮箱"
+        prop="email"
+        show-overflow-tooltip
+      />
+
+      <el-table-column align="center" label="角色" show-overflow-tooltip>
         <template #default="{ row }">
-          <el-tag v-for="(item, index) in row.btnRolesCheckedList" :key="index">
-            {{
-              {
-                'read:system': '读',
-                'write:system': '写',
-                'delete:system': '删',
-              }[item]
-            }}
+          <el-tag v-for="(item, index) in row.roles" :key="index">
+            {{ item }}
           </el-tag>
         </template>
       </el-table-column>
+
+      <el-table-column
+        align="center"
+        label="修改时间"
+        prop="datatime"
+        show-overflow-tooltip
+      />
       <el-table-column
         align="center"
         label="操作"
@@ -80,10 +88,6 @@
         </template>
       </el-table-column>
       <template #empty>
-        <!--  <el-image
-          class="vab-data-empty"
-          :src="require('@/assets/empty_images/data_empty.png')"
-        /> -->
         <el-empty class="vab-data-empty" description="暂无数据" />
       </template>
     </el-table>
@@ -101,14 +105,14 @@
 </template>
 
 <script>
-  import { doDelete, getList } from '@/api/roleManagement'
+  import { doDelete, getList } from '@/api/userManagement'
   import { Delete, Plus, Search } from '@element-plus/icons-vue'
 
   export default defineComponent({
-    name: 'RoleManagement',
+    name: 'UserManagement',
     components: {
-      Edit: defineAsyncComponent(() =>
-        import('./components/RoleManagementEdit')
+      Edit: defineAsyncComponent(
+        () => import('./components/UserManagementEdit')
       ),
     },
     setup() {
@@ -125,7 +129,7 @@
         queryForm: {
           pageNo: 1,
           pageSize: 10,
-          role: '',
+          username: '',
         },
       })
 

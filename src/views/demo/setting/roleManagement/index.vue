@@ -1,5 +1,5 @@
 <template>
-  <div class="department-management-container">
+  <div class="role-management-container">
     <vab-query-form>
       <vab-query-form-left-panel :span="12">
         <el-button :icon="Plus" type="primary" @click="handleEdit($event)">
@@ -13,9 +13,9 @@
         <el-form inline :model="queryForm" @submit.prevent>
           <el-form-item>
             <el-input
-              v-model.trim="queryForm.name"
+              v-model.trim="queryForm.role"
               clearable
-              placeholder="请输入名称"
+              placeholder="请输入角色"
             />
           </el-form-item>
           <el-form-item>
@@ -31,31 +31,50 @@
       v-loading="listLoading"
       border
       :data="list"
-      default-expand-all
-      row-key="id"
-      :tree-props="{ children: 'children' }"
       @selection-change="setSelectRows"
     >
-      <el-table-column show-overflow-tooltip type="selection" />
-      <el-table-column label="名称" prop="name" show-overflow-tooltip />
-      <el-table-column label="父节点Id" prop="parentId" show-overflow-tooltip />
-      <el-table-column label="排序" prop="order" show-overflow-tooltip />
+      <el-table-column align="center" show-overflow-tooltip type="selection" />
+      <el-table-column align="center" label="序号" width="55">
+        <template #default="{ $index }">
+          {{ $index + 1 }}
+        </template>
+      </el-table-column>
       <el-table-column
-        label="创建时间"
-        prop="createTime"
+        align="center"
+        label="id"
+        prop="id"
         show-overflow-tooltip
       />
-      <el-table-column label="操作" width="200">
+      <el-table-column
+        align="center"
+        label="角色码"
+        prop="role"
+        show-overflow-tooltip
+      />
+      <el-table-column align="center" label="按钮权限" show-overflow-tooltip>
+        <template #default="{ row }">
+          <el-tag v-for="(item, index) in row.btnRolesCheckedList" :key="index">
+            {{
+              {
+                'read:system': '读',
+                'write:system': '写',
+                'delete:system': '删',
+              }[item]
+            }}
+          </el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column
+        align="center"
+        label="操作"
+        show-overflow-tooltip
+        width="200"
+      >
         <template #default="{ row }">
           <el-button text type="primary" @click="handleEdit(row)">
             编辑
           </el-button>
-          <el-button
-            :disabled="!row.parentId"
-            text
-            type="primary"
-            @click="handleDelete({ row })"
-          >
+          <el-button text type="primary" @click="handleDelete(row)">
             删除
           </el-button>
         </template>
@@ -82,14 +101,14 @@
 </template>
 
 <script>
-  import { doDelete, getList } from '@/api/departmentManagement'
+  import { doDelete, getList } from '@/api/roleManagement'
   import { Delete, Plus, Search } from '@element-plus/icons-vue'
 
   export default defineComponent({
-    name: 'DepartmentManagement',
+    name: 'RoleManagement',
     components: {
-      Edit: defineAsyncComponent(() =>
-        import('./components/DepartmentManagementEdit')
+      Edit: defineAsyncComponent(
+        () => import('./components/RoleManagementEdit')
       ),
     },
     setup() {
@@ -106,7 +125,7 @@
         queryForm: {
           pageNo: 1,
           pageSize: 10,
-          title: '',
+          role: '',
         },
       })
 
@@ -115,9 +134,9 @@
       }
       const handleEdit = (row) => {
         if (row.id) {
-          state.editRef.showEdit(row)
+          state['editRef'].showEdit(row)
         } else {
-          state.editRef.showEdit()
+          state['editRef'].showEdit()
         }
       }
       const handleDelete = (row) => {
