@@ -17,7 +17,7 @@ export const useUserStore = defineStore('user', {
   state: (): UserModuleType => ({
     token: getToken() as string,
     username: '游客',
-    avatar: 'https://i.gtimg.cn/club/item/face/img/2/15922_100.gif',
+    avatar: '/img/avatar.png',
   }),
   getters: {
     getToken: (state) => state.token,
@@ -54,7 +54,7 @@ export const useUserStore = defineStore('user', {
       const aclStore = useAclStore()
       aclStore.setFull(true)
       this.setUsername('admin(未开启登录拦截)')
-      this.setAvatar('https://i.gtimg.cn/club/item/face/img/2/15922_100.gif')
+      this.setAvatar('/img/avatar.png')
     },
     /**
      * @description 设置token并发送提醒
@@ -154,7 +154,7 @@ export const useUserStore = defineStore('user', {
     async resetAll() {
       this.setToken('')
       this.setUsername('游客')
-      this.setAvatar('https://i.gtimg.cn/club/item/face/img/2/15922_100.gif')
+      this.setAvatar('/img/avatar.png')
 
       const aclStore = useAclStore()
       const routesStore = useRoutesStore()

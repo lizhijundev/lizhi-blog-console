@@ -10,7 +10,7 @@
     description: '',
     avatarList: [
       {
-        avatar: 'https://i.gtimg.cn/club/item/face/img/2/15922_100.gif',
+        avatar: '/img/avatar.png',
         username: 'good luck',
       },
       {
