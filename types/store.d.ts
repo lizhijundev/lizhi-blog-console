@@ -48,6 +48,8 @@ declare interface OptionType {
 
 declare interface UserModuleType {
   token: string | boolean
+  admin_id: number
+  nickname: string
   username: string
   avatar: string
 }

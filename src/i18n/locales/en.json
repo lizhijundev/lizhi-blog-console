@@ -167,6 +167,24 @@
     "综合表单": "Comprehensive form",
     "综合表格": "Comprehensive table",
     "纵向": "Vertical",
-    "组件": "Part"
+    "组件": "Part",
+
+    "管理员管理": "Admin management",
+    "添加": "Add",
+    "请输入用户名": "Please enter the username",
+    "查询": "Search",
+    "全部": "All",
+    "启用": "Enable",
+    "禁用": "Disable",
+    "操作": "Operation",
+    "用户名": "Username",
+    "昵称": "Nickname",
+    "状态": "Status",
+    "修改时间": "Update time",
+    "编辑": "Edit",
+    "删除": "Delete",
+    "重置密码": "Reset password",
+    "暂无数据": "No data"
+
   }
 }

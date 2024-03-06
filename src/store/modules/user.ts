@@ -9,13 +9,15 @@ import { UserModuleType } from '/#/store'
 import { getUserInfo, login, logout, socialLogin } from '@/api/user'
 import { getToken, removeToken, setToken } from '@/utils/token'
 import { resetRouter } from '@/router'
-import { isArray, isString } from '@/utils/validate'
+import { isArray, isNumber, isString } from "@/utils/validate";
 import { tokenName } from '@/config'
 import { gp } from '@gp'
 
 export const useUserStore = defineStore('user', {
   state: (): UserModuleType => ({
     token: getToken() as string,
+    admin_id: 0,
+    nickname: '游客',
     username: '游客',
     avatar: '/img/avatar.png',
   }),
@@ -23,6 +25,8 @@ export const useUserStore = defineStore('user', {
     getToken: (state) => state.token,
     getUsername: (state) => state.username,
     getAvatar: (state) => state.avatar,
+    getAdminId: (state) => state.admin_id,
+    getNickname: (state) => state.nickname,
   },
   actions: {
     /**
@@ -39,6 +43,20 @@ export const useUserStore = defineStore('user', {
      */
     setUsername(username: string) {
       this.username = username
+    },
+    /**
+     * @description 设置用户id
+     * @param {*} admin_id
+     */
+    setAdminId(admin_id: number) {
+      this.admin_id = admin_id
+    },
+    /**
+     * @description 设置昵称
+     * @param {*} nickname
+     */
+    setNickname(nickname: string) {
+      this.nickname = nickname
     },
     /**
      * @description 设置头像
@@ -109,7 +127,7 @@ export const useUserStore = defineStore('user', {
      */
     async getUserInfo() {
       const {
-        data: { username, avatar, roles, permissions },
+        data: { admin_id, username, nickname, avatar, roles, permissions },
       } = await getUserInfo()
       /**
        * 检验返回数据是否正常，无对应参数，将使用默认用户名,头像,Roles和Permissions
@@ -119,7 +137,9 @@ export const useUserStore = defineStore('user', {
        * ability {List}
        */
       if (
+        (admin_id && !isNumber(admin_id)) ||
         (username && !isString(username)) ||
+        (nickname && !isString(nickname)) ||
         (avatar && !isString(avatar)) ||
         (roles && !isArray(roles)) ||
         (permissions && !isArray(permissions))
@@ -131,6 +151,10 @@ export const useUserStore = defineStore('user', {
         const aclStore = useAclStore()
         // 如不使用username用户名,可删除以下代码
         if (username) this.setUsername(username)
+        // 如不使用nickname昵称,可删除以下代码
+        if (nickname) this.setNickname(nickname)
+        // 如不使用admin_id,可删除以下代码
+        if (admin_id) this.setAdminId(admin_id)
         // 如不使用avatar头像,可删除以下代码
         if (avatar) this.setAvatar(avatar)
         // 如不使用roles权限控制,可删除以下代码

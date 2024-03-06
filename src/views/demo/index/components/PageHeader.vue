@@ -8,24 +8,6 @@
 
   const state = reactive({
     description: '',
-    avatarList: [
-      {
-        avatar: '/img/avatar.png',
-        username: 'good luck',
-      },
-      {
-        avatar:
-          'https://fastly.jsdelivr.net/gh/' +
-          'chuzh' +
-          'ixin/image' +
-          '/user/fwfmiao.gif',
-        username: 'FlowPea' + 'kFish',
-      },
-      {
-        avatar: 'https://i.gtimg.cn/club/item/face/img/3/15643_100.gif',
-        username: '嘻嘻',
-      },
-    ],
   })
 
   const handleTips = () => {
@@ -40,22 +22,9 @@
             ? `下午好 ${username.value}，你一定有些累了，喝杯咖啡提提神。`
             : `晚上好 ${username.value}，愿你天黑有灯，下雨有伞。`
   }
-  const fetchData = async () => {
-    const {
-      data: { description },
-    } = await getList()
-    state.description = description
-  }
 
   onMounted(() => {
     // 仅在开发坏境和演示地址调用首页更新提示AD，防止正式环境触发更新推广
-    if (
-      location.hostname.includes('vue-admin-beautiful') ||
-      location.hostname.includes('chu1204505056') ||
-      location.hostname.includes('localhost') ||
-      location.hostname.includes('127.0.0.1')
-    )
-      fetchData()
   })
 </script>
 
@@ -67,11 +36,6 @@
         <p class="page-header-tip-title">
           {{ handleTips() }}
         </p>
-        <p class="page-header-tip-description" v-html="state.description"></p>
-      </div>
-      <div class="page-header-avatar-list">
-        <vab-avatar-list :avatar-list="state.avatarList" />
-        <p>participants</p>
       </div>
     </vab-card>
   </el-col>
@@ -79,7 +43,6 @@
 
 <style lang="scss" scoped>
   .page-header {
-    min-height: 145px;
     transition: none;
 
     :deep() {
@@ -117,18 +80,6 @@
         min-height: 20px;
         font-size: $base-font-size-default;
         color: #808695;
-      }
-    }
-
-    &-avatar-list {
-      flex: 1;
-      min-width: 100px;
-      margin-left: 20px;
-      text-align: right;
-
-      p {
-        margin-right: 9px;
-        line-height: 0;
       }
     }
   }

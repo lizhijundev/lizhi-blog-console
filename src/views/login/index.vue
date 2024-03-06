@@ -1,10 +1,10 @@
 <template>
   <div class="login-container">
     <el-row>
-      <el-col :lg="8" :md="6" :sm="24" :xl="14" :xs="24">
+      <el-col :lg="6" :md="6" :sm="24" :xl="8" :xs="24">
         <div style="color: transparent">占位符</div>
       </el-col>
-      <el-col :lg="8" :md="12" :sm="24" :xl="9" :xs="24">
+      <el-col :lg="12" :md="12" :sm="24" :xl="8" :xs="24">
         <div class="login-form">
           <div class="login-header">
             <div class="title">
@@ -77,7 +77,7 @@
           </el-form>
         </div>
       </el-col>
-      <el-col :lg="1" :md="1" :sm="24" :xl="1" :xs="24">
+      <el-col :lg="6" :md="6" :sm="24" :xl="8" :xs="24">
         <div style="color: transparent">占位符</div>
       </el-col>
     </el-row>
