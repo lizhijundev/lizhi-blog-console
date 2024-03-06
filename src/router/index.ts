@@ -22,14 +22,6 @@ export const constantRoutes: VabRouteRecord[] = [
     },
   },
   {
-    path: '/register',
-    name: 'Register',
-    component: () => import('@/views/register/index.vue'),
-    meta: {
-      hidden: true,
-    },
-  },
-  {
     path: '/callback',
     name: 'Callback',
     component: () => import('@/views/callback/index.vue'),

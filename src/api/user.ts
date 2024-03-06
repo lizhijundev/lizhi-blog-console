@@ -37,11 +37,3 @@ export function logout() {
     method: 'get',
   })
 }
-
-export function register(data: any) {
-  return request({
-    url: '/register',
-    method: 'post',
-    data,
-  })
-}
