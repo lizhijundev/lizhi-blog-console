@@ -242,7 +242,7 @@
 
       .login-btn {
         display: inherit;
-        width: 220px;
+        width: 100%;
         height: 50px;
         margin: 5px auto;
         background: var(--el-color-primary);

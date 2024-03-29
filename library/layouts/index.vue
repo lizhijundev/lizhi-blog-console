@@ -60,7 +60,7 @@
       })
 
       onUnmounted(() => {
-        if (mobile) theme.value.layout = oldLayout
+        if (mobile.value) theme.value.layout = oldLayout
         cleanup()
       })
 

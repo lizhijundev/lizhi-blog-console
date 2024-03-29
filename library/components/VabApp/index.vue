@@ -16,9 +16,7 @@
     description: '',
   })
   watchEffect(() => {
-    siteData.description = `${'Vue'} ${'Admin'} ${'Plus'}-${
-      route.meta.title
-    } - 简介、官网、首页、文档和下载 - 前端开发框架`
+    siteData.description = `${'Vue'} ${'Admin'} ${'Plus'}-${route.meta.title} - 简介、官网、首页、文档和下载 - 前端开发框架`
   })
   useHead({
     meta: [
