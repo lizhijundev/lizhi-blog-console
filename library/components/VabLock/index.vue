@@ -10,30 +10,15 @@
   }
 
   const userStore = useUserStore()
+  const { t } = useI18n()
   const { avatar } = storeToRefs(userStore)
   const settingsStore = useSettingsStore()
   const { theme, lock, title } = storeToRefs(settingsStore)
   const { handleLock: _handleLock, handleUnLock: _handleUnLock } = settingsStore
 
-  const background = ref(
-    'https://fastly.jsdelivr.net/gh/' +
-      'chuzh' +
-      'ixin/image/vab-im' +
-      'age-lock/' +
-      `${Math.round(Math.random() * 31)}.jpg`
-  )
-  const randomBackground = () => {
-    background.value =
-      'https://fastly.jsdelivr.net/gh/' +
-      'chuzh' +
-      'ixin/image/vab-im' +
-      'age-lock/' +
-      `${Math.round(Math.random() * 31)}.jpg`
-  }
-
   const validatePass = (rule: any, value: string, callback: any) => {
     if (value === '') {
-      callback(new Error('请输入密码'))
+      callback(new Error(t('login.pwdTips')))
     } else {
       unlockScreen({
         password: value,
@@ -49,7 +34,7 @@
 
   const formRef = ref()
   const form = ref({
-    password: '123456',
+    password: '',
   })
   const rules = {
     password: [{ validator: validatePass, trigger: 'blur' }],
@@ -63,7 +48,6 @@
         setTimeout(async () => {
           await _handleUnLock()
           lockIcon = true
-          await randomBackground()
           const el = document.querySelector('.vab-side-bar') as HTMLElement
           if (el) el.removeAttribute('style')
         }, 500)
@@ -82,15 +66,6 @@
   <vab-icon v-if="theme.showLock" icon="lock-line" @click="handleLock" />
   <transition v-if="theme.showLock" mode="out-in" name="fade-transform">
     <div v-if="lock" class="vab-screen-lock">
-      <div
-        class="vab-screen-lock-background"
-        :style="{
-          background: `fixed url(${background}) center`,
-          backgroundSize: '100% 100%',
-          filter: 'blur(10px)',
-        }"
-      ></div>
-
       <div class="vab-screen-lock-content">
         <div class="vab-screen-lock-content-title">
           <el-avatar :size="180" :src="avatar" />
@@ -123,9 +98,6 @@
             </el-form-item>
           </el-form>
         </div>
-        <span @click="randomBackground">
-          {{ $t('common.switchWallpaper') }}
-        </span>
       </div>
     </div>
   </transition>
@@ -144,27 +116,22 @@
     align-items: center;
     justify-content: center;
     font-weight: bold;
-    background-color: rgba(255, 255, 255, 0.6);
-    backdrop-filter: blur(10px);
-    transition: $base-transition;
 
-    &-background {
-      position: absolute;
-      top: 0;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      z-index: $base-z-index - 1;
-    }
+    background: #ebf0fa
+      url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iMTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iNiIgY3k9IjYiIHI9Ii43NSIgZmlsbD0iI0M1Q0VFMCIvPjwvc3ZnPg==)
+      repeat;
+    transition: $base-transition;
 
     &-content {
       z-index: $base-z-index;
       padding: 40px 95px 40px 95px;
       color: #252a30;
       text-align: center;
-      background: rgba(255, 255, 255, 0.6);
       backdrop-filter: blur(10px);
-      border-radius: 15px;
+      background: #ffffff;
+      border-radius: 10px;
+      box-shadow: var(--el-box-shadow-lighter);
+      backdrop-filter: blur(10px);
 
       > span {
         font-size: $base-font-size-small;
