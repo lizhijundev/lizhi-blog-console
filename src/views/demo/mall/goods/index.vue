@@ -79,7 +79,7 @@
 </template>
 
 <script>
-  import { getList } from '@/api/goods'
+  import { getList } from '@/api/demo/goods'
   import { Search } from '@element-plus/icons-vue'
 
   export default defineComponent({

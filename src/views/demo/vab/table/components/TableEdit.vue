@@ -21,7 +21,7 @@
 </template>
 
 <script>
-  import { doEdit } from '@/api/table'
+  import { doEdit } from '@/api/demo/table'
 
   export default defineComponent({
     name: 'TableEdit',

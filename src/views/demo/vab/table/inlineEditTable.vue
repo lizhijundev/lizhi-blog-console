@@ -94,7 +94,7 @@
 </template>
 
 <script>
-  import { getList } from '@/api/table'
+  import { getList } from '@/api/demo/table'
   import { Edit, Search } from '@element-plus/icons-vue'
 
   export default defineComponent({

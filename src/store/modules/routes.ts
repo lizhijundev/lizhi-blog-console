@@ -6,7 +6,7 @@ import { convertRouter, filterRoutes } from '@/utils/routes'
 import { authentication, rolesControl } from '@/config'
 import { OptionType, RoutesModuleType } from '/#/store'
 import { isArray } from '@/utils/validate'
-import { getList } from '@/api/router'
+import { getList } from '@/api/demo/router.ts'
 import { gp } from '@gp'
 import { VabRouteRecord } from '/#/router'
 

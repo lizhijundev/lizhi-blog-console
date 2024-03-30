@@ -27,7 +27,7 @@
 </template>
 
 <script>
-  import { doEdit } from '@/api/dictionaryManagement'
+  import { doEdit } from '@/api/demo/dictionaryManagement'
   import { uuid } from '@/utils'
 
   export default defineComponent({

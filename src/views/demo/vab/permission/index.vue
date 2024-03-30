@@ -261,9 +261,9 @@
     rolesControl,
     tokenTableName,
   } from '@/config'
-  import { getList } from '@/api/router'
+  import { getList } from '@/api/demo/router'
   import { filterRoutes } from '@/utils/routes'
-  import { expireToken } from '@/api/refreshToken'
+  import { expireToken } from '@/api/demo/refreshToken'
   import { Random } from 'mockjs'
 
   export default defineComponent({

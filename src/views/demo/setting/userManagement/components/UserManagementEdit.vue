@@ -30,7 +30,7 @@
 </template>
 
 <script>
-  import { doEdit } from '@/api/userManagement'
+  import { doEdit } from '@/api/demo/userManagement'
 
   export default defineComponent({
     name: 'UserManagementEdit',

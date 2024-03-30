@@ -13,6 +13,15 @@ export async function login(data: any) {
   })
 }
 
+
+export async function unlockScreen(data: any) {
+  return request({
+    url: '/passport/unlockScreen',
+    method: 'post',
+    data,
+  })
+}
+
 export async function socialLogin(data: any) {
   if (loginRSA) {
     data = await encryptedData(data)

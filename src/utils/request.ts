@@ -12,7 +12,7 @@ import qs from 'qs'
 import router from '@/router'
 import { isArray } from '@/utils/validate'
 import { addErrorLog, needErrorLog } from '@vab/plugins/errorLog'
-import { refreshToken } from '@/api/refreshToken'
+import { refreshToken } from '@/api/demo/refreshToken.ts'
 import { gp } from '@gp'
 import { i18n } from '@/i18n'
 

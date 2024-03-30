@@ -563,7 +563,6 @@ html {
     /* .vab-hey-message */
     .vab-hey-message {
       @mixin vab-hey-message {
-        min-width: 246px;
         padding: 15px;
         background-color: var(--el-color-white);
         border-color: var(--el-color-white);

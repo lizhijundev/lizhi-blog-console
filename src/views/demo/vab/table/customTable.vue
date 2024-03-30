@@ -171,7 +171,7 @@
 </template>
 
 <script>
-  import { doDelete, getList } from '@/api/table'
+  import { doDelete, getList } from '@/api/demo/table'
   import VabDraggable from 'vuedraggable'
   import { Delete, Plus, Search, Setting } from '@element-plus/icons-vue'
 

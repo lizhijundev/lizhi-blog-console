@@ -66,7 +66,7 @@
 </template>
 
 <script>
-  import { getList } from '@/api/table'
+  import { getList } from '@/api/demo/table'
   import { Search } from '@element-plus/icons-vue'
 
   export default defineComponent({

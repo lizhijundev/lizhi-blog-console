@@ -82,7 +82,7 @@
 </template>
 
 <script>
-  import { doDelete, getList } from '@/api/departmentManagement'
+  import { doDelete, getList } from '@/api/demo/departmentManagement'
   import { Delete, Plus, Search } from '@element-plus/icons-vue'
 
   export default defineComponent({

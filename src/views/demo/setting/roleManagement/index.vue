@@ -101,7 +101,7 @@
 </template>
 
 <script>
-  import { doDelete, getList } from '@/api/roleManagement'
+  import { doDelete, getList } from '@/api/demo/roleManagement'
   import { Delete, Plus, Search } from '@element-plus/icons-vue'
 
   export default defineComponent({

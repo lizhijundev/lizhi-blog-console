@@ -108,7 +108,7 @@
 </template>
 
 <script>
-  import { getList } from '@/api/area'
+  import { getList } from '@/api/demo/area'
 
   export default defineComponent({
     name: 'Select',

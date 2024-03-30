@@ -228,7 +228,7 @@
 <script>
   import { useTabsStore } from '@/store/modules/tabs'
   import { useRoutesStore } from '@/store/modules/routes'
-  import { doDelete, getList } from '@/api/table'
+  import { doDelete, getList } from '@/api/demo/table'
   import { handleMatched, handleTabs } from '@/utils/routes'
   import { Delete, Plus, Search } from '@element-plus/icons-vue'
 

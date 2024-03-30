@@ -38,7 +38,7 @@
 </template>
 
 <script>
-  import { getList } from '@/api/workflow'
+  import { getList } from '@/api/demo/workflow'
   import LogicFlow from '@logicflow/core'
   import { Menu, Snapshot } from '@logicflow/extension'
   import '@logicflow/core/dist/style/index.css'

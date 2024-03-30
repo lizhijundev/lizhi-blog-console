@@ -105,7 +105,7 @@
 </template>
 
 <script>
-  import { doDelete, getList } from '@/api/userManagement'
+  import { doDelete, getList } from '@/api/demo/userManagement'
   import { Delete, Plus, Search } from '@element-plus/icons-vue'
 
   export default defineComponent({

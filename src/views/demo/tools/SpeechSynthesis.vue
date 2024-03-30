@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-  import { getList } from '@/api/description'
+  import { getList } from '@/api/demo/description.ts'
 
   const voice = ref<SpeechSynthesisVoice>(
     undefined as unknown as SpeechSynthesisVoice

@@ -79,8 +79,8 @@
 </template>
 
 <script>
-  import { getList } from '@/api/dictionaryManagement'
-  import { doDelete, getTree } from '@/api/dictionaryManagement'
+  import { getList } from '@/api/demo/dictionaryManagement'
+  import { doDelete, getTree } from '@/api/demo/dictionaryManagement'
   import { Plus } from '@element-plus/icons-vue'
   export default defineComponent({
     name: 'DictionaryManagement',

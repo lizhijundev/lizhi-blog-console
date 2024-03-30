@@ -1,6 +1,6 @@
 <script lang="ts" setup>
   import { useSettingsStore } from '@/store/modules/settings'
-  import { getList } from '@/api/search'
+  import { getList } from '@/api/demo/search.ts'
 
   const vFocus: any = {
     mounted(el: HTMLElement) {

@@ -117,8 +117,8 @@
 </template>
 
 <script>
-  import { getList } from '@/api/router'
-  import { doDelete, getTree } from '@/api/menuManagement'
+  import { getList } from '@/api/demo/router'
+  import { doDelete, getTree } from '@/api/demo/menuManagement'
   import { Plus } from '@element-plus/icons-vue'
 
   export default defineComponent({

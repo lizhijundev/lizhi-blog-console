@@ -1,6 +1,5 @@
 import request from '@/utils/request'
 
-
 export async function getAdminMemberList(params: any) {
   return request({
     url: '/admin_member/index',
@@ -9,7 +8,6 @@ export async function getAdminMemberList(params: any) {
   })
 }
 
-
 export async function saveAdminMember(data: any) {
   return request({
     url: '/admin_member/save',
@@ -17,7 +15,6 @@ export async function saveAdminMember(data: any) {
     data,
   })
 }
-
 
 export async function resetAdminMemberPassword(admin_id: number, password: string, confirm_password: string) {
   return request({
@@ -31,14 +28,12 @@ export async function resetAdminMemberPassword(admin_id: number, password: strin
   })
 }
 
-
 export async function deleteAdminMember(admin_id: number) {
   return request({
     url: '/admin_member/delete',
     method: 'get',
     params: {
-      admin_id
+      admin_id,
     },
   })
 }
-

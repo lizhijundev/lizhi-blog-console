@@ -1,8 +1,8 @@
-import request from '@/utils/request'
+import request from '@/utils/request.ts'
 
 export function getList() {
   return request({
-    url: '/router/getList',
+    url: '/search/getList',
     method: 'get',
   })
 }

@@ -77,7 +77,7 @@
 </template>
 
 <script>
-  import { getIconList } from '@/api/remixIcon'
+  import { getIconList } from '@/api/demo/remixIcon'
   import clip from '@/utils/clipboard'
   import { Search } from '@element-plus/icons-vue'
 

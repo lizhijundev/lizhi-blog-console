@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-  import { getIconList } from '@/api/remixIcon'
+  import { getIconList } from '@/api/demo/remixIcon.ts'
   const emit = defineEmits(['handle-icon'])
   const state: any = reactive({
     icon: '24-hours-fill',

@@ -3,7 +3,6 @@
   import { useRoutesStore } from '@/store/modules/routes'
   import { useSettingsStore } from '@/store/modules/settings'
   import { handleActivePath, handleTabs } from '@/utils/routes'
-  import { translate } from '@/i18n'
   import { VabRoute, VabRouteRecord } from '/#/router'
 
   defineProps({
@@ -214,7 +213,7 @@
               <vab-icon v-else :icon="item.parentIcon" />
             </template>
             <span v-if="item.meta && item.meta.title">
-              {{ translate(item.meta.title) }}
+              {{ $t(item.meta.title) }}
             </span>
           </span>
         </template>
@@ -238,31 +237,31 @@
           <el-dropdown-item command="refreshThisTab">
             <vab-icon icon="refresh-line" />
             <span>
-              {{ translate('刷新') }}
+              {{ $t('common.refresh') }}
             </span>
           </el-dropdown-item>
           <el-dropdown-item command="closeOthersTabs">
             <vab-icon icon="close-line" />
             <span>
-              {{ translate('关闭其他') }}
+              {{ $t('common.closeOther') }}
             </span>
           </el-dropdown-item>
           <el-dropdown-item command="closeLeftTabs">
             <vab-icon icon="arrow-left-line" />
             <span>
-              {{ translate('关闭左侧') }}
+              {{ $t('common.closeLeft') }}
             </span>
           </el-dropdown-item>
           <el-dropdown-item command="closeRightTabs">
             <vab-icon icon="arrow-right-line" />
             <span>
-              {{ translate('关闭右侧') }}
+              {{ $t('common.closeRight') }}
             </span>
           </el-dropdown-item>
           <el-dropdown-item command="closeAllTabs">
             <vab-icon icon="close-line" />
             <span>
-              {{ translate('关闭全部') }}
+              {{ $t('common.closeAll') }}
             </span>
           </el-dropdown-item>
         </el-dropdown-menu>
@@ -275,7 +274,7 @@
     >
       <li class="el-dropdown-menu__item" @click="refreshThisTab">
         <vab-icon icon="refresh-line" />
-        <span>{{ translate('刷新') }}</span>
+        <span>{{ $t('common.refresh') }}</span>
       </li>
       <li
         class="el-dropdown-menu__item"
@@ -283,7 +282,7 @@
         @click="closeOthersTabs"
       >
         <vab-icon icon="close-line" />
-        <span>{{ translate('关闭其他') }}</span>
+        <span>{{ $t('common.closeOther') }}</span>
       </li>
       <li
         class="el-dropdown-menu__item"
@@ -291,7 +290,7 @@
         @click="closeLeftTabs"
       >
         <vab-icon icon="arrow-left-line" />
-        <span>{{ translate('关闭左侧') }}</span>
+        <span>{{ $t('common.closeLeft') }}</span>
       </li>
       <li
         class="el-dropdown-menu__item"
@@ -302,11 +301,11 @@
         @click="closeRightTabs"
       >
         <vab-icon icon="arrow-right-line" />
-        <span>{{ translate('关闭右侧') }}</span>
+        <span>{{ $t('common.closeRight') }}</span>
       </li>
       <li class="el-dropdown-menu__item" @click="closeAllTabs">
         <vab-icon icon="close-line" />
-        <span>{{ translate('关闭全部') }}</span>
+        <span>{{ $t('common.closeAll') }}</span>
       </li>
     </ul>
   </div>

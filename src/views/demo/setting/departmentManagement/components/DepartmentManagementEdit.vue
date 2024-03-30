@@ -38,7 +38,7 @@
 </template>
 
 <script>
-  import { doEdit, getList } from '@/api/departmentManagement'
+  import { doEdit, getList } from '@/api/demo/departmentManagement'
 
   export default defineComponent({
     name: 'DepartmentManagementEdit',

@@ -55,7 +55,7 @@ export const asyncRoutes: VabRouteRecord[] = [
     name: 'Root',
     component: Layout,
     meta: {
-      title: '首页',
+      title: 'page.home',
       icon: 'home-2-line',
       breadcrumbHidden: true,
     },
@@ -65,7 +65,7 @@ export const asyncRoutes: VabRouteRecord[] = [
         name: 'Index',
         component: () => import('@/views/index/index.vue'),
         meta: {
-          title: '首页',
+          title: 'page.home',
           icon: 'home-2-line',
           noClosable: true,
         },
@@ -77,7 +77,7 @@ export const asyncRoutes: VabRouteRecord[] = [
     name: 'PersonnelManagement',
     component: Layout,
     meta: {
-      title: '配置',
+      title: 'page.setting',
       icon: 'user-settings-line',
       guard: ['admin'],
     },
@@ -87,7 +87,7 @@ export const asyncRoutes: VabRouteRecord[] = [
         name: 'UserManagement',
         component: () => import('@/views/setting/adminManagement/index.vue'),
         meta: {
-          title: '管理员管理',
+          title: 'page.adminManage',
           icon: 'user-3-line',
         },
       },
@@ -96,10 +96,10 @@ export const asyncRoutes: VabRouteRecord[] = [
         name: 'PersonalCenter',
         component: () => import('@/views/setting/personalCenter/index.vue'),
         meta: {
-          title: '个人中心',
+          title: 'page.personalCenter',
           icon: 'map-pin-user-line',
           hidden: true,
-          noColumn: true
+          noColumn: true,
         },
       },
       ],

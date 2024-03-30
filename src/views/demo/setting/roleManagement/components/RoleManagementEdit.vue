@@ -54,8 +54,8 @@
 </template>
 
 <script>
-  import { doEdit } from '@/api/roleManagement'
-  import { getList } from '@/api/router'
+  import { doEdit } from '@/api/demo/roleManagement'
+  import { getList } from '@/api/demo/router'
 
   export default defineComponent({
     name: 'RoleManagementEdit',

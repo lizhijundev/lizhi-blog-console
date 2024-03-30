@@ -1,26 +1,21 @@
 <script setup>
   import { useUserStore } from '@/store/modules/user'
-  import { getList } from '@/api/description'
-  import VabAvatarList from '@/plugins/VabAvatarList'
-
   const userStore = useUserStore()
   const { avatar, username } = storeToRefs(userStore)
-
-  const state = reactive({
-    description: '',
-  })
-
+  const { t } = useI18n()
   const handleTips = () => {
     const hour = new Date().getHours()
-    return hour < 8
-      ? `早上好 ${username.value}，又是元气满满的一天。`
-      : hour <= 11
-        ? `上午好 ${username.value}，看到你我好开心。`
-        : hour <= 13
-          ? `中午好 ${username.value}，忙碌了一上午，记得吃午饭哦。`
-          : hour < 18
-            ? `下午好 ${username.value}，你一定有些累了，喝杯咖啡提提神。`
-            : `晚上好 ${username.value}，愿你天黑有灯，下雨有伞。`
+    if (hour < 8) {
+      return t('layout.global.header.morning', { name: username.value })
+    } else if (hour <= 11) {
+      return t('layout.global.header.forenoon', { name: username.value })
+    } else if (hour <= 13) {
+      return t('layout.global.header.afternoon', { name: username.value })
+    } else if (hour < 18) {
+      return t('layout.global.header.evening', { name: username.value })
+    } else {
+      return t('layout.global.header.night', { name: username.value })
+    }
   }
 
   onMounted(() => {

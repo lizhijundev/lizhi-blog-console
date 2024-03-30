@@ -1,7 +1,6 @@
 <script lang="ts" setup>
   import { useUserStore } from '@/store/modules/user'
   import { toLoginRoute } from '@/utils/routes'
-  import { translate } from '@/i18n'
 
   const route = useRoute()
   const router = useRouter()
@@ -45,11 +44,11 @@
       <el-dropdown-menu>
         <el-dropdown-item command="personalCenter">
           <vab-icon icon="user-line" />
-          <span>{{ translate('个人中心') }}</span>
+          <span>{{ $t('common.adminCenter') }}</span>
         </el-dropdown-item>
         <el-dropdown-item command="logout">
           <vab-icon icon="logout-circle-r-line" />
-          <span>{{ translate('退出登录') }}</span>
+          <span>{{ $t('common.logout') }}</span>
         </el-dropdown-item>
       </el-dropdown-menu>
     </template>

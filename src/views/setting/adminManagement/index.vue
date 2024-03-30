@@ -122,7 +122,7 @@
 </template>
 
 <script>
-  import { doDelete, getList } from '@/api/userManagement'
+  import { doDelete, getList } from '@/api/demo/userManagement'
   import { Delete, Plus, Search } from '@element-plus/icons-vue'
   import { deleteAdminMember, getAdminMemberList } from '@/api/adminMember'
   import { translate } from '@/i18n'

@@ -1,74 +1,74 @@
 {
   "common": {
-    "adminCenter": "User center",
-    "logout": "Logout",
-    "tip": "Tip",
-    "cancel": "Cancel",
-    "confirm": "Confirm",
-    "search": "Search",
-    "reset": "Reset",
-    "add": "Add",
-    "edit": "Edit",
-    "delete": "Delete",
-    "notice": "Notice",
-    "email": "Email",
-    "clear": "Clear",
-    "refresh": "Refresh",
-    "closeOther": "Close Other",
-    "closeAll": "Close All",
-    "closeLeft": "Close Left",
-    "closeRight": "Close Right",
-    "switchWallpaper": "Switch wallpaper"
+    "adminCenter": "个人中心",
+    "logout": "退出登录",
+    "tip": "提示",
+    "cancel": "取消",
+    "confirm": "确定",
+    "search": "搜索",
+    "reset": "重置",
+    "add": "添加",
+    "edit": "编辑",
+    "delete": "删除",
+    "notice": "通知",
+    "email": "邮件",
+    "clear": "清空",
+
+    "refresh": "刷新",
+    "closeOther": "关闭其他",
+    "closeAll": "关闭全部",
+    "closeLeft": "关闭左侧",
+    "closeRight": "关闭右侧",
+    "switchWallpaper": "切换壁纸"
   },
   "page": {
-    "home": "Home",
-    "setting": "Setting",
-    "adminManage": "Admin management",
-    "personalCenter": "Personal Center"
-
+    "home": "首页",
+    "setting": "设置",
+    "adminManage": "管理员管理",
+    "personalCenter": "个人中心"
   },
   "login" : {
-    "title": "Login Form",
-    "welcome": "Welcome to {title}",
-    "login": "Login",
-    "usernameTips": "Please enter one user name",
-    "usernameError": "The user name cannot be empty",
-    "pwdTips": "Please input a password",
-    "pwdError": "The password cannot be less than 6 digits"
+    "title": "登录",
+    "welcome": "欢迎来到{title}",
+    "login": "登录",
+    "usernameTips": "请输入用户名",
+    "usernameError": "用户名不能为空",
+    "pwdTips": "请输入密码",
+    "pwdError": "密码不能少于6位"
   },
   "layout" : {
     "global" : {
       "header": {
-        "morning": "Good morning{name}, I'm so happy to see you.",
-        "forenoon": "Good morning{name}, I hope you have a good day.",
-        "afternoon": "Good afternoon {name}, I've been busy all morning. Remember to have lunch.",
-        "evening": "Good afternoon {name}, you must be a bit tired. Have a cup of coffee to refresh yourself.",
-        "night": "It's late at night {name}, may you have a light in the dark and an umbrella in the rain."
+        "morning": "早上好{name}，又是元气满满的一天",
+        "forenoon": "上午好{name}，看到你我好开心。",
+        "afternoon": "中午好{name}，忙碌了一上午，记得吃午饭哦。",
+        "evening": "下午好{name}，你一定有些累了，喝杯咖啡提提神。",
+        "night": "夜深了{name}，愿你天黑有灯，下雨有伞。"
       },
       "welcome": {
-        "morning": "Good morning",
-        "forenoon": "Good morning",
-        "afternoon": "Good afternoon",
-        "evening": "Good evening",
-        "night": "Good night",
-        "back": "Welcome back"
+        "morning": "早安",
+        "forenoon": "上午好",
+        "afternoon": "中午好",
+        "evening": "下午好",
+        "night": "晚上好",
+        "back": "欢迎回来"
       }
     }
   },
   "lockView": {
-    "locked": "Screen already locked",
-    "unlock": "Unlock"
+    "locked": "屏幕已锁定",
+    "unlock": "解锁"
   },
   "vabI18n": {
     "403": "403",
     "404": "404",
-    "Css动画": "Cssfx",
+    "Css动画": "Css动画",
     "Excel": "Excel",
-    "按钮": "Button",
-    "保存": "Save",
-    "编辑器": "Editor",
-    "标签": "Tabs",
-    "标签风格": "Tabs style",
+    "按钮": "按钮",
+    "保存": "保存",
+    "编辑器": "编辑器",
+    "标签": "标签",
+    "标签风格": "标签风格",
     "标签开启时生效": "Effective when the label is opened",
     "标签图标": "Tabs icon",
     "表单": "Form",
@@ -245,6 +245,5 @@
     "删除": "Delete",
     "重置密码": "Reset password",
     "暂无数据": "No data"
-
   }
 }

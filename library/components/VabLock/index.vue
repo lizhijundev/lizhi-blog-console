@@ -1,7 +1,7 @@
 <script lang="ts" setup>
   import { useUserStore } from '@/store/modules/user'
   import { useSettingsStore } from '@/store/modules/settings'
-  import { translate } from '@/i18n'
+  import { unlockScreen } from '@/api/user.ts'
 
   const vFocus: any = {
     mounted(el: HTMLElement) {
@@ -32,10 +32,18 @@
   }
 
   const validatePass = (rule: any, value: string, callback: any) => {
-    if (value === '' || value !== '123456') {
-      callback(new Error('请输入正确的密码'))
+    if (value === '') {
+      callback(new Error('请输入密码'))
     } else {
-      callback()
+      unlockScreen({
+        password: value,
+      })
+        .then(() => {
+          callback()
+        })
+        .catch((err) => {
+          callback(new Error(err.message))
+        })
     }
   }
 
@@ -87,7 +95,7 @@
         <div class="vab-screen-lock-content-title">
           <el-avatar :size="180" :src="avatar" />
           <vab-icon :icon="lockIcon ? 'lock-line' : 'lock-unlock-line'" />
-          {{ title }} {{ translate('屏幕已锁定') }}
+          {{ title }} {{ $t('lockView.locked') }}
         </div>
         <div class="vab-screen-lock-content-form">
           <el-form ref="formRef" :model="form" :rules="rules" @submit.prevent>
@@ -96,7 +104,7 @@
                 v-model="form.password"
                 v-focus
                 autocomplete="off"
-                placeholder="请输出密码123456"
+                :placeholder="$t('login.pwdTips')"
                 type="password"
               >
                 <template #suffix>
@@ -108,14 +116,16 @@
                     <vab-icon
                       :icon="lockIcon ? 'lock-line' : 'lock-unlock-line'"
                     />
-                    {{ translate('解锁') }}
+                    {{ $t('lockView.unlock') }}
                   </el-button>
                 </template>
               </el-input>
             </el-form-item>
           </el-form>
         </div>
-        <span @click="randomBackground">{{ translate('切换壁纸') }}</span>
+        <span @click="randomBackground">
+          {{ $t('common.switchWallpaper') }}
+        </span>
       </div>
     </div>
   </transition>

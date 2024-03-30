@@ -23,7 +23,7 @@
 
 <script lang="ts" setup>
   import _ from 'lodash'
-  import { getIconList } from '@/api/remixIcon'
+  import { getIconList } from '@/api/demo/remixIcon.ts'
   import VabDraggable from 'vuedraggable'
 
   defineOptions({

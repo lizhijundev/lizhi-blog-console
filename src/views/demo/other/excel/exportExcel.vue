@@ -56,7 +56,7 @@
 </template>
 
 <script>
-  import { getList } from '@/api/table'
+  import { getList } from '@/api/demo/table'
 
   export default defineComponent({
     name: 'ExportExcel',

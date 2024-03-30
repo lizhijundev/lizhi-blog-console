@@ -2,17 +2,17 @@
   <div class="login-container">
     <el-row>
       <el-col :lg="6" :md="6" :sm="24" :xl="8" :xs="24">
-        <div style="color: transparent">占位符</div>
+        <div style="color: transparent"></div>
       </el-col>
       <el-col :lg="12" :md="12" :sm="24" :xl="8" :xs="24">
         <div class="login-form">
           <div class="login-header">
             <div class="title">
-              <span>{{ translateTitle('登录') }}</span>
+              <span>{{ $t('login.title') }}</span>
               <vab-language />
             </div>
             <div class="title-tips">
-              {{ translateTitle('欢迎来到') }} {{ title }}
+              {{ $t('login.welcome', { title: title }) }}
             </div>
           </div>
           <el-form
@@ -26,7 +26,7 @@
               <el-input
                 v-model.trim="form.username"
                 v-focus
-                :placeholder="translateTitle('请输入用户名')"
+                :placeholder="$t('login.usernameTips')"
                 tabindex="1"
                 type="text"
               >
@@ -40,7 +40,7 @@
                 :key="passwordType"
                 ref="passwordRef"
                 v-model.trim="form.password"
-                :placeholder="translateTitle('请输入密码')"
+                :placeholder="$t('login.pwdTips')"
                 tabindex="2"
                 :type="passwordType"
                 @keyup.enter="handleLogin"
@@ -71,14 +71,14 @@
                 type="primary"
                 @click="handleLogin"
               >
-                {{ translateTitle('登录') }}
+                {{ $t('login.login') }}
               </el-button>
             </el-form-item>
           </el-form>
         </div>
       </el-col>
       <el-col :lg="6" :md="6" :sm="24" :xl="8" :xs="24">
-        <div style="color: transparent">占位符</div>
+        <div style="color: transparent"></div>
       </el-col>
     </el-row>
     <vab-footer />
@@ -88,7 +88,6 @@
 <script>
   import { useSettingsStore } from '@/store/modules/settings'
   import { useUserStore } from '@/store/modules/user'
-  import { translate } from '@/i18n'
   import { isPassword } from '@/utils/validate'
 
   export default defineComponent({
@@ -101,6 +100,7 @@
       },
     },
     setup() {
+      const { t } = useI18n()
       const route = useRoute()
       const router = useRouter()
 
@@ -110,12 +110,11 @@
       const login = (form) => userStore.login(form)
 
       const validateUsername = (rule, value, callback) => {
-        if ('' === value) callback(new Error(translate('用户名不能为空')))
+        if ('' === value) callback(new Error(t('login.usernameError')))
         else callback()
       }
       const validatePassword = (rule, value, callback) => {
-        if (!isPassword(value))
-          callback(new Error(translate('密码不能少于6位')))
+        if (!isPassword(value)) callback(new Error(t('login.pwdError')))
         else callback()
       }
 
@@ -123,8 +122,8 @@
         formRef: null,
         passwordRef: null,
         form: {
-          username: '',
-          password: '',
+          username: 'admin',
+          password: '123456',
         },
         rules: {
           username: [
@@ -174,9 +173,6 @@
         })
       }
 
-      // 国家法律法规要求显示备案号 实际项目请自行为自己的备案信息及域名
-      const beianShow = ref(false)
-
       onBeforeMount(() => {})
 
       watchEffect(() => {
@@ -188,7 +184,6 @@
       })
 
       return {
-        translateTitle: translate,
         ...toRefs(state),
         title: settingsStore.getTitle,
         handlePassword,
@@ -201,7 +196,10 @@
 <style lang="scss" scoped>
   .login-container {
     height: 100vh;
-    background: #f1f1f1;
+    background: #ebf0fa
+      url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iMTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iNiIgY3k9IjYiIHI9Ii43NSIgZmlsbD0iI0M1Q0VFMCIvPjwvc3ZnPg==)
+      repeat;
+    min-height: 100vh;
 
     .login-form {
       position: relative;
@@ -213,9 +211,27 @@
       border-radius: 10px;
       box-shadow: var(--el-box-shadow-lighter);
       backdrop-filter: blur(10px);
+      @keyframes wave {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
       .login-header {
-        background: var(--el-color-primary);
+        background-image: linear-gradient(
+          60deg,
+          var(--el-color-primary),
+          var(--el-color-primary-light-3)
+        );
+        animation: wave 2s infinite linear;
         padding: 4.5vh;
+
         .title {
           font-size: 28px;
           font-weight: 500;

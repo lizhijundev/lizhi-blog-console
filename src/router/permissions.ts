@@ -36,6 +36,7 @@ export function setupPermissions(router: Router) {
 
     if (!loginInterception) hasToken = true
 
+    console.log('hasToken', hasToken)
     if (hasToken) {
       if (routes.length) {
         // 禁止已登录用户返回登录页

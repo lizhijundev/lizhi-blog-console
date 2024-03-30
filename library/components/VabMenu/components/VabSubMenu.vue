@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-  import { translate } from '@/i18n'
   import { useSettingsStore } from '@/store/modules/settings'
 
   defineProps({
@@ -25,10 +24,10 @@
         v-if="itemOrMenu.meta.icon"
         :icon="itemOrMenu.meta.icon"
         :is-custom-svg="itemOrMenu.meta.isCustomSvg"
-        :title="translate(itemOrMenu.meta.title)"
+        :title="$t(itemOrMenu.meta.title)"
       />
-      <span :title="translate(itemOrMenu.meta.title)">
-        {{ translate(itemOrMenu.meta.title) }}
+      <span :title="$t(itemOrMenu.meta.title)">
+        {{ $t(itemOrMenu.meta.title) }}
       </span>
     </template>
     <slot />

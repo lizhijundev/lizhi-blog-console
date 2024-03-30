@@ -103,7 +103,7 @@
 </template>
 
 <script>
-  import { getList } from '@/api/systemLog'
+  import { getList } from '@/api/demo/systemLog'
   import { Search } from '@element-plus/icons-vue'
 
   export default defineComponent({

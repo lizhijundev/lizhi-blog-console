@@ -1,6 +1,5 @@
 <script lang="ts" setup>
   import { useRoutesStore } from '@/store/modules/routes'
-  import { translate } from '@/i18n'
   import { handleMatched } from '@/utils/routes'
 
   const route = useRoute()
@@ -30,7 +29,7 @@
         :icon="item.meta.icon"
         :is-custom-svg="item.meta.isCustomSvg"
       />
-      <span v-if="item.meta.title">{{ translate(item.meta.title) }}</span>
+      <span v-if="item.meta.title">{{ $t(item.meta.title) }}</span>
     </el-breadcrumb-item>
   </el-breadcrumb>
 </template>

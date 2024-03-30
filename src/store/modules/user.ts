@@ -12,6 +12,7 @@ import { resetRouter } from '@/router'
 import { isArray, isNumber, isString } from "@/utils/validate";
 import { tokenName } from '@/config'
 import { gp } from '@gp'
+import { transApp } from "@/i18n";
 
 export const useUserStore = defineStore('user', {
   state: (): UserModuleType => ({
@@ -80,21 +81,22 @@ export const useUserStore = defineStore('user', {
      * @param {string} tokenName 令牌名称
      */
     afterLogin(token: string, tokenName: string) {
-      const settingsStore = useSettingsStore()
+      // const settingsStore = useSettingsStore()
+      // {title: settingsStore.title}
       if (token) {
         this.setToken(token)
         const hour = new Date().getHours()
         const thisTime =
           hour < 8
-            ? '早上好'
+            ? transApp('layout.global.welcome.morning')
             : hour <= 11
-            ? '上午好'
-            : hour <= 13
-            ? '中午好'
-            : hour < 18
-            ? '下午好'
-            : '晚上好'
-        gp.$baseNotify(`欢迎登录${settingsStore.title}`, `${thisTime}！`)
+              ? transApp('layout.global.welcome.forenoon')
+              : hour <= 13
+                ? transApp('layout.global.welcome.afternoon')
+                : hour < 18
+                  ? transApp('layout.global.welcome.evening')
+                  : transApp('layout.global.welcome.night')
+        gp.$baseNotify(transApp('layout.global.welcome.back'), `${thisTime}！`)
       } else {
         const err = `登录接口异常，未正确返回${tokenName}...`
         gp.$baseMessage(err, 'error', 'vab-hey-message-error')

@@ -147,7 +147,7 @@ export default {
       $unsub: function () {
         // eslint-disable-next-line prefer-rest-params
         Reflect.apply(_emitter.off, _emitter, _.toArray(arguments))
-      }
+      },
     }
 
     const _emitter = mitt()

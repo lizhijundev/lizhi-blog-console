@@ -1,7 +1,6 @@
 <script lang="ts" setup>
   import { useSettingsStore } from '@/store/modules/settings'
   import { isExternal } from '@/utils/validate'
-  import { translate } from '@/i18n'
   import { isHashRouterMode } from '@/config'
 
   const props = defineProps({
@@ -47,10 +46,10 @@
       v-if="itemOrMenu.meta.icon"
       :icon="itemOrMenu.meta.icon"
       :is-custom-svg="itemOrMenu.meta.isCustomSvg"
-      :title="translate(itemOrMenu.meta.title)"
+      :title="$t(itemOrMenu.meta.title)"
     />
-    <span :title="translate(itemOrMenu.meta.title)">
-      {{ translate(itemOrMenu.meta.title) }}
+    <span :title="$t(itemOrMenu.meta.title)">
+      {{ $t(itemOrMenu.meta.title) }}
     </span>
     <el-tag v-if="itemOrMenu.meta.badge" effect="dark" type="danger">
       {{ itemOrMenu.meta.badge }}

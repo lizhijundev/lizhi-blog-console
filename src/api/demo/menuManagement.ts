@@ -1,8 +1,8 @@
-import request from '@/utils/request'
+import request from '@/utils/request.ts'
 
-export function getList(params?: any) {
+export function getTree(params?: any) {
   return request({
-    url: '/roleManagement/getList',
+    url: '/menuManagement/getTree',
     method: 'get',
     params,
   })
@@ -10,7 +10,7 @@ export function getList(params?: any) {
 
 export function doEdit(data: any) {
   return request({
-    url: '/roleManagement/doEdit',
+    url: '/menuManagement/doEdit',
     method: 'post',
     data,
   })
@@ -18,7 +18,7 @@ export function doEdit(data: any) {
 
 export function doDelete(data: any) {
   return request({
-    url: '/roleManagement/doDelete',
+    url: '/menuManagement/doDelete',
     method: 'post',
     data,
   })

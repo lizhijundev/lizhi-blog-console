@@ -76,7 +76,7 @@
 
 <script>
   import VabIconSelector from '@/plugins/VabIconSelector'
-  import { doEdit } from '@/api/menuManagement'
+  import { doEdit } from '@/api/demo/menuManagement'
 
   export default defineComponent({
     name: 'MenuManagementEdit',

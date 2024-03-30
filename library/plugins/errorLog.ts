@@ -8,8 +8,8 @@ export const needErrorLog = () => {
   const errorLogArray = isArray(errorLog)
     ? [...errorLog]
     : isString(errorLog)
-    ? [...[errorLog]]
-    : []
+      ? [...[errorLog]]
+      : []
   return errorLogArray.includes(process.env.NODE_ENV as string)
 }
 

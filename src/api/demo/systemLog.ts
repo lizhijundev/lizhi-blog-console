@@ -1,8 +1,8 @@
-import request from '@/utils/request'
+import request from '@/utils/request.ts'
 
 export function getList(params?: any) {
   return request({
-    url: '/taskManagement/getList',
+    url: '/systemLog/getList',
     method: 'get',
     params,
   })
