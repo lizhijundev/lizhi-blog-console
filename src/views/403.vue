@@ -6,14 +6,15 @@
 
   const tabsStore = useTabsStore()
   const { delVisitedRoute } = tabsStore
+  const { t } = useI18n()
 
   let timer
   const state = reactive({
     jumpTime: 5,
-    oops: '抱歉!',
-    headline: '您没有操作角色...',
-    info: '当前帐号没有操作角色,请联系管理员。',
-    btn: '返回首页',
+    oops: t('404.oops'),
+    headline: t('403.headline'),
+    info: t('403.info'),
+    btn: t('404.btn'),
   })
 
   const timeChange = () => {

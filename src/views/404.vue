@@ -6,14 +6,15 @@
 
   const tabsStore = useTabsStore()
   const { delVisitedRoute } = tabsStore
+  const { t } = useI18n()
 
   let timer
   const state = reactive({
     jumpTime: 5,
-    oops: '抱歉!',
-    headline: '当前页面不存在...',
-    info: '请检查您输入的网址是否正确，或点击下面的按钮返回首页。',
-    btn: '返回首页',
+    oops: t('404.oops'),
+    headline: t('404.headline'),
+    info: t('404.info'),
+    btn: t('404.btn'),
   })
 
   const timeChange = () => {

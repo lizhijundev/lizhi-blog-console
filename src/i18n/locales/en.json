@@ -38,6 +38,16 @@
     "pwdTips": "Please input a password",
     "pwdError": "The password cannot be less than 6 digits"
   },
+  "404": {
+    "oops": "Oops!",
+    "headline": "404 Page Not Found",
+    "info": "The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.",
+    "btn": "Back"
+  },
+  "403": {
+    "headline": "You do not have an operational role",
+    "info": "The current account does not have an operational role. Please contact the administrator."
+  },
   "layout" : {
     "global" : {
       "header": {
@@ -169,7 +179,6 @@
     "请输入密码": "Please input a password",
     "请输入手机号": "Please enter your mobile phone number",
     "请输入手机验证码": "Please input the mobile phone verification code",
-    "请输入用户名": "Please enter one user name",
     "请输入正确的手机号": "Please enter the correct mobile phone number",
     "全屏": "Full screen",
     "取色器": "Color picker",

@@ -46,8 +46,15 @@ export const constantRoutes: VabRouteRecord[] = [
       hidden: true,
     },
   },
+  {
+    path: '/:pathMatch(.*)*',
+    name: 'notFound',
+    component: () => import('@/views/404.vue'),
+    meta: {
+      hidden: true,
+    },
+  },
 ]
-
 
 export const asyncRoutes: VabRouteRecord[] = [
   {
@@ -83,8 +90,8 @@ export const asyncRoutes: VabRouteRecord[] = [
     },
     children: [
       {
-        path: 'userManagement',
-        name: 'UserManagement',
+        path: 'adminManagement',
+        name: 'AdminManagement',
         component: () => import('@/views/setting/adminManagement/index.vue'),
         meta: {
           title: 'page.adminManage',

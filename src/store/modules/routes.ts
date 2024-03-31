@@ -38,7 +38,7 @@ export const useRoutesStore = defineStore('routes', {
     getTabMenu: (state) =>
       state.tab.data
         ? state.routes.find((route) => route.name === state.tab.data)
-        : { meta: { title: '' }, redirect: '404' },
+        : { meta: { title: '' }, redirect: '/404' },
     getActiveMenu: (state) => state.activeMenu,
     getRoutes: (state) =>
       state.routes.filter((_route) => _route.meta.hidden !== true),

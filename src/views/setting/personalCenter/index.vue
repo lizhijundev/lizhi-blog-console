@@ -62,18 +62,13 @@
 <style lang="scss" scoped>
   $base: '.personal-center';
   #{$base}-container {
-    padding: 0 !important;
-    background: $base-color-background !important;
-
     #{$base}-user-info {
       padding: $base-padding;
       text-align: center;
 
-      :deep() {
-        .el-avatar {
-          img {
-            cursor: pointer;
-          }
+      :deep(.el-avatar) {
+        img {
+          cursor: pointer;
         }
       }
 
@@ -96,16 +91,6 @@
 
         h5 {
           margin: -20px 0 5px;
-        }
-
-        :deep() {
-          .el-tag {
-            margin-right: 10px !important;
-          }
-
-          .el-tag + .el-tag {
-            margin-left: 0;
-          }
         }
       }
     }

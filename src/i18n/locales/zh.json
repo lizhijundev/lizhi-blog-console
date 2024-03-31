@@ -38,6 +38,16 @@
     "pwdTips": "请输入密码",
     "pwdError": "密码不能少于6位"
   },
+  "404": {
+    "oops": "抱歉!",
+    "headline": "当前页面不存在...",
+    "info": "请检查您输入的网址是否正确，或点击下面的按钮返回首页。",
+    "btn": "返回首页"
+  },
+  "403": {
+    "headline": "您没有操作角色",
+    "info": "当前帐号没有操作角色,请联系管理员。"
+  },
   "layout" : {
     "global" : {
       "header": {
@@ -169,7 +179,6 @@
     "请输入密码": "Please input a password",
     "请输入手机号": "Please enter your mobile phone number",
     "请输入手机验证码": "Please input the mobile phone verification code",
-    "请输入用户名": "Please enter one user name",
     "请输入正确的手机号": "Please enter the correct mobile phone number",
     "全屏": "Full screen",
     "取色器": "Color picker",

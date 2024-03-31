@@ -128,7 +128,7 @@
   import { translate } from '@/i18n'
 
   export default defineComponent({
-    name: 'UserManagement',
+    name: 'AdminManagement',
     components: {
       Edit: defineAsyncComponent(
         () => import('./components/UserManagementEdit')
