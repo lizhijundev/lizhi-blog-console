@@ -11,7 +11,7 @@ import {
 import Layout from '@vab/layouts/index.vue'
 import { setupPermissions } from './permissions'
 import { authentication, isHashRouterMode, publicPath } from '@/config'
-import { asyncDemoRoutes } from "@/router/demo.ts"
+import { asyncDemoRoutes } from '@/router/demo.ts'
 
 export const constantRoutes: VabRouteRecord[] = [
   {
@@ -102,11 +102,10 @@ export const asyncRoutes: VabRouteRecord[] = [
           noColumn: true,
         },
       },
-      ],
+    ],
   },
   // ...asyncDemoRoutes,
 ]
-
 
 const router = createRouter({
   history: isHashRouterMode

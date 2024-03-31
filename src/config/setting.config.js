@@ -3,7 +3,7 @@
  */
 module.exports = {
   // 标题，此项修改后需要重启项目！！！ (包括初次加载雪花屏的标题 页面的标题 浏览器的标题)
-  title: 'Vue Admin Plus',
+  title: 'Lizhi Console',
   // 标题分隔符
   titleSeparator: ' - ',
   // 标题是否反转
@@ -25,7 +25,7 @@ module.exports = {
   // token名称
   tokenName: 'token',
   // token在localStorage、sessionStorage、cookie存储的key的名称
-  tokenTableName: 'admin-plus-token',
+  tokenTableName: 'lizhi-console-token',
   // token存储位置localStorage sessionStorage cookie
   storage: 'localStorage',
   // token失效回退到登录页时是否记录本次的路由（是否记录当前tab页）

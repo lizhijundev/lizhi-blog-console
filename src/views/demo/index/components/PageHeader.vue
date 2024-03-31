@@ -1,20 +1,21 @@
 <script setup>
+  import MemberAvatar from '@/components/MemberAvatar/Index.vue'
   import { useUserStore } from '@/store/modules/user'
   const userStore = useUserStore()
-  const { avatar, username } = storeToRefs(userStore)
+  const { avatar, nickname } = storeToRefs(userStore)
   const { t } = useI18n()
   const handleTips = () => {
     const hour = new Date().getHours()
     if (hour < 8) {
-      return t('layout.global.header.morning', { name: username.value })
+      return t('layout.global.header.morning', { name: nickname.value })
     } else if (hour <= 11) {
-      return t('layout.global.header.forenoon', { name: username.value })
+      return t('layout.global.header.forenoon', { name: nickname.value })
     } else if (hour <= 13) {
-      return t('layout.global.header.afternoon', { name: username.value })
+      return t('layout.global.header.afternoon', { name: nickname.value })
     } else if (hour < 18) {
-      return t('layout.global.header.evening', { name: username.value })
+      return t('layout.global.header.evening', { name: nickname.value })
     } else {
-      return t('layout.global.header.night', { name: username.value })
+      return t('layout.global.header.night', { name: nickname.value })
     }
   }
 
@@ -26,7 +27,7 @@
 <template>
   <el-col :span="24">
     <vab-card class="page-header" shadow="never">
-      <el-avatar class="page-header-avatar" :src="avatar" />
+      <MemberAvatar class="page-header-avatar" />
       <div class="page-header-tip">
         <p class="page-header-tip-title">
           {{ handleTips() }}
@@ -39,12 +40,13 @@
 <style lang="scss" scoped>
   .page-header {
     transition: none;
-
+    display: flex;
+    flex-direction: row;
+    align-items: center;
     :deep() {
       * {
         transition: none;
       }
-
       .el-card__body {
         display: flex;
         flex-wrap: wrap;
@@ -52,6 +54,9 @@
       }
     }
 
+    :deep(.el-avatar) {
+      font-size: 24px !important;
+    }
     &-avatar {
       width: 60px;
       height: 60px;
@@ -65,14 +70,12 @@
       min-width: 300px;
 
       &-title {
-        margin-bottom: 12px;
         font-size: 20px;
         font-weight: bold;
         color: #3c4a54;
       }
 
       &-description {
-        min-height: 20px;
         font-size: $base-font-size-default;
         color: #808695;
       }

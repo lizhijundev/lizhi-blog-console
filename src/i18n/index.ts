@@ -39,6 +39,7 @@ export function transApp(message: string | undefined, namespace = '') {
   if (!message) {
     return ''
   }
+  console.log('getLanguage()我看看', getLanguage(), message)
   return (
     [getLanguage(), namespace, message].reduce(
       (o, k) => (o || {})[k],

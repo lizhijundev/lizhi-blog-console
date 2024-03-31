@@ -60,7 +60,7 @@
     padding: 0 $base-padding 0 $base-padding;
     color: rgba(0, 0, 0, 0.45);
     background: var(--el-color-white);
-    border-top: 1px dashed $base-border-color;
+    box-shadow: 0 -1px 4px rgba(0, 21, 41, 0.08);
 
     i {
       margin: 0 5px;

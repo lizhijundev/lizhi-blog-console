@@ -19,9 +19,6 @@
 
 <style lang="scss" scoped>
   .index-container {
-    padding: 0 !important;
-    background: $base-color-background !important;
-
     :deep() {
       .page-header {
         margin-bottom: 20px;

@@ -1,41 +1,21 @@
 <template>
   <div class="personal-center-container">
-    <el-row :gutter="20">
-      <el-col :lg="8" :md="12" :sm="24" :xl="8" :xs="24">
-        <vab-card shadow="hover">
-          <div class="personal-center-user-info">
-            <el-avatar :size="100" :src="avatar" />
-            <div class="personal-center-user-info-full-name">
-              {{ nickname }}
-            </div>
-            <ul class="personal-center-user-info-list">
-              <li>
-                <vab-icon icon="user-3-line" />
-                {{ username }}
-              </li>
-            </ul>
-          </div>
-        </vab-card>
-      </el-col>
-      <el-col :lg="16" :md="12" :sm="24" :xl="16" :xs="24">
-        <vab-card shadow="hover">
-          <el-tabs v-model="activeName">
-            <el-tab-pane label="基本信息" name="first">
-              <el-col :lg="12" :md="16" :sm="24" :xl="12" :xs="24">
-                <el-form label-width="80px" :model="form">
-                  <el-form-item label="昵称">
-                    <el-input v-model="form.nickname" />
-                  </el-form-item>
-                  <el-form-item>
-                    <el-button type="primary" @click="onSubmit">保存</el-button>
-                  </el-form-item>
-                </el-form>
-              </el-col>
-            </el-tab-pane>
-          </el-tabs>
-        </vab-card>
-      </el-col>
-    </el-row>
+    <vab-card shadow="never">
+      <el-tabs v-model="activeName">
+        <el-tab-pane label="基本信息" name="first">
+          <el-col :lg="12" :md="16" :sm="24" :xl="12" :xs="24">
+            <el-form label-width="80px" :model="form">
+              <el-form-item label="昵称">
+                <el-input v-model="form.nickname" />
+              </el-form-item>
+              <el-form-item>
+                <el-button type="primary" @click="onSubmit">保存</el-button>
+              </el-form-item>
+            </el-form>
+          </el-col>
+        </el-tab-pane>
+      </el-tabs>
+    </vab-card>
   </div>
 </template>
 

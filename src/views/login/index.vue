@@ -1,86 +1,77 @@
 <template>
   <div class="login-container">
-    <el-row>
-      <el-col :lg="6" :md="6" :sm="24" :xl="8" :xs="24">
-        <div style="color: transparent"></div>
-      </el-col>
-      <el-col :lg="12" :md="12" :sm="24" :xl="8" :xs="24">
-        <div class="login-form">
-          <div class="login-header">
-            <div class="title">
-              <span>{{ $t('login.title') }}</span>
-              <vab-language />
-            </div>
-            <div class="title-tips">
-              {{ $t('login.welcome', { title: title }) }}
-            </div>
-          </div>
-          <el-form
-            ref="formRef"
-            class="form"
-            label-position="left"
-            :model="form"
-            :rules="rules"
-          >
-            <el-form-item prop="username">
-              <el-input
-                v-model.trim="form.username"
-                v-focus
-                :placeholder="$t('login.usernameTips')"
-                tabindex="1"
-                type="text"
-              >
-                <template #prefix>
-                  <vab-icon icon="user-line" />
-                </template>
-              </el-input>
-            </el-form-item>
-            <el-form-item prop="password">
-              <el-input
-                :key="passwordType"
-                ref="passwordRef"
-                v-model.trim="form.password"
-                :placeholder="$t('login.pwdTips')"
-                tabindex="2"
-                :type="passwordType"
-                @keyup.enter="handleLogin"
-              >
-                <template #prefix>
-                  <vab-icon icon="lock-line" />
-                </template>
-                <template v-if="passwordType === 'password'" #suffix>
-                  <vab-icon
-                    class="show-password"
-                    icon="eye-off-line"
-                    @click="handlePassword"
-                  />
-                </template>
-                <template v-else #suffix>
-                  <vab-icon
-                    class="show-password"
-                    icon="eye-line"
-                    @click="handlePassword"
-                  />
-                </template>
-              </el-input>
-            </el-form-item>
-            <el-form-item>
-              <el-button
-                class="login-btn"
-                :loading="loading"
-                type="primary"
-                @click="handleLogin"
-              >
-                {{ $t('login.login') }}
-              </el-button>
-            </el-form-item>
-          </el-form>
+    <div class="bg"></div>
+    <div class="login-form">
+      <div class="login-header">
+        <div class="title">
+          <span>{{ $t('login.title') }}</span>
+          <vab-language />
         </div>
-      </el-col>
-      <el-col :lg="6" :md="6" :sm="24" :xl="8" :xs="24">
-        <div style="color: transparent"></div>
-      </el-col>
-    </el-row>
+        <div class="title-tips">
+          {{ $t('login.welcome', { title: title }) }}
+        </div>
+      </div>
+      <el-form
+        ref="formRef"
+        class="form"
+        label-position="left"
+        :model="form"
+        :rules="rules"
+      >
+        <el-form-item prop="username">
+          <el-input
+            v-model.trim="form.username"
+            v-focus
+            :placeholder="$t('login.usernameTips')"
+            tabindex="1"
+            type="text"
+          >
+            <template #prefix>
+              <vab-icon icon="user-line" />
+            </template>
+          </el-input>
+        </el-form-item>
+        <el-form-item prop="password">
+          <el-input
+            :key="passwordType"
+            ref="passwordRef"
+            v-model.trim="form.password"
+            :placeholder="$t('login.pwdTips')"
+            tabindex="2"
+            :type="passwordType"
+            @keyup.enter="handleLogin"
+          >
+            <template #prefix>
+              <vab-icon icon="lock-line" />
+            </template>
+            <template v-if="passwordType === 'password'" #suffix>
+              <vab-icon
+                class="show-password"
+                icon="eye-off-line"
+                @click="handlePassword"
+              />
+            </template>
+            <template v-else #suffix>
+              <vab-icon
+                class="show-password"
+                icon="eye-line"
+                @click="handlePassword"
+              />
+            </template>
+          </el-input>
+        </el-form-item>
+        <el-form-item>
+          <el-button
+            class="login-btn"
+            :loading="loading"
+            type="primary"
+            @click="handleLogin"
+          >
+            {{ $t('login.login') }}
+          </el-button>
+        </el-form-item>
+      </el-form>
+    </div>
     <vab-footer />
   </div>
 </template>
@@ -122,8 +113,8 @@
         formRef: null,
         passwordRef: null,
         form: {
-          username: 'admin',
-          password: '123456',
+          username: '',
+          password: '',
         },
         rules: {
           username: [
@@ -194,22 +185,55 @@
 </script>
 
 <style lang="scss" scoped>
+  :deep(.el-input) {
+    .el-input__wrapper {
+      background: rgba(255, 255, 255, 0.2);
+      .el-input__inner {
+        color: #fff;
+        font-size: 16px;
+      }
+    }
+  }
   .login-container {
-    background: #ebf0fa
-      url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iMTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iNiIgY3k9IjYiIHI9Ii43NSIgZmlsbD0iI0M1Q0VFMCIvPjwvc3ZnPg==)
-      repeat;
-    min-height: 100vh;
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    left: 0;
+    top: 0;
+    background: linear-gradient(45deg, #040710, #192032);
+    @keyframes circle {
+      0% {
+        transform: translateX(-20%) translateY(20px);
+      }
+      100% {
+        transform: translateX(-50%) translateY(120px) rotate(360deg);
+      }
+    }
 
-    .login-form {
+    .bg {
       position: relative;
-      max-width: 100%;
-      margin: calc((100vh - 555px) / 2) 5vw 5vw;
+      width: 300px;
+      height: 300px;
+      border-radius: 20px;
+      left: 50%;
+      top: 20px;
+      filter: blur(70px);
+      background: #a8c9ec;
+      animation: circle 5s linear infinite alternate;
+      //background: url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iMTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iNiIgY3k9IjYiIHI9Ii43NSIgZmlsbD0iI0M1Q0VFMCIvPjwvc3ZnPg==)
+      //  repeat;
+    }
+    .login-form {
+      position: absolute;
+      width: 480px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
       overflow: hidden;
       background: rgba(255, 255, 255, 0.2);
-      background-size: 100% 100%;
       border-radius: 10px;
-      box-shadow: var(--el-box-shadow-lighter);
       backdrop-filter: blur(10px);
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
       @keyframes wave {
         0% {
           background-position: 0% 50%;
@@ -223,13 +247,13 @@
       }
 
       .login-header {
-        background-image: linear-gradient(
-          60deg,
-          var(--el-color-primary),
-          var(--el-color-primary-light-3)
-        );
-        animation: wave 2s infinite linear;
-        padding: 4.5vh;
+        //background-image: linear-gradient(
+        //  60deg,
+        //  var(--el-color-primary),
+        //  var(--el-color-primary-light-3)
+        //);
+        //animation: wave 2s infinite linear;
+        padding: 4.5vh 4.5vh 1vh 4.5vh;
 
         .title {
           font-size: 28px;
@@ -252,7 +276,7 @@
         }
       }
       .form {
-        padding: 4.5vh;
+        padding: 1vh 4.5vh 4.5vh 4.5vh;
       }
 
       .login-btn {
@@ -260,10 +284,13 @@
         width: 100%;
         height: 50px;
         margin: 5px auto;
-        background: var(--el-color-primary);
+        color: var(--el-color-primary);
+        background-color: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(10px);
         border: 0;
+        transition: background-color 0.3s;
         &:hover {
-          opacity: 0.9;
+          background-color: rgba(255, 255, 255, 1);
         }
       }
 
@@ -294,6 +321,7 @@
         top: 8px;
         left: 15px;
         font-size: 16px;
+        color: #fff;
       }
 
       .show-password {
@@ -306,7 +334,7 @@
       :deep() {
         .el-form-item {
           padding-right: 0;
-          margin: 20px 0;
+          margin: 20px 0 30px 0;
           color: #454545;
           background: transparent;
           border: 1px solid transparent;
@@ -363,6 +391,14 @@
         text-align: center;
         background: transparent;
         border: 0;
+      }
+    }
+  }
+  @media (max-width: 768px) {
+    .login-container {
+      .login-form {
+        width: 90%;
+        min-width: 320px;
       }
     }
   }

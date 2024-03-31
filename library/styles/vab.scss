@@ -54,18 +54,23 @@ html {
 
         .vab-app-main {
           width: 100%;
-          padding: $base-padding;
           overflow: hidden;
           transition: $base-transition;
+          &-container {
+            padding: $base-padding;
+            box-shadow: var(--el-box-shadow-lighter);
+          }
 
           > section {
-            background: var(--el-color-white);
+            background: var(--el-bg-color-page) url(data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTIiIGhlaWdodD0iMTIiIGZpbGw9Im5vbmUiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iNiIgY3k9IjYiIHI9Ii43NSIgZmlsbD0iI0M1Q0VFMCIvPjwvc3ZnPg==) repeat;
             transition: $base-transition;
 
             > [class*='-container'] {
               min-height: $base-keep-alive-height;
               padding: $base-padding;
               background: var(--el-color-white);
+              border-radius: $base-border-radius;
+              box-shadow: $base-box-shadow;
               transition: $base-transition;
             }
           }

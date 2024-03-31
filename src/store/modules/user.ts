@@ -9,10 +9,11 @@ import { UserModuleType } from '/#/store'
 import { getUserInfo, login, logout, socialLogin } from '@/api/user'
 import { getToken, removeToken, setToken } from '@/utils/token'
 import { resetRouter } from '@/router'
-import { isArray, isNumber, isString } from "@/utils/validate";
+import { isArray, isNumber, isString } from '@/utils/validate'
 import { tokenName } from '@/config'
 import { gp } from '@gp'
-import { transApp } from "@/i18n";
+import { i18n } from '@/i18n'
+import { Composer } from 'vue-i18n'
 
 export const useUserStore = defineStore('user', {
   state: (): UserModuleType => ({
@@ -20,7 +21,7 @@ export const useUserStore = defineStore('user', {
     admin_id: 0,
     nickname: '游客',
     username: '游客',
-    avatar: '/img/avatar.png',
+    avatar: '',
   }),
   getters: {
     getToken: (state) => state.token,
@@ -73,7 +74,7 @@ export const useUserStore = defineStore('user', {
       const aclStore = useAclStore()
       aclStore.setFull(true)
       this.setUsername('admin(未开启登录拦截)')
-      this.setAvatar('/img/avatar.png')
+      this.setAvatar('')
     },
     /**
      * @description 设置token并发送提醒
@@ -86,17 +87,18 @@ export const useUserStore = defineStore('user', {
       if (token) {
         this.setToken(token)
         const hour = new Date().getHours()
+        const { t } = i18n.global as Composer
         const thisTime =
           hour < 8
-            ? transApp('layout.global.welcome.morning')
+            ? t('layout.global.welcome.morning')
             : hour <= 11
-              ? transApp('layout.global.welcome.forenoon')
+              ? t('layout.global.welcome.forenoon')
               : hour <= 13
-                ? transApp('layout.global.welcome.afternoon')
+                ? t('layout.global.welcome.afternoon')
                 : hour < 18
-                  ? transApp('layout.global.welcome.evening')
-                  : transApp('layout.global.welcome.night')
-        gp.$baseNotify(transApp('layout.global.welcome.back'), `${thisTime}！`)
+                  ? t('layout.global.welcome.evening')
+                  : t('layout.global.welcome.night')
+        gp.$baseNotify(t('layout.global.welcome.back'), thisTime)
       } else {
         const err = `登录接口异常，未正确返回${tokenName}...`
         gp.$baseMessage(err, 'error', 'vab-hey-message-error')
@@ -180,7 +182,7 @@ export const useUserStore = defineStore('user', {
     async resetAll() {
       this.setToken('')
       this.setUsername('游客')
-      this.setAvatar('/img/avatar.png')
+      this.setAvatar('')
 
       const aclStore = useAclStore()
       const routesStore = useRoutesStore()

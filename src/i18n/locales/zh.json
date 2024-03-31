@@ -1,4 +1,5 @@
 {
+  "": "",
   "common": {
     "adminCenter": "个人中心",
     "logout": "退出登录",
@@ -19,7 +20,8 @@
     "closeAll": "关闭全部",
     "closeLeft": "关闭左侧",
     "closeRight": "关闭右侧",
-    "switchWallpaper": "切换壁纸"
+    "switchWallpaper": "切换壁纸",
+    "curLang": "当前语言: {lang}"
   },
   "page": {
     "home": "首页",
@@ -29,7 +31,7 @@
   },
   "login" : {
     "title": "登录",
-    "welcome": "欢迎来到{title}",
+    "welcome": "欢迎使用 {title}",
     "login": "登录",
     "usernameTips": "请输入用户名",
     "usernameError": "用户名不能为空",
@@ -39,7 +41,7 @@
   "layout" : {
     "global" : {
       "header": {
-        "morning": "早上好{name}，又是元气满满的一天",
+        "morning": "早上好{name}，又是元气满满的一天!",
         "forenoon": "上午好{name}，看到你我好开心。",
         "afternoon": "中午好{name}，忙碌了一上午，记得吃午饭哦。",
         "evening": "下午好{name}，你一定有些累了，喝杯咖啡提提神。",

@@ -1,4 +1,5 @@
 {
+  "": "",
   "common": {
     "adminCenter": "User center",
     "logout": "Logout",
@@ -18,7 +19,8 @@
     "closeAll": "Close All",
     "closeLeft": "Close Left",
     "closeRight": "Close Right",
-    "switchWallpaper": "Switch wallpaper"
+    "switchWallpaper": "Switch wallpaper",
+    "curLang": "Current language: {lang}"
   },
   "page": {
     "home": "Home",
@@ -28,8 +30,8 @@
 
   },
   "login" : {
-    "title": "Login Form",
-    "welcome": "Welcome to {title}",
+    "title": "Login",
+    "welcome": "Login into {title}",
     "login": "Login",
     "usernameTips": "Please enter one user name",
     "usernameError": "The user name cannot be empty",
@@ -39,8 +41,8 @@
   "layout" : {
     "global" : {
       "header": {
-        "morning": "Good morning{name}, I'm so happy to see you.",
-        "forenoon": "Good morning{name}, I hope you have a good day.",
+        "morning": "Good morning {name}, I'm so happy to see you.",
+        "forenoon": "Good morning {name}, I hope you have a good day.",
         "afternoon": "Good afternoon {name}, I've been busy all morning. Remember to have lunch.",
         "evening": "Good afternoon {name}, you must be a bit tired. Have a cup of coffee to refresh yourself.",
         "night": "It's late at night {name}, may you have a light in the dark and an umbrella in the rain."

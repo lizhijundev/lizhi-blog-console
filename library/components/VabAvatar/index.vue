@@ -1,12 +1,13 @@
 <script lang="ts" setup>
   import { useUserStore } from '@/store/modules/user'
   import { toLoginRoute } from '@/utils/routes'
+  import MemberAvatar from '@/components/MemberAvatar/Index.vue'
 
   const route = useRoute()
   const router = useRouter()
 
   const userStore = useUserStore()
-  const { avatar, username } = storeToRefs(userStore)
+  const { username, nickname } = storeToRefs(userStore)
   const { logout } = userStore
 
   const active = ref(false)
@@ -30,9 +31,9 @@
 <template>
   <el-dropdown @command="handleCommand" @visible-change="handleVisibleChange">
     <span class="avatar-dropdown">
-      <el-avatar class="user-avatar" :src="avatar" />
+      <MemberAvatar class="user-avatar" />
       <div class="user-name">
-        <span class="hidden-xs-only" :title="username">{{ username }}</span>
+        <span class="hidden-xs-only" :title="nickname">{{ nickname }}</span>
         <vab-icon
           class="vab-dropdown"
           :class="{ 'vab-dropdown-active': active }"
@@ -41,6 +42,9 @@
       </div>
     </span>
     <template #dropdown>
+      <div class="user-info">
+        {{ username }}
+      </div>
       <el-dropdown-menu>
         <el-dropdown-item command="personalCenter">
           <vab-icon icon="user-line" />
@@ -92,5 +96,11 @@
         margin-left: 3px !important;
       }
     }
+  }
+  .user-info {
+    font-size: 14px;
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid var(--el-border-color-lighter);
   }
 </style>

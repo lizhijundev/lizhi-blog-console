@@ -2,6 +2,7 @@
   import { useUserStore } from '@/store/modules/user'
   import { useSettingsStore } from '@/store/modules/settings'
   import { unlockScreen } from '@/api/user.ts'
+  import MemberAvatar from '@/components/MemberAvatar/Index.vue'
 
   const vFocus: any = {
     mounted(el: HTMLElement) {
@@ -68,7 +69,7 @@
     <div v-if="lock" class="vab-screen-lock">
       <div class="vab-screen-lock-content">
         <div class="vab-screen-lock-content-title">
-          <el-avatar :size="180" :src="avatar" />
+          <MemberAvatar :size="180" />
           <vab-icon :icon="lockIcon ? 'lock-line' : 'lock-unlock-line'" />
           {{ title }} {{ $t('lockView.locked') }}
         </div>
@@ -104,6 +105,9 @@
 </template>
 
 <style lang="scss" scoped>
+  :deep(.el-avatar) {
+    font-size: 60px !important;
+  }
   .vab-screen-lock {
     position: fixed;
     top: 0;

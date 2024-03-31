@@ -20,7 +20,7 @@
 
 <template>
   <div class="vab-app-main">
-    <section>
+    <section class="vab-app-main-container">
       <vab-router-view />
     </section>
     <vab-footer />
