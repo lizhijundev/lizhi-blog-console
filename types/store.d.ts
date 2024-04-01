@@ -22,7 +22,7 @@ declare interface RoutesModuleType {
 }
 
 declare type DeviceType = 'mobile' | 'desktop'
-declare type LanguageType = 'zh' | 'en'
+declare type LanguageType = 'zh' | 'en' | 'vi'
 
 declare interface SettingsModuleType {
   theme: ThemeType

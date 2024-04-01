@@ -1,0 +1,124 @@
+{
+  "": "",
+  "common": {
+    "adminCenter": "Trung tâm quản trị",
+    "logout": "Đăng xuất",
+    "tip": "Gợi ý",
+    "nextStep": "Bước tiếp theo",
+    "prevStep": "Bước trước",
+    "cancel": "Hủy",
+    "confirm": "Xác nhận",
+    "search": "Tìm kiếm",
+    "reset": "Đặt lại",
+    "add": "Thêm",
+    "edit": "Sửa",
+    "delete": "Xóa",
+    "notice": "Thông báo",
+    "email": "Email",
+    "clear": "Xóa",
+    "save": "Lưu",
+    "refresh": "Làm mới",
+    "closeOther": "Đóng các khác",
+    "closeAll": "Đóng tất cả",
+    "closeLeft": "Đóng bên trái",
+    "closeRight": "Đóng bên phải",
+    "switchWallpaper": "Chuyển đổi hình nền",
+    "curLang": "Ngôn ngữ hiện tại: {lang}",
+    "currentStatus": "Trạng thái hiện tại",
+    "opened": "Đã mở",
+    "closed": "Đã đóng",
+    "open": "Mở",
+    "close": "Đóng",
+    "closeConfirm": "Bạn có chắc muốn đóng không?",
+    "friendlyNotice": "Lưu ý thân thiện",
+    "valid": "Hợp lệ",
+    "expire": "Hết hạn"
+  },
+  "validate": {
+    "required": "Không được để trống",
+    "phone": "Vui lòng nhập số điện thoại hợp lệ",
+    "email": "Vui lòng nhập địa chỉ email hợp lệ",
+    "passwordInconsistent": "Hai mật khẩu không khớp",
+    "otpCodeError": "Mã xác thực không đúng"
+  },
+  "page": {
+    "home": "Trang chủ",
+    "setting": "Cài đặt",
+    "adminManage": "Quản lý quản trị viên",
+    "personalCenter": "Trung tâm cá nhân"
+  },
+  "login" : {
+    "title": "Đăng nhập",
+    "welcome": "Chào mừng bạn đến với {title}",
+    "login": "Đăng nhập",
+    "usernameTips": "Vui lòng nhập tên người dùng",
+    "usernameError": "Tên người dùng không được để trống",
+    "pwdTips": "Vui lòng nhập mật khẩu",
+    "otpTips": "Vui lòng nhập mã xác thực",
+    "pwdError": "Mật khẩu phải có ít nhất 6 ký tự"
+  },
+  "404": {
+    "oops": "Rất tiếc!",
+    "headline": "Trang hiện tại không tồn tại...",
+    "info": "Vui lòng kiểm tra địa chỉ URL bạn nhập có chính xác không, hoặc nhấn nút dưới đây để quay về trang chủ.",
+    "btn": "Quay về trang chủ"
+  },
+  "403": {
+    "headline": "Bạn không có quyền truy cập",
+    "info": "Tài khoản hiện tại không có quyền truy cập, vui lòng liên hệ với quản trị viên."
+  },
+  "layout" : {
+    "global" : {
+      "header": {
+        "morning": "Chào buổi sáng {name}, một ngày tràn đầy năng lượng!",
+        "forenoon": "Chào buổi sáng {name}, thấy bạn tôi rất vui.",
+        "afternoon": "Chào buổi trưa {name}, đã bận rộn cả buổi sáng, đừng quên ăn trưa nhé.",
+        "evening": "Chào buổi chiều {name}, bạn chắc mệt rồi, uống một tách cà phê để tỉnh táo.",
+        "night": "Chào buổi tối {name}, chúc bạn có một đêm tối an lành."
+      },
+      "welcome": {
+        "morning": "Chào buổi sáng",
+        "forenoon": "Chào buổi sáng",
+        "afternoon": "Chào buổi trưa",
+        "evening": "Chào buổi chiều",
+        "night": "Chào buổi tối",
+        "back": "Chào mừng bạn trở lại"
+      }
+    }
+  },
+  "lockView": {
+    "locked": "Màn hình đã bị khóa",
+    "unlock": "Mở khóa"
+  },
+  "personCenter": {
+    "account": "Tài khoản",
+    "passwordAuth": "Xác thực mật khẩu",
+    "sessions": "Quản lý phiên",
+    "nickname": "Tên hiển thị",
+    "desc": "Giới thiệu bản thân",
+    "phone": "Số điện thoại",
+    "email": "Email",
+    "password": "Mật khẩu hiện tại",
+    "newPassword": "Mật khẩu mới",
+    "confirmPassword": "Xác nhận mật khẩu",
+    "resetPwd": "Đặt lại mật khẩu",
+    "resetPwdSuccess": "Cập nhật mật khẩu thành công, vui lòng đăng nhập lại",
+    "TwoFactor": "Xác thực hai bước",
+    "TwoFactorTips": "Ứng dụng xác thực và tiện ích trình duyệt như 1Password, Authy, Microsoft Authenticator sẽ tạo mã một lần, mã này sẽ được sử dụng như một yếu tố xác thực thứ hai trong quá trình đăng nhập.",
+    "TwoFactorStep1": "Cấu hình tạo mã xác thực",
+    "TwoFactorStep2": "Xác thực và bật",
+    "TwoFactorStep1Title": "Mở ứng dụng xác thực, quét mã QR bên trái.",
+    "TwoFactorStep1Notice": "Lưu ý: Không quét mã QR được? Thêm tài khoản thủ công:",
+    "TwoFactorStep1Account": "Tài khoản: {account}",
+    "TwoFactorStep1Secret": "Mã bí mật: {secret}",
+    "TwoFactorStep2Notice": "Vui lòng nhập mã xác thực động được tạo bởi ứng dụng xác thực để bật xác thực hai bước.",
+    "TwoFactorVerifyCode": "Mã xác thực",
+    "TwoFactorSuccess": "Bật xác thực hai bước thành công",
+    "TwoFactorCloseSuccess": "Tắt xác thực hai bước thành công",
+    "fieldLoginTime": "Thời gian đăng nhập",
+    "fieldBrowser": "Thiết bị sử dụng",
+    "fieldIp": "Địa chỉ IP",
+    "fieldExpireTime": "Thời gian hết hạn đăng nhập",
+    "fieldStatus": "Trạng thái"
+  }
+}

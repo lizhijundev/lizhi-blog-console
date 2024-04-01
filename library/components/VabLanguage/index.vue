@@ -1,13 +1,11 @@
 <script lang="ts" setup>
   import { useSettingsStore } from '@/store/modules/settings'
   import getPageTitle from '@/utils/pageTitle'
+  import { supportLanguageMap } from '@/i18n'
   const { locale } = useI18n()
 
   const route = useRoute()
-  const surportLanguage = ref({
-    en: 'English',
-    zh: '简体中文',
-  })
+  const supportLanguage = ref(supportLanguageMap)
 
   const settingsStore = useSettingsStore()
   const { theme } = storeToRefs(settingsStore)
@@ -29,11 +27,11 @@
     <vab-icon icon="translate" />
     <template #dropdown>
       <div class="cur-view">
-        {{ $t('common.curLang', { lang: surportLanguage[locale] }) }}
+        {{ $t('common.curLang', { lang: supportLanguage[locale] }) }}
       </div>
       <el-dropdown-menu>
         <el-dropdown-item
-          v-for="(name, key) in surportLanguage"
+          v-for="(name, key) in supportLanguage"
           :key="key"
           :command="key"
         >

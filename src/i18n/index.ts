@@ -4,10 +4,25 @@ import { createI18n } from 'vue-i18n'
 import { LanguageType } from '/#/store'
 import en from './locales/en.json'
 import zh from './locales/zh.json'
+import vi from './locales/vi.json'
 import enLocale from 'element-plus/dist/locale/en'
 import zhLocale from 'element-plus/dist/locale/zh-cn'
+import viLocale from 'element-plus/dist/locale/vi'
 
-export { enLocale, zhLocale }
+export const supportLanguageMap = {
+  en: 'English',
+  zh: '简体中文',
+  vi: 'Tiếng Việt',
+}
+
+export const getElementLang = (lang) => {
+  const langMap = {
+    en: enLocale,
+    zh: zhLocale,
+    vi: viLocale,
+  }
+  return langMap[lang]
+}
 
 const messages: Record<LanguageType, any> = {
   en: {
@@ -15,6 +30,9 @@ const messages: Record<LanguageType, any> = {
   },
   zh: {
     ...zh,
+  },
+  vi: {
+    ...vi,
   },
 }
 
