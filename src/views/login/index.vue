@@ -72,6 +72,26 @@
         </el-form-item>
       </el-form>
     </div>
+    <el-dialog v-model="otpDialog" :title="$t('personCenter.TwoFactor')">
+      <el-form
+        ref="otpFormRef"
+        :model="otpForm"
+        :rules="otpRules"
+        label-width="140px"
+      >
+        <el-form-item
+          :label="$t('personCenter.TwoFactorVerifyCode')"
+          prop="code"
+        >
+          <el-input v-model="otpForm.code" />
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="openOtp">
+            {{ $t('login.login') }}
+          </el-button>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
     <vab-footer />
   </div>
 </template>
@@ -80,6 +100,7 @@
   import { useSettingsStore } from '@/store/modules/settings'
   import { useUserStore } from '@/store/modules/user'
   import { isPassword } from '@/utils/validate'
+  import { tokenName } from '@/config/setting.config'
 
   export default defineComponent({
     name: 'Login',
@@ -113,8 +134,8 @@
         formRef: null,
         passwordRef: null,
         form: {
-          username: '',
-          password: '',
+          username: 'admin',
+          password: '123456',
         },
         rules: {
           username: [
@@ -156,8 +177,20 @@
           if (valid)
             try {
               state.loading = true
-              await login(state.form).catch(() => {})
-              await router.push(handleRoute())
+              login(state.form)
+                .then(async (data) => {
+                  if (data.login_success) {
+                    userStore.afterLogin(data[tokenName], tokenName)
+                    await router.push(handleRoute())
+                  } else {
+                    console.log(data)
+                    otpDialog.value = true
+                    otpForm.value = {
+                      admin_id: data.admin_id,
+                    }
+                  }
+                })
+                .catch(() => {})
             } finally {
               state.loading = false
             }
@@ -174,26 +207,42 @@
         next()
       })
 
+      const otpFormRef = ref(null)
+      const otpDialog = ref(false)
+      const otpForm = ref({
+        admin_id: 0,
+        code: '',
+      })
+      const otpRules = ref({
+        code: [
+          { required: true, message: t('login.otpTips'), trigger: 'blur' },
+        ],
+      })
+      const openOtp = () => {
+        otpFormRef.value.validate(async (valid) => {
+          if (valid) {
+            await userStore.loginByOtp(otpForm.value)
+            await router.push(handleRoute())
+          }
+        })
+      }
+
       return {
         ...toRefs(state),
         title: settingsStore.getTitle,
         handlePassword,
         handleLogin,
+        otpFormRef,
+        otpDialog,
+        otpForm,
+        otpRules,
+        openOtp,
       }
     },
   })
 </script>
 
 <style lang="scss" scoped>
-  :deep(.el-input) {
-    .el-input__wrapper {
-      background: rgba(255, 255, 255, 0.2);
-      .el-input__inner {
-        color: #fff;
-        font-size: 16px;
-      }
-    }
-  }
   .login-container {
     position: absolute;
     width: 100%;
@@ -234,15 +283,24 @@
       border-radius: 10px;
       backdrop-filter: blur(10px);
       box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+      :deep(.el-input) {
+        .el-input__wrapper {
+          background: rgba(255, 255, 255, 0.2);
+          .el-input__inner {
+            color: #fff;
+            font-size: 16px;
+          }
+        }
+      }
       @keyframes wave {
         0% {
-          background-position: 0% 50%;
+          background-position: 0 50%;
         }
         50% {
           background-position: 100% 50%;
         }
         100% {
-          background-position: 0% 50%;
+          background-position: 0 50%;
         }
       }
 

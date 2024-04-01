@@ -4,9 +4,8 @@
 import { useAclStore } from './acl'
 import { useTabsStore } from './tabs'
 import { useRoutesStore } from './routes'
-import { useSettingsStore } from './settings'
 import { UserModuleType } from '/#/store'
-import { getUserInfo, login, logout, socialLogin } from '@/api/user'
+import { getUserInfo, login, loginByOtp, logout, socialLogin } from '@/api/user'
 import { getToken, removeToken, setToken } from '@/utils/token'
 import { resetRouter } from '@/router'
 import { isArray, isNumber, isString } from '@/utils/validate'
@@ -110,10 +109,32 @@ export const useUserStore = defineStore('user', {
      * @param {*} userInfo
      */
     async login(userInfo: any) {
-      const {
-        data: { [tokenName]: token },
-      } = await login(userInfo)
-      this.afterLogin(token, tokenName)
+      return new Promise((resolve, reject) => {
+        login(userInfo)
+          .then((res) => {
+            resolve(res.data)
+          })
+          .catch((err) => {
+            reject(err)
+          })
+      })
+
+      // const {
+      //   data: { [tokenName]: token },
+      // } = await login(userInfo)
+      // this.afterLogin(token, tokenName)
+    },
+    async loginByOtp(otpInfo: any) {
+      return new Promise((resolve, reject) => {
+        loginByOtp(otpInfo)
+          .then((res) => {
+            this.afterLogin(res.data[tokenName], tokenName)
+            resolve(res.data)
+          })
+          .catch((err) => {
+            reject(err)
+          })
+      })
     },
     /**
      * @description 第三方登录

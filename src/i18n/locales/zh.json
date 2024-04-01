@@ -4,6 +4,8 @@
     "adminCenter": "个人中心",
     "logout": "退出登录",
     "tip": "提示",
+    "nextStep": "下一步",
+    "prevStep": "上一步",
     "cancel": "取消",
     "confirm": "确定",
     "search": "搜索",
@@ -14,14 +16,30 @@
     "notice": "通知",
     "email": "邮件",
     "clear": "清空",
-
+    "save": "保存",
     "refresh": "刷新",
     "closeOther": "关闭其他",
     "closeAll": "关闭全部",
     "closeLeft": "关闭左侧",
     "closeRight": "关闭右侧",
     "switchWallpaper": "切换壁纸",
-    "curLang": "当前语言: {lang}"
+    "curLang": "当前语言: {lang}",
+    "currentStatus": "当前状态",
+    "opened": "已开启",
+    "closed": "已关闭",
+    "open": "开启",
+    "close": "关闭",
+    "closeConfirm": "你确定要关闭吗？",
+    "friendlyNotice": "温馨提示",
+    "valid": "有效",
+    "expire": "过期"
+  },
+  "validate": {
+    "required": "不能为空",
+    "phone": "请输入正确的手机号",
+    "email": "请输入正确的邮箱",
+    "passwordInconsistent": "两次输入密码不一致",
+    "otpCodeError": "验证码错误"
   },
   "page": {
     "home": "首页",
@@ -36,6 +54,7 @@
     "usernameTips": "请输入用户名",
     "usernameError": "用户名不能为空",
     "pwdTips": "请输入密码",
+    "otpTips": "请输入二次验证码",
     "pwdError": "密码不能少于6位"
   },
   "404": {
@@ -70,6 +89,37 @@
   "lockView": {
     "locked": "屏幕已锁定",
     "unlock": "解锁"
+  },
+  "personCenter": {
+    "account": "账号",
+    "passwordAuth": "密码认证",
+    "sessions": "会话管理",
+    "nickname": "姓名",
+    "desc": "自我介绍",
+    "phone": "手机",
+    "email": "邮箱",
+    "password": "原密码",
+    "newPassword": "新密码",
+    "confirmPassword": "确认密码",
+    "resetPwd": "重置密码",
+    "resetPwdSuccess": "密码更新成功，请重新登录",
+    "TwoFactor": "两步验证",
+    "TwoFactorTips": "身份验证器应用程序和浏览器扩展程序，如1Password、Authy、Microsoft Authenticator等，会生成一次性密码，在登录过程中出现提示时，这些密码会被用作验证身份的第二个因素。",
+    "TwoFactorStep1": "配置生成验证码",
+    "TwoFactorStep2": "验证并开启",
+    "TwoFactorStep1Title": "打开身份验证器 App，点击「扫描二维码」扫描左侧二维码。",
+    "TwoFactorStep1Notice": "注意：身份验证器不能扫描验证码？ 手动添加以下账户：",
+    "TwoFactorStep1Account": "账户：{account}",
+    "TwoFactorStep1Secret": "密钥：{secret}",
+    "TwoFactorStep2Notice": "请输入身份验证器 App 生成的动态验证码，开启两步验证。",
+    "TwoFactorVerifyCode": "验证码",
+    "TwoFactorSuccess": "两步验证开启成功",
+    "TwoFactorCloseSuccess": "两步验证关闭成功",
+    "fieldLoginTime": "登录时间",
+    "fieldBrowser": "使用设备",
+    "fieldIp": "IP",
+    "fieldExpireTime": "登录有效期",
+    "fieldStatus": "状态"
   },
   "vabI18n": {
     "403": "403",

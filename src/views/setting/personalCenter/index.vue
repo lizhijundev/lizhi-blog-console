@@ -1,116 +1,45 @@
 <template>
   <div class="personal-center-container">
     <vab-card shadow="never">
-      <el-tabs v-model="activeName">
-        <el-tab-pane label="基本信息" name="first">
-          <el-col :lg="12" :md="16" :sm="24" :xl="12" :xs="24">
-            <el-form label-width="80px" :model="form">
-              <el-form-item label="昵称">
-                <el-input v-model="form.nickname" />
-              </el-form-item>
-              <el-form-item>
-                <el-button type="primary" @click="onSubmit">保存</el-button>
-              </el-form-item>
-            </el-form>
-          </el-col>
+      <el-tabs v-model="activeTab" tab-position="top">
+        <el-tab-pane :label="$t('personCenter.account')" name="account">
+          <Account />
+        </el-tab-pane>
+        <el-tab-pane
+          :label="$t('personCenter.passwordAuth')"
+          name="passwordAuth"
+        >
+          <PasswordAuth />
+        </el-tab-pane>
+        <el-tab-pane :label="$t('personCenter.sessions')" name="sessions">
+          <Sessions />
         </el-tab-pane>
       </el-tabs>
     </vab-card>
   </div>
 </template>
 
-<script>
-  import { useUserStore } from '@/store/modules/user'
-  import { saveAdminMember } from '@/api/adminMember'
+<script lang="ts" setup>
+  const Account = defineAsyncComponent(() => import('./components/Account.vue'))
+  const PasswordAuth = defineAsyncComponent(
+    () => import('./components/PasswordAuth.vue')
+  )
+  const Sessions = defineAsyncComponent(
+    () => import('./components/Sessions.vue')
+  )
 
-  export default defineComponent({
-    name: 'PersonalCenter',
-    setup() {
-      const $baseMessage = inject('$baseMessage')
-
-      const userStore = useUserStore()
-      const { nickname, admin_id, avatar, username } = storeToRefs(userStore)
-
-      const state = reactive({
-        vabCropperRef: null,
-        activeName: 'first',
-        form: {
-          admin_id: admin_id.value,
-          nickname: nickname.value,
-        },
-      })
-
-      const onSubmit = () => {
-        saveAdminMember(state.form).then(() => {
-          userStore.setNickname(state.form.nickname)
-          $baseMessage('保存成功', 'success', 'vab-hey-message-success')
-        })
-      }
-
-      return {
-        ...toRefs(state),
-        avatar,
-        username,
-        nickname,
-        admin_id,
-        onSubmit,
-      }
-    },
-  })
+  const activeTab = ref('account')
 </script>
 
 <style lang="scss" scoped>
+  :deep(.el-card) {
+    --el-card-border-color: transparent;
+  }
   $base: '.personal-center';
   #{$base}-container {
+    padding: 0 !important;
     #{$base}-user-info {
-      padding: $base-padding;
-      text-align: center;
-
-      :deep(.el-avatar) {
-        img {
-          cursor: pointer;
-        }
-      }
-
-      &-full-name {
-        margin-top: 15px;
-        font-size: 24px;
-        font-weight: 500;
-        color: #262626;
-      }
-
-      &-description {
-        margin-top: 8px;
-      }
-
-      &-list {
-        margin-top: 18px;
-        line-height: 30px;
-        text-align: left;
-        list-style: none;
-
-        h5 {
-          margin: -20px 0 5px;
-        }
-      }
-    }
-
-    #{$base}-item {
-      display: flex;
-
-      i {
-        font-size: 40px;
-      }
-
-      &-content {
-        box-sizing: border-box;
-        flex: 1;
-        margin-left: $base-margin;
-
-        &-second {
-          margin-top: 8px;
-        }
-      }
+      min-height: 100%;
     }
   }
 </style>

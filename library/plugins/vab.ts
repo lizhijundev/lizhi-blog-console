@@ -3,6 +3,8 @@ import { loadingText, messageDuration } from '@/config'
 import mitt from 'mitt'
 import _ from 'lodash'
 import { globalPropertiesType } from '/#/library'
+import { i18n } from '@/i18n'
+import { Composer } from 'vue-i18n'
 
 export let gp: globalPropertiesType
 
@@ -51,12 +53,13 @@ export default {
        * @param {function} callback 若不使用Promise,可以使用此参数指定MessageBox关闭后的回调
        */
       $baseAlert: (content, title = '温馨提示', callback = undefined) => {
+        const { t } = i18n.global as Composer
         if (title && typeof title == 'function') {
           callback = title
-          title = '温馨提示'
+          title = t('common.friendlyNotice')
         }
         ElMessageBox.alert(content, title, {
-          confirmButtonText: '确定',
+          confirmButtonText: t('common.confirm'),
           dangerouslyUseHTMLString: true, // 此处可能引起跨站攻击，建议配置为false
           callback: () => {
             if (callback) callback()
@@ -77,10 +80,14 @@ export default {
         title,
         callback1,
         callback2,
-        confirmButtonText = '确定',
-        cancelButtonText = '取消'
+        confirmButtonText = '',
+        cancelButtonText = ''
       ) => {
-        ElMessageBox.confirm(content, title || '温馨提示', {
+        const { t } = i18n.global as Composer
+        if (confirmButtonText === '') confirmButtonText = t('common.confirm')
+        if (cancelButtonText === '') cancelButtonText = t('common.cancel')
+
+        ElMessageBox.confirm(content, title || t('common.friendlyNotice'), {
           confirmButtonText,
           cancelButtonText,
           closeOnClickModal: false,
