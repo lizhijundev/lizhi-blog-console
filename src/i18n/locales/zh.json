@@ -45,7 +45,9 @@
     "home": "首页",
     "setting": "设置",
     "adminManage": "管理员管理",
-    "personalCenter": "个人中心"
+    "personalCenter": "个人中心",
+    "adminMenu": "菜单管理",
+    "adminRole": "角色管理"
   },
   "login" : {
     "title": "登录",

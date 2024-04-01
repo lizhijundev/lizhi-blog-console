@@ -29,7 +29,6 @@ export function setupPermissions(router: Router) {
     } = useSettingsStore()
     const { routes, setRoutes } = useRoutesStore()
     const { token, getUserInfo, setVirtualRoles, resetAll } = useUserStore()
-
     if (showProgressBar) VabProgress.start()
 
     let hasToken = token
@@ -68,7 +67,7 @@ export function setupPermissions(router: Router) {
     }
   })
   router.afterEach((to: any) => {
-    document.title = getPageTitle(to.meta.title)
     if (VabProgress.status) VabProgress.done()
+    document.title = getPageTitle(to.meta.title)
   })
 }

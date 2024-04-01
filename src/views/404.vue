@@ -29,13 +29,17 @@
     }, 1000)
   }
 
-  onDeactivated(() => {
+  onBeforeUnmount(() => {
     delVisitedRoute(route.path)
-    clearInterval(state.timer)
+    clearInterval(timer)
   })
 
   onBeforeMount(() => {
     timeChange()
+  })
+
+  defineOptions({
+    name: '404',
   })
 </script>
 

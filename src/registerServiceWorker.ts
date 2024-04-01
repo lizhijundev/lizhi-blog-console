@@ -30,12 +30,6 @@ if (process.env.NODE_ENV === 'production') {
       console.log('New content is available; please refresh.')
       gp.$pub('vab-update')
 
-      //如果是演示环境，更新后移除主题，用不到可删除
-      if (
-        location.hostname === 'vue-admin-beautiful.com' ||
-        location.hostname === 'chu1204505056.gitee.io'
-      )
-        localStorage.removeItem('theme')
       // gp.$baseNotify(
       //   '更新版本完成，10S后刷新项目',
       //   '温馨提示',

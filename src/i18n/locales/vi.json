@@ -45,7 +45,9 @@
     "home": "Trang chủ",
     "setting": "Cài đặt",
     "adminManage": "Quản lý quản trị viên",
-    "personalCenter": "Trung tâm cá nhân"
+    "personalCenter": "Trung tâm cá nhân",
+    "adminMenu": "Menu quản trị",
+    "adminRole": "Vai trò quản trị"
   },
   "login" : {
     "title": "Đăng nhập",

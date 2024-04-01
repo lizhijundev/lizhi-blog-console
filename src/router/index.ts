@@ -11,7 +11,7 @@ import {
 import Layout from '@vab/layouts/index.vue'
 import { setupPermissions } from './permissions'
 import { authentication, isHashRouterMode, publicPath } from '@/config'
-import { asyncDemoRoutes } from '@/router/demo.ts'
+// import { asyncDemoRoutes } from '@/router/demo.ts'
 
 export const constantRoutes: VabRouteRecord[] = [
   {
@@ -38,17 +38,17 @@ export const constantRoutes: VabRouteRecord[] = [
       hidden: true,
     },
   },
-  {
-    path: '/404',
-    name: '404',
-    component: () => import('@/views/404.vue'),
-    meta: {
-      hidden: true,
-    },
-  },
+  // {
+  //   path: '/404',
+  //   name: '404',
+  //   component: () => import('@/views/404.vue'),
+  //   meta: {
+  //     hidden: true,
+  //   },
+  // },
   {
     path: '/:pathMatch(.*)*',
-    name: 'notFound',
+    name: '404',
     component: () => import('@/views/404.vue'),
     meta: {
       hidden: true,
@@ -95,6 +95,24 @@ export const asyncRoutes: VabRouteRecord[] = [
         component: () => import('@/views/setting/adminManagement/index.vue'),
         meta: {
           title: 'page.adminManage',
+          icon: 'user-3-line',
+        },
+      },
+      {
+        path: 'adminRole',
+        name: 'AdminRole',
+        component: () => import('@/views/setting/adminRole/index.vue'),
+        meta: {
+          title: 'page.adminRole',
+          icon: 'user-3-line',
+        },
+      },
+      {
+        path: 'adminMenu',
+        name: 'AdminMenu',
+        component: () => import('@/views/setting/adminMenu/index.vue'),
+        meta: {
+          title: 'page.adminMenu',
           icon: 'user-3-line',
         },
       },
@@ -146,7 +164,7 @@ export function resetRouter(routes: VabRouteRecord[] = constantRoutes) {
 }
 
 export function setupRouter(app: any) {
-  if (authentication === 'intelligence') addRouter(asyncDemoRoutes)
+  if (authentication === 'intelligence') addRouter(asyncRoutes)
   setupPermissions(router)
   app.use(router)
   return router

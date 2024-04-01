@@ -6,9 +6,10 @@ import { convertRouter, filterRoutes } from '@/utils/routes'
 import { authentication, rolesControl } from '@/config'
 import { OptionType, RoutesModuleType } from '/#/store'
 import { isArray } from '@/utils/validate'
-import { getList } from '@/api/demo/router.ts'
 import { gp } from '@gp'
 import { VabRouteRecord } from '/#/router'
+import { getRouterList } from '@/api/user.ts'
+import _ from 'lodash'
 
 export const useRoutesStore = defineStore('routes', {
   state: (): RoutesModuleType => ({
@@ -38,7 +39,7 @@ export const useRoutesStore = defineStore('routes', {
     getTabMenu: (state) =>
       state.tab.data
         ? state.routes.find((route) => route.name === state.tab.data)
-        : { meta: { title: '' }, redirect: '/404' },
+        : { meta: { title: '' }, redirect: '404' },
     getActiveMenu: (state) => state.activeMenu,
     getRoutes: (state) =>
       state.routes.filter((_route) => _route.meta.hidden !== true),
@@ -62,28 +63,28 @@ export const useRoutesStore = defineStore('routes', {
       const control = mode === 'visit' ? false : rolesControl
       // 设置后端路由(不需要可以删除)
       if (authentication === 'all') {
-        const {
-          data: { list },
-        } = await getList()
-        if (!isArray(list))
+        const { data } = await getRouterList()
+        if (!isArray(data))
           gp.$baseMessage(
             '路由格式返回有误！',
             'error',
             'vab-hey-message-error'
           )
-        if (list[list.length - 1].path !== '*')
-          list.push({
+        if (data[data.length - 1].path !== '*')
+          data.push({
             path: '/:pathMatch(.*)*',
             redirect: '/404',
             name: 'NotFound',
             meta: { hidden: true },
           })
-        routes = convertRouter(list)
+        routes = convertRouter(data)
       }
       // 根据权限和rolesControl过滤路由
       const accessRoutes = filterRoutes([...constantRoutes, ...routes], control)
       // 设置菜单所需路由
-      this.routes = JSON.parse(JSON.stringify(accessRoutes))
+      // this.routes = JSON.parse(JSON.stringify(accessRoutes))
+      this.routes = _.cloneDeep(accessRoutes)
+      console.log('设置菜单所需路由', this.routes)
       // 根据可访问路由重置Vue Router
       await resetRouter(accessRoutes)
     },

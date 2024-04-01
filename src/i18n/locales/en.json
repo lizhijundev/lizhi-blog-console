@@ -45,8 +45,9 @@
     "home": "Home",
     "setting": "Setting",
     "adminManage": "Admin management",
-    "personalCenter": "Personal Center"
-
+    "personalCenter": "Personal Center",
+    "adminMenu": "Menu management",
+    "adminRole": "Role management"
   },
   "login" : {
     "title": "Login",
