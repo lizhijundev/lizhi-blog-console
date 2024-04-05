@@ -1,6 +1,6 @@
 <script setup lang="ts">
   import { getUserInfo, updateAccount } from '@/api/user.ts'
-  import { useUserStore } from '@/store/modules/user'
+  import { useUserStore } from '@/store/modules/user.ts'
   import _ from 'lodash'
 
   const userStore = useUserStore()

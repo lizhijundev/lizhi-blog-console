@@ -31,6 +31,30 @@ export const constantRoutes: VabRouteRecord[] = [
     },
   },
   {
+    path: '/personal',
+    name: 'Personal',
+    component: Layout,
+    meta: {
+      title: 'page.home',
+      icon: 'home-2-line',
+      breadcrumbHidden: true,
+      hidden: true,
+    },
+    children: [
+      {
+        path: 'center',
+        name: 'PersonalCenter',
+        component: () => import('@/views/personal/personalCenter/index.vue'),
+        meta: {
+          title: 'page.personalCenter',
+          icon: 'map-pin-user-line',
+          hidden: true,
+          noColumn: true,
+        },
+      },
+    ],
+  },
+  {
     path: '/403',
     name: '403',
     component: () => import('@/views/403.vue'),
@@ -81,7 +105,7 @@ export const asyncRoutes: VabRouteRecord[] = [
   },
   {
     path: '/setting',
-    name: 'PersonnelManagement',
+    name: 'SystemManagement',
     component: Layout,
     meta: {
       title: 'page.setting',
@@ -108,23 +132,12 @@ export const asyncRoutes: VabRouteRecord[] = [
         },
       },
       {
-        path: 'adminMenu',
-        name: 'AdminMenu',
-        component: () => import('@/views/setting/adminMenu/index.vue'),
+        path: 'adminRule',
+        name: 'AdmimRule',
+        component: () => import('@/views/setting/adminRule/index.vue'),
         meta: {
-          title: 'page.adminMenu',
+          title: 'page.adminRule',
           icon: 'user-3-line',
-        },
-      },
-      {
-        path: 'personalCenter',
-        name: 'PersonalCenter',
-        component: () => import('@/views/setting/personalCenter/index.vue'),
-        meta: {
-          title: 'page.personalCenter',
-          icon: 'map-pin-user-line',
-          hidden: true,
-          noColumn: true,
         },
       },
     ],

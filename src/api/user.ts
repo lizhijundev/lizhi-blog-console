@@ -104,7 +104,7 @@ export function getLoginLog(params: any) {
 
 export function getRouterList() {
   return request({
-    url: '/passport/getRouterList',
+    url: '/admin_member/getRouterList',
     method: 'get',
   })
 }

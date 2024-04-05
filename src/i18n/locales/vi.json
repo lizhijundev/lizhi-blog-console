@@ -32,7 +32,8 @@
     "closeConfirm": "Bạn có chắc muốn đóng không?",
     "friendlyNotice": "Lưu ý thân thiện",
     "valid": "Hợp lệ",
-    "expire": "Hết hạn"
+    "expire": "Hết hạn",
+    "operation": "Thao tác"
   },
   "validate": {
     "required": "Không được để trống",
@@ -46,7 +47,7 @@
     "setting": "Cài đặt",
     "adminManage": "Quản lý quản trị viên",
     "personalCenter": "Trung tâm cá nhân",
-    "adminMenu": "Menu quản trị",
+    "adminRule": "Rule quản trị",
     "adminRole": "Vai trò quản trị"
   },
   "login" : {
@@ -122,5 +123,32 @@
     "fieldIp": "Địa chỉ IP",
     "fieldExpireTime": "Thời gian hết hạn đăng nhập",
     "fieldStatus": "Trạng thái"
+  },
+  "adminRule": {
+    "title": "{action} Quản lý Rule",
+    "level": "Cấp độ quyền",
+    "levelName": "Tên quyền",
+    "ruleTitle": "Tiêu đề",
+    "Name": "Tên",
+    "path": "Đường dẫn",
+    "ruleNameTips": "Lưu ý: Để quốc tế hóa tốt hơn, vui lòng sử dụng tiếng Anh cho tên quyền.",
+    "ruleType": "Loại quyền",
+    "frontend": "Trang giao diện người dùng",
+    "api": "API phía sau",
+    "frontendName": "Tên trang giao diện người dùng",
+    "apiName": "Định danh API",
+    "pathTips": "Lưu ý: Đường dẫn gốc (dữ liệu đầu tiên) là dấu gạch chéo, đường dẫn cấp độ đầu tiên phải bao gồm dấu gạch chéo, đường dẫn từ cấp độ thứ hai trở đi không được bao gồm dấu gạch chéo, và tên đường dẫn không được trùng lặp. Khung sẽ tự động ghép nối cấp độ cha và con; đường dẫn chỉ nên là một từ đơn, không nên cấu hình theo cách `/a/b/c`.",
+    "component": "Thành phần",
+    "componentTips": "Đường dẫn cấp độ đầu tiên là cho Layout, các đường dẫn còn lại là đường dẫn đến các tệp Vue theo cấp độ của chúng.",
+    "pageTitle": "Tiêu đề trang",
+    "i18nTips": "Lưu ý: Cần sử dụng biến vue-i18n, hỗ trợ nhóm.",
+    "pageIcon": "Biểu tượng trang",
+    "meta": "Meta giao diện người dùng",
+    "frontendFieldRequired": "Trường này là bắt buộc khi loại quyền là 'Trang giao diện người dùng'",
+    "pidRequired": "Cấp độ quyền là bắt buộc",
+    "ruleNameRequired": "Tên quyền",
+    "ruleTypeRequired": "Loại quyền",
+    "ruleCodeRequired": "Vui lòng điền vào",
+    "pathRequired": "Vui lòng điền vào Đường dẫn"
   }
 }

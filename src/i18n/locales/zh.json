@@ -32,7 +32,8 @@
     "closeConfirm": "你确定要关闭吗？",
     "friendlyNotice": "温馨提示",
     "valid": "有效",
-    "expire": "过期"
+    "expire": "过期",
+    "operation": "操作"
   },
   "validate": {
     "required": "不能为空",
@@ -46,7 +47,7 @@
     "setting": "设置",
     "adminManage": "管理员管理",
     "personalCenter": "个人中心",
-    "adminMenu": "菜单管理",
+    "adminRule": "权限管理",
     "adminRole": "角色管理"
   },
   "login" : {
@@ -123,6 +124,34 @@
     "fieldExpireTime": "登录有效期",
     "fieldStatus": "状态"
   },
+  "adminRule": {
+    "title": "{action}权限",
+    "level": "权限层级",
+    "levelName": "权限名称",
+    "ruleTitle": "标题",
+    "Name": "Name",
+    "path": "Path",
+    "ruleNameTips": "注意：为了更好地国际化，权限名称请用English",
+    "ruleType": "权限类型",
+    "frontend": "前端页面",
+    "api": "后端api",
+    "frontendName": "前端页面Name",
+    "apiName": "接口标识",
+    "pathTips": "注意：注意根路由（第一条数据）是斜线，第一级路由必须带斜线，第二级路由开始不能带斜线，并且path名不可重复，框架会自动将父级与子级进行拼接，path只能是一个单词切勿配置成`/a/b/c`这种写法",
+    "component": "Component",
+    "componentTips": "第一级路由是为Layout，其余为层级为vue的文件路径",
+    "pageTitle": "页面标题",
+    "i18nTips": "注意：需要使用vue-i18n变量，支持分组",
+    "pageIcon": "页面图标",
+    "meta": "前端Meta",
+    "frontendFieldRequired": "权限类型为「前端页面」此项必填",
+    "pidRequired": "权限层级必填",
+    "ruleNameRequired":  "权限名称",
+    "ruleTypeRequired": "权限类型",
+    "ruleCodeRequired":  "请填写",
+    "pathRequired": "请填写Path"
+  },
+
   "vabI18n": {
     "403": "403",
     "404": "404",

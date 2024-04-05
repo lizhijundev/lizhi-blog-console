@@ -22,7 +22,7 @@
         await router.push(toLoginRoute(route.fullPath))
         break
       case 'personalCenter':
-        await router.push('/setting/personalCenter')
+        await router.push({ name: 'PersonalCenter' })
         break
     }
   }
@@ -30,7 +30,7 @@
 
 <template>
   <el-dropdown @command="handleCommand" @visible-change="handleVisibleChange">
-    <span class="avatar-dropdown">
+    <div class="avatar-dropdown">
       <MemberAvatar class="user-avatar" />
       <div class="user-name">
         <span class="hidden-xs-only" :title="nickname">{{ nickname }}</span>
@@ -40,7 +40,7 @@
           icon="arrow-down-s-line"
         />
       </div>
-    </span>
+    </div>
     <template #dropdown>
       <div class="user-info">
         {{ username }}

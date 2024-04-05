@@ -1,7 +1,7 @@
 {
   "": "",
   "common": {
-    "adminCenter": "User center",
+    "adminCenter": "Personal Center",
     "logout": "Logout",
     "tip": "Tip",
     "nextStep": "Next step",
@@ -32,7 +32,8 @@
     "closeConfirm": "Are you sure you want to close it?",
     "friendlyNotice": "Reminder",
     "valid": "Valid",
-    "expire": "Expire"
+    "expire": "Expire",
+    "operation": "Operation"
   },
   "validate": {
     "required": "Please enter",
@@ -46,7 +47,7 @@
     "setting": "Setting",
     "adminManage": "Admin management",
     "personalCenter": "Personal Center",
-    "adminMenu": "Menu management",
+    "adminRule": "Authority management",
     "adminRole": "Role management"
   },
   "login" : {
@@ -122,6 +123,33 @@
     "fieldIp": "IP",
     "fieldExpireTime": "Expire time",
     "fieldStatus": "Status"
+  },
+  "adminRule": {
+    "title": "{action} Authority",
+    "level": "Permission Level",
+    "levelName": "Permission Name",
+    "ruleTitle": "Title",
+    "Name": "Name",
+    "path": "Path",
+    "ruleNameTips": "Note: For better internationalization, please use English for permission names.",
+    "ruleType": "Permission Type",
+    "frontend": "Frontend Page",
+    "api": "Backend API",
+    "frontendName": "Frontend Page Name",
+    "apiName": "API Identifier",
+    "pathTips": "Note: The root route (first piece of data) is a forward slash, the first-level route must include a forward slash, the second-level routes onwards should not include a forward slash, and path names must not be duplicated. The framework will automatically concatenate parent and child levels; the path should only be a single word, do not configure it as `/a/b/c`.",
+    "component": "Component",
+    "componentTips": "The first-level route is for Layout, the rest are paths to Vue files reflecting their hierarchy.",
+    "pageTitle": "Page Title",
+    "i18nTips": "Note: You need to use vue-i18n variables, which support grouping.",
+    "pageIcon": "Page Icon",
+    "meta": "Frontend Meta",
+    "frontendFieldRequired": "This field is required when the permission type is 'Frontend Page'",
+    "pidRequired": "Permission Level is required",
+    "ruleNameRequired": "Please fill in Permission Name",
+    "ruleTypeRequired": "Please fill in Permission Type",
+    "ruleCodeRequired": "Please fill in",
+    "pathRequired": "Please fill in Path"
   },
   "vabI18n": {
     "403": "403",
