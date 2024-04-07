@@ -150,5 +150,17 @@
     "ruleTypeRequired": "Loại quyền",
     "ruleCodeRequired": "Vui lòng điền vào",
     "pathRequired": "Vui lòng điền vào Đường dẫn"
+  },
+  "adminRole": {
+    "title": "{action} Quản lý vai trò",
+    "ruleIdsRequired": "Vui lòng chọn ít nhất một quyền",
+    "ruleIdsRequired2": "Vui lòng chọn quyền RootSite",
+    "roleNameRequired": "Vui lòng điền vào tên vai trò",
+    "roleCodeRequired":  "Vui lòng điền vào mã vai trò",
+    "statusRequired": "Vui lòng chọn trạng thái",
+    "roleName": "Tên vai trò",
+    "roleCode": "Mã định danh vai trò",
+    "roleIds": "Quyền của vai trò",
+    "roleId": "ID vai trò"
   }
 }

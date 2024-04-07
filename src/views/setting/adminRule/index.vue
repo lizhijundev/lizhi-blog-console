@@ -14,14 +14,12 @@
   const handleEdit = (ruleData = {}) => {
     editorShow.value = true
     editorData.value = ruleData
-    console.log(editorData.value)
   }
 
   const onLoadRuleData = () => {
     listData.value.listLoading = true
     getAdminRuleList()
       .then(({ data }) => {
-        console.log(data)
         listData.value.list = data
       })
       .finally(() => {
@@ -74,7 +72,7 @@
       />
       <el-table-column :label="$t('common.operation')">
         <template #default="{ row }">
-          <el-button type="text" size="small" @click="handleEdit(row)">
+          <el-button type="primary" size="small" @click="handleEdit(row)">
             {{ $t('common.edit') }}
           </el-button>
         </template>

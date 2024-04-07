@@ -151,7 +151,18 @@
     "ruleCodeRequired":  "请填写",
     "pathRequired": "请填写Path"
   },
-
+  "adminRole": {
+    "title": "{action}角色",
+    "ruleIdsRequired": "请选择权限",
+    "ruleIdsRequired2": "请选择RootSite权限",
+    "roleNameRequired": "请填写角色名称",
+    "roleCodeRequired":  "请填写角色标识",
+    "statusRequired": "请选择状态",
+    "roleName": "角色名称",
+    "roleCode": "角色标识",
+    "roleIds": "角色权限",
+    "roleId": "角色ID"
+  },
   "vabI18n": {
     "403": "403",
     "404": "404",

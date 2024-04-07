@@ -151,6 +151,18 @@
     "ruleCodeRequired": "Please fill in",
     "pathRequired": "Please fill in Path"
   },
+  "adminRole": {
+    "title": "{action} Role",
+    "ruleIdsRequired": "Please select at least one permission",
+    "ruleIdsRequired2": "Please select RootSite permissions",
+    "roleNameRequired": "Please fill in Role Name",
+    "roleCodeRequired":  "Please fill in Role Code",
+    "statusRequired": "Please select Role Status",
+    "roleName": "Role Name",
+    "roleCode": "Role Identifier",
+    "roleIds": "Role Permissions",
+    "roleId": "Role ID"
+  },
   "vabI18n": {
     "403": "403",
     "404": "404",
