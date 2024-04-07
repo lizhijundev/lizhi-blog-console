@@ -167,7 +167,9 @@
     "ruleNameRequired": "Please fill in Permission Name",
     "ruleTypeRequired": "Please fill in Permission Type",
     "ruleCodeRequired": "Please fill in",
-    "pathRequired": "Please fill in Path"
+    "pathRequired": "Please fill in Path",
+    "sort": "Sort",
+    "sortTips": "The smaller the number, the higher the priority"
   },
   "adminRole": {
     "title": "{action} Role",

@@ -1,6 +1,7 @@
 <script setup lang="ts">
   import { getAdminRuleTree, saveAdminRule } from '@/api/adminRule.ts'
   import VabIconSelector from '@/plugins/VabIconSelector/index.vue'
+  import _ from 'lodash'
 
   const props = defineProps({
     show: {
@@ -46,10 +47,11 @@
               title: '',
               icon: '',
               meta: '{}',
+              sort: 100,
             }
           } else {
             title.value = t('adminRule.title', { action: t('common.edit') })
-            form.value = props.data
+            form.value = _.cloneDeep(props.data)
           }
         })
       }
@@ -59,7 +61,7 @@
   const formRef = ref(null)
   const form = ref({
     rule_id: '',
-    pid: '',
+    pid: 0,
     rule_type: 1,
     rule_name: '',
     rule_code: '',
@@ -68,6 +70,7 @@
     title: '',
     icon: '',
     meta: '{}',
+    sort: 100,
   })
 
   const checkFrontendField = (rule: any, value: any, callback: any) => {
@@ -141,7 +144,7 @@
     emit('update:show', false)
     form.value = {
       rule_id: '',
-      pid: '',
+      pid: 0,
       rule_type: 1,
       rule_name: '',
       rule_code: '',
@@ -150,6 +153,7 @@
       title: '',
       icon: '',
       meta: '{}',
+      sort: 100,
     }
   }
 
@@ -242,6 +246,12 @@
           </el-form-item>
           <el-form-item :label="$t('adminRule.meta')" prop="meta">
             <el-input v-model.trim="form.meta" type="textarea" />
+          </el-form-item>
+          <el-form-item :label="$t('adminRule.sort')" prop="meta">
+            <el-input v-model.trim="form.sort" type="number" />
+            <div class="form-tips">
+              {{ $t('adminRule.sortTips') }}
+            </div>
           </el-form-item>
         </div>
       </el-form>

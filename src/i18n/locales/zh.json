@@ -167,7 +167,9 @@
     "ruleNameRequired":  "权限名称",
     "ruleTypeRequired": "权限类型",
     "ruleCodeRequired":  "请填写",
-    "pathRequired": "请填写Path"
+    "pathRequired": "请填写Path",
+    "sort": "排序",
+    "sortTips": "排序值越小越靠前"
   },
   "adminRole": {
     "title": "{action}角色",

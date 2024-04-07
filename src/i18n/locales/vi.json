@@ -167,7 +167,9 @@
     "ruleNameRequired": "Tên quyền",
     "ruleTypeRequired": "Loại quyền",
     "ruleCodeRequired": "Vui lòng điền vào",
-    "pathRequired": "Vui lòng điền vào Đường dẫn"
+    "pathRequired": "Vui lòng điền vào Đường dẫn",
+    "sort": "Sắp xếp",
+    "sortTips": "Sắp xếp theo thứ tự tăng dần"
   },
   "adminRole": {
     "title": "{action} Quản lý vai trò",

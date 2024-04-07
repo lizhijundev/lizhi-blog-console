@@ -70,14 +70,14 @@ export const constantRoutes: VabRouteRecord[] = [
   //     hidden: true,
   //   },
   // },
-  {
-    path: '/:pathMatch(.*)*',
-    name: '404',
-    component: () => import('@/views/404.vue'),
-    meta: {
-      hidden: true,
-    },
-  },
+  // {
+  //   path: '/:pathMatch(.*)*',
+  //   name: '404',
+  //   component: () => import('@/views/404.vue'),
+  //   meta: {
+  //     hidden: true,
+  //   },
+  // },
 ]
 
 export const asyncRoutes: VabRouteRecord[] = [
@@ -128,16 +128,16 @@ export const asyncRoutes: VabRouteRecord[] = [
         component: () => import('@/views/setting/adminRole/index.vue'),
         meta: {
           title: 'page.adminRole',
-          icon: 'user-3-line',
+          icon: 'user-star-line',
         },
       },
       {
         path: 'adminRule',
-        name: 'AdmimRule',
+        name: 'AdminRule',
         component: () => import('@/views/setting/adminRule/index.vue'),
         meta: {
           title: 'page.adminRule',
-          icon: 'user-3-line',
+          icon: 'shield-keyhole-line',
         },
       },
     ],
@@ -173,6 +173,8 @@ export function resetRouter(routes: VabRouteRecord[] = constantRoutes) {
     router.hasRoute(<RouteRecordName>name) &&
       router.removeRoute(<RouteRecordName>name)
   })
+  console.log('resetRouter', routes)
+  console.log('router', router.getRoutes())
   addRouter(routes)
 }
 

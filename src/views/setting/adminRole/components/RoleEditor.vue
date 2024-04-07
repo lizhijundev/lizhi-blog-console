@@ -183,7 +183,10 @@
           <el-input v-model.trim="form.role_name" />
         </el-form-item>
         <el-form-item :label="$t('adminRole.roleCode')" prop="role_code">
-          <el-input v-model.trim="form.role_code" />
+          <el-input
+            v-model.trim="form.role_code"
+            :disabled="form.role_id > 0"
+          />
         </el-form-item>
         <el-form-item :label="$t('adminRole.roleIds')" prop="rule_ids">
           <el-tree

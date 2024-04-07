@@ -3,6 +3,7 @@
     v-model="dialogFormVisible"
     :title="title"
     width="500px"
+    :close-on-click-modal="false"
     @close="close"
   >
     <el-form ref="formRef" label-width="80px" :model="form" :rules="rules">
@@ -65,11 +66,13 @@
       })
 
       const showEdit = (row) => {
+        onLoadRoles()
         if (!row) {
           state.title = t('adminMan.title', {
             action: t('common.add'),
           })
           state.isAdd = true
+          state.form.status = 1
         } else {
           state.title = t('adminMan.title', {
             action: t('common.edit'),
@@ -82,7 +85,6 @@
             status: row.status,
             role_ids: row.roles.map((item) => item.role_id),
           }
-          onLoadRoles()
         }
         state.dialogFormVisible = true
       }
@@ -109,9 +111,8 @@
             const params = _.cloneDeep(state.form)
             if (state.isAdd) {
               delete params.admin_id
-            } else {
-              params.role_ids = params.role_ids.join(',')
             }
+            params.role_ids = params.role_ids.join(',')
             saveAdminMember(params).then((res) => {
               if (res.code === 0) {
                 $baseMessage(

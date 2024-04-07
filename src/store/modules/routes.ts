@@ -73,8 +73,8 @@ export const useRoutesStore = defineStore('routes', {
         if (data[data.length - 1].path !== '*')
           data.push({
             path: '/:pathMatch(.*)*',
-            redirect: '/404',
-            name: 'NotFound',
+            name: '404',
+            component: '@/views/404',
             meta: { hidden: true },
           })
         routes = convertRouter(data)
@@ -83,8 +83,8 @@ export const useRoutesStore = defineStore('routes', {
       const accessRoutes = filterRoutes([...constantRoutes, ...routes], control)
       // 设置菜单所需路由
       // this.routes = JSON.parse(JSON.stringify(accessRoutes))
+      console.log('设置菜单所需路由 accessRoutes', accessRoutes)
       this.routes = _.cloneDeep(accessRoutes)
-      console.log('设置菜单所需路由', this.routes)
       // 根据可访问路由重置Vue Router
       await resetRouter(accessRoutes)
     },

@@ -32,7 +32,12 @@
 
     <vab-query-form>
       <vab-query-form-top-panel>
-        <el-button :icon="Plus" type="primary" @click="handleEdit($event)">
+        <el-button
+          v-permissions="['admin']"
+          :icon="Plus"
+          type="primary"
+          @click="handleEdit($event)"
+        >
           {{ $t('common.add') }}
         </el-button>
       </vab-query-form-top-panel>
@@ -94,19 +99,35 @@
         show-overflow-tooltip
       />
       <el-table-column
+        v-permissions="['admin']"
         align="center"
         :label="$t('common.operation')"
         width="280px"
       >
         <template #default="{ row }">
           <el-button-group>
-            <el-button size="small" type="primary" @click="handleEdit(row)">
+            <el-button
+              v-permissions="['admin']"
+              size="small"
+              type="primary"
+              @click="handleEdit(row)"
+            >
               {{ $t('common.edit') }}
             </el-button>
-            <el-button size="small" type="primary" @click="handleResetPwd(row)">
+            <el-button
+              v-permissions="['admin']"
+              size="small"
+              type="primary"
+              @click="handleResetPwd(row)"
+            >
               {{ $t('personCenter.resetPwd') }}
             </el-button>
-            <el-button size="small" type="danger" @click="handleDelete(row)">
+            <el-button
+              v-permissions="['admin']"
+              size="small"
+              type="danger"
+              @click="handleDelete(row)"
+            >
               {{ $t('common.delete') }}
             </el-button>
           </el-button-group>

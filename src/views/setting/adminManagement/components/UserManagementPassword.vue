@@ -3,6 +3,7 @@
     v-model="dialogFormVisible"
     :title="$t('personCenter.resetPwd')"
     width="500px"
+    :close-on-click-modal="false"
     @close="close"
   >
     <el-form ref="formRef" label-width="80px" :model="form" :rules="rules">
@@ -10,13 +11,13 @@
         <el-input v-model.trim="form.username" disabled />
       </el-form-item>
       <el-form-item :label="$t('adminMan.password')" prop="password">
-        <el-input v-model.trim="form.password" />
+        <el-input v-model.trim="form.password" type="password" />
       </el-form-item>
       <el-form-item
         :label="$t('personCenter.confirmPassword')"
         prop="password2"
       >
-        <el-input v-model.trim="form.password2" />
+        <el-input v-model.trim="form.password2" type="password" />
       </el-form-item>
     </el-form>
     <template #footer>
@@ -30,6 +31,7 @@
 
 <script>
   import { resetAdminMemberPassword } from '@/api/adminMember'
+  import _ from 'lodash'
 
   export default defineComponent({
     name: 'UserManagementEdit',
@@ -102,11 +104,12 @@
       const save = () => {
         state['formRef'].validate(async (valid) => {
           if (valid) {
-            delete state.form.username
+            const params = _.cloneDeep(state.form)
+            delete params.username
             resetAdminMemberPassword(
-              state.form.admin_id,
-              state.form.password,
-              state.form.password2
+              params.admin_id,
+              params.password,
+              params.password2
             ).then((res) => {
               if (res.code === 0) {
                 $baseMessage(
