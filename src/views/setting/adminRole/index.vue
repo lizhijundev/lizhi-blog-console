@@ -32,6 +32,7 @@
   }
 
   const fetchData = () => {
+    listData.value.listLoading = true
     getAdminRoleList(queryForm.value)
       .then(({ data }) => {
         listData.value.list = data.list
