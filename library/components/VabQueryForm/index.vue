@@ -31,7 +31,7 @@
       }
 
       .el-form-item + .el-form-item {
-        margin: 0 0 #{math.div($base-margin, 2)} 0 !important;
+        margin: 0 0 #{math.div($base-margin, 2)} #{math.div($base-margin, 2)} !important;
 
         .el-button {
           margin: 0 0 0 10px !important;

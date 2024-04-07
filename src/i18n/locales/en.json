@@ -29,11 +29,20 @@
     "close": "Close",
     "opened": "Opened",
     "closed": "Closed",
+    "enable": "Enable",
+    "disable": "Disable",
     "closeConfirm": "Are you sure you want to close it?",
     "friendlyNotice": "Reminder",
     "valid": "Valid",
     "expire": "Expire",
-    "operation": "Operation"
+    "operation": "Operation",
+    "all": "All",
+    "createTime": "Create time",
+    "updateTime": "Update time",
+    "deleteTime": "Delete time",
+    "noData": "No data",
+    "unSelected": "No rows selected",
+    "opSuccess": "Operation successful"
   },
   "validate": {
     "required": "Please enter",
@@ -123,6 +132,15 @@
     "fieldIp": "IP",
     "fieldExpireTime": "Expire time",
     "fieldStatus": "Status"
+  },
+  "adminMan": {
+    "title": "{action} Admin",
+    "username": "Username",
+    "nickname": "Nickname",
+    "deleteTips": "Are you sure you want to delete the user?",
+    "deleted": "The user has been deleted",
+    "password": "Password",
+    "role": "Role"
   },
   "adminRule": {
     "title": "{action} Authority",

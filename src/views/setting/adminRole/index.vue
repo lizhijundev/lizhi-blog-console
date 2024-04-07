@@ -85,8 +85,23 @@
         prop="role_code"
         show-overflow-tooltip
       />
-
-      <el-table-column :label="$t('common.operation')">
+      <el-table-column
+        align="center"
+        :label="$t('personCenter.fieldStatus')"
+        prop="status"
+        width="90px"
+        show-overflow-tooltip
+      >
+        <template #default="{ row }">
+          <el-tag v-if="row.status === 1" type="success" effect="dark">
+            {{ $t('common.enable') }}
+          </el-tag>
+          <el-tag v-else type="danger" effect="dark">
+            {{ $t('common.disable') }}
+          </el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column :label="$t('common.operation')" align="center">
         <template #default="{ row }">
           <el-button type="primary" size="small" @click="handleEdit(row)">
             {{ $t('common.edit') }}

@@ -1,24 +1,29 @@
 <template>
   <el-dialog
     v-model="dialogFormVisible"
-    title="重置密码"
+    :title="$t('personCenter.resetPwd')"
     width="500px"
     @close="close"
   >
     <el-form ref="formRef" label-width="80px" :model="form" :rules="rules">
-      <el-form-item label="账号" prop="username">
+      <el-form-item :label="$t('personCenter.account')" prop="username">
         <el-input v-model.trim="form.username" disabled />
       </el-form-item>
-      <el-form-item label="密码" prop="password">
+      <el-form-item :label="$t('adminMan.password')" prop="password">
         <el-input v-model.trim="form.password" />
       </el-form-item>
-      <el-form-item label="确认密码" prop="password2">
+      <el-form-item
+        :label="$t('personCenter.confirmPassword')"
+        prop="password2"
+      >
         <el-input v-model.trim="form.password2" />
       </el-form-item>
     </el-form>
     <template #footer>
-      <el-button @click="close">取 消</el-button>
-      <el-button type="primary" @click="save">确 定</el-button>
+      <el-button @click="close">{{ $t('common.cancel') }}</el-button>
+      <el-button type="primary" @click="save">
+        {{ $t('personCenter.resetPwd') }}
+      </el-button>
     </template>
   </el-dialog>
 </template>
@@ -32,9 +37,10 @@
     setup(props, { emit }) {
       const $baseMessage = inject('$baseMessage')
 
+      const { t } = useI18n()
       const checkPwd = (rule, value, callback) => {
         if (value !== state.form.password) {
-          callback(new Error('两次输入密码不一致!'))
+          callback(new Error(t('validate.passwordInconsistent')))
         } else {
           callback()
         }
@@ -50,20 +56,20 @@
         },
         rules: {
           password: [
-            { required: true, message: '请输入密码', trigger: 'blur' },
+            { required: true, message: t('login.pwdTips'), trigger: 'blur' },
             {
               min: 6,
               max: 20,
-              message: '长度在 6 到 20 个字符',
+              message: t('login.pwdError'),
               trigger: 'blur',
             },
           ],
           password2: [
-            { required: true, message: '请输入确认密码', trigger: 'blur' },
+            { required: true, message: t('login.pwdTips'), trigger: 'blur' },
             {
               min: 6,
               max: 20,
-              message: '长度在 6 到 20 个字符',
+              message: t('login.pwdError'),
               trigger: 'blur',
             },
             { validator: checkPwd, trigger: 'blur' },
@@ -104,7 +110,7 @@
             ).then((res) => {
               if (res.code === 0) {
                 $baseMessage(
-                  '密码重置成功',
+                  t('common.opSuccess'),
                   'success',
                   'vab-hey-message-success'
                 )

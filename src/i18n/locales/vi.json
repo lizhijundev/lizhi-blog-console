@@ -29,11 +29,20 @@
     "closed": "Đã đóng",
     "open": "Mở",
     "close": "Đóng",
+    "enable": "Kích hoạt",
+    "disable": "Vô hiệu",
     "closeConfirm": "Bạn có chắc muốn đóng không?",
     "friendlyNotice": "Lưu ý thân thiện",
     "valid": "Hợp lệ",
     "expire": "Hết hạn",
-    "operation": "Thao tác"
+    "operation": "Thao tác",
+    "all": "Tất cả",
+    "createTime": "Thời gian tạo",
+    "updateTime": "Thời gian cập nhật",
+    "deleteTime": "Thời gian xóa",
+    "noData": "Không có dữ liệu",
+    "unSelected": "Không có hàng nào được chọn",
+    "opSuccess": "Thao tác thành công"
   },
   "validate": {
     "required": "Không được để trống",
@@ -123,6 +132,15 @@
     "fieldIp": "Địa chỉ IP",
     "fieldExpireTime": "Thời gian hết hạn đăng nhập",
     "fieldStatus": "Trạng thái"
+  },
+  "adminMan": {
+    "title": "{action} Quản lý quản trị viên",
+    "username": "Tên người dùng",
+    "nickname": "Tên hiển thị",
+    "deleteTips": "Xóa quản trị viên sẽ xóa tất cả dữ liệu liên quan của họ, bạn có chắc chắn muốn xóa không?",
+    "deleted": "Quản trị viên",
+    "password": "Mật khẩu",
+    "role": "Vai trò"
   },
   "adminRule": {
     "title": "{action} Quản lý Rule",

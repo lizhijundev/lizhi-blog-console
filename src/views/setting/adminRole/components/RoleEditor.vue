@@ -203,8 +203,8 @@
         </el-form-item>
         <el-form-item :label="$t('personCenter.fieldStatus')" prop="rule_type">
           <el-radio-group v-model="form.status">
-            <el-radio :label="0">{{ $t('common.close') }}</el-radio>
-            <el-radio :label="1">{{ $t('common.open') }}</el-radio>
+            <el-radio :label="0">{{ $t('common.disable') }}</el-radio>
+            <el-radio :label="1">{{ $t('common.enable') }}</el-radio>
           </el-radio-group>
         </el-form-item>
       </el-form>

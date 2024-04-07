@@ -70,7 +70,7 @@
         prop="path"
         show-overflow-tooltip
       />
-      <el-table-column :label="$t('common.operation')">
+      <el-table-column :label="$t('common.operation')" align="center">
         <template #default="{ row }">
           <el-button type="primary" size="small" @click="handleEdit(row)">
             {{ $t('common.edit') }}

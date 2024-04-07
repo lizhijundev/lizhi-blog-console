@@ -130,6 +130,15 @@ html {
       }
     }
 
+    .lizhi-form {
+      .el-form-item {
+        width: calc(100% - 10px);
+      }
+      .el-form-item__content {
+        width: 100%;
+        font-size: 14px;
+      }
+    }
     /* vab-dot圆点动画 */
     .vab-dot {
       position: relative;

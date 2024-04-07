@@ -8,6 +8,13 @@ export async function getAdminRoleList(params: any) {
   })
 }
 
+export async function getAdminAllRoleList() {
+  return request({
+    url: '/admin_role/roleAll',
+    method: 'get',
+  })
+}
+
 export async function saveAdminRole(data: any) {
   return request({
     url: '/admin_role/save',

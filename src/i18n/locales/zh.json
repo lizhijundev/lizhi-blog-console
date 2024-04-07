@@ -29,11 +29,20 @@
     "closed": "已关闭",
     "open": "开启",
     "close": "关闭",
+    "enable": "启用",
+    "disable": "禁用",
     "closeConfirm": "你确定要关闭吗？",
     "friendlyNotice": "温馨提示",
     "valid": "有效",
     "expire": "过期",
-    "operation": "操作"
+    "operation": "操作",
+    "all": "全部",
+    "createTime": "创建时间",
+    "updateTime": "修改时间",
+    "deleteTime": "删除时间",
+    "noData": "暂无数据",
+    "unSelected": "未选中任何行",
+    "opSuccess": "操作成功"
   },
   "validate": {
     "required": "不能为空",
@@ -123,6 +132,15 @@
     "fieldIp": "IP",
     "fieldExpireTime": "登录有效期",
     "fieldStatus": "状态"
+  },
+  "adminMan": {
+    "title": "{action}管理员",
+    "username": "用户名",
+    "nickname": "昵称",
+    "deleteTips": "你确定要删除当前项吗",
+    "deleted": "已删除",
+    "password": "密码",
+    "role": "角色"
   },
   "adminRule": {
     "title": "{action}权限",
