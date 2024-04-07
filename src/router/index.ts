@@ -173,8 +173,6 @@ export function resetRouter(routes: VabRouteRecord[] = constantRoutes) {
     router.hasRoute(<RouteRecordName>name) &&
       router.removeRoute(<RouteRecordName>name)
   })
-  console.log('resetRouter', routes)
-  console.log('router', router.getRoutes())
   addRouter(routes)
 }
 

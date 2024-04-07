@@ -83,7 +83,6 @@ export const useRoutesStore = defineStore('routes', {
       const accessRoutes = filterRoutes([...constantRoutes, ...routes], control)
       // 设置菜单所需路由
       // this.routes = JSON.parse(JSON.stringify(accessRoutes))
-      console.log('设置菜单所需路由 accessRoutes', accessRoutes)
       this.routes = _.cloneDeep(accessRoutes)
       // 根据可访问路由重置Vue Router
       await resetRouter(accessRoutes)

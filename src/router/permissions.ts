@@ -49,7 +49,6 @@ export function setupPermissions(router: Router) {
           else await setVirtualRoles()
           // 根据路由模式获取路由并根据权限过滤
           await setRoutes(authentication)
-          console.log('...to', to)
           next({ ...to, replace: true })
         } catch (err) {
           console.error('vue-admin-beautiful错误拦截:', err)
