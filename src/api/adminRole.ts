@@ -10,7 +10,7 @@ export async function getAdminRoleList(params: any) {
 
 export async function getAdminAllRoleList() {
   return request({
-    url: '/admin_role/roleAll',
+    url: '/admin_role/role_all',
     method: 'get',
   })
 }

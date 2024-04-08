@@ -22,7 +22,7 @@ export async function loginByOtp(data: any) {
 
 export async function unlockScreen(data: any) {
   return request({
-    url: '/passport/unlockScreen',
+    url: '/passport/unlock_screen',
     method: 'post',
     data,
   })
@@ -49,7 +49,7 @@ export function getUserInfo() {
 // 更新用户基本信息
 export function updateAccount(data: any) {
   return request({
-    url: '/passport/updateAccount',
+    url: '/passport/update_account',
     method: 'post',
     data,
   })
@@ -57,7 +57,7 @@ export function updateAccount(data: any) {
 // 更新用户密码
 export function updatePwd(data: any) {
   return request({
-    url: '/passport/updatePwd',
+    url: '/passport/update_pwd',
     method: 'post',
     data,
   })
@@ -65,7 +65,7 @@ export function updatePwd(data: any) {
 
 export function getOtpConfig() {
   return request({
-    url: '/passport/getOtpConfig',
+    url: '/passport/get_otp_config',
     method: 'get',
   })
 }
@@ -73,7 +73,7 @@ export function getOtpConfig() {
 // openOtp
 export function openAdminOtp(data: any) {
   return request({
-    url: '/passport/openOtp',
+    url: '/passport/open_otp',
     method: 'post',
     data,
   })
@@ -82,7 +82,7 @@ export function openAdminOtp(data: any) {
 // openOtp
 export function closeAdminOtp() {
   return request({
-    url: '/passport/closeOtp',
+    url: '/passport/close_otp',
     method: 'get',
   })
 }
@@ -96,7 +96,7 @@ export function logout() {
 
 export function getLoginLog(params: any) {
   return request({
-    url: '/passport/getLoginLog',
+    url: '/passport/get_login_log',
     method: 'get',
     params: params,
   })
@@ -104,7 +104,7 @@ export function getLoginLog(params: any) {
 
 export function getRouterList() {
   return request({
-    url: '/passport/getRouterList',
+    url: '/passport/get_router_list',
     method: 'get',
   })
 }

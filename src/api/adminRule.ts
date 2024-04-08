@@ -1,16 +1,15 @@
 import request from '@/utils/request'
 
-export async function getAdminRuleList(params: any) {
+export async function getAdminRuleList() {
   return request({
     url: '/admin_rule/index',
     method: 'get',
-    params,
   })
 }
 
 export async function getAdminRuleTree() {
   return request({
-    url: '/admin_rule/getRuleTree',
+    url: '/admin_rule/get_rule_tree',
     method: 'get',
   })
 }

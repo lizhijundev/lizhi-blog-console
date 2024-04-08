@@ -124,7 +124,7 @@
     "TwoFactorStep1Account": "账户：{account}",
     "TwoFactorStep1Secret": "密钥：{secret}",
     "TwoFactorStep2Notice": "请输入身份验证器 App 生成的动态验证码，开启两步验证。",
-    "TwoFactorVerifyCode": "验证码",
+    "TwoFactorVerifyCode": "一次性密码",
     "TwoFactorSuccess": "两步验证开启成功",
     "TwoFactorCloseSuccess": "两步验证关闭成功",
     "fieldLoginTime": "登录时间",

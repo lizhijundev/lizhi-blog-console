@@ -72,12 +72,19 @@
         </el-form-item>
       </el-form>
     </div>
-    <el-dialog v-model="otpDialog" :title="$t('personCenter.TwoFactor')">
+    <el-dialog
+      v-model="otpDialog"
+      class="otp-dialog"
+      width="280px"
+      :title="$t('personCenter.TwoFactor')"
+      :close-on-click-modal="false"
+      :close-on-press-escape="false"
+    >
       <el-form
         ref="otpFormRef"
         :model="otpForm"
         :rules="otpRules"
-        label-width="140px"
+        label-position="top"
       >
         <el-form-item
           :label="$t('personCenter.TwoFactorVerifyCode')"
@@ -183,7 +190,6 @@
                     userStore.afterLogin(data[tokenName], tokenName)
                     await router.push(handleRoute())
                   } else {
-                    console.log(data)
                     otpDialog.value = true
                     otpForm.value = {
                       admin_id: data.admin_id,
@@ -243,6 +249,30 @@
 </script>
 
 <style lang="scss" scoped>
+  :deep(.el-dialog) {
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    transform: translateY(50%);
+    .el-dialog__title {
+      color: var(--el-color-white);
+    }
+    .el-dialog__body {
+      padding: 0;
+    }
+    .el-form {
+      padding: 20px;
+      .el-form-item:first-child {
+        margin-bottom: 35px;
+      }
+      .el-form-item__label {
+        color: var(--el-color-white);
+      }
+      .el-form-item__error {
+        padding-top: 5px;
+      }
+    }
+  }
   .login-container {
     position: absolute;
     width: 100%;
