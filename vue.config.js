@@ -88,8 +88,8 @@ module.exports = defineConfig({
     appleMobileWebAppCapable: 'yes',
     appleMobileWebAppStatusBarStyle: 'black',
     manifestOptions: {
-      name: 'Vue Admin Better - Admin Plus',
-      short_name: 'Admin Plus',
+      name: title,
+      short_name: title,
       background_color: '#ffffff',
     },
   },

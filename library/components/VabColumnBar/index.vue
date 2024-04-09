@@ -90,7 +90,7 @@
       :unique-opened="uniqueOpened"
     >
       <el-divider>
-        {{ $t(tabMenu ? tabMenu.meta.title : tabMenu) }}
+        {{ tabMenu && tabMenu.meta.title ? $t(tabMenu.meta.title) : '' }}
       </el-divider>
       <template v-for="item in partialRoutes" :key="item.path">
         <vab-menu v-if="!item.meta.hidden" :item="item" />

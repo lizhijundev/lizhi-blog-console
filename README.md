@@ -20,16 +20,12 @@ cp .env.development .env.development.local
 ```
 编辑`VUE_APP_BASE_URL`为你的后端地址
 ```bash
-VUE_APP_BASE_URL=http://localhost:8080
+VUE_APP_BASE_URL='http://localhost:8001/admin'
 ```
 ### 启动项目
 ```bash
 npm run dev
 ```
-
-
-
-
 
 ## 框架使用约定
 

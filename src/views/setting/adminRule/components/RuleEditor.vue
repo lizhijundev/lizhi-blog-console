@@ -81,7 +81,6 @@
   }
 
   const checkMeta = (rule: any, value: any, callback: any) => {
-    console.log('checkMeta', value, rule)
     callback()
   }
 

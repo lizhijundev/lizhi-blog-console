@@ -11,7 +11,7 @@ module.exports = {
   // 如果为true : "title - page"
   titleReverse: false,
   // 简写
-  abbreviation: 'vab-admin-plus',
+  abbreviation: 'Lizhi-Console',
   // pro版本copyright可随意修改
   copyright: 'Lizhi Development',
   // 缓存路由的最大数量

@@ -35,13 +35,6 @@
     updateKeepAliveNameList()
   })
 
-  // 获取源码地址
-  $sub('get-code', () => {
-    window.open(
-      `https://github.com/vue-admin-beautiful/admin-plus/blob/main/${componentRef.value.$options.__source}`
-    )
-  })
-
   $sub('reload-router-view', (refreshRouteName: any = route.name) => {
     if (theme.value.showProgressBar) VabProgress.start()
     const cacheActivePath = routerKey.value
@@ -57,7 +50,6 @@
   })
 
   onUnmounted(() => {
-    $unsub('get-code')
     $unsub('reload-router-view')
   })
 </script>
