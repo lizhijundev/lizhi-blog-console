@@ -12,7 +12,7 @@
     },
     shadow: {
       type: String,
-      default: '',
+      default: 'never',
     },
     skeleton: {
       type: Boolean,

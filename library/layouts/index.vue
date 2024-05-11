@@ -90,11 +90,11 @@
         }
       }
 
-      &.fixed {
+      &.lz-fixed {
         padding-top: $base-nav-height + $base-tabs-height;
       }
 
-      &.fixed.no-tabs-bar {
+      &.lz-fixed.no-tabs-bar {
         padding-top: $base-nav-height;
       }
     }

@@ -4,6 +4,7 @@ import { setupVab } from '~/library'
 import { setupI18n } from '@/i18n'
 import { setupStore } from '@/store'
 import { setupRouter } from '@/router'
+import './styles/tailwind.css'
 
 /**
  * @description 正式环境默认使用mock，正式项目记得注释后再打包

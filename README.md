@@ -7,6 +7,7 @@ Developer experience first, extremely flexible code structure and only keep what
 + AdminMember、Role、Permission Management
 + RBAC
 + OTP
++ Tailwind CSS
 
 
 ## 快速启动

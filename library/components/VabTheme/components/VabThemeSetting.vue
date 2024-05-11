@@ -3,7 +3,6 @@
   import { translate } from '@/i18n'
 
   const $pub: any = inject('$pub')
-  const $baseMessage: any = inject('$baseMessage')
 
   const settingsStore: any = useSettingsStore()
   const { theme } = storeToRefs(settingsStore)
@@ -11,9 +10,9 @@
   const handleOpenTheme = () => {
     $pub('theme')
   }
-  const randomTheme = () => {
-    $pub('random-theme')
-  }
+  // const randomTheme = () => {
+  //   $pub('random-theme')
+  // }
 
   const removeLocalStorage = () => {
     localStorage.clear()

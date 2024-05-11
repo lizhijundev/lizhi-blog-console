@@ -31,7 +31,7 @@
   <div
     class="vab-layout-column"
     :class="{
-      fixed: fixedHeader,
+      'lz-fixed': fixedHeader,
       'no-tabs-bar': !showTabs,
     }"
   >

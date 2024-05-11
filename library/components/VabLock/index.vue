@@ -1,5 +1,4 @@
 <script lang="ts" setup>
-  import { useUserStore } from '@/store/modules/user'
   import { useSettingsStore } from '@/store/modules/settings'
   import { unlockScreen } from '@/api/user.ts'
   import MemberAvatar from '@/components/MemberAvatar/Index.vue'
@@ -10,9 +9,7 @@
     },
   }
 
-  const userStore = useUserStore()
   const { t } = useI18n()
-  const { avatar } = storeToRefs(userStore)
   const settingsStore = useSettingsStore()
   const { theme, lock, title } = storeToRefs(settingsStore)
   const { handleLock: _handleLock, handleUnLock: _handleUnLock } = settingsStore

@@ -59,24 +59,31 @@
       <template v-for="(item, index) in routes" :key="index + item.name">
         <el-tab-pane :name="item.name">
           <template #label>
-            <div
-              class="vab-column-grid"
-              :class="{
-                ['vab-column-grid-' + theme.columnStyle]: true,
-              }"
-              :title="$t(item.meta.title)"
+            <el-tooltip
+              :content="$t(item.meta.title)"
+              :show-after="400"
+              placement="right"
+              effect="dark"
             >
-              <div>
-                <vab-icon
-                  v-if="item.meta.icon"
-                  :icon="item.meta.icon"
-                  :is-custom-svg="item.meta.isCustomSvg"
-                />
-                <span>
-                  {{ $t(item.meta.title) }}
-                </span>
+              <div
+                class="vab-column-grid"
+                :class="{
+                  ['vab-column-grid-' + theme.columnStyle]: true,
+                }"
+                :title="$t(item.meta.title)"
+              >
+                <div>
+                  <vab-icon
+                    v-if="item.meta.icon"
+                    :icon="item.meta.icon"
+                    :is-custom-svg="item.meta.isCustomSvg"
+                  />
+                  <span class="title">
+                    {{ $t(item.meta.title) }}
+                  </span>
+                </div>
               </div>
-            </div>
+            </el-tooltip>
           </template>
         </el-tab-pane>
       </template>
@@ -261,6 +268,12 @@
         height: $base-left-menu-width-min;
 
         > div {
+          width: 100%;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          gap: 6px;
           svg {
             position: relative;
             top: 8px;
@@ -268,10 +281,17 @@
             width: $base-font-size-default + 4;
             height: $base-font-size-default + 4;
           }
-
+          .title {
+            width: 100%;
+            font-size: 14px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
           [class*='ri-'] {
             display: block;
             height: 20px;
+            font-size: 24px;
           }
         }
       }

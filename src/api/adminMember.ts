@@ -2,7 +2,7 @@ import request from '@/utils/request'
 
 export async function getAdminMemberList(params: any) {
   return request({
-    url: '/admin_member/index',
+    url: '/admin/admin_member/index',
     method: 'get',
     params,
   })
@@ -10,7 +10,7 @@ export async function getAdminMemberList(params: any) {
 
 export async function saveAdminMember(data: any) {
   return request({
-    url: '/admin_member/save',
+    url: '/admin/admin_member/save',
     method: 'post',
     data,
   })
@@ -18,7 +18,7 @@ export async function saveAdminMember(data: any) {
 
 export async function resetAdminMemberPassword(admin_id: number, password: string, confirm_password: string) {
   return request({
-    url: '/admin_member/reset_password',
+    url: '/admin/admin_member/reset_password',
     method: 'post',
     data: {
       admin_id,
@@ -30,7 +30,7 @@ export async function resetAdminMemberPassword(admin_id: number, password: strin
 
 export async function deleteAdminMember(admin_id: number) {
   return request({
-    url: '/admin_member/delete',
+    url: '/admin/admin_member/delete',
     method: 'get',
     params: {
       admin_id,

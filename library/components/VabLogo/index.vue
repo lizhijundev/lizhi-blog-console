@@ -111,12 +111,12 @@
       }
 
       .title {
+        @include title;
         padding-right: 15px;
         padding-left: 15px;
         margin-left: $base-left-menu-width-min !important;
         color: var(--el-color-black) !important;
         background: $base-column-second-menu-background !important;
-        @include title;
       }
     }
   }
