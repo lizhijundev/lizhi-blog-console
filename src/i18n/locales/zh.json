@@ -57,7 +57,13 @@
     "adminManage": "管理员管理",
     "personalCenter": "个人中心",
     "adminRule": "权限管理",
-    "adminRole": "角色管理"
+    "adminRole": "角色管理",
+    "blog": "博客",
+    "articleManage": "文章管理",
+    "articleCateManage": "文章分类",
+    "articleTagManage": "文章标签",
+    "meida": "素材库",
+    "cover": "封面管理"
   },
   "login" : {
     "title": "登录",

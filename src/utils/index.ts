@@ -246,3 +246,22 @@ export function shuffle(array: any[]) {
   }
   return array
 }
+
+
+/**
+ *
+ * 数字存储大小格式化
+ * @param bytes 存储大小 单位：Byte
+ * @param decimals 保留几位小数，默认2
+ */
+export function formatStorage(bytes: number, decimals: number) {
+  if (bytes === 0) return '0B'
+  decimals = decimals || 2
+  const k = 1024
+  const dm = decimals < 0 ? 0 : decimals
+  const sizes = ['Bytes', 'K', 'M', 'G', 'T', 'P', 'E']
+
+  const i = Math.floor(Math.log(bytes) / Math.log(k))
+
+  return `${parseFloat((bytes / Math.pow(k, i)).toFixed(dm))}${sizes[i]}`
+}
