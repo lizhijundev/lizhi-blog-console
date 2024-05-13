@@ -1,8 +1,10 @@
 <script setup lang="ts">
-  import { Plus } from '@element-plus/icons-vue'
-  import CoverEditor from './components/CoverEditor.vue'
   import _ from 'lodash'
   import { getMediaList } from '@/api/media.ts'
+  import { deleteCos } from '@/api/system/file.ts'
+
+  const $baseConfirm = inject('$baseConfirm')
+  const $baseMessage = inject('$baseMessage')
 
   const queryForm = ref({
     page_no: 1,
@@ -51,6 +53,17 @@
     detail.data = ruleData
   }
 
+  const onDelete = (row: any) => {
+    $baseConfirm(
+      '你确定要删除当前素材吗?删除后将彻底从服务器删除！无法恢复！',
+      null,
+      async () => {
+        const { msg } = await deleteCos(row.path)
+        $baseMessage(msg, 'success', 'vab-hey-message-success')
+        await fetchData()
+      }
+    )
+  }
   onMounted(() => {
     queryData()
   })
@@ -70,12 +83,18 @@
 
       <el-table-column label="素材">
         <template #default="{ row }">
-          <el-image class="w-10" :src="`${row.host + row.path}`" fit="cover" />
+          <el-image
+            v-if="row.status === 1"
+            class="w-10"
+            :src="`${row.host + row.path}`"
+            fit="cover"
+          />
+          <div v-else>无效素材</div>
         </template>
       </el-table-column>
       <el-table-column label="平台">
         <template #default="{ row }">
-          <el-tag v-if="row.platform === 1">腾讯云</el-tag>
+          <el-tag v-if="row.platform === 1" size="small">腾讯云</el-tag>
         </template>
       </el-table-column>
       <el-table-column :label="$t('personCenter.fieldStatus')">
@@ -83,8 +102,8 @@
           <el-tag v-if="row.status === 1" type="success" size="small">
             {{ $t('common.enable') }}
           </el-tag>
-          <el-tag v-else type="danger" size="small">
-            {{ $t('common.disable') }}
+          <el-tag v-else-if="row.status === 2" type="danger" size="small">
+            已删除
           </el-tag>
         </template>
       </el-table-column>
@@ -94,6 +113,18 @@
         prop="create_time"
         show-overflow-tooltip
       />
+      <el-table-column label="操作">
+        <template #default="{ row }">
+          <el-button
+            v-if="row.status === 1"
+            type="danger"
+            size="small"
+            @click="onDelete(row)"
+          >
+            删除
+          </el-button>
+        </template>
+      </el-table-column>
       <!--      <el-table-column :label="$t('common.operation')" align="center">-->
       <!--        <template #default="{ row }">-->
       <!--          <el-button type="primary" size="small" @click="handleEdit(row)">-->

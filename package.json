@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "build:admin": "vue-cli-service build --base=/admin/",
     "test:unit": "vue-cli-service test:unit --detectOpenHandles",
     "lint": "vue-cli-service lint",
     "build:report": "vue-cli-service build --report",
