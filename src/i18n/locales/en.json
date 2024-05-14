@@ -57,7 +57,14 @@
     "adminManage": "Admin management",
     "personalCenter": "Personal Center",
     "adminRule": "Authority management",
-    "adminRole": "Role management"
+    "adminRole": "Role management",
+    "blog": "Blog",
+    "articleManage": "Article management",
+    "articleCateManage": "Article category",
+    "articleTagManage": "Article tag",
+    "meida": "Media",
+    "cover": "Cover",
+    "events": "Events"
   },
   "login" : {
     "title": "Login",

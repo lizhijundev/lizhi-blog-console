@@ -57,7 +57,14 @@
     "adminManage": "Quản lý quản trị viên",
     "personalCenter": "Trung tâm cá nhân",
     "adminRule": "Rule quản trị",
-    "adminRole": "Vai trò quản trị"
+    "adminRole": "Vai trò quản trị",
+    "blog": "Blog",
+    "articleManage": "Article management",
+    "articleCateManage": "Article category",
+    "articleTagManage": "Article tag",
+    "meida": "Media",
+    "cover": "Cover",
+    "events": "Events"
   },
   "login" : {
     "title": "Đăng nhập",
