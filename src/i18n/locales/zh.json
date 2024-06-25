@@ -65,7 +65,8 @@
     "meida": "素材库",
     "cover": "封面管理",
     "events": "活动",
-    "eventsDetail": "日程"
+    "eventsDetail": "日程",
+    "wedding": "婚礼"
   },
   "login" : {
     "title": "登录",
